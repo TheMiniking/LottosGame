@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{BBDAC59E-EFAB-A836-9099-D0EACAC11B76}</ProjectGuid>
+    <ProjectGuid>{C887DF37-0302-1406-E78C-DEBFA938A102}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Unity.Mathematics.Editor</AssemblyName>
@@ -757,15 +757,15 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Unity.Mathematics.csproj">
-      <Project>{87C6F8C7-5E2C-7587-7EC1-0FFAB8C1CE34}</Project>
+      <Project>{6603D9B9-0EF2-6457-FD68-7EAAC093155F}</Project>
       <Name>Unity.Mathematics</Name>
     </ProjectReference>
     <ProjectReference Include="UnityEditor.TestRunner.csproj">
-      <Project>{1B0D39DE-2DA1-D418-1DEA-2DA4DCDBBA2C}</Project>
+      <Project>{3BEF1366-81C0-054D-8E6D-E41169E294E2}</Project>
       <Name>UnityEditor.TestRunner</Name>
     </ProjectReference>
     <ProjectReference Include="UnityEngine.TestRunner.csproj">
-      <Project>{9EC497D5-BF65-A288-1307-B21AF046C97D}</Project>
+      <Project>{7AE35A48-1669-C42A-CBCA-862665F85545}</Project>
       <Name>UnityEngine.TestRunner</Name>
     </ProjectReference>
   </ItemGroup>

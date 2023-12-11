@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{04AA1218-9C5F-C608-80B0-217B2C9DB27B}</ProjectGuid>
+    <ProjectGuid>{0C56F0C6-9CB6-08B3-52C2-6C6CF0F93461}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Unity.2D.Aseprite.Editor</AssemblyName>
@@ -809,23 +809,23 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Unity.InternalAPIEditorBridge.005.csproj">
-      <Project>{69808A2C-F822-A53B-581E-A94D300D0718}</Project>
+      <Project>{95BB0587-92D6-7F2A-2815-4536740A2BCB}</Project>
       <Name>Unity.InternalAPIEditorBridge.005</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.2D.Aseprite.Common.csproj">
-      <Project>{5C6D200B-339D-8504-3742-4621CC53F0BE}</Project>
+      <Project>{5931D3C5-F748-37AE-9CCB-ED7321A6A5E2}</Project>
       <Name>Unity.2D.Aseprite.Common</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.Burst.csproj">
-      <Project>{8F54A7F2-8EC9-B02D-B3BD-BC9EBC4235E3}</Project>
+      <Project>{72D86294-80E6-732B-C645-71A1487E49C9}</Project>
       <Name>Unity.Burst</Name>
     </ProjectReference>
     <ProjectReference Include="UnityEditor.TestRunner.csproj">
-      <Project>{1B0D39DE-2DA1-D418-1DEA-2DA4DCDBBA2C}</Project>
+      <Project>{3BEF1366-81C0-054D-8E6D-E41169E294E2}</Project>
       <Name>UnityEditor.TestRunner</Name>
     </ProjectReference>
     <ProjectReference Include="UnityEngine.TestRunner.csproj">
-      <Project>{9EC497D5-BF65-A288-1307-B21AF046C97D}</Project>
+      <Project>{7AE35A48-1669-C42A-CBCA-862665F85545}</Project>
       <Name>UnityEngine.TestRunner</Name>
     </ProjectReference>
   </ItemGroup>

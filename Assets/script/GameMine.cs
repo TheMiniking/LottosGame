@@ -27,6 +27,7 @@ public class GameMine : MonoBehaviour
     [SerializeField] TMP_Text valueCoin, addressWallet;
     [SerializeField] List<Image> gemPedregulho;
     [SerializeField] List<Sprite> pedras;
+    [SerializeField] Material fundo;
 
     private void Start()
     {
@@ -35,6 +36,7 @@ public class GameMine : MonoBehaviour
         valueToBet = 0.001f;
         coin = "BNB";
         bet.onClick.AddListener(StopAndBet);
+        fundo.SetFloat("_Velocity", 0);
         StartCoroutine(MineMachine());
 
     }
@@ -42,7 +44,7 @@ public class GameMine : MonoBehaviour
     private void FixedUpdate()
     {
         valueCoin.text = $"{wallet.player.coinBalance.ToString("0.00000000")} {wallet.player.atualCoin}";
-        
+        fundo.SetFloat("_Velocity", speed != 0.001f ? 0.5f : 0);
         if (mineState.active)
         {
             downStop = downStop + speed * Time.deltaTime;
@@ -96,7 +98,8 @@ public class GameMine : MonoBehaviour
     public void PrepareMine()
     {
         mineState.active = false;
-        mineState.nextStop = Random.Range(0.01f, 0.999f);
+        int r = Random.Range(0, 100);
+        mineState.nextStop = r<=10? Random.Range(0.01f, 0.999f) : r<=20 ? Random.Range(0.01f, 0.2f): Random.Range(0.01f, 0.03f);
         downFinal = mineState.nextStop;
         downStop = 0;
         speed = 0.001f;
