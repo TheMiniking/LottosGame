@@ -89,4 +89,7 @@ public class Bet
     public string addressID;
     public string coin;
     public float value;
+    public float stop;
+    public bool autoStop = false;
+    public bool winBet = false;
 }
