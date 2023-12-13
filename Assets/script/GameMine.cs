@@ -31,12 +31,18 @@ public class GameMine : MonoBehaviour
     [SerializeField] List<GameObject> lastBetTxt = new List<GameObject>() ;
     [SerializeField] List<Button> stopBetListButton, betListButtonUpDown = new List<Button>();//Botoes para modificar apostas e autoStop
     [SerializeField] Animator coruja;                   // Animaçao curuja
-    [SerializeField] GameObject pedrasPoeira,gem;       // Particulas Poeira e gemas
+    [SerializeField] GameObject pedrasPoeira,gem,explosion;       // Particulas Poeira e gemase explosion
     [SerializeField] float downVelocity;                // Velocidade da animaçao
     public List<Bet> roundBets = new List<Bet>();       // Apostas da rodada de outros jogadores
     [SerializeField] List<GameObject> roundListObj = new List<GameObject>();// Ui apostas de outros jogadores
     [SerializeField] int flamerate = 0;                 // contador Atualizaçao de flames , dedir a velocidade que vai multiplicar 
     [SerializeField] Toggle autoStopToggle;             //Toggle para usar autoStop
+
+
+    [SerializeField] List<AudioSource> effectsSound = new List<AudioSource>();//Lista de sons
+    [SerializeField] AudioSource music;                 //Musica de fundo
+    [SerializeField] Toggle musicToggle,effectsToggle;  //Toggle para usar musica e efeitos
+
     private void Start()
     {
         Application.targetFrameRate = 60;
@@ -110,6 +116,7 @@ public class GameMine : MonoBehaviour
         {
             betButtonTxt.text = doABet ? $"Wait Start Round" : $"Bet :{valueToBet} {coin}";
         }
+        
     }// Checagem de novas apostas, atualizaçao de textos e valores
 
     private void OnDisable() => fundo.SetFloat("_Velocity", 0);
@@ -195,6 +202,7 @@ public class GameMine : MonoBehaviour
     public void CheckBetWin()
     {
         coruja.Play("Kabum");
+        explosion.SetActive(true);
         pedrasPoeira.SetActive(false);
         if (winBet)
         {
@@ -229,6 +237,14 @@ public class GameMine : MonoBehaviour
             }
         }
     }// Para proposito de testes : Simula apostas feitas por outro jogadores
+
+    public void AudioAndEffects()
+    {
+        if (effectsToggle.isOn) effectsSound.ForEach(x => x.volume = 0.5f);
+        else effectsSound.ForEach(x => x.volume = 0);
+        if (musicToggle.isOn) music.volume = 0.5f;
+        else music.volume = 0;
+    }
 
     #region Timer
     [SerializeField] Image uiFill;
