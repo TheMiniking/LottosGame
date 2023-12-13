@@ -9,35 +9,34 @@ using UnityEngine.UI;
 
 public class GameMine : MonoBehaviour
 {
-    [SerializeField] Wallet wallet;
-    [SerializeField] Slider mine;
-    [SerializeField] float timePlays;
-    [SerializeField] float downFinal;
-    [SerializeField] float downStop;
-    [SerializeField] float multResult;
-    [SerializeField] float speed = 0.001f;
-    [SerializeField] bool winBet = false;
+    [SerializeField] Wallet wallet;                     //Carteira de cripto
+    [SerializeField] Bet atualBet;                      //Aposta Atual do usuario
+    [SerializeField] float timeRoundWait;               //Timer Entre Rodadas
+    [SerializeField] bool winBet = false;               //Marca se o jogador ganhou a aposta atual
+    [SerializeField] float downFinal;                   //Valor de descida final, onde vai quebrar
+    [SerializeField] float downStop;                    //Valor de descida atual,usada para marcar onde parou
+    [SerializeField] float speedDownMultiply = 0.001f;  //Multiplicador de velocidade de descida max: 0.01f
+    [SerializeField] MineState mineState=new MineState();// Status Atual da mina
+    [SerializeField] bool doABet,autoStop;              //Marca se apostou nessa rodada e se esta usando Auto Stop
+    [SerializeField] float stopValue , stopValBet;      //Valor usado para parar a aposta e guardar o valor dela. AutoStop para parar auto.
 
-    [SerializeField] Bet atualBet;
-    [SerializeField] bool doABet,autoStop;
-    [SerializeField] float valueToBet = 0.001f;
-    [SerializeField] string coin;
-    [SerializeField] MineState mineState = new MineState();
-    [SerializeField] Button bet;
-    [SerializeField] TMP_Text betButtonTxt;
-    [SerializeField] float stopValue , stopValBet;
-    [SerializeField] TMP_Text valueCoin, addressWallet, betTxt, stopValBetTxt;
-    [SerializeField] Material fundo;
+    [SerializeField] float valueToBet = 0.001f;         //Valor Base usaado para aposta Min:0.001f Max: Wallet Balance
+    [SerializeField] string coin;                       //Moeda usada para aposta
+    [SerializeField] Button bet;                        //Botao de aposta
+    [SerializeField] TMP_Text betButtonTxt;             //texto do botao de aposta
+    [SerializeField] TMP_Text valueCoin, addressWallet, betTxt, stopValBetTxt;//Textos Ui
+    [SerializeField] Material fundo;                    //Material usado para simular a descida
 
-    [SerializeField] List<float> lastBets;
+    [SerializeField] List<float> lastBets;              //Ultimas apostas
     [SerializeField] List<GameObject> lastBetTxt = new List<GameObject>() ;
-    [SerializeField] List<Button> stopBetListButton, betListButtonUpDown = new List<Button>();
-    [SerializeField] Animator coruja;
-    [SerializeField] GameObject pedrasPoeira,gem;
-    [SerializeField] float downVelocity;
-    public List<Bet> roundBets = new List<Bet>();
-    [SerializeField] List<GameObject> roundListObj = new List<GameObject>();
-    [SerializeField] int flamerate = 0;
+    [SerializeField] List<Button> stopBetListButton, betListButtonUpDown = new List<Button>();//Botoes para modificar apostas e autoStop
+    [SerializeField] Animator coruja;                   // Animaçao curuja
+    [SerializeField] GameObject pedrasPoeira,gem;       // Particulas Poeira e gemas
+    [SerializeField] float downVelocity;                // Velocidade da animaçao
+    public List<Bet> roundBets = new List<Bet>();       // Apostas da rodada de outros jogadores
+    [SerializeField] List<GameObject> roundListObj = new List<GameObject>();// Ui apostas de outros jogadores
+    [SerializeField] int flamerate = 0;                 // contador Atualizaçao de flames , dedir a velocidade que vai multiplicar 
+    [SerializeField] Toggle autoStopToggle;             //Toggle para usar autoStop
     private void Start()
     {
         Application.targetFrameRate = 60;
@@ -79,15 +78,14 @@ public class GameMine : MonoBehaviour
         fundo.SetFloat("_Velocity", downVelocity);
         betTxt.text = $"{valueToBet:0.0000} {coin}";
         if(terminouOTempo)uiTimer.text = $"x{downStop * 100:0.00}";
-        stopValBetTxt.text = $"x {stopValBet:0.00}";
+        stopValBetTxt.text = $"x{stopValBet:0.00}";
         gem.SetActive(downStop >= 0.1);
         if (mineState.active)
         {
-            downStop = downStop + speed * Time.deltaTime;
-            speed = speed <= 0.01 && flamerate % 60 == 0 ? speed + 0.0001f : speed;
-            mine.value = downStop;
+            downStop = downStop + speedDownMultiply * Time.deltaTime;
+            speedDownMultiply = speedDownMultiply <= 0.01 && flamerate % 60 == 0 ? speedDownMultiply + 0.0001f : speedDownMultiply;
             downVelocity = downVelocity >= 1? downVelocity: flamerate % 300 == 0 ? downVelocity + 0.2f : downVelocity;
-            betButtonTxt.text = stopValue == 0 ? $"Stop Now : x {downStop * 100:0.00}" : $"Get you bet X {stopValue * 100:0.00}%";
+            betButtonTxt.text = stopValue == 0 ? $"Stop Now : x {downStop * 100:0.00}" : $"You Get x{stopValue * 100:0.00}";
             roundBets.ForEach(x =>
             {
                 var i = roundBets.IndexOf(x);
@@ -102,7 +100,7 @@ public class GameMine : MonoBehaviour
                 
             
             });
-            if (autoStop && downStop >= atualBet.stop) { StopAndBet(); }
+            if (atualBet.autoStop && atualBet.stop/100 >= downStop ) { StopAndBet(); }
             if(downStop >= downFinal)
             {
                 downStop = downFinal;
@@ -110,7 +108,7 @@ public class GameMine : MonoBehaviour
             }
         }else
         {
-            betButtonTxt.text = doABet ? $"Wait Start" : $"Bet on Next :{valueToBet} {coin}";
+            betButtonTxt.text = doABet ? $"Wait Start Round" : $"Bet :{valueToBet} {coin}";
         }
     }// Checagem de novas apostas, atualizaçao de textos e valores
 
@@ -119,7 +117,7 @@ public class GameMine : MonoBehaviour
     public IEnumerator MineMachine()
     {
         PrepareMine();
-        yield return new WaitForSeconds(timePlays);
+        yield return new WaitForSeconds(timeRoundWait);
         bet.interactable = doABet;
         StarMine();
     }// Rotinia ciclica de inicio de cada rodada
@@ -131,10 +129,10 @@ public class GameMine : MonoBehaviour
         mineState.nextStop = r<=10? UnityEngine.Random.Range(0.01f, 0.999f) : r<=20 ? UnityEngine.Random.Range(0.01f, 0.2f): UnityEngine.Random.Range(0.01f, 0.03f);
         downFinal = mineState.nextStop;
         downStop = 0;
-        speed = 0.001f;
+        speedDownMultiply = 0.001f;
         stopValue = 0;
+        atualBet = new Bet();
         winBet = false;
-        mine.value = 0;
         bet.interactable = true;
         doABet = false;
         downVelocity = 0f;
@@ -144,7 +142,7 @@ public class GameMine : MonoBehaviour
             });
         roundBets.Clear();
         gem.SetActive(false);
-        Inicio((int)timePlays);
+        Inicio((int)timeRoundWait);
     }// Inicia todas Variaveis para o estado inicial nessessario.
 
     public void StarMine()
@@ -157,9 +155,10 @@ public class GameMine : MonoBehaviour
 
     public void MakeABet()
     {
+        autoStop = autoStopToggle.isOn;
         if (wallet.CheckBalance(valueToBet , coin)&& !doABet)
         {
-            atualBet = autoStop? new Bet() { coin = coin, value = valueToBet, addressID = wallet.player.address , stop = stopValBet} : new Bet() { coin = coin, value = valueToBet, addressID = wallet.player.address }; 
+            atualBet = autoStop? new Bet() { coin = coin, value = valueToBet, addressID = wallet.player.address , stop = stopValBet, autoStop =true} : new Bet() { coin = coin, value = valueToBet, addressID = wallet.player.address , autoStop =false}; 
             wallet.PayBet(atualBet);
             doABet = true;
         }
@@ -199,7 +198,7 @@ public class GameMine : MonoBehaviour
         pedrasPoeira.SetActive(false);
         if (winBet)
         {
-            wallet.CalculateBetAddToBalance(atualBet,downStop);
+            wallet.CalculateBetAddToBalance(atualBet,stopValue);
         }
         if (lastBets.Count >= 5) lastBets.RemoveAt(0);
         lastBets.Add(float.Parse($"{downFinal*100:0.00}"));
@@ -222,11 +221,11 @@ public class GameMine : MonoBehaviour
         var d = UnityEngine.Random.Range(0, 2);
         if (d == 0)
         {
-            roundBets.Add(new Bet() { coin = "BNB", value = UnityEngine.Random.Range(0.001f, 5f), addressID = $"0x{UnityEngine.Random.Range(10000000,int.MaxValue)}" , stop = (float)Math.Round(UnityEngine.Random.Range(1.01f,5f),2) });
+            roundBets.Add(new Bet() { coin = "BNB", value = UnityEngine.Random.Range(0.001f, 50f), addressID = $"0x{UnityEngine.Random.Range(10000000,int.MaxValue)}" , stop = (float)Math.Round(UnityEngine.Random.Range(1.01f,5f),2) });
             if (roundBets.Count <= roundListObj.Count) { 
                 roundListObj[roundBets.Count - 1].SetActive(true); 
                 roundListObj[roundBets.Count - 1].transform.Find("Bet").GetComponent<TMP_Text>().text = $"{roundBets[roundBets.Count - 1].value} {roundBets[roundBets.Count-1].coin}";
-                roundListObj[roundBets.Count - 1].transform.Find("Address").GetComponent<TMP_Text>().text = $"{roundBets[roundBets.Count - 1].stop}";
+                roundListObj[roundBets.Count - 1].transform.Find("Address").GetComponent<TMP_Text>().text = $"{roundBets[roundBets.Count - 1].addressID}";
             }
         }
     }// Para proposito de testes : Simula apostas feitas por outro jogadores
