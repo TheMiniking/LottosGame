@@ -58,7 +58,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _VelNuvem: 0.01
-    - _Velocity: 0
+    - _Velocity: 0.84
     m_Colors:
     - _Direcao: {r: 1, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
