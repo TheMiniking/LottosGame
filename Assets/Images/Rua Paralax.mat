@@ -57,8 +57,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _NightFall: 0.5
     - _VelNuvem: 0.01
     - _Velocity: 0
+    - _isNight: 0
     m_Colors:
     - _Direcao: {r: 1, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []

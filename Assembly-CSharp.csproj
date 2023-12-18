@@ -62,6 +62,7 @@
     <Compile Include="Assets\JMO Assets\Cartoon FX (legacy)\Demo\Assets\CFX_Demo_RandomDirectionTranslate.cs" />
     <Compile Include="Assets\JMO Assets\Cartoon FX (legacy)\Scripts\CFX_LightFlicker.cs" />
     <Compile Include="Assets\script\Wallet.cs" />
+    <Compile Include="Assets\script\GameTank.cs" />
     <Compile Include="Assets\JMO Assets\Cartoon FX (legacy)\Scripts\CFX_LightIntensityFade.cs" />
     <Compile Include="Assets\JMO Assets\Cartoon FX (legacy)\Demo\Assets\CFX_Demo_New.cs" />
     <Compile Include="Assets\script\uGUITools.cs" />
@@ -835,13 +836,13 @@
       <Project>{C3F4E329-4253-1A15-8FBB-57EB5401F793}</Project>
       <Name>Unity.2D.SpriteShape.Runtime</Name>
     </ProjectReference>
-    <ProjectReference Include="Unity.2D.PixelPerfect.csproj">
-      <Project>{5E330A8B-E966-11F2-E3E5-3F8B0423E11F}</Project>
-      <Name>Unity.2D.PixelPerfect</Name>
-    </ProjectReference>
     <ProjectReference Include="CFXRDemo.csproj">
       <Project>{11EDC553-4FEE-52C1-BE2A-19EE34F2E454}</Project>
       <Name>CFXRDemo</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.2D.PixelPerfect.csproj">
+      <Project>{5E330A8B-E966-11F2-E3E5-3F8B0423E11F}</Project>
+      <Name>Unity.2D.PixelPerfect</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.TextMeshPro.csproj">
       <Project>{4AA68DF3-8F65-5D9F-DF53-9EA91ABCE28B}</Project>
@@ -927,13 +928,13 @@
       <Project>{2D8E361C-9722-925D-FD04-3FE839BFFE95}</Project>
       <Name>Unity.InternalAPIEditorBridge.001</Name>
     </ProjectReference>
-    <ProjectReference Include="Unity.2D.Psdimporter.Editor.csproj">
-      <Project>{376C777D-5994-1ADE-87E0-75D6D2DDF7D6}</Project>
-      <Name>Unity.2D.Psdimporter.Editor</Name>
-    </ProjectReference>
     <ProjectReference Include="CFXREditor.csproj">
       <Project>{538ACE7C-7F3F-D345-5E32-4181533B9E34}</Project>
       <Name>CFXREditor</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.2D.Psdimporter.Editor.csproj">
+      <Project>{376C777D-5994-1ADE-87E0-75D6D2DDF7D6}</Project>
+      <Name>Unity.2D.Psdimporter.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.VisualScripting.State.Editor.csproj">
       <Project>{535022C0-0217-A639-9858-E628921D9F2E}</Project>

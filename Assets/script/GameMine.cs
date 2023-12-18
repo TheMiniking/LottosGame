@@ -45,7 +45,6 @@ public class GameMine : MonoBehaviour
 
     private void Start()
     {
-        Application.targetFrameRate = 60;
         if (wallet.player.address == "") wallet.StartWalletplusCoin();
         stopBetListButton.ForEach(x => x.onClick.RemoveAllListeners());
         betListButtonUpDown.ForEach(x => x.onClick.RemoveAllListeners());

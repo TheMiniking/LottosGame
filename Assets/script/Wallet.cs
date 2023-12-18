@@ -15,9 +15,9 @@ public class Wallet : ScriptableObject
             address = $"0x{UnityEngine.Random.Range(0, 999999):X6}",
             coins = new List<Coin>()
             {
-                { new Coin() { name = "Bitcoin", symbol = "BTC", contract = "0x0000000000000000000000000000000000000000", balance = 0 } },
-                { new Coin() { name = "Ethereum", symbol = "ETH", contract = "0x0000000000000000000000000000000000000000", balance = 0 } },
-                { new Coin() { name = "Litecoin", symbol = "LTC", contract = "0x0000000000000000000000000000000000000000", balance = 0 } },
+                { new Coin() { name = "Bitcoin", symbol = "BTC", contract = "0x0000000000000000000000000000000000000000", balance = 10 } },
+                { new Coin() { name = "Ethereum", symbol = "ETH", contract = "0x0000000000000000000000000000000000000000", balance = 10 } },
+                { new Coin() { name = "Litecoin", symbol = "LTC", contract = "0x0000000000000000000000000000000000000000", balance = 10 } },
                 { new Coin() { name = "Binance Coin", symbol = "BNB", contract = "0x0000000000000000000000000000000000000000", balance = 10 } }
             }
         };
