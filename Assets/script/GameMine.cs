@@ -205,7 +205,7 @@ public class GameMine : MonoBehaviour
         pedrasPoeira.SetActive(false);
         if (winBet)
         {
-            wallet.CalculateBetAddToBalance(atualBet,stopValue);
+            wallet.CalculateBetAddToBalance(atualBet,stopValue*100);
         }
         if (lastBets.Count >= 5) lastBets.RemoveAt(0);
         lastBets.Add(float.Parse($"{downFinal*100:0.00}"));

@@ -10,20 +10,18 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        Walking(false);
-        Crash(false);
     }
 
     public void Walking(bool v)
     {
-        Debug.Log("Walking");
-        anim.SetBool("walking", v);
+        Debug.Log("Animation:"+( v? "Walking": "Lost"));
+        anim.Play(v ? "Walking" : "Lost");
+        //anim.SetBool("walking", v);
     }
     public void Crash(bool v)
     {
         Debug.Log("Crash");
-        anim.SetBool("crash", v);
-        anim.SetBool("walking", false);
+        anim.Play("Lost");
         //explosion.SetActive(v);
         //fire.SetActive(v);
     }

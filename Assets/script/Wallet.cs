@@ -46,9 +46,9 @@ public class Wallet : ScriptableObject
 
     public float CalculateBetAddToBalance(Bet bet , float multiplier)
     {
-        player.coins.Find(x => x.symbol == bet.coin).balance += bet.value *(multiplier*100);
+        player.coins.Find(x => x.symbol == bet.coin).balance += bet.value *multiplier;
         UpdateAtualCoin(bet.coin);
-        Debug.Log($"Add to Balance x{ multiplier * 100:0.00} Reward : {bet.value * multiplier * 100:0.0000}" );
+        Debug.Log($"Add to Balance x{ multiplier:0.00} Reward : {bet.value * multiplier:0.0000}" );
         return bet.value * multiplier;
     }
 

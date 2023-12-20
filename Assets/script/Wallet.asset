@@ -12,3 +12,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2db4cba0156c38645b14b7f98e34240a, type: 3}
   m_Name: Wallet
   m_EditorClassIdentifier: 
+  player:
+    address: 0x0E9436
+    atualCoin: BNB
+    coinBalance: 46.298218
+    coins:
+    - name: Bitcoin
+      symbol: BTC
+      contract: 0x0000000000000000000000000000000000000000
+      balance: 10
+    - name: Ethereum
+      symbol: ETH
+      contract: 0x0000000000000000000000000000000000000000
+      balance: 10
+    - name: Litecoin
+      symbol: LTC
+      contract: 0x0000000000000000000000000000000000000000
+      balance: 10
+    - name: Binance Coin
+      symbol: BNB
+      contract: 0x0000000000000000000000000000000000000000
+      balance: 46.298218
