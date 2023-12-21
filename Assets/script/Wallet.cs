@@ -17,11 +17,11 @@ public class Wallet : ScriptableObject
             {
                 { new Coin() { name = "Bitcoin", symbol = "BTC", contract = "0x0000000000000000000000000000000000000000", balance = 10 } },
                 { new Coin() { name = "Ethereum", symbol = "ETH", contract = "0x0000000000000000000000000000000000000000", balance = 10 } },
-                { new Coin() { name = "Litecoin", symbol = "LTC", contract = "0x0000000000000000000000000000000000000000", balance = 10 } },
+                { new Coin() { name = "Credit", symbol = "C", contract = "0x0000000000000000000000000000000000000000", balance = 100 } },
                 { new Coin() { name = "Binance Coin", symbol = "BNB", contract = "0x0000000000000000000000000000000000000000", balance = 10 } }
             }
         };
-        UpdateAtualCoin("BNB");
+        UpdateAtualCoin("C");
     }
 
     public void UpdateAtualCoin(string coin)

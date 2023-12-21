@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player:
     address: 0x0E9436
-    atualCoin: BNB
-    coinBalance: 46.298218
+    atualCoin: C
+    coinBalance: 100
     coins:
     - name: Bitcoin
       symbol: BTC
@@ -25,10 +25,10 @@ MonoBehaviour:
       symbol: ETH
       contract: 0x0000000000000000000000000000000000000000
       balance: 10
-    - name: Litecoin
-      symbol: LTC
+    - name: Credit
+      symbol: C
       contract: 0x0000000000000000000000000000000000000000
-      balance: 10
+      balance: 100
     - name: Binance Coin
       symbol: BNB
       contract: 0x0000000000000000000000000000000000000000
