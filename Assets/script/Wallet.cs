@@ -28,7 +28,7 @@ public class Wallet : ScriptableObject
     {
         player.atualCoin = coin;
         player.coinBalance = player.coins.Find(x => x.symbol == coin).balance;
-        Debug.Log("Update Coin to " + coin);
+        //Debug.Log("Update Coin to " + coin);
     }
     public void PayBet(Bet bet)
     {
