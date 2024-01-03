@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8344424517667819725}
-  - component: {fileID: 7056475955465281463}
+  - component: {fileID: 7507583215949293536}
   m_Layer: 0
   m_Name: Client
   m_TagString: Untagged
@@ -32,7 +32,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7056475955465281463
+--- !u!114 &7507583215949293536
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,7 +41,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1717301008028739644}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c43cc3105cc7aa4ca5c56b2e7f684e4, type: 3}
+  m_Script: {fileID: 11500000, guid: b9b3ed06d3c94764eaa5bedd2878a39f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   logs: 1
@@ -51,5 +51,5 @@ MonoBehaviour:
   EndTryConnect:
     m_PersistentCalls:
       m_Calls: []
-  url: ws://localhost:8080
-  token: MXxyb29tMnwxNHwgfCB8S2FnZXw3ZDA5OTRhMS1mNDNmLTQxOGEtOGNhNC1kZTI5NzRjZWU4OTM=
+  url: 
+  token: 

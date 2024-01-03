@@ -62,9 +62,9 @@ public class RTPTank : MonoBehaviour
         dPlayers.text = $"{10}";
         dMaxBET.text = $"{20}";
         dMaxStop.text = $"{20}";
-        dBombChance.text = $"{15}";
-        dBestChance.text = $"{9}";
-        dGreatChance.text = $"{20}";
+        dBombChance.text = $"{11}";
+        dBestChance.text = $"{5}";
+        dGreatChance.text = $"{10}";
         dBonus.ForEach(x => x.text = dBonus.IndexOf(x)<bonusListOriginalValue.Count? $"{bonusListOriginalValue[dBonus.IndexOf(x)]}":$"{0.1}");
         resetRTPtoggle.isOn = true;
     }
@@ -177,9 +177,60 @@ public class RTPTank : MonoBehaviour
         return finalMultplicador;
     }
 
+    //[Button]
+    //public float AutoPlay(int nJogadas, int nMedioJogadores, int maxCoin, int maxStop, float inicialPlayerCoin, bool resetRtp, bool breakOutMoney, int bombChance)
+    //{
+    //    float coin = inicialPlayerCoin;
+    //    playerWinTotal.Clear();
+    //    if (resetRtp)
+    //    {
+    //        ResetRTP();
+    //        bombBrak = 0;
+    //    }
+    //    for (int i = 0; i < nJogadas; i++)
+    //    {
+    //        var playerBetII = new Bet() { value = 10, stop = UnityEngine.Random.Range(1.01f, maxStop) };
+    //        geralBet.Clear();
+    //        for (int j = 0; j < nMedioJogadores; j++)
+    //        {
+    //            MakeFakeBets(maxCoin, maxStop);
+    //        }
+    //        var atualBet = bombChance > 0 ? RoundPlay(true, bombChance) : RoundPlay(false, 0);
+    //        coin -= playerBetII.value;
+    //        totalBetIn += playerBetII.value;
+    //        geralBet.ForEach(x => { if (x.stop < atualBet)
+    //            {
+    //                var finalMultplicador = 0f;
+    //                bonusList.ForEach(x => finalMultplicador += x);
+    //                totalBetOut += (x.value + finalMultplicador) * x.stop;
+    //            }});
+    //        if (playerBetII.stop < atualBet)
+    //        {
+    //            var finalMultplicador = 0f;
+    //            bonusList.ForEach(x => finalMultplicador += x);
+    //            totalBetOut +=(finalMultplicador + playerBetII.value )* playerBetII.stop;
+    //            coin += (finalMultplicador + playerBetII.value )* playerBetII.stop;
+    //            playerWinTotal.Add((finalMultplicador + playerBetII.value )* playerBetII.stop);
+    //        }
+    //        if (coin <= 0 && breakOutMoney) break;
+    //        Debug.Log($"Rodada :{i}[ {atualBet} / {playerBetII.stop} ] - Gasto Atual : {totalBetIn} - Retorno {totalBetOut}");
+    //    }
+    //    _RTP = 100 - (((totalBetIn - totalBetOut) / totalBetIn) * 100);
+    //    return coin;
+    //}
+
     [Button]
     public float AutoPlay(int nJogadas, int nMedioJogadores, int maxCoin, int maxStop, float inicialPlayerCoin, bool resetRtp, bool breakOutMoney, int bombChance)
     {
+        var conf = new TankConfiguration()
+        {
+            bestChance = int.Parse(dBestChance.text),
+            greatChance = int.Parse(dGreatChance.text),
+            bonusList = bonusListValue,
+            bombChance = bombChance,
+            maxRange = 6f,
+            maxMultiplicador = 0.2f
+        };
         float coin = inicialPlayerCoin;
         playerWinTotal.Clear();
         if (resetRtp)
@@ -191,29 +242,33 @@ public class RTPTank : MonoBehaviour
         {
             var playerBetII = new Bet() { value = 10, stop = UnityEngine.Random.Range(1.01f, maxStop) };
             geralBet.Clear();
+            bonusList.Clear();
             for (int j = 0; j < nMedioJogadores; j++)
             {
                 MakeFakeBets(maxCoin, maxStop);
             }
-            var atualBet = bombChance > 0 ? RoundPlay(true, bombChance) : RoundPlay(false, 0);
+            var atualBet = Mathematics.TankCalculeRound(conf);
+            bonusList = atualBet.bonus;
             coin -= playerBetII.value;
             totalBetIn += playerBetII.value;
-            geralBet.ForEach(x => { if (x.stop < atualBet)
+            geralBet.ForEach(x => {
+                if (x.stop < atualBet.timeRound)
                 {
                     var finalMultplicador = 0f;
                     bonusList.ForEach(x => finalMultplicador += x);
                     totalBetOut += (x.value + finalMultplicador) * x.stop;
-                }});
-            if (playerBetII.stop < atualBet)
+                }
+            });
+            if (playerBetII.stop < atualBet.timeRound)
             {
                 var finalMultplicador = 0f;
                 bonusList.ForEach(x => finalMultplicador += x);
-                totalBetOut +=(finalMultplicador + playerBetII.value )* playerBetII.stop;
-                coin += (finalMultplicador + playerBetII.value )* playerBetII.stop;
-                playerWinTotal.Add((finalMultplicador + playerBetII.value )* playerBetII.stop);
+                totalBetOut += (finalMultplicador + playerBetII.value) * playerBetII.stop;
+                coin += (finalMultplicador + playerBetII.value) * playerBetII.stop;
+                playerWinTotal.Add((finalMultplicador + playerBetII.value) * playerBetII.stop);
             }
             if (coin <= 0 && breakOutMoney) break;
-            Debug.Log($"Rodada :{i}[ {atualBet} / {playerBetII.stop} ] - Gasto Atual : {totalBetIn} - Retorno {totalBetOut}");
+            Debug.Log($"Rodada :{i}[ {atualBet.timeRound} / {playerBetII.stop} ] - Gasto Atual : {totalBetIn} - Retorno {totalBetOut}");
         }
         _RTP = 100 - (((totalBetIn - totalBetOut) / totalBetIn) * 100);
         return coin;

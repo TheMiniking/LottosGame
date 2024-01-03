@@ -63,6 +63,7 @@
     <Compile Include="Assets\JMO Assets\Cartoon FX (legacy)\Scripts\CFX_LightFlicker.cs" />
     <Compile Include="Assets\script\Player.cs" />
     <Compile Include="Assets\script\Wallet.cs" />
+    <Compile Include="Assets\Samples\Web Network\1.0.4\Client e servidor\Mathematics.cs" />
     <Compile Include="Assets\Samples\Web Network\1.0.4\Client e servidor\WebServer.cs" />
     <Compile Include="Assets\script\GameTank.cs" />
     <Compile Include="Assets\Samples\Web Network\1.0.4\Client e servidor\WebClient.cs" />

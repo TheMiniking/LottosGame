@@ -58,7 +58,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _NightFall: 0.685
-    - _RealTimeUpdate: 4905.209
+    - _RealTimeUpdate: 442.60452
     - _UseScriptTime: 1
     - _VelNuvem: 0.01
     - _Velocity: 5
