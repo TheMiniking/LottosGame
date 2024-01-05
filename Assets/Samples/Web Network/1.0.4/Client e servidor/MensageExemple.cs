@@ -56,7 +56,19 @@ public class TimerSync : INetSerializable
         write.Put(time);
     }
 }
+public class MultSync : INetSerializable
+{
+    public float mult;
+    public void Deserialize(DataReader reader)
+    {
+        reader.Get(ref mult);
+    }
 
+    public void Serialize(DataWriter write)
+    {
+        write.Put(mult);
+    }
+}
 public class BetServer : INetSerializable
 {
     public float value;
@@ -89,16 +101,63 @@ public class StopBet : INetSerializable
     }
 }
 
-public class Alert : INetSerializable
+public class MensageControl : INetSerializable
 {
-    public string mensage;
+    public string msg;
+    public float valor;
     public void Deserialize(DataReader reader)
     {
-        reader.Get(ref mensage);
+        reader.Get(ref msg);
+        reader.Get(ref valor);
     }
 
     public void Serialize(DataWriter write)
     {
-        write.Put(mensage);
+        write.Put(msg);
+        write.Put(valor);
+    }
+}
+
+public class Balance : INetSerializable
+{
+    public string msg;
+    public float valor;
+    public void Deserialize(DataReader reader)
+    {
+        reader.Get(ref msg);
+        reader.Get(ref valor);
+    }
+
+    public void Serialize(DataWriter write)
+    {
+        write.Put(msg);
+        write.Put(valor);
+    }
+}
+
+public class Parallax : INetSerializable
+{
+    public float velocidade;
+    public void Deserialize(DataReader reader)
+    {
+        reader.Get(ref velocidade);
+    }
+
+    public void Serialize(DataWriter write)
+    {
+        write.Put(velocidade);
+    }
+}
+public class Box : INetSerializable
+{
+    public float bonus;
+    public void Deserialize(DataReader reader)
+    {
+        reader.Get(ref bonus);
+    }
+
+    public void Serialize(DataWriter write)
+    {
+        write.Put(bonus);
     }
 }

@@ -7,9 +7,9 @@ using UnityEngine;
 public class WebServer : WebServerBase
 {
     [SerializeField] string validToken;
-    WebSession session;
-    List<WebSession> playersConnected = new List<WebSession>();
-    List<WebSession> playersBet = new List<WebSession>();
+     WebSession session;
+    [SerializeField] List<WebSession> playersConnected = new List<WebSession>();
+    [SerializeField] List<WebSession> playersBet = new List<WebSession>();
 
     private void Awake()
     {
@@ -20,6 +20,7 @@ public class WebServer : WebServerBase
         base.Start();
         RegisterHandler<BetServer>(Bet, false, true);
         RegisterHandler<StopBet>(StopBet, false, true);
+        //RegisterHandler<Balance>(SetBalance, false, true);
         StartCoroutine(StartRun());
     }
     protected override void Update()
@@ -32,7 +33,8 @@ public class WebServer : WebServerBase
     public override void OnConnectd(WebSession session)
     {
         this.session = session;
-        session.SetClientInfos(new Client() { nickName = "Player" + UnityEngine.Random.Range(0, 999), credits = 100 });
+        var g = new System.Random();
+        session.SetClientInfos(new Client() { nickName = "Player" + g.Next(999), credits = 100f });
         Debug.Log("OnConnectd");
         base.OnConnectd(session);
         playersConnected.Add(session);
@@ -61,15 +63,17 @@ public class WebServer : WebServerBase
     float playerMultiplicador = 1f;
     IEnumerator StartRun()
     {
-
+        var r = new System.Random();
+        var i = 0;
         while (true)
         {
             canBet = true;
+            SendToAll(new TimerSync { time = currentTime });
             while (currentTime > 0)
             {
                 currentTime--;
-                SendToAll(new TimerSync { time = currentTime });
                 yield return new WaitForSeconds(1f);
+                SendToAll(new TimerSync { time = currentTime });
             }
             canBet = false;
             currentTime = 5f;
@@ -79,12 +83,16 @@ public class WebServer : WebServerBase
             SendToAll(new StartRun());
             while (!crash)
             {
-                playerMultiplicador += UnityEngine.Random.Range(0.01f, 0.05f);
-                if (UnityEngine.Random.Range(0, 100) < 10)
+                i = i!=20? i++: i=0;
+                if (i == 0) SendToAll(new Box { bonus = r.Next(11)/10});
+                playerMultiplicador += 0.01f;
+                if (playerMultiplicador % 0.2 == 0) SendToAll(new Parallax { velocidade = 0.01f });
+                SendToAll(new MultSync { mult = playerMultiplicador });
+                if (r.Next(0, 100) < 10)
                 {
                     crash = true;
                 }
-                yield return new WaitForEndOfFrame();
+                yield return new WaitForSeconds(playerMultiplicador <=2 ? 0.3f : playerMultiplicador <=5? 0.2f :0.1f);
             }
             SendToAll(new Crash { multply = playerMultiplicador });
             playersBet.Clear();
@@ -94,25 +102,24 @@ public class WebServer : WebServerBase
     void Bet(WebSession session, BetServer msg)
     {
         var client = session.GetClient<Client>();
-        Debug.Log($"Cliente = {client==null} : Valor = {msg == null}");
         if (!client.VerifyCredits(msg.value))
         {
-            session.SendMsg(new Alert { mensage = "Credito Insuficiente!" });
+            session.SendMsg(new MensageControl { msg = "Aposta: Credito Insuficiente!" });
             return;
         }
         if (!canBet)
         {
-            session.SendMsg(new Alert { mensage = "Espere a Rodada terminar" });
+            session.SendMsg(new MensageControl { msg = "Aposta: Espere a Rodada terminar" });
             return;
         }
         if (playersBet.Contains(session))
         {
-            session.SendMsg(new Alert { mensage = "Aposta ja feita!" });
+            session.SendMsg(new MensageControl { msg = "Aposta: Aposta ja feita!" });
             return;
         }
         client.Register(msg.value, msg.stop);
         playersBet.Add(session);
-        session.SendMsg(new Alert { mensage = "Aposta feita!" });
+        session.SendMsg(new MensageControl { msg = "Aposta: Aposta feita!" });
     }
 
     void StopBet(WebSession session, StopBet msg)
@@ -120,14 +127,20 @@ public class WebServer : WebServerBase
         var client = session.GetClient<Client>();
         if (!playersBet.Contains(session))
         {
-            session.SendMsg(new Alert { mensage = "Aposta nao encontrada!" });
+            session.SendMsg(new MensageControl { msg = "Aposta nao encontrada!" });
             return;
         }
         var add = client.currentBet.bet * playerMultiplicador;
         client.credits += add;
-        session.SendMsg(new Alert { mensage = $"Aposta {client.currentBet.bet:0.00} Multiplicador: {playerMultiplicador} , Total Ganho : {add:0,00}" });
+        session.SendMsg(new MensageControl { msg = $"Aposta {client.currentBet.bet:0.00} Multiplicador: {playerMultiplicador} , Total Ganho : {add:0,00}" });
         playersBet.Remove(session);
 
+    }
+
+    void SetBalance(WebSession session, Balance msg)
+    {
+        var client = session.GetClient<Client>();
+        session.SendMsg(new Balance { valor = client.credits, msg = client.nickName });
     }
 }
 [Serializable]
@@ -136,7 +149,7 @@ class Client : IClientInfos
     public string nickName;
     public float credits;
     public BetRegister currentBet;
-    public List<BetRegister> lastBets;
+    public List<BetRegister> lastBets = new List<BetRegister>();
 
     public void Register(float valor, float stop)
     {

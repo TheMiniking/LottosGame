@@ -60,25 +60,28 @@
   <ItemGroup>
     <Compile Include="Assets\JMO Assets\Cartoon FX (legacy)\Scripts\CFX_AutoRotate.cs" />
     <Compile Include="Assets\JMO Assets\Cartoon FX (legacy)\Demo\Assets\CFX_Demo_RandomDirectionTranslate.cs" />
+    <Compile Include="Assets\Mine\GameMine.cs" />
+    <Compile Include="Assets\_src\Scripts\Universal\Wallet.cs" />
     <Compile Include="Assets\JMO Assets\Cartoon FX (legacy)\Scripts\CFX_LightFlicker.cs" />
-    <Compile Include="Assets\script\Player.cs" />
-    <Compile Include="Assets\script\Wallet.cs" />
+    <Compile Include="Assets\_src\Scripts\ClientSide\GameManager.cs" />
     <Compile Include="Assets\Samples\Web Network\1.0.4\Client e servidor\Mathematics.cs" />
+    <Compile Include="Assets\_src\Scripts\ServerSide\RTPTank.cs" />
     <Compile Include="Assets\Samples\Web Network\1.0.4\Client e servidor\WebServer.cs" />
-    <Compile Include="Assets\script\GameTank.cs" />
     <Compile Include="Assets\Samples\Web Network\1.0.4\Client e servidor\WebClient.cs" />
+    <Compile Include="Assets\_src\Scripts\Universal\uGUITools.cs" />
     <Compile Include="Assets\JMO Assets\Cartoon FX (legacy)\Scripts\CFX_LightIntensityFade.cs" />
+    <Compile Include="Assets\_src\Scripts\ClientSide\Player.cs" />
+    <Compile Include="Assets\_src\Scripts\Universal\BaseScreen.cs" />
     <Compile Include="Assets\JMO Assets\Cartoon FX (legacy)\Demo\Assets\CFX_Demo_New.cs" />
-    <Compile Include="Assets\script\uGUITools.cs" />
-    <Compile Include="Assets\script\RTPTank.cs" />
-    <Compile Include="Assets\Scripts\ElementMove.cs" />
+    <Compile Include="Assets\_src\Scripts\ClientSide\GameScreen.cs" />
+    <Compile Include="Assets\_src\Scripts\ClientSide\CanvasManager.cs" />
+    <Compile Include="Assets\_src\Scripts\Universal\GameTank.cs" />
     <Compile Include="Assets\JMO Assets\Cartoon FX (legacy)\Demo\Assets\CFX_Demo_RandomDir.cs" />
     <Compile Include="Assets\Samples\Web Network\1.0.4\Client e servidor\MensageExemple.cs" />
+    <Compile Include="Assets\_src\Scripts\Universal\ElementMove.cs" />
     <Compile Include="Assets\JMO Assets\Cartoon FX (legacy)\Demo\Assets\CFX_Demo_RotateCamera.cs" />
-    <Compile Include="Assets\script\GameMine.cs" />
     <Compile Include="Assets\JMO Assets\Cartoon FX (legacy)\Scripts\CFX_AutoDestructShuriken.cs" />
     <Compile Include="Assets\JMO Assets\Cartoon FX (legacy)\Demo\Assets\CFX_Demo_Translate.cs" />
-    <Compile Include="Assets\script\Prize.cs" />
     <Compile Include="Assets\JMO Assets\Cartoon FX (legacy)\Demo\Assets\CFX_AutoStopLoopedEffect.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -373,26 +376,8 @@
     <Reference Include="Unity.Collections.LowLevel.ILSupport">
       <HintPath>Library\PackageCache\com.unity.collections@1.2.4\Unity.Collections.LowLevel.ILSupport\Unity.Collections.LowLevel.ILSupport.dll</HintPath>
     </Reference>
-    <Reference Include="Sirenix.Serialization">
-      <HintPath>Assets\Plugins\Sirenix\Assemblies\Sirenix.Serialization.dll</HintPath>
-    </Reference>
-    <Reference Include="Sirenix.Serialization.Config">
-      <HintPath>Assets\Plugins\Sirenix\Assemblies\Sirenix.Serialization.Config.dll</HintPath>
-    </Reference>
-    <Reference Include="Sirenix.OdinInspector.Editor">
-      <HintPath>Assets\Plugins\Sirenix\Assemblies\Sirenix.OdinInspector.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Sirenix.OdinInspector.Attributes">
-      <HintPath>Assets\Plugins\Sirenix\Assemblies\Sirenix.OdinInspector.Attributes.dll</HintPath>
-    </Reference>
-    <Reference Include="Sirenix.Utilities">
-      <HintPath>Assets\Plugins\Sirenix\Assemblies\Sirenix.Utilities.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.VisualScripting.Antlr3.Runtime">
       <HintPath>Library\PackageCache\com.unity.visualscripting@1.9.0\Runtime\VisualScripting.Flow\Dependencies\NCalc\Unity.VisualScripting.Antlr3.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="Sirenix.Utilities.Editor">
-      <HintPath>Assets\Plugins\Sirenix\Assemblies\Sirenix.Utilities.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Android.Types">
       <HintPath>G:\Unity - Editors\2022.3.8f1\Editor\Data\PlaybackEngines\AndroidPlayer\Unity.Android.Types.dll</HintPath>
@@ -954,14 +939,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="Sirenix.OdinInspector.CompatibilityLayer.Editor.csproj">
-      <Project>{6D6D52B6-5011-F167-85EE-441B2CBF4D17}</Project>
-      <Name>Sirenix.OdinInspector.CompatibilityLayer.Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="Sirenix.OdinInspector.CompatibilityLayer.csproj">
-      <Project>{CAC7AD63-CA29-057B-A3AF-92DB8FB2D20B}</Project>
-      <Name>Sirenix.OdinInspector.CompatibilityLayer</Name>
-    </ProjectReference>
     <ProjectReference Include="ToonyColorsPro.Demo.Editor.csproj">
       <Project>{8D432FC7-0D70-EDA9-1474-04BA0BD6B7C8}</Project>
       <Name>ToonyColorsPro.Demo.Editor</Name>
@@ -977,10 +954,6 @@
     <ProjectReference Include="CFXR.WelcomeScreen.csproj">
       <Project>{DBFAEF12-FAC6-A535-3809-656659D78E5D}</Project>
       <Name>CFXR.WelcomeScreen</Name>
-    </ProjectReference>
-    <ProjectReference Include="Sirenix.OdinInspector.Modules.UnityMathematics.csproj">
-      <Project>{0D716E8D-7FF0-8F60-D78C-484C480F5083}</Project>
-      <Name>Sirenix.OdinInspector.Modules.UnityMathematics</Name>
     </ProjectReference>
     <ProjectReference Include="KinoBloom.Runtime.csproj">
       <Project>{9714BE1C-299D-447D-E1DD-165921A29FD0}</Project>

@@ -55,7 +55,6 @@ public class TankConfiguration : INetSerializable
         reader.Get(ref maxRange);
         reader.Get(ref maxMultiplicador);
         reader.Get(ref bombChance);
-        //reader.Get(ref bonusList);
     }
 
     public void Serialize(DataWriter write)

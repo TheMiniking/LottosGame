@@ -1,19 +1,25 @@
-using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class WebClient : WebClientBase
 {
     [SerializeField] string url;
     [SerializeField] string token;
+    [SerializeField] CanvasManager canvasManager;
+    [SerializeField] GameManager gameManager;
     protected override void Start()
     {
         base.Start();
         RegisterHandler<StartRun>(StartRun);
         RegisterHandler<Crash>(Crash);
         RegisterHandler<TimerSync>(TimerSync);
-        RegisterHandler<Alert>(MensageAlert);
+        RegisterHandler<MultSync>(MultSync);
+        RegisterHandler<MensageControl>(MensageControl);
+        RegisterHandler<Balance>(Balance);
+        RegisterHandler<Parallax>(Paralax);
+        RegisterHandler<Box>(Box);
         CreateConnection(url, token);
         TryConnect();
+        SendMsg(new Balance());
     }
     
     protected override void OnOpen()
@@ -32,17 +38,41 @@ public class WebClient : WebClientBase
     void StartRun(StartRun msg)
     {
         isRunning = true;
-        Debug.Log("Start Corrida");
+        gameManager.isWalking = true;
+        gameManager.canBet = false;
+        canvasManager.SetTankState("Walking");
+        //Debug.Log("Start Corrida");
     }
 
     void Crash(Crash msg)
     {
         isRunning = false;
+        gameManager.isWalking = false;
+        gameManager.canBet = true;
+        canvasManager.SetTankState("Crash");
+        canvasManager.ResetVelocityParalax();
         Debug.Log("Kabum , Distance x"+ msg.multply);
     }
     void TimerSync(TimerSync msg)
     {
-        Debug.Log($"Time :{msg.time:00:00}");
+        canvasManager.SetTimer((int)msg.time);
+        //Debug.Log($"Time :{msg.time:00:00}");
+    }
+
+    void MultSync(MultSync msg)
+    {
+        canvasManager.SetMultiplicador(msg.mult);
+    }
+
+    void Paralax(Parallax msg)
+    {
+        canvasManager.AddVelocityParalax(msg.velocidade);
+    }
+
+    void Balance(Balance msg)
+    {
+        canvasManager.SetWalletNick(msg.msg);
+        canvasManager.SetWalletBalance(msg.valor);
     }
 
     public void SendBet()
@@ -50,17 +80,24 @@ public class WebClient : WebClientBase
         if (isRunning)
         {
             SendMsg(new StopBet { } );
+            //SendMsg(new Balance());
         }
         else
         {
             SendMsg(new BetServer { value = 10 });
+            //SendMsg(new Balance());
 
         }
     }
 
-    public void MensageAlert(Alert msg)
+
+    void Box(Box msg)
     {
-        Debug.Log(msg.mensage);
+        Debug.Log(msg.bonus);
     }
 
+    public void MensageControl(MensageControl msg)
+    {
+        Debug.Log($"{msg.msg} : {msg.valor} ");
+    }
 }
