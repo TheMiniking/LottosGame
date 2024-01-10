@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "com.gamespawner.webnetwork": {
-      "version": "file:F:/WebNetwork-main",
+      "version": "file:../WebNetwork-main",
       "depth": 0,
       "source": "local",
       "dependencies": {}
