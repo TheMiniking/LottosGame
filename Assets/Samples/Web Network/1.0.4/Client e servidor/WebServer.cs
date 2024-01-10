@@ -10,6 +10,7 @@ public class WebServer : WebServerBase
      WebSession session;
     [SerializeField] List<WebSession> playersConnected = new List<WebSession>();
     [SerializeField] List<WebSession> playersBet = new List<WebSession>();
+    [SerializeField] TankConfiguration TankConfiguration = new TankConfiguration();
 
     private void Awake()
     {
@@ -18,9 +19,11 @@ public class WebServer : WebServerBase
     protected override void Start()
     {
         base.Start();
-        RegisterHandler<BetServer>(Bet, false, true);
+        RegisterHandler<BalanceCreditServer>(BalanceCreditServer,false ,true);
+        RegisterHandler<BetServer>(BetServer, false, true);
         RegisterHandler<StopBet>(StopBet, false, true);
-        //RegisterHandler<Balance>(SetBalance, false, true);
+        RegisterHandler<SetBet>(SetBet, false, true);
+        RegisterHandler<Login>(Login, false,true);
         StartCoroutine(StartRun());
     }
     protected override void Update()
@@ -28,6 +31,11 @@ public class WebServer : WebServerBase
         base.Update();
 
 
+    }
+
+    void Login(WebSession session ,Login msg)
+    {
+        Debug.Log(msg.token);
     }
 
     public override void OnConnectd(WebSession session)
@@ -38,6 +46,8 @@ public class WebServer : WebServerBase
         Debug.Log("OnConnectd");
         base.OnConnectd(session);
         playersConnected.Add(session);
+        session.SendMsg(new Balance { msg = session.GetClient<Client>().nickName, valor = session.GetClient<Client>().credits });
+        SendToAllUpdateCredit();
     }
 
     public override void OnDisconnectd(WebSession session)
@@ -53,22 +63,38 @@ public class WebServer : WebServerBase
 
     void SendToAll<T>(T msg) where T : INetSerializable
     {
-        Debug.Log("players total:" + playersConnected.Count);
+        //Debug.Log("players total:" + playersConnected.Count);
         playersConnected.ForEach(x => x.SendMsg(msg));
 
     }
+    void SendToAllUpdateCredit()
+    {
+        playersConnected.ForEach(x => {
+            var g = x.GetClient<Client>();
+            Debug.Log($"Atualizando creditos Server > Client: {g.credits}");
+            x.SendMsg(new BalanceCreditClient { valor = g.credits });
+        });
 
+    }
     float currentTime = 5f;
     bool canBet = false;
     float playerMultiplicador = 1f;
     IEnumerator StartRun()
     {
         var r = new System.Random();
-        var i = 0;
+        var timeline = 0f;
         while (true)
         {
+            SendToAllUpdateCredit();
             canBet = true;
             SendToAll(new TimerSync { time = currentTime });
+            var luck = UnityEngine.Random.Range(0, 101);
+            var range = luck <= TankConfiguration.bestChance? (float)(r.NextDouble()*TankConfiguration.maxMultiplicador - 0.02): 
+                        luck <= TankConfiguration.greatChance ? (float)(r.NextDouble() * (TankConfiguration.maxMultiplicador/2) - 0.02) : 
+                        (float)(r.NextDouble() * (TankConfiguration.maxMultiplicador/4) - 0.02);
+            range = float.Parse($"{range:0.00}");
+            playersConnected.ForEach(x => x.GetClient<Client>().isStopBet = false);
+            playersConnected.ForEach(x => x.SendMsg(new ButtonBet { active = true ,txt = $"Bet {x.GetClient<Client>().betValor}" }));
             while (currentTime > 0)
             {
                 currentTime--;
@@ -76,22 +102,33 @@ public class WebServer : WebServerBase
                 SendToAll(new TimerSync { time = currentTime });
             }
             canBet = false;
-            currentTime = 5f;
+            currentTime = TankConfiguration.timeWait;
             //Mathematics.TankCalculeRound();
             var crash = false;
             playerMultiplicador = 1f;
+            timeline = 0f;
             SendToAll(new StartRun());
             while (!crash)
             {
-                i = i!=20? i++: i=0;
-                if (i == 0) SendToAll(new Box { bonus = r.Next(11)/10});
-                playerMultiplicador += 0.01f;
-                if (playerMultiplicador % 0.2 == 0) SendToAll(new Parallax { velocidade = 0.01f });
-                SendToAll(new MultSync { mult = playerMultiplicador });
-                if (r.Next(0, 100) < 10)
+                if ((timeline * 100) % 20 == 0)
                 {
-                    crash = true;
+                    SendToAll(new Box { bonus = TankConfiguration.bonusList[r.Next(TankConfiguration.bombChance <= TankConfiguration.bonusList.Count ? TankConfiguration.bombChance : TankConfiguration.bonusList.Count)] });
+                    SendToAll(new Parallax { velocidade = 0.01f });
                 }
+                playerMultiplicador += 0.01f;
+                SendToAll(new MultSync { mult = playerMultiplicador }); 
+                playersConnected.ForEach(x => {
+                    var c = x.GetClient<Client>();
+                    bool b = playersBet.Contains(x);
+                    if (!c.isStopBet && b)
+                        x.SendMsg(new ButtonBet { active = true, txt = $"Stop x {playerMultiplicador}" });
+                    else if (!b)
+                        x.SendMsg(new ButtonBet { active = false, txt = "Wait Next Round" });
+                });
+                timeline = float.Parse($"{timeline+0.01f:0.00}");
+                //Debug.Log(timeline);
+                if (timeline >= range) { crash = true; }
+                //if (r.Next(0, 100) < 1){crash = true;}
                 yield return new WaitForSeconds(playerMultiplicador <=2 ? 0.3f : playerMultiplicador <=5? 0.2f :0.1f);
             }
             SendToAll(new Crash { multply = playerMultiplicador });
@@ -99,8 +136,9 @@ public class WebServer : WebServerBase
         }
     }
 
-    void Bet(WebSession session, BetServer msg)
+    void BetServer(WebSession session, BetServer msg)
     {
+        Debug.Log("Bet [Server] Resposta");
         var client = session.GetClient<Client>();
         if (!client.VerifyCredits(msg.value))
         {
@@ -119,28 +157,41 @@ public class WebServer : WebServerBase
         }
         client.Register(msg.value, msg.stop);
         playersBet.Add(session);
+        session.SendMsg(new Balance { msg = client.nickName, valor = client.credits });
         session.SendMsg(new MensageControl { msg = "Aposta: Aposta feita!" });
+        session.SendMsg(new ButtonBet { active =true , txt = "Wait Start..." });
     }
 
     void StopBet(WebSession session, StopBet msg)
     {
         var client = session.GetClient<Client>();
+        Debug.Log("BetStop [Server] Resposta");
         if (!playersBet.Contains(session))
         {
-            session.SendMsg(new MensageControl { msg = "Aposta nao encontrada!" });
+            session.SendMsg(new MensageControl { msg = "Espere a proxima Rodada" });
             return;
         }
         var add = client.currentBet.bet * playerMultiplicador;
         client.credits += add;
         session.SendMsg(new MensageControl { msg = $"Aposta {client.currentBet.bet:0.00} Multiplicador: {playerMultiplicador} , Total Ganho : {add:0,00}" });
+        session.SendMsg(new Balance { msg = client.nickName, valor = client.credits });
+        session.SendMsg(new ButtonBet { active = false, txt = $" Winner x {playerMultiplicador:0.00}" });
         playersBet.Remove(session);
 
     }
 
-    void SetBalance(WebSession session, Balance msg)
+    void BalanceCreditServer(WebSession session, BalanceCreditServer msg)
     {
         var client = session.GetClient<Client>();
-        session.SendMsg(new Balance { valor = client.credits, msg = client.nickName });
+        session.SendMsg(new BalanceCreditClient { valor = client.credits });
+
+    }
+
+    void SetBet(WebSession session, SetBet msg)
+    {
+        var client = session.GetClient<Client>();
+        client.betValor = msg.valor;
+        Debug.Log("Valor Bet Atual : " + client.betValor);
     }
 }
 [Serializable]
@@ -148,6 +199,8 @@ class Client : IClientInfos
 {
     public string nickName;
     public float credits;
+    public float betValor;
+    public bool isStopBet = false;
     public BetRegister currentBet;
     public List<BetRegister> lastBets = new List<BetRegister>();
 

@@ -161,3 +161,72 @@ public class Box : INetSerializable
         write.Put(bonus);
     }
 }
+public class ButtonBet : INetSerializable
+{
+    public string txt;
+    public bool active;
+    public void Deserialize(DataReader reader)
+    {
+        reader.Get(ref txt);
+        reader.Get(ref active);
+    }
+
+    public void Serialize(DataWriter write)
+    {
+        write.Put(txt);
+        write.Put(active);
+    }
+}
+public class BalanceCreditServer : INetSerializable
+{
+    public float valor;
+    public void Deserialize(DataReader reader)
+    {
+        reader.Get(ref valor);
+    }
+
+    public void Serialize(DataWriter write)
+    {
+        write.Put(valor);
+    }
+}
+public class BalanceCreditClient : INetSerializable
+{
+    public float valor;
+    public void Deserialize(DataReader reader)
+    {
+        reader.Get(ref valor);
+    }
+
+    public void Serialize(DataWriter write)
+    {
+        write.Put(valor);
+    }
+}
+public class SetBet : INetSerializable
+{
+    public float valor;
+    public void Deserialize(DataReader reader)
+    {
+        reader.Get(ref valor);
+    }
+
+    public void Serialize(DataWriter write)
+    {
+        write.Put(valor);
+    }
+}
+
+public class Login : INetSerializable
+{
+    public string token;
+    public void Deserialize(DataReader reader)
+    {
+        reader.Get(ref token);
+    }
+
+    public void Serialize(DataWriter write)
+    {
+        write.Put(token);
+    }
+}

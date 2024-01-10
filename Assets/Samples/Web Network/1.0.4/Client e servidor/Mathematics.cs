@@ -1,4 +1,5 @@
 ﻿using Serializer;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -10,8 +11,8 @@ public static class Mathematics
 {
     public static TankRound TankCalculeRound(TankConfiguration tank)
     {
-        var luck = Random.Range(0, 101);
-        var range = luck <= tank.bestChance ? Random.Range(0.02f, tank.maxRange) : luck <= tank.greatChance+tank.bestChance ? Random.Range(0.02f, tank.maxRange/2) : Random.Range(0.02f, tank.maxRange/4);
+        var luck = UnityEngine.Random.Range(0, 101);
+        var range = luck <= tank.bestChance ? UnityEngine.Random.Range(0.02f, tank.maxRange) : luck <= tank.greatChance+tank.bestChance ? UnityEngine.Random.Range(0.02f, tank.maxRange/2) : UnityEngine.Random.Range(0.02f, tank.maxRange/4);
         var multiplicador = 0.01f;
         var userMult = 1.0f;
         var listBonus = new List<float>();
@@ -22,7 +23,7 @@ public static class Mathematics
             {
                 multiplicador = multiplicador < tank.maxMultiplicador ? multiplicador + 0.01f : multiplicador;
                 if(tank.bombChance > 0)
-                    listBonus.Add(tank.bonusList[Random.Range(0,tank.bonusList.Count>=tank.bombChance?tank.bombChance:tank.bonusList.Count)]);
+                    listBonus.Add(tank.bonusList[UnityEngine.Random.Range(0,tank.bonusList.Count>=tank.bombChance?tank.bombChance:tank.bonusList.Count)]);
             }
             userMult += multiplicador;
             listBonus.ForEach(x => { if (x == 0) exitBomb = true; });
@@ -40,6 +41,7 @@ public class TankRound
     public List<float> bonus;
     public bool exitBomb;
 }
+[Serializable]
 public class TankConfiguration : INetSerializable
 {
     public int bestChance;
@@ -48,6 +50,7 @@ public class TankConfiguration : INetSerializable
     public int bombChance;
     public float maxRange;
     public float maxMultiplicador;
+    public int timeWait;
     public void Deserialize(DataReader reader)
     {
         reader.Get(ref bestChance);

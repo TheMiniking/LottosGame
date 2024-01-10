@@ -35,6 +35,10 @@ Material:
         m_Texture: {fileID: 2800000, guid: a79b15360d0f63447945a32f9cc150ad, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _Nuvem:
         m_Texture: {fileID: 2800000, guid: 8de1c93eb18b27d44abe8bc743c60a3b, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -58,7 +62,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _NightFall: 0.685
-    - _RealTimeUpdate: 110.20266
+    - _RealTimeUpdate: 96.18933
     - _UseScriptTime: 1
     - _VelNuvem: 0.01
     - _Velocity: 5

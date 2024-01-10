@@ -3497,20 +3497,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1330783155}
-        m_TargetAssemblyTypeName: GameTank, Assembly-CSharp
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1055684675}
-        m_TargetAssemblyTypeName: WebClient, Assembly-CSharp
+      - m_Target: {fileID: 882655986}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: SendBet
         m_Mode: 1
         m_Arguments:
@@ -4731,16 +4719,36 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   root: {fileID: 243905868}
+  webClient: {fileID: 1055684675}
+  gameManager: {fileID: 882655986}
   tank: {fileID: 325885406}
   fundo: {fileID: 2100000, guid: b38476416e9f3e340b0c0e47076984d0, type: 2}
   fundoRealtimeVelocity: 0
   fundoRealtimeAtualPosition: 0
   fundoOnMove: 0
+  bet: 0
+  stop: 0
   txtWalletBalance: {fileID: 490669585}
   txtWalletNickname: {fileID: 1120496819}
   txtTimerMult: {fileID: 1592474454}
   txtTimerMensagem: {fileID: 50809502}
   txtBonusTotal: {fileID: 1068948674}
+  stopAnBet: {fileID: 158173775}
+  txtStopAnBet: {fileID: 401382371}
+  txtStopVal: {fileID: 314929680}
+  txtBetVal: {fileID: 1544461458}
+  betButtons:
+  - {fileID: 1612021540}
+  - {fileID: 399752969}
+  - {fileID: 1697887836}
+  - {fileID: 662741100}
+  - {fileID: 1416659586}
+  - {fileID: 2039076045}
+  autoStop:
+  - {fileID: 1709737276}
+  - {fileID: 1903534831}
+  - {fileID: 337941350}
+  - {fileID: 1266810820}
 --- !u!1 &245951316
 GameObject:
   m_ObjectHideFlags: 0
@@ -16132,8 +16140,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8860e8a1d089a96499fae4c6e66af629, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  webClient: {fileID: 1055684675}
+  gameS: {fileID: 243905870}
   isWalking: 0
   canBet: 1
+  credits: 0
+  stopValBet: 1.01
+  valueToBet: 1
 --- !u!1 &884924586
 GameObject:
   m_ObjectHideFlags: 0
@@ -24695,6 +24708,74 @@ PrefabInstance:
       propertyPath: validToken
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3834136853009155041, guid: ec01987e9dfead74da25c41f561d98ef, type: 3}
+      propertyPath: TankConfiguration.maxRange
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3834136853009155041, guid: ec01987e9dfead74da25c41f561d98ef, type: 3}
+      propertyPath: TankConfiguration.timeWait
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3834136853009155041, guid: ec01987e9dfead74da25c41f561d98ef, type: 3}
+      propertyPath: TankConfiguration.bestChance
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 3834136853009155041, guid: ec01987e9dfead74da25c41f561d98ef, type: 3}
+      propertyPath: TankConfiguration.bombChance
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 3834136853009155041, guid: ec01987e9dfead74da25c41f561d98ef, type: 3}
+      propertyPath: TankConfiguration.greatChance
+      value: 35
+      objectReference: {fileID: 0}
+    - target: {fileID: 3834136853009155041, guid: ec01987e9dfead74da25c41f561d98ef, type: 3}
+      propertyPath: TankConfiguration.maxMultiplicador
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3834136853009155041, guid: ec01987e9dfead74da25c41f561d98ef, type: 3}
+      propertyPath: TankConfiguration.bonusList.Array.size
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 3834136853009155041, guid: ec01987e9dfead74da25c41f561d98ef, type: 3}
+      propertyPath: TankConfiguration.bonusList.Array.data[1]
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3834136853009155041, guid: ec01987e9dfead74da25c41f561d98ef, type: 3}
+      propertyPath: TankConfiguration.bonusList.Array.data[2]
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3834136853009155041, guid: ec01987e9dfead74da25c41f561d98ef, type: 3}
+      propertyPath: TankConfiguration.bonusList.Array.data[3]
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3834136853009155041, guid: ec01987e9dfead74da25c41f561d98ef, type: 3}
+      propertyPath: TankConfiguration.bonusList.Array.data[4]
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3834136853009155041, guid: ec01987e9dfead74da25c41f561d98ef, type: 3}
+      propertyPath: TankConfiguration.bonusList.Array.data[5]
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3834136853009155041, guid: ec01987e9dfead74da25c41f561d98ef, type: 3}
+      propertyPath: TankConfiguration.bonusList.Array.data[6]
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3834136853009155041, guid: ec01987e9dfead74da25c41f561d98ef, type: 3}
+      propertyPath: TankConfiguration.bonusList.Array.data[7]
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3834136853009155041, guid: ec01987e9dfead74da25c41f561d98ef, type: 3}
+      propertyPath: TankConfiguration.bonusList.Array.data[8]
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3834136853009155041, guid: ec01987e9dfead74da25c41f561d98ef, type: 3}
+      propertyPath: TankConfiguration.bonusList.Array.data[9]
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3834136853009155041, guid: ec01987e9dfead74da25c41f561d98ef, type: 3}
+      propertyPath: TankConfiguration.bonusList.Array.data[10]
+      value: 0.9
+      objectReference: {fileID: 0}
     - target: {fileID: 5794403209333235911, guid: ec01987e9dfead74da25c41f561d98ef, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1211.1522
@@ -25392,7 +25473,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 55
+    m_Bits: 4294967295
 --- !u!114 &1582621555
 MonoBehaviour:
   m_ObjectHideFlags: 0

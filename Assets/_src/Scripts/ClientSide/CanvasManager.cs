@@ -75,6 +75,13 @@ public class CanvasManager : MonoBehaviour
     public void AddVelocityParalax(float value) => gameScreen.AddVelocityParalax(value);
 
     public void ResetVelocityParalax() => gameScreen.ResetVelocityParalax();
+
+    public void SetBetActive() => gameScreen.ActiveBet();
+
+    public void SetBetDesactive() => gameScreen.DesactiveBet();
+
+    public void SetBetButtonText(string text) => gameScreen.SetBetButtonText(text);
+
 }
 
 
