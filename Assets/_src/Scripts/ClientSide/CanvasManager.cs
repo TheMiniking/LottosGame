@@ -82,6 +82,14 @@ public class CanvasManager : MonoBehaviour
 
     public void SetBetButtonText(string text) => gameScreen.SetBetButtonText(text);
 
+    public void SetLastPlays(float last) => gameScreen.SetLastResult(last);
+
+    public void SetPlayersBet(BetPlayers bet) => gameScreen.SetBetPlayersList(bet);
+
+    public void SetPlayersWin(BetPlayers bet) => gameScreen.SetBetPlayersWin(bet);
+
+    public void ResetPlayersBet() => gameScreen.ResetBetPlayers();
+
 }
 
 

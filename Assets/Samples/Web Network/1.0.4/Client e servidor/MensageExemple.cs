@@ -105,16 +105,19 @@ public class MensageControl : INetSerializable
 {
     public string msg;
     public float valor;
+    public int useValor = -1;// -1 = Somente debug, 0 = false, 1 = true
     public void Deserialize(DataReader reader)
     {
         reader.Get(ref msg);
         reader.Get(ref valor);
+        reader.Get(ref useValor);
     }
 
     public void Serialize(DataWriter write)
     {
         write.Put(msg);
         write.Put(valor);
+        write.Put(useValor);
     }
 }
 
@@ -228,5 +231,25 @@ public class Login : INetSerializable
     public void Serialize(DataWriter write)
     {
         write.Put(token);
+    }
+}
+
+public class BetPlayers : INetSerializable
+{
+    public string msg;
+    public float valor;
+    public float multply;
+    public void Deserialize(DataReader reader)
+    {
+        reader.Get(ref msg);
+        reader.Get(ref valor);
+        reader.Get(ref multply);
+    }
+
+    public void Serialize(DataWriter write)
+    {
+        write.Put(msg);
+        write.Put(valor);
+        write.Put(multply);
     }
 }

@@ -2652,7 +2652,7 @@ namespace Serializer
         {
             m_data = source;
             m_position = offset;
-            Debug.Log("SetData "+ offset);
+            //Debug.Log("SetData "+ offset);
             //SetFieldsFields(ref obj, type);
         }
         void SetFieldsFields(ref object data, Type type)

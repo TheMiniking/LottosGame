@@ -28,7 +28,7 @@ namespace Serializer
                     }
                     else
                     {
-                        Debug.Log("a new array list count" + size);
+                        //Debug.Log("a new array list count" + size);
                         return new byte[size];
                     }
                 }

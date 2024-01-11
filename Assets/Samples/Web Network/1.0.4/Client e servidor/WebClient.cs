@@ -21,9 +21,9 @@ public class WebClient : WebClientBase
         RegisterHandler<Box>(Box);
         RegisterHandler<ButtonBet>(ButtonBet);
         RegisterHandler<BalanceCreditClient>(BalanceCreditClient);
+        RegisterHandler<BetPlayers>(BetPlayers);
         CreateConnection(url, token);
         TryConnect();
-        SendMsg(new Balance());
     }
     
     protected override void OnOpen()
@@ -57,6 +57,7 @@ public class WebClient : WebClientBase
         gameManager.canBet = true;
         canvasManager.SetTankState("Crash");
         canvasManager.ResetVelocityParalax();
+        canvasManager.SetLastPlays(msg.multply);
         Debug.Log("Kabum , Distance x"+ msg.multply);
     }
     void TimerSync(TimerSync msg)
@@ -79,6 +80,7 @@ public class WebClient : WebClientBase
     {
         canvasManager.SetWalletNick(msg.msg);
         canvasManager.SetWalletBalance(msg.valor);
+        gameManager.credits = msg.valor;
     } 
     public void ButtonBet(ButtonBet msg)
     {
@@ -97,14 +99,53 @@ public class WebClient : WebClientBase
         Debug.Log(msg.bonus);
     }
 
+    //Funçao de Controle e coringa para funcoes de pouco uso
+    // useValor controla  o uso da funçao, sendo -1 default, apenas debug mensagens do server
+    // -1 = default, 0 = usa Valor (funçao) msg (parametro), 1 = usa msg(funçao) valor(parametro) , usa
     public void MensageControl(MensageControl msg)
     {
-        Debug.Log($"{msg.msg} : {msg.valor} ");
+        if (msg.useValor == -1)
+        {
+            Debug.Log($"{msg.msg} : {msg.valor} ");
+            return;
+        }
+        if (msg.useValor == 1 ) {
+            switch (msg.valor)
+            {
+
+            }
+        }
+        else if (msg.useValor == 0)
+        { 
+            switch (msg.msg)
+            {
+                case "Timer":
+                    canvasManager.SetTimer((int)msg.valor);
+                    break;
+                case "ResetBets":
+                    canvasManager.ResetPlayersBet();
+                    break;
+        }
+        }
+
     }
 
     public void BalanceCreditClient( BalanceCreditClient msg)
     {
         gameManager.credits = msg.valor;
+    }
+
+    public void BetPlayers( BetPlayers msg)
+    {
+        Debug.Log(msg.multply == 0?$"[Client] Jogador{msg.msg} fez aposta pagando{msg.valor}": $"[Cliente] O jogador {msg.msg} Retirou e ganhou{msg.valor*msg.multply}");
+        if (msg.multply == 0)
+        {
+            canvasManager.SetPlayersBet(msg);
+        }
+        else
+        {
+            canvasManager.SetPlayersWin(msg);
+        }
     }
 
     #endregion

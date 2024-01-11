@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using Unity.Collections.LowLevel.Unsafe;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -25,7 +27,10 @@ public class GameScreen : BaseScreen
     [SerializeField] TMP_Text txtTimerMult , txtTimerMensagem, txtBonusTotal;
     [SerializeField] Button stopAnBet;
     [SerializeField] TMP_Text txtStopAnBet, txtStopVal, txtBetVal;
-    [SerializeField] List<Button> betButtons ,autoStop = new() ;
+    [SerializeField] List<Button> betButtons ,autoStop = new();
+    [SerializeField] List<GameObject> lastResultObj , playersBet = new();
+    [SerializeField] List<float> lastResult = new();
+    [SerializeField] List<BetPlayers> playersBetList = new();
 
     private void Start()
     {
@@ -96,5 +101,50 @@ public class GameScreen : BaseScreen
     {
         this.stop = stopV;
         txtStopVal.text = $"{stopV:0.00}";
+    }
+
+    public void SetLastResult(float result)
+    {
+        lastResult.Add(result);
+        if(lastResult.Count > 9 ) lastResult.RemoveAt(0);
+        lastResultObj.ForEach(x => x.SetActive(false));
+        for (int i = 0; i < lastResult.Count; i++)
+        {
+            lastResultObj[i].SetActive(true);
+            lastResultObj[i].transform.GetChild(0).GetComponent<TMP_Text>().text = $"{lastResult[i]:0.00}";
+            lastResultObj[i].GetComponent<Image>().color = lastResult[i] < 2f ? Color.red : lastResult[i] < 5 ? Color.yellow : Color.green;
+        }
+    }
+
+    public void ResetBetPlayers()
+    {
+        playersBetList.Clear();
+        playersBet.ForEach(x => x.SetActive(false));
+    }
+
+    public void SetBetPlayersList(BetPlayers bet)
+    {
+        playersBetList.Add(bet);
+        if(playersBetList.Count > playersBet.Count) playersBetList.RemoveAt(0);
+        playersBet.ForEach(x => { 
+            x.gameObject.SetActive(true);
+            x.transform.FindChild("Addres").GetComponent<TMP_Text>().text = playersBetList[playersBet.IndexOf(x)].msg;
+            x.transform.FindChild("Bet").GetComponent<TMP_Text>().text = $"{playersBetList[playersBet.IndexOf(x)].valor:0.00} C";
+        });
+    }
+
+    public void SetBetPlayersWin(BetPlayers bet)
+    {   
+        var b = new BetPlayers { msg = bet.msg, valor = bet.valor };
+        playersBetList.ForEach(x => {
+            if (x == b)
+            {
+                x = bet;
+                playersBetList.Sort((x, y) => y.valor.CompareTo(x.valor));
+                playersBet[playersBetList.IndexOf(x)].transform.FindChild("Addres").GetComponent<TMP_Text>().text = x.msg;
+                playersBet[playersBetList.IndexOf(x)].transform.FindChild("Bet").GetComponent<TMP_Text>().text = $"{x.valor * x.multply:0.00} C";
+                return;
+            }
+        });
     }
 }

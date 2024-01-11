@@ -4749,6 +4749,29 @@ MonoBehaviour:
   - {fileID: 1903534831}
   - {fileID: 337941350}
   - {fileID: 1266810820}
+  lastResultObj:
+  - {fileID: 1541946799}
+  - {fileID: 2024105311}
+  - {fileID: 1943094239}
+  - {fileID: 1374432973}
+  - {fileID: 2021247401}
+  - {fileID: 1203545226}
+  - {fileID: 181263811}
+  - {fileID: 931427125}
+  - {fileID: 1774716969}
+  playersBet:
+  - {fileID: 702716815}
+  - {fileID: 120541293}
+  - {fileID: 1908838593}
+  - {fileID: 1057037105}
+  - {fileID: 567319116}
+  - {fileID: 1659059397}
+  - {fileID: 639721023}
+  - {fileID: 1273663086}
+  - {fileID: 1986740515}
+  - {fileID: 175362289}
+  - {fileID: 275057110}
+  lastResult: []
 --- !u!1 &245951316
 GameObject:
   m_ObjectHideFlags: 0
@@ -5061,7 +5084,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6954271766397590260, guid: dbdb9cfe5da5d7e4d87e653223468a6c, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5533,6 +5556,10 @@ PrefabInstance:
     - target: {fileID: 4816381887906037589, guid: 357d3c2b95f873540a02d3654a62724c, type: 3}
       propertyPath: m_Name
       value: Addres (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4816381887906037589, guid: 357d3c2b95f873540a02d3654a62724c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5741249424488383194, guid: 357d3c2b95f873540a02d3654a62724c, type: 3}
       propertyPath: m_Pivot.x
@@ -6690,6 +6717,10 @@ PrefabInstance:
     - target: {fileID: 6954271766397590260, guid: dbdb9cfe5da5d7e4d87e653223468a6c, type: 3}
       propertyPath: m_Name
       value: Bets (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6954271766397590260, guid: dbdb9cfe5da5d7e4d87e653223468a6c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9884,6 +9915,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bets (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 6954271766397590260, guid: dbdb9cfe5da5d7e4d87e653223468a6c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -10768,6 +10803,10 @@ PrefabInstance:
     - target: {fileID: 4816381887906037589, guid: 357d3c2b95f873540a02d3654a62724c, type: 3}
       propertyPath: m_Name
       value: Addres (9)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4816381887906037589, guid: 357d3c2b95f873540a02d3654a62724c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5741249424488383194, guid: 357d3c2b95f873540a02d3654a62724c, type: 3}
       propertyPath: m_Pivot.x
@@ -11893,6 +11932,10 @@ PrefabInstance:
     - target: {fileID: 4816381887906037589, guid: 357d3c2b95f873540a02d3654a62724c, type: 3}
       propertyPath: m_Name
       value: Addres (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4816381887906037589, guid: 357d3c2b95f873540a02d3654a62724c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5741249424488383194, guid: 357d3c2b95f873540a02d3654a62724c, type: 3}
       propertyPath: m_Pivot.x
@@ -13270,6 +13313,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bets (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 6954271766397590260, guid: dbdb9cfe5da5d7e4d87e653223468a6c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -13923,6 +13970,10 @@ PrefabInstance:
     - target: {fileID: 4816381887906037589, guid: 357d3c2b95f873540a02d3654a62724c, type: 3}
       propertyPath: m_Name
       value: Addres (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4816381887906037589, guid: 357d3c2b95f873540a02d3654a62724c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5741249424488383194, guid: 357d3c2b95f873540a02d3654a62724c, type: 3}
       propertyPath: m_Pivot.x
@@ -15254,6 +15305,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Addres (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 4816381887906037589, guid: 357d3c2b95f873540a02d3654a62724c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5741249424488383194, guid: 357d3c2b95f873540a02d3654a62724c, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -16404,6 +16459,10 @@ PrefabInstance:
     - target: {fileID: 6954271766397590260, guid: dbdb9cfe5da5d7e4d87e653223468a6c, type: 3}
       propertyPath: m_Name
       value: Bets (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6954271766397590260, guid: dbdb9cfe5da5d7e4d87e653223468a6c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -19292,6 +19351,10 @@ PrefabInstance:
     - target: {fileID: 6954271766397590260, guid: dbdb9cfe5da5d7e4d87e653223468a6c, type: 3}
       propertyPath: m_Name
       value: Bets (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6954271766397590260, guid: dbdb9cfe5da5d7e4d87e653223468a6c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -22483,6 +22546,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Addres (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 4816381887906037589, guid: 357d3c2b95f873540a02d3654a62724c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5741249424488383194, guid: 357d3c2b95f873540a02d3654a62724c, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -23766,6 +23833,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Addres (10)
       objectReference: {fileID: 0}
+    - target: {fileID: 4816381887906037589, guid: 357d3c2b95f873540a02d3654a62724c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5741249424488383194, guid: 357d3c2b95f873540a02d3654a62724c, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -23994,6 +24065,10 @@ PrefabInstance:
     - target: {fileID: 4816381887906037589, guid: 357d3c2b95f873540a02d3654a62724c, type: 3}
       propertyPath: m_Name
       value: Addres (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4816381887906037589, guid: 357d3c2b95f873540a02d3654a62724c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5741249424488383194, guid: 357d3c2b95f873540a02d3654a62724c, type: 3}
       propertyPath: m_Pivot.x
@@ -24277,6 +24352,10 @@ PrefabInstance:
     - target: {fileID: 4816381887906037589, guid: 357d3c2b95f873540a02d3654a62724c, type: 3}
       propertyPath: m_Name
       value: Addres (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4816381887906037589, guid: 357d3c2b95f873540a02d3654a62724c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5741249424488383194, guid: 357d3c2b95f873540a02d3654a62724c, type: 3}
       propertyPath: m_Pivot.x
@@ -26977,6 +27056,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bets (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6954271766397590260, guid: dbdb9cfe5da5d7e4d87e653223468a6c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -27816,6 +27899,10 @@ PrefabInstance:
     - target: {fileID: 4816381887906037589, guid: 357d3c2b95f873540a02d3654a62724c, type: 3}
       propertyPath: m_Name
       value: Addres (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4816381887906037589, guid: 357d3c2b95f873540a02d3654a62724c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5741249424488383194, guid: 357d3c2b95f873540a02d3654a62724c, type: 3}
       propertyPath: m_Pivot.x
@@ -32315,6 +32402,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Addres (11)
       objectReference: {fileID: 0}
+    - target: {fileID: 4816381887906037589, guid: 357d3c2b95f873540a02d3654a62724c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5741249424488383194, guid: 357d3c2b95f873540a02d3654a62724c, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -32529,6 +32620,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bets (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 6954271766397590260, guid: dbdb9cfe5da5d7e4d87e653223468a6c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -32657,6 +32752,10 @@ PrefabInstance:
     - target: {fileID: 6954271766397590260, guid: dbdb9cfe5da5d7e4d87e653223468a6c, type: 3}
       propertyPath: m_Name
       value: Bets (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6954271766397590260, guid: dbdb9cfe5da5d7e4d87e653223468a6c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

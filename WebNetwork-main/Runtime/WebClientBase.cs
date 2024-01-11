@@ -146,7 +146,7 @@ public abstract class WebClientBase : MonoBehaviour
             //Debug.Log(" TryInvokeHandler handlers[msgType] ");
             if (Serializer.Serializer.NetDeserialize(data, 3, out T msg))
             {
-                Debug.Log(" TryInvokeHandler NetDeserialize " + msg.GetType());
+                if (logs) Debug.Log(" TryInvokeHandler NetDeserialize " + msg.GetType());
                 handler(msg);
             }
             else
