@@ -135,6 +135,7 @@ public class WebClient : WebClientBase
         gameManager.credits = msg.valor;
     }
 
+
     public void BetPlayers( BetPlayers msg)
     {
         Debug.Log(msg.multply == 0?$"[Client] Jogador{msg.msg} fez aposta pagando{msg.valor}": $"[Cliente] O jogador {msg.msg} Retirou e ganhou{msg.valor*msg.multply}");

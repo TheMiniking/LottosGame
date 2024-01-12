@@ -234,6 +234,7 @@ public class Login : INetSerializable
     }
 }
 
+[Serializable]
 public class BetPlayers : INetSerializable
 {
     public string msg;

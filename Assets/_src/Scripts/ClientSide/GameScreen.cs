@@ -126,25 +126,24 @@ public class GameScreen : BaseScreen
     {
         playersBetList.Add(bet);
         if(playersBetList.Count > playersBet.Count) playersBetList.RemoveAt(0);
-        playersBet.ForEach(x => { 
-            x.gameObject.SetActive(true);
-            x.transform.FindChild("Addres").GetComponent<TMP_Text>().text = playersBetList[playersBet.IndexOf(x)].msg;
-            x.transform.FindChild("Bet").GetComponent<TMP_Text>().text = $"{playersBetList[playersBet.IndexOf(x)].valor:0.00} C";
+        playersBetList.ForEach(x => {
+            playersBet[playersBetList.IndexOf(x)].gameObject.SetActive(true);
+            playersBet[playersBetList.IndexOf(x)].transform.Find("Address").GetComponent<TMP_Text>().text = x.msg;
+            playersBet[playersBetList.IndexOf(x)].transform.Find("Bet").GetComponent<TMP_Text>().text = $"{x.valor:0.00} C";
+            playersBet[playersBetList.IndexOf(x)].GetComponent<Image>().color = new Color(0, 0, 0, 0.3f);
         });
     }
 
     public void SetBetPlayersWin(BetPlayers bet)
-    {   
-        var b = new BetPlayers { msg = bet.msg, valor = bet.valor };
+    {
+        ResetBetPlayers();
+        playersBetList.Add(bet);
+        if (playersBetList.Count > playersBet.Count) playersBetList.RemoveAt(0);
         playersBetList.ForEach(x => {
-            if (x == b)
-            {
-                x = bet;
-                playersBetList.Sort((x, y) => y.valor.CompareTo(x.valor));
-                playersBet[playersBetList.IndexOf(x)].transform.FindChild("Addres").GetComponent<TMP_Text>().text = x.msg;
-                playersBet[playersBetList.IndexOf(x)].transform.FindChild("Bet").GetComponent<TMP_Text>().text = $"{x.valor * x.multply:0.00} C";
-                return;
-            }
+            playersBet[playersBetList.IndexOf(x)].gameObject.SetActive(true);
+            playersBet[playersBetList.IndexOf(x)].transform.Find("Address").GetComponent<TMP_Text>().text = x.msg;
+            playersBet[playersBetList.IndexOf(x)].transform.Find("Bet").GetComponent<TMP_Text>().text = $"{x.valor * x.multply:0.00} C";
+            playersBet[playersBetList.IndexOf(x)].GetComponent<Image>().color = new Color(0,1,0,0.3f);
         });
     }
 }
