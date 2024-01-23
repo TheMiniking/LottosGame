@@ -47,6 +47,7 @@ public class WebClient : WebClientBase
         gameManager.isWalking = true;
         gameManager.canBet = false;
         canvasManager.SetTankState("Walking");
+        canvasManager.ResetPlayersBet();
         //Debug.Log("Start Corrida");
     }
 
@@ -97,6 +98,7 @@ public class WebClient : WebClientBase
     void Box(Box msg)
     {
         Debug.Log(msg.bonus);
+        canvasManager.InstancieBox(msg.bonus);
     }
 
     //Funçao de Controle e coringa para funcoes de pouco uso
@@ -125,6 +127,9 @@ public class WebClient : WebClientBase
                 case "ResetBets":
                     canvasManager.ResetPlayersBet();
                     break;
+                //case "InstancieBox":
+                //    canvasManager.InstancieBox();
+                //    break;
         }
         }
 
@@ -151,8 +156,8 @@ public class WebClient : WebClientBase
 
     #endregion
 
-    #region ClientToServer   //nao esta funcionando
-    public void SendBet(float bet)
+    #region ClientToServer 
+    public void SendBet(float bet, float stop)
     {
         if (isRunning)
         {
@@ -162,8 +167,8 @@ public class WebClient : WebClientBase
         }
         else
         {
-            SendMsg(new BetServer { value = bet });
-            Debug.Log("Start bet [Client] : "+ bet);
+            SendMsg(new BetServer { value = bet, stop = stop });
+            Debug.Log(stop != 0? $"Start bet [Client] , Auto Bet ON. bet:{bet} Stop:{stop:0.00}":"Start bet [Client] : "+ bet);
             //SendMsg(new Balance());
 
         }
@@ -179,6 +184,10 @@ public class WebClient : WebClientBase
         SendMsg(new SetBet { valor = bet });
         canvasManager.SetBetButtonText($"Bet {bet:0.00}");
     }
-}
+    public void AddBonus(float bonus)
+    {
+        SendMsg(new AddBonus {valor = bonus });
+    }
     #endregion
+}
   

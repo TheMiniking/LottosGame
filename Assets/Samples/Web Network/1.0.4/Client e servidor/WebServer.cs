@@ -11,6 +11,7 @@ public class WebServer : WebServerBase
     [SerializeField] List<WebSession> playersConnected = new List<WebSession>();
     [SerializeField] List<WebSession> playersBet = new List<WebSession>();
     [SerializeField] TankConfiguration TankConfiguration = new TankConfiguration();
+    [SerializeField] ServerHUD serverHUD;
 
     private void Awake()
     {
@@ -23,6 +24,7 @@ public class WebServer : WebServerBase
         RegisterHandler<BetServer>(BetServer, false, true);
         RegisterHandler<StopBet>(StopBet, false, true);
         RegisterHandler<SetBet>(SetBet, false, true);
+        RegisterHandler<AddBonus>(AddBonus, false, true);
         RegisterHandler<Login>(Login, false, true);
         StartCoroutine(StartRun());
     }
@@ -79,17 +81,20 @@ public class WebServer : WebServerBase
     float currentTime = 5f;
     bool canBet = false;
     float playerMultiplicador = 1f;
+    float totalBonus = 0f;
+    bool crash = false;
     IEnumerator StartRun()
     {
+        yield return new WaitForSeconds(5);
         var r = new System.Random();
         var timeline = 0f;
         while (true)
         {
             SendToAllUpdateCredit();
             SendToAll(new MensageControl { msg = "ResetBets", useValor = 0 });
-            canBet = true;
             SendToAll(new MensageControl { msg = "Timer", valor = currentTime, useValor = 0 });
-            var luck = UnityEngine.Random.Range(0, 101);
+            canBet = true;
+            var luck = r.Next(0, 101);
             var range = luck <= TankConfiguration.bestChance ? (float)(r.NextDouble() * TankConfiguration.maxMultiplicador - 0.02) :
                         luck <= TankConfiguration.greatChance ? (float)(r.NextDouble() * (TankConfiguration.maxMultiplicador / 2) - 0.02) :
                         (float)(r.NextDouble() * (TankConfiguration.maxMultiplicador / 4) - 0.02);
@@ -104,36 +109,52 @@ public class WebServer : WebServerBase
             }
             canBet = false;
             currentTime = TankConfiguration.timeWait;
-            //Mathematics.TankCalculeRound();
-            var crash = false;
+            crash = false;
             playerMultiplicador = 1f;
             timeline = 0f;
             SendToAll(new StartRun());
+            bool bomb = false;
+            totalBonus = 0;
             while (!crash)
             {
                 if ((timeline * 100) % 20 == 0)
                 {
-                    SendToAll(new Box { bonus = TankConfiguration.bonusList[r.Next(TankConfiguration.bombChance <= TankConfiguration.bonusList.Count ? TankConfiguration.bombChance : TankConfiguration.bonusList.Count)] });
-                    SendToAll(new Parallax { velocidade = 0.01f });
+                    var box = TankConfiguration.bonusList[r.Next(TankConfiguration.bombChance <= TankConfiguration.bonusList.Count ? TankConfiguration.bombChance : TankConfiguration.bonusList.Count)];
+                    SendToAll(new Box { bonus = box});
+                    SendToAll(new Parallax { velocidade = 0.02f });
+                    bomb = box == 0;
                 }
-                playerMultiplicador += 0.01f;
+                playerMultiplicador = float.Parse($"{playerMultiplicador + 0.01f:0.00}");
                 SendToAll(new MultSync { mult = playerMultiplicador });
                 playersConnected.ForEach(x =>
                 {
                     var c = x.GetClient<Client>();
                     bool b = playersBet.Contains(x);
-                    if (!c.isStopBet && b)
+                    if (!c.isStopBet && b) {
                         x.SendMsg(new ButtonBet { active = true, txt = $"Stop x {playerMultiplicador}" });
-                    else if (!b)
-                        x.SendMsg(new ButtonBet { active = false, txt = "Wait Next Round" });
+                        if ( c.currentBet.stop <= playerMultiplicador)
+                        {
+                            Debug.Log("Try Stop Bet [Server] Resposta");
+                            StopBet(x, new StopBet());
+                        }
+                     }
+                    else if (!b) x.SendMsg(new ButtonBet { active = false, txt = "Wait Next Round" });
                 });
                 timeline = float.Parse($"{timeline + 0.01f:0.00}");
-                if (timeline >= range) { crash = true; }
-                yield return new WaitForSeconds(playerMultiplicador <= 2 ? 0.3f : playerMultiplicador <= 5 ? 0.2f : 0.1f);
+                if (timeline >= range ) { crash = true; }
+                yield return new WaitForSeconds(playerMultiplicador <= 2 ? 0.2f : playerMultiplicador <= 5 ? 0.1f : 0.05f);
             }
             SendToAll(new Crash { multply = playerMultiplicador });
             playersBet.Clear();
         }
+    }
+
+
+    void AddBonus(WebSession session, AddBonus msg)
+    {
+        if (msg.valor != 0) totalBonus += msg.valor;
+        else crash = true;
+        Debug.Log(msg.valor != 0 ? $"[Server] Add Bonus {msg.valor:0.00}, total : x{totalBonus:0.00}" : "[Server] kabum");
     }
 
     void BetServer(WebSession session, BetServer msg)
@@ -172,12 +193,12 @@ public class WebServer : WebServerBase
             session.SendMsg(new MensageControl { msg = "Espere a proxima Rodada" });
             return;
         }
-        var add = client.currentBet.bet * playerMultiplicador;
+        var add = client.currentBet.bet * (playerMultiplicador + totalBonus);
         client.credits += add;
-        session.SendMsg(new MensageControl { msg = $"Aposta {client.currentBet.bet:0.00} Multiplicador: {playerMultiplicador} , Total Ganho : {add:0.00}", useValor = -1 });
+        session.SendMsg(new MensageControl { msg = $"Aposta {client.currentBet.bet:0.00} Multiplicador: {playerMultiplicador}+ Bonus {totalBonus} , Total Ganho : {add:0.00}", useValor = -1 });
         session.SendMsg(new Balance { msg = client.nickName, valor = client.credits });
-        session.SendMsg(new ButtonBet { active = false, txt = $" Winner x {playerMultiplicador:0.00}" });
-        SendToAll(new BetPlayers { msg = client.nickName, valor = client.currentBet.bet, multply = playerMultiplicador });
+        session.SendMsg(new ButtonBet { active = false, txt = $" Winner x {playerMultiplicador+totalBonus:0.00}" });
+        SendToAll(new BetPlayers { msg = client.nickName, valor = client.currentBet.bet, multply = playerMultiplicador + totalBonus });
         playersBet.Remove(session);
 
     }

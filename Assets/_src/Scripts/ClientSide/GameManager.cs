@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,9 +13,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameScreen gameS;
     [SerializeField] public bool isWalking = false;
     [SerializeField] public bool canBet = true;
-    [SerializeField] public float credits = 10;
+    [SerializeField] public float credits;
     [SerializeField] float stopValBet = 1.01f;
     [SerializeField] float valueToBet = 1f;
+
+    [SerializeField] Toggle autoStop;
+    
 
     public float UpDownAutoStop(float modify, bool toUp)
     {
@@ -31,5 +35,6 @@ public class GameManager : MonoBehaviour
         return valueToBet;
     }//Controle de Valores da aposta
 
-    public void SendBet() => webClient.SendBet(valueToBet);
+    public void SendBet() => webClient.SendBet(valueToBet,autoStop.isOn?stopValBet:0);
+
 }

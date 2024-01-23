@@ -90,6 +90,11 @@ public class CanvasManager : MonoBehaviour
 
     public void ResetPlayersBet() => gameScreen.ResetBetPlayers();
 
+    public void InstancieBox() => gameScreen.InstantiateBox();
+
+    public void InstancieBox(float bonus) => gameScreen.InstantiateBox(bonus);
+
 }
+
 
 

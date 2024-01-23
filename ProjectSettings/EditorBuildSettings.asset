@@ -8,4 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_src/Scenes/Tank.unity
     guid: eb553cb12f1142c44b0367092ab96cde
+  - enabled: 0
+    path: Assets/_src/Scenes/ServerSide-Tank.unity
+    guid: be01bcc10377b6745bdf8d03bbf3e4ea
   m_configObjects: {}

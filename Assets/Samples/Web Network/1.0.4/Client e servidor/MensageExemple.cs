@@ -254,3 +254,18 @@ public class BetPlayers : INetSerializable
         write.Put(multply);
     }
 }
+
+[Serializable]
+public class AddBonus : INetSerializable
+{
+    public float valor;
+    public void Deserialize(DataReader reader)
+    {
+        reader.Get(ref valor);
+    }
+
+    public void Serialize(DataWriter write)
+    {
+        write.Put(valor);
+    }
+}

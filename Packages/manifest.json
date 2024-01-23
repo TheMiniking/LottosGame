@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "com.gamespawner.webnetwork": "file:../WebNetwork-main",
+    "com.gamespawner.webnetwork": "https://github.com/RobsonPetry/WebNetwork.git",
     "com.unity.collab-proxy": "2.2.0",
     "com.unity.feature.2d": "2.0.0",
     "com.unity.ide.rider": "3.0.24",
