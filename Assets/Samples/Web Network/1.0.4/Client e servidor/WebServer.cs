@@ -7,6 +7,7 @@ using UnityEngine;
 public class WebServer : WebServerBase
 {
     [SerializeField] string validToken;
+    [SerializeField] bool autoStart = true;
     WebSession session;
     [SerializeField] List<WebSession> playersConnected = new List<WebSession>();
     [SerializeField] List<WebSession> playersBet = new List<WebSession>();
@@ -15,7 +16,7 @@ public class WebServer : WebServerBase
 
     private void Awake()
     {
-        StartServer();
+        if (autoStart) StartServer();
     }
     protected override void Start()
     {
@@ -27,6 +28,7 @@ public class WebServer : WebServerBase
         RegisterHandler<AddBonus>(AddBonus, false, true);
         RegisterHandler<Login>(Login, false, true);
         StartCoroutine(StartRun());
+        serverHUD?.ServerStatus(true);
     }
     protected override void Update()
     {
@@ -49,12 +51,14 @@ public class WebServer : WebServerBase
         base.OnConnectd(session);
         playersConnected.Add(session);
         session.SendMsg(new Balance { msg = session.GetClient<Client>().nickName, valor = session.GetClient<Client>().credits });
+        serverHUD?.TotalPlayers(playersConnected.Count);
     }
 
     public override void OnDisconnectd(WebSession session)
     {
         base.OnDisconnectd(session);
         playersConnected.Remove(session);
+        serverHUD?.TotalPlayers(playersConnected.Count);
     }
 
     public override bool ValideToken(string token)
@@ -85,6 +89,7 @@ public class WebServer : WebServerBase
     bool crash = false;
     IEnumerator StartRun()
     {
+        serverHUD?.UpdateLastResult(0);
         yield return new WaitForSeconds(5);
         var r = new System.Random();
         var timeline = 0f;
@@ -101,8 +106,12 @@ public class WebServer : WebServerBase
             range = float.Parse($"{range:0.00}");
             playersConnected.ForEach(x => x.GetClient<Client>().isStopBet = false);
             playersConnected.ForEach(x => x.SendMsg(new ButtonBet { active = true, txt = $"Bet {x.GetClient<Client>().betValor:0.00}" }));
+            totalBonus = 0;
+            playerMultiplicador = 1f;
+            serverHUD?.UpdateMultiplier(playerMultiplicador, totalBonus);
             while (currentTime > 0)
             {
+                serverHUD?.UpdateAtualFase($"Wait Bets ... {currentTime:00:00}");
                 currentTime--;
                 yield return new WaitForSeconds(1f);
                 SendToAll(new MensageControl { msg = "Timer", valor = currentTime, useValor = 0 });
@@ -110,13 +119,14 @@ public class WebServer : WebServerBase
             canBet = false;
             currentTime = TankConfiguration.timeWait;
             crash = false;
-            playerMultiplicador = 1f;
             timeline = 0f;
             SendToAll(new StartRun());
             bool bomb = false;
-            totalBonus = 0;
             while (!crash)
             {
+                serverHUD?.UpdateAtualFase($" Walking...");
+                playerMultiplicador = float.Parse($"{playerMultiplicador + 0.01f:0.00}");
+                SendToAll(new MultSync { mult = playerMultiplicador });
                 if ((timeline * 100) % 20 == 0)
                 {
                     var box = TankConfiguration.bonusList[r.Next(TankConfiguration.bombChance <= TankConfiguration.bonusList.Count ? TankConfiguration.bombChance : TankConfiguration.bonusList.Count)];
@@ -124,8 +134,7 @@ public class WebServer : WebServerBase
                     SendToAll(new Parallax { velocidade = 0.02f });
                     bomb = box == 0;
                 }
-                playerMultiplicador = float.Parse($"{playerMultiplicador + 0.01f:0.00}");
-                SendToAll(new MultSync { mult = playerMultiplicador });
+                serverHUD?.UpdateMultiplier(playerMultiplicador,totalBonus);
                 playersConnected.ForEach(x =>
                 {
                     var c = x.GetClient<Client>();
@@ -145,6 +154,7 @@ public class WebServer : WebServerBase
                 yield return new WaitForSeconds(playerMultiplicador <= 2 ? 0.2f : playerMultiplicador <= 5 ? 0.1f : 0.05f);
             }
             SendToAll(new Crash { multply = playerMultiplicador });
+            serverHUD?.UpdateLastResult(playerMultiplicador);
             playersBet.Clear();
         }
     }
@@ -182,6 +192,7 @@ public class WebServer : WebServerBase
         session.SendMsg(new MensageControl { msg = "Aposta: Aposta feita!" });
         session.SendMsg(new ButtonBet { active = true, txt = "Wait Start..." });
         SendToAll(new BetPlayers { msg = client.nickName, valor = msg.value });
+        serverHUD?.UpdateTotalIn(msg.value);
     }
 
     void StopBet(WebSession session, StopBet msg)
@@ -200,7 +211,7 @@ public class WebServer : WebServerBase
         session.SendMsg(new ButtonBet { active = false, txt = $" Winner x {playerMultiplicador+totalBonus:0.00}" });
         SendToAll(new BetPlayers { msg = client.nickName, valor = client.currentBet.bet, multply = playerMultiplicador + totalBonus });
         playersBet.Remove(session);
-
+        serverHUD?.UpdateTotalOut(add);
     }
 
     void BalanceCreditServer(WebSession session, BalanceCreditServer msg)
