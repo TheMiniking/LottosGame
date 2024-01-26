@@ -4,8 +4,6 @@ public class WebClient : WebClientBase
 {
     [SerializeField] string url;
     [SerializeField] string token;
-    [SerializeField] CanvasManager canvasManager;
-    [SerializeField] GameManager gameManager;
     bool isRunning = false;
 
     protected override void Start()
@@ -44,61 +42,61 @@ public class WebClient : WebClientBase
     void StartRun(StartRun msg)
     {
         isRunning = true;
-        gameManager.isWalking = true;
-        gameManager.canBet = false;
-        canvasManager.SetTankState("Walking");
-        canvasManager.ResetPlayersBet();
+        GameManager.Instance.isWalking = true;
+        GameManager.Instance.canBet = false;
+        CanvasManager.Instance.SetTankState("Walking");
+        CanvasManager.Instance.ResetPlayersBet();
         //Debug.Log("Start Corrida");
     }
 
     void Crash(Crash msg)
     {
         isRunning = false;
-        gameManager.isWalking = false;
-        gameManager.canBet = true;
-        canvasManager.SetTankState("Crash");
-        canvasManager.ResetVelocityParalax();
-        canvasManager.SetLastPlays(msg.multply);
+        GameManager.Instance.isWalking = false;
+        GameManager.Instance.canBet = true;
+        CanvasManager.Instance.SetTankState("Crash");
+        CanvasManager.Instance.ResetVelocityParalax();
+        CanvasManager.Instance.SetLastPlays(msg.multply);
         Debug.Log("Kabum , Distance x"+ msg.multply);
     }
     void TimerSync(TimerSync msg)
     {
-        canvasManager.SetTimer((int)msg.time);
+        CanvasManager.Instance.SetTimer((int)msg.time);
         //Debug.Log($"Time :{msg.time:00:00}");
     }
 
     void MultSync(MultSync msg)
     {
-        canvasManager.SetMultiplicador(msg.mult);
+        CanvasManager.Instance.SetMultiplicador(msg.mult);
     }
 
     void Paralax(Parallax msg)
     {
-        canvasManager.AddVelocityParalax(msg.velocidade);
+        CanvasManager.Instance.AddVelocityParalax(msg.velocidade);
     }
 
     void Balance(Balance msg)
     {
-        canvasManager.SetWalletNick(msg.msg);
-        canvasManager.SetWalletBalance(msg.valor);
-        gameManager.credits = msg.valor;
+        CanvasManager.Instance.SetWalletNick(msg.msg);
+        CanvasManager.Instance.SetWalletBalance(msg.valor);
+        GameManager.Instance.credits = msg.valor;
     } 
     public void ButtonBet(ButtonBet msg)
     {
         if (msg.active)
         {
-            canvasManager.SetBetActive();
+            CanvasManager.Instance.SetBetActive();
         }
         else
         {
-            canvasManager.SetBetDesactive();
+            CanvasManager.Instance.SetBetDesactive();
         }
-        if(msg.txt != "") canvasManager.SetBetButtonText(msg.txt);
+        if(msg.txt != "") CanvasManager.Instance.SetBetButtonText(msg.txt);
     }
     void Box(Box msg)
     {
         Debug.Log(msg.bonus);
-        canvasManager.InstancieBox(msg.bonus);
+        CanvasManager.Instance.InstancieBox(msg.bonus);
     }
 
     //Funçao de Controle e coringa para funcoes de pouco uso
@@ -122,13 +120,13 @@ public class WebClient : WebClientBase
             switch (msg.msg)
             {
                 case "Timer":
-                    canvasManager.SetTimer((int)msg.valor);
+                    CanvasManager.Instance.SetTimer((int)msg.valor);
                     break;
                 case "ResetBets":
-                    canvasManager.ResetPlayersBet();
+                    CanvasManager.Instance.ResetPlayersBet();
                     break;
                 //case "InstancieBox":
-                //    canvasManager.InstancieBox();
+                //    CanvasManager.Instance.InstancieBox();
                 //    break;
         }
         }
@@ -137,7 +135,7 @@ public class WebClient : WebClientBase
 
     public void BalanceCreditClient( BalanceCreditClient msg)
     {
-        gameManager.credits = msg.valor;
+        GameManager.Instance.credits = msg.valor;
     }
 
 
@@ -146,11 +144,11 @@ public class WebClient : WebClientBase
         Debug.Log(msg.multply == 0?$"[Client] Jogador{msg.msg} fez aposta pagando{msg.valor}": $"[Cliente] O jogador {msg.msg} Retirou e ganhou{msg.valor*msg.multply}");
         if (msg.multply == 0)
         {
-            canvasManager.SetPlayersBet(msg);
+            CanvasManager.Instance.SetPlayersBet(msg);
         }
         else
         {
-            canvasManager.SetPlayersWin(msg);
+            CanvasManager.Instance.SetPlayersWin(msg);
         }
     }
 
@@ -182,7 +180,7 @@ public class WebClient : WebClientBase
     public void SetBetValor(float bet )
     {
         SendMsg(new SetBet { valor = bet });
-        canvasManager.SetBetButtonText($"Bet {bet:0.00}");
+        CanvasManager.Instance.SetBetButtonText($"Bet {bet:0.00}");
     }
     public void AddBonus(float bonus)
     {

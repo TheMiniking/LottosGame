@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager Instance;
+    public static GameManager Instance { get; private set; }
     [SerializeField] WebClient webClient;
     [SerializeField] GameScreen gameS;
     [SerializeField] public bool isWalking = false;
@@ -18,7 +18,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] float valueToBet = 1f;
 
     [SerializeField] Toggle autoStop;
-    
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     public float UpDownAutoStop(float modify, bool toUp)
     {
