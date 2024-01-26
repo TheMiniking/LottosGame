@@ -139,15 +139,15 @@ public class WebServer : WebServerBase
                 {
                     var c = x.GetClient<Client>();
                     bool b = playersBet.Contains(x);
-                    if (!c.isStopBet && b) {
+                    if (b) {
                         x.SendMsg(new ButtonBet { active = true, txt = $"Stop x {playerMultiplicador}" });
-                        if ( c.currentBet.stop <= playerMultiplicador)
+                        if ( c.currentBet.stop <= playerMultiplicador && c.currentBet.stop > 0)
                         {
                             Debug.Log("Try Stop Bet [Server] Resposta");
                             StopBet(x, new StopBet());
                         }
                      }
-                    else if (!b) x.SendMsg(new ButtonBet { active = false, txt = "Wait Next Round" });
+                    else x.SendMsg(new ButtonBet { active = false, txt = "Wait Next Round" });
                 });
                 timeline = float.Parse($"{timeline + 0.01f:0.00}");
                 if (timeline >= range ) { crash = true; }
