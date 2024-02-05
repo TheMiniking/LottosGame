@@ -8,10 +8,11 @@ using UnityEngine.UI;
 [Serializable]
 public class RTPTank : MonoBehaviour
 {
+    [SerializeField] WebServer webServer;
     public int betBest, betGreat, betNormal;  //Base de configura�ao para chance de usar      [betBest = 15%, betGreat = 35% , betNormal = 50%]
     public float _RTP;              //RTP 0-100% (100 = 100%) retorno de investimento total somando todas jogadas
     public Bet playerBet;           //Jogada do jogador
-    public List<Bet> geralBet = new List<Bet>();      //Jogadas de outros jogadores Simulaçao de apostas
+    public List<Bet> geralBet = new(); //Jogadas de outros jogadores Simulaçao de apostas
     public float roundDistance;     // Tempo de duraçao da rodada
     public int numbRounds;          // Numero de jogadas ja contabilizadas
     public float totalBetIn;        // Total de creditos que entrou
@@ -30,6 +31,12 @@ public class RTPTank : MonoBehaviour
     [SerializeField] Toggle resetRTPtoggle, breakOnClashT;
     [SerializeField] TMP_Text roundTxt;
     [SerializeField] Button roundTxtButton;
+    [SerializeField] TankConfiguration tankConfiguration = new();
+
+    private void Start()
+    {
+        tankConfiguration = webServer.TankConfiguration;
+    }
 
     private void FixedUpdate()
     {
@@ -62,8 +69,8 @@ public class RTPTank : MonoBehaviour
         dMaxBET.text = $"{20}";
         dMaxStop.text = $"{20}";
         dBombChance.text = $"{11}";
-        dBestChance.text = $"{5}";
-        dGreatChance.text = $"{10}";
+        dBestChance.text = $"{15}";
+        dGreatChance.text = $"{35}";
         dBonus.ForEach(x => x.text = dBonus.IndexOf(x)<bonusListOriginalValue.Count? $"{bonusListOriginalValue[dBonus.IndexOf(x)]}":$"{0.1}");
         resetRTPtoggle.isOn = true;
     }
@@ -176,6 +183,13 @@ public class RTPTank : MonoBehaviour
         return finalMultplicador;
     }
 
+    public void AtualizeConfigurarion()
+    {
+        tankConfiguration.bestChance = int.Parse(dBestChance.text);
+        tankConfiguration.greatChance = int.Parse(dGreatChance.text);
+        tankConfiguration.bombChance = int.Parse(dBombChance.text);
+        WebClient.Instance.SendMensagem(tankConfiguration);
+    }
 
     //public float AutoPlay(int nJogadas, int nMedioJogadores, int maxCoin, int maxStop, float inicialPlayerCoin, bool resetRtp, bool breakOutMoney, int bombChance)
     //{

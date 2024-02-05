@@ -1,10 +1,17 @@
+using Serializer;
 using UnityEngine;
-
+using GameSpawner;
 public class WebClient : WebClientBase
 {
+    public static WebClient Instance;
     [SerializeField] string url;
     [SerializeField] string token;
     bool isRunning = false;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     protected override void Start()
     {
@@ -38,7 +45,13 @@ public class WebClient : WebClientBase
         base.OnClose(closeCode);
         TryConnect();
     }
-    #region RespostaServer
+
+    public void SendMensagem<T> (T msg) where T : INetSerializable
+    {
+        SendMsg(msg);
+    }
+
+#region RespostaServer
     void StartRun(StartRun msg)
     {
         isRunning = true;

@@ -1,11 +1,27 @@
 {
   "dependencies": {
-    "com.gamespawner.webnetwork": {
-      "version": "https://github.com/RobsonPetry/WebNetwork.git",
+    "com.gamespawner.serializer": {
+      "version": "http://gitlab.playbrandsgroup.com/agt-games/serializer.git",
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "14782a5975286c54c7989c75c89ce3dfc5ab065f"
+      "hash": "2769fd036918598100204f41587725bee4e351be"
+    },
+    "com.gamespawner.smartbuild": {
+      "version": "http://gitlab.playbrandsgroup.com/agt-games/smartbuild.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "447f267faaf950075f14a2de29cd2d8980a6ebbc"
+    },
+    "com.gamespawner.webnetwork": {
+      "version": "http://gitlab.playbrandsgroup.com/robson.petry/WebNetwork.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.gamespawner.serializer": "1.0.20"
+      },
+      "hash": "5bfb7ebf64ad1d33d181494c5c837e4881bea415"
     },
     "com.unity.2d.animation": {
       "version": "9.0.3",

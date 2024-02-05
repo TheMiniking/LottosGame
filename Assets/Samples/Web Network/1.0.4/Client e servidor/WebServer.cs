@@ -3,17 +3,22 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GameSpawner;
 
 public class WebServer : WebServerBase
 {
     [SerializeField] string validToken;
     [SerializeField] bool autoStart = true;
     WebSession session;
+    [SerializeField] public TankConfiguration TankConfiguration = new();
     [SerializeField] List<WebSession> playersConnected = new List<WebSession>();
     [SerializeField] List<WebSession> playersBet = new List<WebSession>();
-    [SerializeField] TankConfiguration TankConfiguration = new TankConfiguration();
     [SerializeField] ServerHUD serverHUD;
-
+    [SerializeField] bool canBet = false;
+    [SerializeField] bool crash = false;
+    [SerializeField] float playerMultiplicador = 1f;
+    [SerializeField] float currentTime = 10f;
+    [SerializeField] float totalBonus = 0f;
     private void Awake()
     {
         if (autoStart) StartServer();
@@ -82,11 +87,7 @@ public class WebServer : WebServerBase
         });
 
     }
-    float currentTime = 5f;
-    bool canBet = false;
-    float playerMultiplicador = 1f;
-    float totalBonus = 0f;
-    bool crash = false;
+    
     IEnumerator StartRun()
     {
         serverHUD?.UpdateLastResult(0);
@@ -228,6 +229,7 @@ public class WebServer : WebServerBase
         Debug.Log("Valor Bet Atual : " + client.betValor);
     }
 
+    void SetConfigure(WebSession session, TankConfiguration msg) => TankConfiguration = msg;
 }
 [Serializable]
 class Client : IClientInfos
