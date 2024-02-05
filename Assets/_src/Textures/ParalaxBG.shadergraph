@@ -41,6 +41,9 @@
         },
         {
             "m_Id": "a798a30cde7741d38395e707413d3133"
+        },
+        {
+            "m_Id": "b78a9f4c947542598cb90152bbf2e152"
         }
     ],
     "m_Keywords": [],
@@ -2920,9 +2923,9 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -2091.000244140625,
-            "y": 1816.0001220703125,
-            "width": 128.0001220703125,
+            "x": -2092.0,
+            "y": 1816.0,
+            "width": 128.0,
             "height": 34.0
         }
     },
@@ -3663,7 +3666,7 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -1410.0,
+            "x": -1493.0,
             "y": 1816.0001220703125,
             "width": 208.0,
             "height": 301.9998779296875
@@ -3919,7 +3922,7 @@
     "overrideHLSLDeclaration": false,
     "hlslDeclarationOverride": 0,
     "m_Hidden": false,
-    "m_Value": 0.0,
+    "m_Value": 1.0,
     "m_FloatType": 1,
     "m_RangeValues": {
         "x": 0.0,
@@ -5733,6 +5736,9 @@
         },
         {
             "m_Id": "b159fcc6ac8645808323460af1b1a6e0"
+        },
+        {
+            "m_Id": "b78a9f4c947542598cb90152bbf2e152"
         }
     ]
 }
@@ -6779,6 +6785,34 @@
 }
 
 {
+    "m_SGVersion": 1,
+    "m_Type": "UnityEditor.ShaderGraph.Internal.Vector1ShaderProperty",
+    "m_ObjectId": "b78a9f4c947542598cb90152bbf2e152",
+    "m_Guid": {
+        "m_GuidSerialized": "e9535a5d-fd22-42b8-a0c6-d86f27f563db"
+    },
+    "m_Name": "IntensidadeNight",
+    "m_DefaultRefNameVersion": 1,
+    "m_RefNameGeneratedByDisplayName": "IntensidadeNight",
+    "m_DefaultReferenceName": "_IntensidadeNight",
+    "m_OverrideReferenceName": "",
+    "m_GeneratePropertyBlock": true,
+    "m_UseCustomSlotLabel": false,
+    "m_CustomSlotLabel": "",
+    "m_DismissedVersion": 0,
+    "m_Precision": 0,
+    "overrideHLSLDeclaration": false,
+    "hlslDeclarationOverride": 0,
+    "m_Hidden": false,
+    "m_Value": 0.0,
+    "m_FloatType": 2,
+    "m_RangeValues": {
+        "x": 0.0,
+        "y": 1.0
+    }
+}
+
+{
     "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.DynamicVectorMaterialSlot",
     "m_ObjectId": "b97d0c1e3daf41db84dd2b27ffc27c8e",
@@ -7180,10 +7214,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -1949.0001220703125,
+            "x": -1948.0,
             "y": 1816.0001220703125,
             "width": 208.0,
-            "height": 302.0001220703125
+            "height": 301.9998779296875
         }
     },
     "m_Slots": [

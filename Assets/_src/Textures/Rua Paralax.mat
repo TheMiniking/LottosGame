@@ -61,8 +61,9 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _NightFall: 0.685
-    - _RealTimeUpdate: 171.99696
+    - _IntensidadeNight: 0
+    - _NightFall: 1
+    - _RealTimeUpdate: 0
     - _UseScriptTime: 1
     - _VelNuvem: 0.01
     - _Velocity: 5
