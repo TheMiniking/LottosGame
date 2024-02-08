@@ -4,6 +4,7 @@ using GameSpawner;
 public class WebClient : WebClientBase
 {
     public static WebClient Instance;
+    public bool logDebug = false;
     [SerializeField] string url;
     [SerializeField] string token;
     bool isRunning = false;
@@ -133,6 +134,7 @@ public class WebClient : WebClientBase
             switch (msg.msg)
             {
                 case "Timer":
+                    if(logDebug) Debug.Log(CanvasManager.Instance == null ? "Canvas intance Vazio" : " Canvas Normal");
                     CanvasManager.Instance.SetTimer((int)msg.valor);
                     break;
                 case "ResetBets":

@@ -9,7 +9,7 @@ using Unity.VisualScripting;
 
 public class CanvasManager : MonoBehaviour
 {
-    public static CanvasManager Instance { get; private set; }
+    public static CanvasManager Instance;
 
     [SerializeField] GameScreen gameScreen;
 
