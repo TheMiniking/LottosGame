@@ -198,6 +198,8 @@ public class GameScreen : BaseScreen
             playersBet[playersBetList.IndexOf(x)].gameObject.SetActive(true);
             playersBet[playersBetList.IndexOf(x)].name.text = x.msg;
             playersBet[playersBetList.IndexOf(x)].bet.text = $"{x.valor:0.00} C";
+            playersBet[playersBetList.IndexOf(x)].credits.text = $" --.-- C";
+            playersBet[playersBetList.IndexOf(x)].multply.text = $"x --.--";
             playersBet[playersBetList.IndexOf(x)].anim.Play("Normal");
             //playersBet[playersBetList.IndexOf(x)].GetComponent<Image>().color = new Color(0, 0, 0, 0.3f);
         });

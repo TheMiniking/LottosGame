@@ -116,6 +116,7 @@ public class WebServer : WebServerBase
                 currentTime--;
                 yield return new WaitForSeconds(1f);
                 SendToAll(new MensageControl { msg = "Timer", valor = currentTime, useValor = 0 });
+                SendToAll(new MensageControl { msg = "AutoPlay", useValor = 0 });
             }
             canBet = false;
             currentTime = TankConfiguration.timeWait;

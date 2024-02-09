@@ -140,6 +140,9 @@ public class WebClient : WebClientBase
                 case "ResetBets":
                     CanvasManager.Instance.ResetPlayersBet();
                     break;
+                case "AutoPlay":
+                    GameManager.Instance.CheckAutoPlay();
+                    break;
                 //case "InstancieBox":
                 //    CanvasManager.Instance.InstancieBox();
                 //    break;
