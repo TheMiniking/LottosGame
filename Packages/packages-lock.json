@@ -21,7 +21,7 @@
       "dependencies": {
         "com.gamespawner.serializer": "1.0.20"
       },
-      "hash": "5bfb7ebf64ad1d33d181494c5c837e4881bea415"
+      "hash": "cf3f4219a01d7da74b7fdb349025492ad0e47d18"
     },
     "com.unity.2d.animation": {
       "version": "9.0.3",

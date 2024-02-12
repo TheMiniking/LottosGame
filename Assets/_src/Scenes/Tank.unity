@@ -123,6 +123,17 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &38412888 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1123098830512107640, guid: f7524c4aff74c0042b08d03e0c94f69d, type: 3}
+  m_PrefabInstance: {fileID: 114131521}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &50442609 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5707947388575413457, guid: f7524c4aff74c0042b08d03e0c94f69d, type: 3}
@@ -231,7 +242,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1707739987475499785, guid: f7524c4aff74c0042b08d03e0c94f69d, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.33711243
+      value: 0.33709908
       objectReference: {fileID: 0}
     - target: {fileID: 1727617964172235205, guid: f7524c4aff74c0042b08d03e0c94f69d, type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.size
@@ -726,6 +737,11 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8182403744906396177, guid: f7524c4aff74c0042b08d03e0c94f69d, type: 3}
   m_PrefabInstance: {fileID: 114131521}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &114131523 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 2887007679637596625, guid: f7524c4aff74c0042b08d03e0c94f69d, type: 3}
+  m_PrefabInstance: {fileID: 114131521}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &145694613 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1947365439478362000, guid: f7524c4aff74c0042b08d03e0c94f69d, type: 3}
@@ -746,6 +762,28 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9085046f02f69544eb97fd06b6048fe2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &170162647 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3577879901322124936, guid: f7524c4aff74c0042b08d03e0c94f69d, type: 3}
+  m_PrefabInstance: {fileID: 114131521}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &180802946 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2454011962892546881, guid: f7524c4aff74c0042b08d03e0c94f69d, type: 3}
+  m_PrefabInstance: {fileID: 114131521}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!224 &192997174 stripped
@@ -817,6 +855,8 @@ MonoBehaviour:
   txtTimerMult: {fileID: 1865499272}
   txtTimerMensagem: {fileID: 928660593}
   txtBonusTotal: {fileID: 1418347891}
+  txtTotalCashOut: {fileID: 180802946}
+  txtTotalCashBet: {fileID: 38412888}
   stopAnBet: {fileID: 496253698}
   txtStopAnBet: {fileID: 438770443}
   txtStopVal: {fileID: 1175123409}
@@ -869,6 +909,10 @@ MonoBehaviour:
   velocityBonus: 0.1
   fieldBonus: {fileID: 0}
   bonusTotal: 0
+  mensagen: {fileID: 170162647}
+  animMensagen: {fileID: 114131523}
+  totalCashOut: 0
+  totalCashBet: 0
 --- !u!114 &286262266 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7695781673904403913, guid: f7524c4aff74c0042b08d03e0c94f69d, type: 3}
@@ -1244,6 +1288,7 @@ MonoBehaviour:
   isWalking: 0
   canBet: 1
   credits: 0
+  clientName: 
   stopValBet: 1.01
   valueToBet: 1
   valUpgrade:
@@ -1275,6 +1320,7 @@ MonoBehaviour:
   autoStopRoundAtualCicle: 0
   automaticPlay: 0
   automaticPlayThisTurn: 0
+  log: 0
 --- !u!114 &887646982 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6128832036571026065, guid: f7524c4aff74c0042b08d03e0c94f69d, type: 3}
@@ -2268,15 +2314,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7507583215949293536, guid: ce47ab05205a71a47a621d2e0868914a, type: 3}
       propertyPath: url
-      value: ws://localhost:8080
+      value: wss://brasbetdev.orderoftheheadlessmule.com/tank
       objectReference: {fileID: 0}
     - target: {fileID: 7507583215949293536, guid: ce47ab05205a71a47a621d2e0868914a, type: 3}
       propertyPath: logs
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7507583215949293536, guid: ce47ab05205a71a47a621d2e0868914a, type: 3}
       propertyPath: token
-      value: 1
+      value: MXxyb29tNHwzMHwgfCB8Um9ic29uVGVzdHxhODZiODRkNy0xYzc3LTRhZTItODk0Ny03YmFlM2NjNmMxYjk=
       objectReference: {fileID: 0}
     - target: {fileID: 7507583215949293536, guid: ce47ab05205a71a47a621d2e0868914a, type: 3}
       propertyPath: logDebug

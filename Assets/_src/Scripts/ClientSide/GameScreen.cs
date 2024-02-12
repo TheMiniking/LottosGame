@@ -1,20 +1,16 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net.WebSockets;
 using TMPro;
-using Unity.Collections.LowLevel.Unsafe;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using Game1003;
 
 
 [Serializable]
 public class GameScreen : BaseScreen
 {
     public bool logs = false;
-    [SerializeField] WebClient webClient;
     [SerializeField] GameManager gameManager;
     [SerializeField] Player tank;
     [SerializeField] Material fundo;
@@ -26,7 +22,7 @@ public class GameScreen : BaseScreen
     [SerializeField] float stop;
 
     [SerializeField] TMP_Text txtWalletBalance, txtWalletNickname;
-    [SerializeField] TMP_Text txtTimerMult, txtTimerMensagem, txtBonusTotal;
+    [SerializeField] TMP_Text txtTimerMult, txtTimerMensagem, txtBonusTotal, txtTotalCashOut, txtTotalCashBet;
     [SerializeField] Button stopAnBet;
     [SerializeField] TMP_Text txtStopAnBet, txtStopVal, txtBetVal;
     [SerializeField] List<Button> betButtons, autoStop = new();
@@ -45,6 +41,11 @@ public class GameScreen : BaseScreen
     [SerializeField] Transform fieldBonus;
 
     [SerializeField] float bonusTotal;
+    [SerializeField] TMP_Text mensagen;
+    [SerializeField] Animator animMensagen;
+
+    [SerializeField] public float totalCashOut = 0;
+    [SerializeField] public float totalCashBet = 0;
 
     private void Start()
     {
@@ -66,6 +67,8 @@ public class GameScreen : BaseScreen
             if (x.currentBox.gameObject.transform.position.x - 100 <= tank.gameObject.transform.position.x - 50) { StartCoroutine(Open(x.currentBox)); }
         });
         txtBonusTotal.text = $"x {bonusTotal:0.00}";
+        txtTotalCashOut.text = $"{totalCashOut:0.00}";
+        txtTotalCashBet.text = $"{totalCashBet:0.00}";
     }
 
     public void SetWalletNickname(string nickname)
@@ -155,7 +158,7 @@ public class GameScreen : BaseScreen
     {
         if (logs) Debug.Log($"SetBetText: {betV}");
         this.bet = betV;
-        webClient.SetBetValor(betV);
+        WebClient.Instance.SetBetValor(betV);
         txtBetVal.text = $"{betV:0.00}";
     }
 
@@ -264,7 +267,7 @@ public class GameScreen : BaseScreen
         box.gameObject.SetActive(false);
         if(boxT.Count > id)
         {
-        webClient.AddBonus(boxT[id].bonus);
+        WebClient.Instance.AddBonus(boxT[id].bonus);
         bonusTotal += boxT[id].bonus;
         boxT.RemoveAt(id);
         }
@@ -276,6 +279,13 @@ public class GameScreen : BaseScreen
         boxOBJ.ForEach(x => x.SetActive(false));
         boxT.Clear();
     }
+
+    public void PlayMensagen(string msg)
+    {
+        mensagen.text = msg;
+        animMensagen.Play("PopUp");
+    }
+
 }
 
 

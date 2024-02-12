@@ -44,7 +44,7 @@ public class CanvasManager : MonoBehaviour
     {
         DesactiveAll();
     }
-    
+
     //public void ActiveLoading()
     //{
     //    loading.SetActive(true);
@@ -94,6 +94,11 @@ public class CanvasManager : MonoBehaviour
 
     public void InstancieBox(float bonus) => gameScreen.InstantiateBox(bonus);
 
+    public void PlayMensagen(string msg) => gameScreen.PlayMensagen(msg);
+
+    public void AddCashOut(float cash)=> gameScreen.totalCashOut += cash;
+
+    public void AddCashBet(float cash) => gameScreen.totalCashBet += cash;
 }
 
 

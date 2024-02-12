@@ -1,20 +1,20 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using TMPro;
-using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
 using UnityEngine.UI;
+using Game1003;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
-    [SerializeField] WebClient webClient;
+    //[SerializeField] WebClient webClient;
     [SerializeField] GameScreen gameS;
     [SerializeField] public bool isWalking = false;
     [SerializeField] public bool canBet = true;
     [SerializeField] public float credits;
+    [SerializeField] public string clientName;
     [SerializeField] float stopValBet = 1.01f;
     [SerializeField] float valueToBet = 1f;
     [SerializeField] List<Toggle> valUpgrade = new();
@@ -34,6 +34,8 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] bool automaticPlay = false;
     [SerializeField] bool automaticPlayThisTurn = false;
+
+    [SerializeField] bool log = false;
 
     private void Awake()
     {
@@ -155,55 +157,96 @@ public class GameManager : MonoBehaviour
             autoStopInicial = credits;
             autoStopRoundAtual = 0;
             automaticPlay = true;
-            webClient.SendBet(valueToBet, autoStop.isOn ? stopValBet : 0);
+            WebClient.Instance.SendBet(valueToBet, autoStop.isOn ? stopValBet : 0);
+            CanvasManager.Instance.PlayMensagen($"Auto Play Active . Bet : {valueToBet:00.00}, Stop On: {stopValBet:0.00}");
         }
-        else { webClient.SendBet(valueToBet, autoStop.isOn ? stopValBet : 0); }
+        else {
+            WebClient.Instance.SendBet(valueToBet, autoStop.isOn ? stopValBet : 0);
+            CanvasManager.Instance.PlayMensagen(autoStop.isOn? $"Bet : {valueToBet:00.00}, Stop On: {stopValBet:0.00}" : $"Bet {valueToBet:0.00}");
+        }
     }
+
     public void SendBetAutomatic()
     {
-            var max = autoPlayStopIncDec[0].text != "" ? int.Parse(autoPlayStopIncDec[0].text) : 0;
-            var min = autoPlayStopIncDec[1].text != "" ? int.Parse(autoPlayStopIncDec[1].text) : 0;
-            if (autoPlayAction[0].isOn && autoPlayAction[1].isOn) // Usa valor Maximo e Minimo que os creditos devem chegar, para se alcançar algum desses
-            {
-                if (credits > (autoStopInicial - min))
+        var max = autoPlayStopIncDec[0].text != "" ? int.Parse(autoPlayStopIncDec[0].text) : 0;
+        var min = autoPlayStopIncDec[1].text != "" ? int.Parse(autoPlayStopIncDec[1].text) : 0;
+        var mode = AutomaticMode();
+        switch (mode){
+            case "Inc/Dec":
+                if(credits < (autoStopInicial + max))
                 {
-                    if (credits > (autoStopInicial + max)) { automaticPlay = false; } //Stop chegou no maximo
-                    else
+                    if(credits > (autoStopInicial - min))
                     {
-                        webClient.SendBet(valueToBet, stopValBet);
-                        automaticPlay = true;
-                        Debug.Log($"SendBet Inc/Dec ");
+                        if (autoStopRoundAtual < autoStopRoundAtualCicle)
+                        {
+                            WebClient.Instance.SendBet(valueToBet, stopValBet);
+                            automaticPlay = true;
+                            if (log) Debug.Log($"SendBet Inc/Dec ");
+                            autoStopRoundAtual++;
+                            CanvasManager.Instance.PlayMensagen($"AutoBet : {valueToBet:00.00}, Stop On: {stopValBet:0.00}");
+                        }
+                        else { TurnOfAutomatic(); }
                     }
+                    else { TurnOfAutomatic(); }
                 }
-                else { automaticPlay = false; }    //stop chegou no minimo
-            }
-            else if (autoPlayAction[0].isOn)
-            {                  // Usa Somente valor Maximo que os creditos devem chegar
+                else { TurnOfAutomatic(); }
+                break;
+            case "Inc":
                 if (credits < (autoStopInicial + max))
                 {
-                    webClient.SendBet(valueToBet, stopValBet);
-                    automaticPlay = true;
-                    Debug.Log($"SendBet Inc ");
+                    if (autoStopRoundAtual < autoStopRoundAtualCicle)
+                    {
+                        WebClient.Instance.SendBet(valueToBet, stopValBet);
+                        automaticPlay = true;
+                        if (log) Debug.Log($"SendBet Inc");
+                        autoStopRoundAtual++;
+                        CanvasManager.Instance.PlayMensagen($"AutoBet : {valueToBet:00.00}, Stop On: {stopValBet:0.00}");
+                    }
+                    else { TurnOfAutomatic(); }
                 }
-                else { automaticPlay = false; }//stop
-            }
-            else if (autoPlayAction[1].isOn)                    // Usa Somente valor Minimo que os creditos devem chegar
-            {
-                if (credits > (autoStopInicial + min))
+                else { TurnOfAutomatic(); }
+                break;
+            case "Dec":
+                if (credits > (autoStopInicial - min))
                 {
-                    webClient.SendBet(valueToBet, stopValBet);
-                    automaticPlay = true;
-                    Debug.Log($"SendBet Dec ");
+                    if(autoStopRoundAtual < autoStopRoundAtualCicle)
+                    {
+                        WebClient.Instance.SendBet(valueToBet, stopValBet);
+                        automaticPlay = true;
+                        if (log) Debug.Log($"SendBet Dec");
+                        autoStopRoundAtual++;
+                        CanvasManager.Instance.PlayMensagen($"AutoBet : {valueToBet:00.00}, Stop On: {stopValBet:0.00}");
+                    }
+                    else { TurnOfAutomatic(); }
                 }
-                else { automaticPlay = false; }//stop
-            }
-            else if (autoPlayAction[2].isOn && autoStopRoundAtual < autoStopRoundAtualCicle)
-            {
-                webClient.SendBet(valueToBet, stopValBet);
-                automaticPlay = true;
-                Debug.Log($"SendBet Repeat ");
-                autoStopRoundAtual++;
-            }
-            else { automaticPlay = false; } //stop
+                else { TurnOfAutomatic(); }
+                break;
+            case "Round":
+                if (autoStopRoundAtual < autoStopRoundAtualCicle)
+                {
+                    WebClient.Instance.SendBet(valueToBet, stopValBet);
+                    automaticPlay = true;
+                    if (log) Debug.Log($"SendBet Round");
+                    autoStopRoundAtual++;
+                    CanvasManager.Instance.PlayMensagen($"AutoBet : {valueToBet:00.00}, Stop On: {stopValBet:0.00}");
+                }
+                else { TurnOfAutomatic(); }
+                break;
+        }
+    }
+
+    string AutomaticMode()
+    {
+        if (autoPlayAction[0].isOn && autoPlayAction[1].isOn) return "Inc/Dec";
+        if (autoPlayAction[0].isOn) return "Inc";
+        if (autoPlayAction[1].isOn) return "Dec";
+        else return "Round";
+    }
+
+    void TurnOfAutomatic()
+    {
+        automaticPlay = false;
+        autoPlayAction.ForEach(x => { x.isOn = false; });
+        CanvasManager.Instance.PlayMensagen("End Of Auto Play");
     }
 }

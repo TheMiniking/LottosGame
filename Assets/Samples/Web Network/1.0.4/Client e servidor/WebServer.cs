@@ -191,7 +191,7 @@ public class WebServer : WebServerBase
         client.Register(msg.value, msg.stop);
         playersBet.Add(session);
         session.SendMsg(new Balance { msg = client.nickName, valor = client.credits });
-        session.SendMsg(new MensageControl { msg = "Aposta: Aposta feita!" });
+        session.SendMsg(new MensageControl { msg = "BetOK", useValor = 0, valor = msg.value });
         session.SendMsg(new ButtonBet { active = true, txt = "Wait Start..." });
         SendToAll(new BetPlayers { msg = client.nickName, valor = msg.value });
         serverHUD?.UpdateTotalIn(msg.value);
@@ -209,6 +209,7 @@ public class WebServer : WebServerBase
         var add = client.currentBet.bet * (playerMultiplicador + totalBonus);
         client.credits += add;
         session.SendMsg(new MensageControl { msg = $"Aposta {client.currentBet.bet:0.00} Multiplicador: {playerMultiplicador}+ Bonus {totalBonus} , Total Ganho : {add:0.00}", useValor = -1 });
+        session.SendMsg(new MensageControl { msg = "CashOutOK", useValor = 0, valor = add });
         session.SendMsg(new Balance { msg = client.nickName, valor = client.credits });
         session.SendMsg(new ButtonBet { active = false, txt = $" Winner x {playerMultiplicador+totalBonus:0.00}" });
         SendToAll(new BetPlayers { msg = client.nickName, valor = client.currentBet.bet, multply = playerMultiplicador + totalBonus });
