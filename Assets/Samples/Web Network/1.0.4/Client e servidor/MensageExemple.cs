@@ -237,21 +237,22 @@ public class Login : INetSerializable
 [Serializable]
 public class BetPlayers : INetSerializable
 {
-    public string msg;
-    public float valor;
-    public float multply;
+    public string name;
+    public double value;
+    public float multiplier;
+
     public void Deserialize(DataReader reader)
     {
-        reader.Get(ref msg);
-        reader.Get(ref valor);
-        reader.Get(ref multply);
+        reader.Get(ref name);
+        reader.Get(ref value);
+        reader.Get(ref multiplier);
     }
 
     public void Serialize(DataWriter write)
     {
-        write.Put(msg);
-        write.Put(valor);
-        write.Put(multply);
+        write.Put(name);
+        write.Put(value);
+        write.Put(multiplier);
     }
 }
 

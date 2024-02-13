@@ -18,35 +18,35 @@ namespace BV
             Instance = this;
         }
 
-        protected override void Start()
-        {
-            base.Start();
+        //protected override void Start()
+        //{
+        //    base.Start();
 
-            RegisterHandler<GameLoginResponse>(GameLoginResponse);
-            RegisterHandler<BalanceResponse>(BalanceResponse);
-            RegisterHandler<PlayResponse <MathStatus> >(PlayResponse, 35559);
-            //RegisterHandler<StartRun>(StartRun);
-            //RegisterHandler<Crash>(Crash);
-            //RegisterHandler<TimerSync>(TimerSync);
-            //RegisterHandler<MultSync>(MultSync);
-            //RegisterHandler<MensageControl>(MensageControl);
-            //RegisterHandler<Balance>(Balance);
-            //RegisterHandler<Parallax>(Paralax);
-            //RegisterHandler<Box>(Box);
-            //RegisterHandler<ButtonBet>(ButtonBet);
-            //RegisterHandler<BalanceCreditClient>(BalanceCreditClient);
-            //RegisterHandler<BetPlayers>(BetPlayers);
-            CreateConnection(url, token);
-            TryConnect();
-        }
+        //    //RegisterHandler<GameLoginResponse>(GameLoginResponse);
+        //    //RegisterHandler<BalanceResponse>(BalanceResponse);
+        //    //RegisterHandler<PlayResponse<MathStatus>>(PlayResponse, 35559);
+        //    //RegisterHandler<StartRun>(StartRun);
+        //    //RegisterHandler<Crash>(Crash);
+        //    //RegisterHandler<TimerSync>(TimerSync);
+        //    //RegisterHandler<MultSync>(MultSync);
+        //    //RegisterHandler<MensageControl>(MensageControl);
+        //    //RegisterHandler<Balance>(Balance);
+        //    //RegisterHandler<Parallax>(Paralax);
+        //    //RegisterHandler<Box>(Box);
+        //    //RegisterHandler<ButtonBet>(ButtonBet);
+        //    //RegisterHandler<BalanceCreditClient>(BalanceCreditClient);
+        //    //RegisterHandler<BetPlayers>(BetPlayers);
+        //    CreateConnection(url, token);
+        //    TryConnect();
+        //}
 
-        protected override void OnOpen()
-        {
-            base.OnOpen();
-            SendMsg(new GameLogin { token = token });
-            Debug.Log("OnOpen ");
-            //SendMsg(new MensageExemple { value1 = "a", value2 = 111 });
-        }
+        //protected override void OnOpen()
+        //{
+        //    base.OnOpen();
+        //    SendMsg(new GameLogin { token = token });
+        //    Debug.Log("OnOpen ");
+        //    //SendMsg(new MensageExemple { value1 = "a", value2 = 111 });
+        //}
 
 
         protected override void OnClose(int closeCode)
@@ -62,22 +62,22 @@ namespace BV
 
         #region RespostaServer
 
-        void GameLoginResponse(GameLoginResponse msg)
-        {
-            Debug.Log("LogResponse:" + msg.code);
-        }
+        //void GameLoginResponse(GameLoginResponse msg)
+        //{
+        //    Debug.Log("LogResponse:" + msg.code);
+        //}
 
-        void BalanceResponse(BalanceResponse msg)
-        {
-            Debug.Log("BalanceResponse:" + msg.balance);
-        }
+        //void BalanceResponse(BalanceResponse msg)
+        //{
+        //    Debug.Log("BalanceResponse:" + msg.balance);
+        //}
 
-        void PlayResponse(PlayResponse<MathStatus> msg)
-        {
-            Debug.Log($"PlayResponse: id: { msg.data.id} value : {msg.data.value} ");
-        }
+        //void PlayResponse(PlayResponse<MathStatus> msg)
+        //{
+        //    Debug.Log($"PlayResponse: id: { msg.data.id} value : {msg.data.value} ");
+        //}
 
-        void StartRun(StartRun msg)
+        public void StartRun(StartRun msg)
         {
             isRunning = true;
             GameManager.Instance.isWalking = true;
@@ -87,7 +87,7 @@ namespace BV
             //Debug.Log("Start Corrida");
         }
 
-        void Crash(Crash msg)
+        public void Crash(Crash msg)
         {
             isRunning = false;
             GameManager.Instance.isWalking = false;
@@ -97,23 +97,23 @@ namespace BV
             CanvasManager.Instance.SetLastPlays(msg.multply);
             Debug.Log("Kabum , Distance x" + msg.multply);
         }
-        void TimerSync(TimerSync msg)
+        public void TimerSync(TimerSync msg)
         {
             CanvasManager.Instance.SetTimer((int)msg.time);
             //Debug.Log($"Time :{msg.time:00:00}");
         }
 
-        void MultSync(MultSync msg)
+        public void MultSync(MultSync msg)
         {
             CanvasManager.Instance.SetMultiplicador(msg.mult);
         }
 
-        void Paralax(Parallax msg)
+        public void Paralax(Parallax msg)
         {
             CanvasManager.Instance.AddVelocityParalax(msg.velocidade);
         }
 
-        void Balance(Balance msg)
+        public void Balance(Balance msg)
         {
             CanvasManager.Instance.SetWalletNick(msg.msg);
             CanvasManager.Instance.SetWalletBalance(msg.valor);
@@ -130,7 +130,7 @@ namespace BV
             {
                 CanvasManager.Instance.SetBetDesactive();
             }
-            if (msg.txt != "") CanvasManager.Instance.SetBetButtonText(msg.txt);
+            //if (msg.txt != "") CanvasManager.Instance.SetBetButtonText(msg.txt);
         }
         void Box(Box msg)
         {
@@ -186,35 +186,37 @@ namespace BV
         }
 
 
-        public void BetPlayers(BetPlayers msg)
-        {
-            Debug.Log(msg.multply == 0 ? $"[Client] Jogador{msg.msg} fez aposta pagando{msg.valor}" : $"[Cliente] O jogador {msg.msg} Retirou e ganhou{msg.valor * msg.multply}");
-            if (msg.multply == 0)
-            {
-                CanvasManager.Instance.SetPlayersBet(msg);
-            }
-            else
-            {
-                CanvasManager.Instance.SetPlayersWin(msg);
-            }
-        }
+        //public void BetPlayers(BetPlayers msg)
+        //{
+        //    Debug.Log(msg.multply == 0 ? $"[Client] Jogador{msg.name} fez aposta pagando{msg.valor}" : $"[Cliente] O jogador {msg.name} Retirou e ganhou{msg.valor * msg.multply}");
+        //    if (msg.multply == 0)
+        //    {
+        //        CanvasManager.Instance.SetPlayersBet(msg);
+        //    }
+        //    else
+        //    {
+        //        CanvasManager.Instance.SetPlayersWin(msg);
+        //    }
+        //}
 
         #endregion
 
         #region ClientToServer 
         public void SendBet(float bet, float stop)
         {
-            if (isRunning)
-            {
-                SendMsg(new StopBet { });
-                Debug.Log("Stop bet [Client]");
-            }
-            else
-            {
-                SendMsg(new BetServer { value = bet, stop = stop });
-                Debug.Log(stop != 0 ? $"Start bet [Client] , Auto Bet ON. bet:{bet} Stop:{stop:0.00}" : "Start bet [Client] : " + bet);
+            //if (isRunning)
+            //{
+            //    //SendMsg(new StopBet { });
 
-            }
+            //    Debug.Log("Stop bet [Client]");
+            //}
+            //else
+            //{
+            //    SendMsg(new BetServer { value = bet, stop = stop });
+            //    Debug.Log(stop != 0 ? $"Start bet [Client] , Auto Bet ON. bet:{bet} Stop:{stop:0.00}" : "Start bet [Client] : " + bet);
+
+            //}
+            SendMsg(new PlayRequest());
         }
 
         public void GetBalance()
@@ -224,8 +226,8 @@ namespace BV
 
         public void SetBetValor(float bet)
         {
-            SendMsg(new SetBet { valor = bet });
-            CanvasManager.Instance.SetBetButtonText($"Bet {bet:0.00}");
+            //SendMsg(new SetBet { valor = bet });
+            //CanvasManager.Instance.SetBetButtonText($"Bet {bet:0.00}");
         }
         public void AddBonus(float bonus)
         {

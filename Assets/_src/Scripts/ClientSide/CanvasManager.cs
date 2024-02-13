@@ -66,7 +66,7 @@ public class CanvasManager : MonoBehaviour
 
     public void SetWalletNick(string user) => gameScreen.SetWalletNickname(user);
 
-    public void SetWalletBalance(float balance) => gameScreen.SetWalletBalance(balance);
+    public void SetWalletBalance(double balance) => gameScreen.SetWalletBalance(balance);
 
     public void SetBonusTotal(float bonus) => gameScreen.SetBonusTotal(bonus);
 
@@ -80,7 +80,7 @@ public class CanvasManager : MonoBehaviour
 
     public void SetBetDesactive() => gameScreen.DesactiveBet();
 
-    public void SetBetButtonText(string text) => gameScreen.SetBetButtonText(text);
+    public void SetBetButtonStop(float mult) => gameScreen.SetBetButtonText(mult);
 
     public void SetLastPlays(float last) => gameScreen.SetLastResult(last);
 

@@ -10,6 +10,7 @@ using BV;
 [Serializable]
 public class GameScreen : BaseScreen
 {
+    public static GameScreen instance;
     public bool logs = false;
     [SerializeField] GameManager gameManager;
     [SerializeField] Player tank;
@@ -47,15 +48,20 @@ public class GameScreen : BaseScreen
     [SerializeField] public float totalCashOut = 0;
     [SerializeField] public float totalCashBet = 0;
 
+    private void Awake()
+    {
+        instance = this;
+    }
+
     private void Start()
     {
         fundo.SetInt("_UseScriptTime", 1);
-        betButtons.ForEach(x => x.onClick.RemoveAllListeners());
-        autoStop.ForEach(x => x.onClick.RemoveAllListeners());
-        betButtons[0].onClick.AddListener(() => SetBetText(gameManager.UpDownBetAmount(true)));
-        betButtons[1].onClick.AddListener(() => SetBetText(gameManager.UpDownBetAmount(false)));
-        autoStop[0].onClick.AddListener(() => SetStopText(gameManager.UpDownAutoStop(true)));
-        autoStop[1].onClick.AddListener(() => SetStopText(gameManager.UpDownAutoStop(false)));
+        //betButtons.ForEach(x => x.onClick.RemoveAllListeners());
+        //autoStop.ForEach(x => x.onClick.RemoveAllListeners());
+        //betButtons[0].onClick.AddListener(() => SetBetText(gameManager.UpDownBetAmount(true)));
+        //betButtons[1].onClick.AddListener(() => SetBetText(gameManager.UpDownBetAmount(false)));
+        //autoStop[0].onClick.AddListener(() => SetStopText(gameManager.UpDownAutoStop(true)));
+        //autoStop[1].onClick.AddListener(() => SetStopText(gameManager.UpDownAutoStop(false)));
     }
 
     private void FixedUpdate()
@@ -76,7 +82,7 @@ public class GameScreen : BaseScreen
         if (logs) Debug.Log($"SetWalletNickname: {nickname}");
         txtWalletNickname.text = nickname;
     }
-    public void SetWalletBalance(float balance)
+    public void SetWalletBalance(double balance)
     {
         if (logs) Debug.Log($"SetWalletBalance: {balance}");
         txtWalletBalance.text = $"{balance:0.00}";
@@ -140,25 +146,28 @@ public class GameScreen : BaseScreen
     {
         if (logs) Debug.Log($"ActiveBet");
         stopAnBet.interactable = true;
+        txtStopAnBet.text = $"Bet";
     }
 
     public void DesactiveBet()
     {
         if (logs) Debug.Log($"DesactiveBet");
         stopAnBet.interactable = false;
+        txtStopAnBet.text = $"Wait Round";
     }
 
-    public void SetBetButtonText(string txt)
+    public void SetBetButtonText(float mult)
     {
-        if (logs) Debug.Log($"SetBetButtonText: {txt}");
-        txtStopAnBet.text = txt;
+        if (logs) Debug.Log($"SetBetButtonText: {mult}");
+        stopAnBet.interactable = true;
+        txtStopAnBet.text = $"Stop x{mult:0.00}";
     }
-
-    public void SetBetText(float betV)
+    
+    public void SetBetText(double betV)
     {
         if (logs) Debug.Log($"SetBetText: {betV}");
-        this.bet = betV;
-        WebClient.Instance.SetBetValor(betV);
+        this.bet = (float)betV;
+        WebClient.Instance.SetBetValor((float)betV);
         txtBetVal.text = $"{betV:0.00}";
     }
 
@@ -173,7 +182,7 @@ public class GameScreen : BaseScreen
     {
         if (logs) Debug.Log($"SetLastResult: {result}");
         lastResult.Add(result);
-        if(lastResult.Count > 9 ) lastResult.RemoveAt(0);
+        if(lastResult.Count > lastResultObj.Count ) lastResult.RemoveAt(0);
         lastResultObj.ForEach(x => x.SetActive(false));
         for (int i = 0; i < lastResult.Count; i++)
         {
@@ -194,13 +203,13 @@ public class GameScreen : BaseScreen
 
     public void SetBetPlayersList(BetPlayers bet)
     {
-        if (logs) Debug.Log($"SetBetPlayersList: {bet.msg}");
+        if (logs) Debug.Log($"SetBetPlayersList: {bet.name}");
         playersBetList.Add(bet);
         if(playersBetList.Count > playersBet.Count) playersBetList.RemoveAt(0);
         playersBetList.ForEach(x => {
             playersBet[playersBetList.IndexOf(x)].gameObject.SetActive(true);
-            playersBet[playersBetList.IndexOf(x)].name.text = x.msg;
-            playersBet[playersBetList.IndexOf(x)].bet.text = $"{x.valor:0.00} C";
+            playersBet[playersBetList.IndexOf(x)].name.text = x.name;
+            playersBet[playersBetList.IndexOf(x)].bet.text = $"{x.value:0.00} C";
             playersBet[playersBetList.IndexOf(x)].credits.text = $" --.-- C";
             playersBet[playersBetList.IndexOf(x)].multply.text = $"x --.--";
             playersBet[playersBetList.IndexOf(x)].anim.Play("Normal");
@@ -210,16 +219,16 @@ public class GameScreen : BaseScreen
 
     public void SetBetPlayersWin(BetPlayers bet)
     {
-        if (logs) Debug.Log($"SetBetPlayersWin: {bet.msg}");
+        if (logs) Debug.Log($"SetBetPlayersWin: {bet.name} bet {bet.value} x {bet.multiplier}");
         //ResetBetPlayers();
         playersBetList.Add(bet);
         if (playersBetList.Count > playersBet.Count) playersBetList.RemoveAt(0);
         playersBetList.ForEach(x => {
             playersBet[playersBetList.IndexOf(x)].gameObject.SetActive(true);
-            playersBet[playersBetList.IndexOf(x)].name.text = x.msg;
-            playersBet[playersBetList.IndexOf(x)].bet.text = $"{x.valor:0.00} C";
-            playersBet[playersBetList.IndexOf(x)].credits.text = $"{x.valor * x.multply:0.00} C";
-            playersBet[playersBetList.IndexOf(x)].multply.text = $"x {x.multply:0.00}";
+            playersBet[playersBetList.IndexOf(x)].name.text = x.name;
+            playersBet[playersBetList.IndexOf(x)].bet.text = $"{x.value:0.00} C";
+            playersBet[playersBetList.IndexOf(x)].credits.text = $"{x.value * x.multiplier:0.00} C";
+            playersBet[playersBetList.IndexOf(x)].multply.text = $"x {x.multiplier:0.00}";
             playersBet[playersBetList.IndexOf(x)].anim.Play("BetWin");
             //playersBet[playersBetList.IndexOf(x)].GetComponent<Image>().color = new Color(0,1,0,0.3f);
         });

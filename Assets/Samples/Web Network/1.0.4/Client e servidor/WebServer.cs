@@ -193,7 +193,7 @@ public class WebServer : WebServerBase
         session.SendMsg(new Balance { msg = client.nickName, valor = client.credits });
         session.SendMsg(new MensageControl { msg = "BetOK", useValor = 0, valor = msg.value });
         session.SendMsg(new ButtonBet { active = true, txt = "Wait Start..." });
-        SendToAll(new BetPlayers { msg = client.nickName, valor = msg.value });
+        SendToAll(new BetPlayers { name = client.nickName, value = msg.value });
         serverHUD?.UpdateTotalIn(msg.value);
     }
 
@@ -212,7 +212,7 @@ public class WebServer : WebServerBase
         session.SendMsg(new MensageControl { msg = "CashOutOK", useValor = 0, valor = add });
         session.SendMsg(new Balance { msg = client.nickName, valor = client.credits });
         session.SendMsg(new ButtonBet { active = false, txt = $" Winner x {playerMultiplicador+totalBonus:0.00}" });
-        SendToAll(new BetPlayers { msg = client.nickName, valor = client.currentBet.bet, multply = playerMultiplicador + totalBonus });
+        SendToAll(new BetPlayers { name = client.nickName, value = client.currentBet.bet, multiplier = playerMultiplicador + totalBonus });
         playersBet.Remove(session);
         serverHUD?.UpdateTotalOut(add);
     }
