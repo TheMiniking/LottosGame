@@ -242,7 +242,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1707739987475499785, guid: f7524c4aff74c0042b08d03e0c94f69d, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.33709908
+      value: 0.3370781
       objectReference: {fileID: 0}
     - target: {fileID: 1727617964172235205, guid: f7524c4aff74c0042b08d03e0c94f69d, type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.size
@@ -841,7 +841,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   root: {fileID: 243905868}
   logs: 0
-  webClient: {fileID: 1055684675}
   gameManager: {fileID: 882655986}
   tank: {fileID: 325885406}
   fundo: {fileID: 2100000, guid: b38476416e9f3e340b0c0e47076984d0, type: 2}
@@ -1283,7 +1282,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8860e8a1d089a96499fae4c6e66af629, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  webClient: {fileID: 1055684675}
   gameS: {fileID: 243905870}
   isWalking: 0
   canBet: 1
@@ -1581,17 +1579,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1349261518788691282, guid: f7524c4aff74c0042b08d03e0c94f69d, type: 3}
   m_PrefabInstance: {fileID: 114131521}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1055684675 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7507583215949293536, guid: ce47ab05205a71a47a621d2e0868914a, type: 3}
-  m_PrefabInstance: {fileID: 1659678564}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9b3ed06d3c94764eaa5bedd2878a39f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1103776525 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5899000502732790405, guid: c4fd43c8a65a6a44a98f57188c648199, type: 3}
@@ -1979,6 +1966,29 @@ MonoBehaviour:
   boxPrefab: {fileID: 0}
   initBox: 0
   endBox: 0
+--- !u!1 &1298522120 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1717301008028739644, guid: ce47ab05205a71a47a621d2e0868914a, type: 3}
+  m_PrefabInstance: {fileID: 1659678564}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1298522122
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1298522120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c8051b3c5b111049930cfb36f576f36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  autoReconnect: 1
+  logs: 1
+  json: 0
+  url: wss://brasbetdev.orderoftheheadlessmule.com/tank
+  token: MXxyb29tNHwzMHwgfCB8Um9ic29uVGVzdHxhODZiODRkNy0xYzc3LTRhZTItODk0Ny03YmFlM2NjNmMxYjk=
+  value: {fileID: 1865499272}
 --- !u!1 &1330783150
 GameObject:
   m_ObjectHideFlags: 0
@@ -2329,6 +2339,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7507583215949293536, guid: ce47ab05205a71a47a621d2e0868914a, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7507583215949293536, guid: ce47ab05205a71a47a621d2e0868914a, type: 3}
       propertyPath: gameManager
       value: 
       objectReference: {fileID: 882655986}
@@ -2379,7 +2393,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1717301008028739644, guid: ce47ab05205a71a47a621d2e0868914a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1298522122}
   m_SourcePrefab: {fileID: 100100000, guid: ce47ab05205a71a47a621d2e0868914a, type: 3}
 --- !u!1 &1712217929
 GameObject:

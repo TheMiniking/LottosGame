@@ -2,9 +2,9 @@ using Serializer;
 using UnityEngine;
 using GameSpawner;
 
-namespace Game1003
+namespace BV
 {
-
+     
     public class WebClient : WebClientBase
     {
         public static WebClient Instance;
@@ -24,7 +24,7 @@ namespace Game1003
 
             RegisterHandler<GameLoginResponse>(GameLoginResponse);
             RegisterHandler<BalanceResponse>(BalanceResponse);
-            RegisterHandler<PlayResponse <MathStatus> >(PlayResponse);
+            RegisterHandler<PlayResponse <MathStatus> >(PlayResponse, 35559);
             //RegisterHandler<StartRun>(StartRun);
             //RegisterHandler<Crash>(Crash);
             //RegisterHandler<TimerSync>(TimerSync);
@@ -234,7 +234,10 @@ namespace Game1003
         #endregion
     }
 
-    class MathStatus : INetSerializable
+   
+
+}
+ public class MathStatus : INetSerializable
     {
         public byte id;
         public float value;
@@ -251,5 +254,3 @@ namespace Game1003
             write.Put(value);
         }
     }
-
-}
