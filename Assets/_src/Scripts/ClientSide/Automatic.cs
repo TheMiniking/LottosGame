@@ -5,8 +5,9 @@ public class Automatic : MonoBehaviour
 {
     [SerializeField] bool autoPlay;
     [SerializeField] bool autoCashOut;
-    [SerializeField] int round = -1;
+    [SerializeField] public int round = -1;
     [SerializeField] float stopmultiplier;
+    
     void Start()
     {
 
@@ -24,9 +25,15 @@ public class Automatic : MonoBehaviour
         if (autoPlay && (round == -1 || round > 0))
         {
             ClientExemple.Instance.SendBet();
-            if(round>0)
+            CanvasManager.Instance.PlayMensagen("AutoPlay Bet");
+            if (round>0)
             round--;
-            if (round == 0) autoPlay = false;
+            if (round == 0)
+            {
+                autoPlay = false;
+                CanvasManager.Instance.PlayMensagen("End of AutoPlay");
+            }
+
         }
     }
     //quando começa a somar o multiplicador.
@@ -40,6 +47,7 @@ public class Automatic : MonoBehaviour
         if (autoCashOut && value >= stopmultiplier)
         {
             ClientExemple.Instance.SendBet();
+            CanvasManager.Instance.PlayMensagen($"CashOut x{value:0.00}");
         }
     }
 
@@ -56,10 +64,14 @@ public class Automatic : MonoBehaviour
     internal void AutoStop(bool x)
     {
         autoPlay = x;
+        CanvasManager.Instance.PlayMensagen(x ? "AutoPlay Active" : "AutoPlay Desactive");
     }
 
     internal void AutoCashout(bool x)
     {
         autoCashOut = x;
+        CanvasManager.Instance.PlayMensagen(x ? "CashOut Active" : "CashOut Desactive");
     }
+
+
 }

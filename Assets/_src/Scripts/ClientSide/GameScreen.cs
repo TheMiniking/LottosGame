@@ -26,11 +26,12 @@ public class GameScreen : BaseScreen
     [SerializeField] TMP_Text txtTimerMult, txtTimerMensagem, txtBonusTotal, txtTotalCashOut, txtTotalCashBet;
     [SerializeField] Button stopAnBet;
     [SerializeField] TMP_Text txtStopAnBet, txtBetVal;
-    [SerializeField] TMP_InputField stopVal;
+    [SerializeField] TMP_InputField stopVal, betInput;
     [SerializeField] List<Button> betButtons, autoStop = new();
     [SerializeField] List<GameObject> lastResultObj = new();
     [SerializeField] List<BetPlayersHud> playersBet = new();
-    [SerializeField] List<float> lastResult = new();
+    [SerializeField] List<float> lastResult,last50Result = new();
+    [SerializeField] List<Sprite> lastResultSprite = new();
     [SerializeField] List<BetPlayers> playersBetList = new();
 
     [SerializeField] GameObject boxPrefab;
@@ -61,12 +62,6 @@ public class GameScreen : BaseScreen
     private void Start()
     {
         fundo.SetInt("_UseScriptTime", 1);
-        //betButtons.ForEach(x => x.onClick.RemoveAllListeners());
-        //autoStop.ForEach(x => x.onClick.RemoveAllListeners());
-        //betButtons[0].onClick.AddListener(() => SetBetText(gameManager.UpDownBetAmount(true)));
-        //betButtons[1].onClick.AddListener(() => SetBetText(gameManager.UpDownBetAmount(false)));
-        //autoStop[0].onClick.AddListener(() => SetStopText(gameManager.UpDownAutoStop(true)));
-        //autoStop[1].onClick.AddListener(() => SetStopText(gameManager.UpDownAutoStop(false)));
 
         autoCashOutToggle.onValueChanged.AddListener(x =>
         {
@@ -82,7 +77,7 @@ public class GameScreen : BaseScreen
             float.TryParse(v, out float s);
             Debug.LogWarning(v+" less "+s);
             s = Mathf.Max(1f, s - 1.0f);
-            stopVal.SetTextWithoutNotify($"x{s.ToString("f2")}");
+            stopVal.SetTextWithoutNotify($"x {s.ToString("f2")}");
             GameManager.Instance.SetAutoStop(s);
         });
         autoStop[0].onClick.AddListener(() =>
@@ -91,17 +86,29 @@ public class GameScreen : BaseScreen
             float.TryParse(v, out float s);
             Debug.LogWarning(v + " More " + s);
             s = Mathf.Min(1000f, s + 1.0f);
-            stopVal.SetTextWithoutNotify($"x{s.ToString("f2")}");
+            stopVal.SetTextWithoutNotify($"x {s.ToString("f2")}");
             GameManager.Instance.SetAutoStop(s);
         });
         stopVal.onValueChanged.AddListener(x =>
         {
-            var v = Regex.Replace(x.Replace(".", ","), @"[^0-9,]", string.Empty) ?? string.Empty;
-            stopVal.text = $"x{v:0,00}";
-            float.TryParse(v, out float s);
-            s = Mathf.Clamp(s, 1, 1000);
-            GameManager.Instance.SetAutoStop(s);
-            StartCoroutine(MoveCarret());
+            string resultado = Regex.Replace(x.Replace(",", "."), "[^0-9.]", "");
+            stopVal.SetTextWithoutNotify(resultado);
+        });
+        stopVal.onEndEdit.AddListener(x =>
+        {
+            string resultado = Regex.Replace(x.Replace(".", ","), "[^0-9,]", "");
+            float n = 0;
+            float.TryParse(resultado, out n);
+            n = Mathf.Clamp(n, 1, 1000);
+            stopVal.SetTextWithoutNotify($"x {n.ToString("f2")}");
+            GameManager.Instance.SetAutoStop(n);
+        });
+        betInput.onEndEdit.AddListener(x =>
+        {
+            int n = 0;
+            int.TryParse(x, out n);
+            n = Mathf.Clamp(n, 1, 100);
+            betInput.SetTextWithoutNotify(n.ToString());
         });
         ResetBetPlayers();
     }
@@ -215,7 +222,7 @@ public class GameScreen : BaseScreen
         if (logs) Debug.Log($"SetBetText: {betV}");
         this.bet = (float)betV;
         WebClient.Instance.SetBetValor((float)betV);
-        txtBetVal.text = $"{betV:0.00}";
+        betInput.text = $"{betV}";
     }
 
     public void SetStopText(float stopV)
@@ -229,13 +236,15 @@ public class GameScreen : BaseScreen
     {
         if (logs) Debug.Log($"SetLastResult: {result}");
         lastResult.Add(result);
+        last50Result.Add(result);
         if (lastResult.Count > lastResultObj.Count) lastResult.RemoveAt(0);
+        if (last50Result.Count > 50) last50Result.RemoveAt(0);
         lastResultObj.ForEach(x => x.SetActive(false));
         for (int i = 0; i < lastResult.Count; i++)
         {
             lastResultObj[i].SetActive(true);
             lastResultObj[i].transform.GetChild(0).GetComponent<TMP_Text>().text = $"{lastResult[i]:0.00}";
-            lastResultObj[i].GetComponent<Image>().color = lastResult[i] < 2f ? Color.red : lastResult[i] < 5 ? Color.yellow : Color.green;
+            lastResultObj[i].GetComponent<Image>().sprite = lastResult[i] < 2f ? lastResultSprite[0] : lastResult[i] < 5 ? lastResultSprite[1] : lastResultSprite[2];
         }
     }
 
@@ -259,15 +268,6 @@ public class GameScreen : BaseScreen
         playersBet.RemoveAt(index);
         playersBet.Insert(0, p);
 
-        //playersBetList.ForEach(x => {
-        //    playersBet[playersBetList.IndexOf(x)].gameObject.SetActive(true);
-        //    playersBet[playersBetList.IndexOf(x)].name.text = x.name;
-        //    playersBet[playersBetList.IndexOf(x)].bet.text = $"{x.value:0.00} C";
-        //    playersBet[playersBetList.IndexOf(x)].credits.text = $" --.-- C";
-        //    playersBet[playersBetList.IndexOf(x)].multply.text = $"x --.--";
-        //    playersBet[playersBetList.IndexOf(x)].anim.Play("Normal");
-        //playersBet[playersBetList.IndexOf(x)].GetComponent<Image>().color = new Color(0, 0, 0, 0.3f);
-        //});
     }
 
     public void SetBetPlayersWin(BetPlayers bet)

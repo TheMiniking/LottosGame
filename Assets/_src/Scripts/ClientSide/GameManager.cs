@@ -93,6 +93,8 @@ public class GameManager : MonoBehaviour
         autoStopRoundAtualCicle = rounds[t];
         autoStopRoundAtual = 0;
 
+        auto.round = rounds[t];
+
     }
 
     public void SetAutoPlayStopIncDecAtual(int t)

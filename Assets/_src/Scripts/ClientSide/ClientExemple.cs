@@ -11,6 +11,7 @@ public class ClientExemple : WebClientBase
     [SerializeField] string token;
     [SerializeField] TextMeshProUGUI value;
     bool isJoin = false;
+    string playerName;
 
     float paralaxPosition = 0;
     private void Awake()
@@ -93,7 +94,6 @@ public class ClientExemple : WebClientBase
             Debug.Log("Crash " + msg.data.value);
             isJoin = false;
             CanvasManager.Instance.SetMultiplicador(msg.data.value);
-            //value.text = msg.data.value.ToString("f2") + "x";
         }
         else if (msg.data.id == 3) // Join Round
         {
@@ -104,6 +104,8 @@ public class ClientExemple : WebClientBase
         {
             isJoin = false;
             CanvasManager.Instance.SetBetDesactive();
+            CanvasManager.Instance.PlayMensagen("Finish Bet");
+
         }
     }
     public void BetPlayers(BetPlayers msg)
@@ -112,10 +114,12 @@ public class ClientExemple : WebClientBase
         if (msg.multiplier == 0)
         {
             CanvasManager.Instance.SetPlayersBet(msg);
+            GameScreen.instance.totalCashBet += (float)msg.value;
         }
         else
         {
             CanvasManager.Instance.SetPlayersWin(msg);
+            GameScreen.instance.totalCashOut += (float)(msg.value * msg.multiplier);
         }
     }
 
@@ -126,7 +130,7 @@ public class ClientExemple : WebClientBase
 
     public void NextBet(bool up)
     {
-        SendMsg(new NextBet { bet = (byte)(up ? 1 : 0)}); ;
+        SendMsg(new NextBet { bet = (byte)(up ? 1 : 0)});
     }
     
     void NextBetResponse(NextBetResponse msg)
