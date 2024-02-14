@@ -7,7 +7,9 @@ using UnityEngine;
 public class ClientExemple : WebClientBase
 {
     public static ClientExemple Instance;
-    [SerializeField] string url;
+    string url;
+    [SerializeField] string urlTest;
+    [SerializeField] string urlDev;
     [SerializeField] string token;
     [SerializeField] TextMeshProUGUI value;
     bool isJoin = false;
@@ -20,6 +22,11 @@ public class ClientExemple : WebClientBase
     }
     protected override void Start()
     {
+#if BUILD_DEV
+    url = urlDev;
+#elif BUILD_TEST
+    url = urlTest;
+# endif
         base.Start();
         CanvasManager.Instance.ShowLoading("Connecting...");
 
