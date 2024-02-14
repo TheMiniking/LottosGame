@@ -12,7 +12,7 @@
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "447f267faaf950075f14a2de29cd2d8980a6ebbc"
+      "hash": "3b5575b74dcfdaa7b3627e153af1a2a76428aa82"
     },
     "com.gamespawner.webnetwork": {
       "version": "http://gitlab.playbrandsgroup.com/robson.petry/WebNetwork.git",

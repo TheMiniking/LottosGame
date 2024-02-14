@@ -12,6 +12,8 @@ public class CanvasManager : MonoBehaviour
     public static CanvasManager Instance;
 
     [SerializeField] GameScreen gameScreen;
+    [SerializeField] TextMeshProUGUI loadingMsg;
+    [SerializeField] GameObject loadingPanel;
 
 
     private void Awake()
@@ -29,7 +31,16 @@ public class CanvasManager : MonoBehaviour
         //if(loginScreen.ActiveSelf())loginScreen.Update();
         //if(menuScreen.ActiveSelf()) menuScreen.Update();
     }
-
+    public void ShowLoading(string text)
+    {
+        loadingPanel.SetActive(true);
+        loadingMsg.text = text;
+    }
+    public void HideLoading()
+    {
+        loadingPanel.SetActive(false);
+        loadingMsg.text = "";
+    }
 
     void DesactiveAll()
     {
@@ -86,7 +97,7 @@ public class CanvasManager : MonoBehaviour
 
     public void SetPlayersBet(BetPlayers bet) => gameScreen.SetBetPlayersList(bet);
 
-    public void SetPlayersWin(BetPlayers bet) => gameScreen.SetBetPlayersWin(bet);
+    public void SetPlayersWin(BetPlayers bet) => gameScreen.SetBetPlayersList(bet);
 
     public void ResetPlayersBet() => gameScreen.ResetBetPlayers();
 

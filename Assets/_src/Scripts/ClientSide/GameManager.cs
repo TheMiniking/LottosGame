@@ -5,6 +5,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using BV;
+using Unity.VisualScripting;
+using static UnityEngine.Rendering.DebugUI;
 
 public class GameManager : MonoBehaviour
 {
@@ -36,6 +38,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] bool automaticPlayThisTurn = false;
 
     [SerializeField] bool log = false;
+    [SerializeField] Automatic auto;
 
     private void Awake()
     {
@@ -248,5 +251,42 @@ public class GameManager : MonoBehaviour
         automaticPlay = false;
         autoPlayAction.ForEach(x => { x.isOn = false; });
         CanvasManager.Instance.PlayMensagen("End Of Auto Play");
+    }
+    //adicionado por Robson
+
+    //quando inicia o tempo pra entrar na partida
+    public void NewMatchInit()
+    {
+        auto.NewMatchInit();
+    }
+    //quando começa a somar o multiplicador.
+    public void NewMatchStart()
+    {
+
+        auto.NewMathStart();
+    }
+    public void MatchMultiplier(float value)
+    {
+        auto.MatchMultiplier(value);
+    }
+
+    internal void EndMatchStart()
+    {
+        auto.EndMatchStart();
+    }
+
+    internal void SetAutoStop(float v)
+    {
+        auto.SetAutoStop(v);
+    }
+
+    internal void AutoStop(bool x)
+    {
+        auto.AutoStop(x);
+    }
+
+    internal void AutoCashout(bool x)
+    {
+        auto.AutoCashout(x);
     }
 }

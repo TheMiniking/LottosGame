@@ -83,7 +83,7 @@ namespace BV
             GameManager.Instance.isWalking = true;
             GameManager.Instance.canBet = false;
             CanvasManager.Instance.SetTankState("Walking");
-            CanvasManager.Instance.ResetPlayersBet();
+            //CanvasManager.Instance.ResetPlayersBet();
             //Debug.Log("Start Corrida");
         }
 
@@ -143,40 +143,40 @@ namespace BV
         // -1 = default, 0 = usa Valor (funçao) msg (parametro), 1 = usa msg(funçao) valor(parametro) , usa
         public void MensageControl(MensageControl msg)
         {
-            if (msg.useValor == -1)
-            {
-                Debug.Log($"{msg.msg} : {msg.valor} ");
-                return;
-            }
-            if (msg.useValor == 1)
-            {
-                switch (msg.valor)
-                {
+            //if (msg.useValor == -1)
+            //{
+            //    Debug.Log($"{msg.msg} : {msg.valor} ");
+            //    return;
+            //}
+            //if (msg.useValor == 1)
+            //{
+            //    switch (msg.valor)
+            //    {
 
-                }
-            }
-            else if (msg.useValor == 0)
-            {
-                switch (msg.msg)
-                {
-                    case "Timer":
-                        if (logDebug) Debug.Log(CanvasManager.Instance == null ? "Canvas intance Vazio" : " Canvas Normal");
-                        CanvasManager.Instance.SetTimer((int)msg.valor);
-                        break;
-                    case "ResetBets":
-                        CanvasManager.Instance.ResetPlayersBet();
-                        break;
-                    case "AutoPlay":
-                        GameManager.Instance.CheckAutoPlay();
-                        break;
-                    case "BetOK":
-                        CanvasManager.Instance.AddCashBet(msg.valor);
-                        break;
-                    case "CashOutOK":
-                        CanvasManager.Instance.AddCashOut(msg.valor);
-                        break;
-                }
-            }
+            //    }
+            //}
+            //else if (msg.useValor == 0)
+            //{
+            //    switch (msg.msg)
+            //    {
+            //        case "Timer":
+            //            if (logDebug) Debug.Log(CanvasManager.Instance == null ? "Canvas intance Vazio" : " Canvas Normal");
+            //            CanvasManager.Instance.SetTimer((int)msg.valor);
+            //            break;
+            //        case "ResetBets":
+            //            CanvasManager.Instance.ResetPlayersBet();
+            //            break;
+            //        case "AutoPlay":
+            //            GameManager.Instance.CheckAutoPlay();
+            //            break;
+            //        case "BetOK":
+            //            CanvasManager.Instance.AddCashBet(msg.valor);
+            //            break;
+            //        case "CashOutOK":
+            //            CanvasManager.Instance.AddCashOut(msg.valor);
+            //            break;
+            //    }
+            //}
 
         }
 

@@ -3,19 +3,24 @@ using GameSpawner;
 using System.Collections;
 using TMPro;
 using UnityEngine;
-using static UnityEngine.Rendering.DebugUI;
 
 public class ClientExemple : WebClientBase
 {
+    public static ClientExemple Instance;
     [SerializeField] string url;
     [SerializeField] string token;
     [SerializeField] TextMeshProUGUI value;
     bool isJoin = false;
 
     float paralaxPosition = 0;
+    private void Awake()
+    {
+        Instance = this;
+    }
     protected override void Start()
     {
         base.Start();
+        CanvasManager.Instance.ShowLoading("Connecting...");
 
         RegisterHandler<GameLoginResponse>(GameLoginResponse, 40010);
         RegisterHandler<BalanceResponse>(BalanceResponse);
@@ -29,10 +34,28 @@ public class ClientExemple : WebClientBase
     protected override void OnOpen()
     {
         base.OnOpen();
+#if UNITY_WEBGL && !UNITY_EDITOR
+        token = GetTokenID();
+#endif
         SendMsg(new GameLogin { token = token });
+    }
+    string GetTokenID()
+    {
+        int pm = Application.absoluteURL.IndexOf("?token=");
+        if (pm != -1)
+        {
+            return Application.absoluteURL.Split("?token=")[1];
+        }
+        return "0";
+    }
+    protected override void OnClose(int closeCode)
+    {
+        base.OnClose(closeCode);
+        CanvasManager.Instance.ShowLoading("Connecting...");
     }
     void GameLoginResponse(GameLoginResponse msg)
     {
+        CanvasManager.Instance.HideLoading();
         Debug.Log("LogResponse:" + msg.code);
     }
 
@@ -47,6 +70,8 @@ public class ClientExemple : WebClientBase
         Debug.Log($"PlayResponse: id: {msg.data.id} value : {msg.data.value} ");
         if (msg.data.id == 0)// Start Timer
         {
+            CanvasManager.Instance.ResetPlayersBet();
+            GameManager.Instance.NewMatchInit();
             StartCoroutine(DisplayTimer(msg.data.value));
             CanvasManager.Instance.SetBetActive();
 
@@ -54,6 +79,7 @@ public class ClientExemple : WebClientBase
         else
         if (msg.data.id == 1)// Start Round 
         {
+            GameManager.Instance.NewMatchStart();
             StopAllCoroutines();
             CanvasManager.Instance.SetBetDesactive();
             WebClient.Instance.StartRun(new StartRun {});
@@ -61,6 +87,7 @@ public class ClientExemple : WebClientBase
         }
         else if (msg.data.id == 2) // End Round Crash
         {
+            GameManager.Instance.EndMatchStart();
             StopAllCoroutines();
             WebClient.Instance.Crash(new Crash { multply = msg.data.value});
             Debug.Log("Crash " + msg.data.value);
@@ -133,7 +160,12 @@ public class ClientExemple : WebClientBase
             multiSum += multiSum *(.1f* delay);
             multiplier += multiSum;
             CanvasManager.Instance.SetMultiplicador(multiplier);
-            if(isJoin) CanvasManager.Instance.SetBetButtonStop(multiplier);
+            if (isJoin)
+            {
+                CanvasManager.Instance.SetBetButtonStop(multiplier);
+
+                GameManager.Instance.MatchMultiplier(multiplier);
+            }
             //value.text = multiplier.ToString("f2") + "x";
             yield return new WaitForSeconds(delay);
         }
