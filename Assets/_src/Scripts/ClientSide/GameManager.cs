@@ -5,8 +5,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using BV;
-using Unity.VisualScripting;
-using static UnityEngine.Rendering.DebugUI;
 
 public class GameManager : MonoBehaviour
 {
@@ -24,7 +22,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] bool stepStop = false;
 
     [SerializeField] List<Toggle> autoPlayAction = new();
-    [SerializeField] List<Toggle> autoPlayRounds = new();
+    [SerializeField] List<Button> autoPlayRounds = new();
+    [SerializeField] List<Sprite> autoPlayRoundImagens = new();
     [SerializeField] List<int> rounds;
     [SerializeField] List<TMP_InputField> autoPlayStopIncDec = new();
 
@@ -75,35 +74,35 @@ public class GameManager : MonoBehaviour
 
     public void SetAutoPlayRoundsToggle()
     {
-        if (autoPlayAction[0].isOn || autoPlayAction[1].isOn)
+        if (!autoPlay.isOn) autoPlayAction[2].isOn = false;
+        if (autoPlayAction[2].isOn)
         {
-            autoPlayAction[2].isOn = true;
-            return;
+            autoPlayRounds.ForEach(x => x.interactable = true);
+            SetAutoPlayRoundsAtual(0);
         }
-        autoPlayRounds.ForEach(x => { x.interactable = autoPlayAction[2].isOn; x.isOn = false; });
-        autoPlayRounds[0].isOn = autoPlayAction[2].isOn;
+        else
+        {
+            SetAutoPlayRoundsAtual(0);
+            autoPlayRounds.ForEach(x =>{ x.interactable = false; x.GetComponent<Image>().sprite = autoPlayRoundImagens[0]; }) ;
+        }
     }
 
     public void SetAutoPlayRoundsAtual(int t)
     {
-        if (autoPlayRounds[t].isOn) autoPlayRounds.ForEach(x => { if (x != autoPlayRounds[t]) x.isOn = false; });
-        var i = 0;
-        autoPlayRounds.ForEach(x => { if (!x.isOn) i++; });
-        if (i == autoPlayRounds.Count) autoPlayRounds[0].isOn = autoPlayAction[2].isOn;
+        autoPlayRounds.ForEach(x => { if (x != autoPlayRounds[t]) x.GetComponent<Image>().sprite = autoPlayRoundImagens[0]; else x.GetComponent<Image>().sprite = autoPlayRoundImagens[1]; });
         autoStopRoundAtualCicle = rounds[t];
         autoStopRoundAtual = 0;
-
         auto.round = rounds[t];
-
+        GameScreen.instance.SetRoundsTxt(rounds[t]);
     }
 
-    public void SetAutoPlayStopIncDecAtual(int t)
-    {
-        autoPlayStopIncDec[t].interactable = autoPlayAction[t].isOn;
-        autoPlayAction[2].isOn = true;
-        autoPlayRounds.ForEach(x => { x.interactable = true; });
-        autoPlayRounds[0].isOn = true;
-    }
+    //public void SetAutoPlayStopIncDecAtual(int t)
+    //{
+    //    autoPlayStopIncDec[t].interactable = autoPlayAction[t].isOn;
+    //    autoPlayAction[2].isOn = true;
+    //    autoPlayRounds.ForEach(x => { x.interactable = true; });
+    //    autoPlayRounds[0].isOn = true;
+    //}
 
     public float UpDownAutoStop(float modify, bool toUp)
     {

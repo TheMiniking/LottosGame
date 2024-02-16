@@ -12,7 +12,7 @@
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "07113305efe919fe103b611b662210a6cbea01a4"
+      "hash": "7629896c1f7ece6fda8bd2fa4c8c86b23f6bf5f8"
     },
     "com.gamespawner.webnetwork": {
       "version": "http://gitlab.playbrandsgroup.com/robson.petry/WebNetwork.git",
@@ -21,7 +21,7 @@
       "dependencies": {
         "com.gamespawner.serializer": "1.0.20"
       },
-      "hash": "ebbe38ae7eacbc0354b6b96786ace860bc263f1a"
+      "hash": "9db207d980ce49f79c5f99f3b2b538bf5190e75c"
     },
     "com.unity.2d.animation": {
       "version": "9.0.3",

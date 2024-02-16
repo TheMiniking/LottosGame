@@ -33,7 +33,7 @@ public class Automatic : MonoBehaviour
                 autoPlay = false;
                 CanvasManager.Instance.PlayMensagen("End of AutoPlay");
             }
-
+            GameScreen.instance.SetRoundsTxt(round);
         }
     }
     //quando começa a somar o multiplicador.

@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using BV;
 using System.Text.RegularExpressions;
+using System.Linq;
 
 [Serializable]
 public class GameScreen : BaseScreen
@@ -28,9 +29,10 @@ public class GameScreen : BaseScreen
     [SerializeField] TMP_Text txtStopAnBet, txtBetVal;
     [SerializeField] TMP_InputField stopVal, betInput;
     [SerializeField] List<Button> betButtons, autoStop = new();
-    [SerializeField] List<GameObject> lastResultObj = new();
+    [SerializeField] List<LastSlot> lastResultObj = new();
+    [SerializeField] List<LastSlot> lastSlotFivity = new();
     [SerializeField] List<BetPlayersHud> playersBet = new();
-    [SerializeField] List<float> lastResult,last50Result = new();
+    [SerializeField] List<float> lastResult,lastFivityResult = new();
     [SerializeField] List<Sprite> lastResultSprite = new();
     [SerializeField] List<BetPlayers> playersBetList = new();
 
@@ -42,13 +44,17 @@ public class GameScreen : BaseScreen
     [SerializeField] Vector3 direcaoBonus = new();
     [SerializeField] float velocityBonus = 0.1f;
     [SerializeField] Transform fieldBonus;
-
+    [SerializeField] GameObject lastFivityOBJ;
     [SerializeField] float bonusTotal;
-    [SerializeField] TMP_Text mensagen;
+    [SerializeField] TMP_Text mensagen, roundsTxt;
     [SerializeField] Animator animMensagen;
 
     [SerializeField] public float totalCashOut = 0;
     [SerializeField] public float totalCashBet = 0;
+
+    [SerializeField] public float playerInBet = 0;
+    [SerializeField] public float playerInBetWinner = 0;
+    [SerializeField] public TMP_Text playerInBetTxt, playerInBetWinnerTxt;
 
     //adicionado por robson
     [SerializeField] Toggle autoCashOutToggle;
@@ -109,9 +115,16 @@ public class GameScreen : BaseScreen
             int.TryParse(x, out n);
             n = Mathf.Clamp(n, 1, 100);
             betInput.SetTextWithoutNotify(n.ToString());
+            ClientExemple.Instance.SetBetValor(n);
         });
         ResetBetPlayers();
     }
+
+    public void SetBetText(int bet)
+    {
+        betInput.SetTextWithoutNotify(bet.ToString());
+    }
+
     IEnumerator MoveCarret()
     {
         yield return new WaitForEndOfFrame();
@@ -129,6 +142,13 @@ public class GameScreen : BaseScreen
         txtBonusTotal.text = $"x {bonusTotal:0.00}";
         txtTotalCashOut.text = $"{totalCashOut:0.00}";
         txtTotalCashBet.text = $"{totalCashBet:0.00}";
+        playerInBetTxt.text = $"{playerInBet}";
+        playerInBetWinnerTxt.text = $"{playerInBetWinner}";
+    }
+
+    public void SetRoundsTxt(int rounds)
+    {
+        roundsTxt.text = rounds == -1 ? "Inf" : $"{rounds}";
     }
 
     public void SetWalletNickname(string nickname)
@@ -236,16 +256,30 @@ public class GameScreen : BaseScreen
     {
         if (logs) Debug.Log($"SetLastResult: {result}");
         lastResult.Add(result);
-        last50Result.Add(result);
+        lastFivityResult.Add(result);
         if (lastResult.Count > lastResultObj.Count) lastResult.RemoveAt(0);
-        if (last50Result.Count > 50) last50Result.RemoveAt(0);
-        lastResultObj.ForEach(x => x.SetActive(false));
-        for (int i = 0; i < lastResult.Count; i++)
-        {
-            lastResultObj[i].SetActive(true);
-            lastResultObj[i].transform.GetChild(0).GetComponent<TMP_Text>().text = $"{lastResult[i]:0.00}";
-            lastResultObj[i].GetComponent<Image>().sprite = lastResult[i] < 2f ? lastResultSprite[0] : lastResult[i] < 5 ? lastResultSprite[1] : lastResultSprite[2];
-        }
+        if (lastFivityResult.Count > 50) lastFivityResult.RemoveAt(0);
+        SetLastFivitySlots(result);
+        //lastResultObj.ForEach(x => x.SetActive(false));
+        var slot = lastResultObj.Last();
+        slot.SetBet(result);
+        slot.transform.SetAsFirstSibling();
+        lastResultObj.Remove(slot);
+        lastResultObj.Insert(0, slot);
+    }
+
+    public void ActiveSlotFivity()
+    {
+        lastFivityOBJ.SetActive(!lastFivityOBJ.activeSelf);
+    }
+
+    public void SetLastFivitySlots(float mult)
+    {
+        var slot = lastSlotFivity.Last();
+        slot.SetBet(mult);
+        slot.transform.SetAsFirstSibling();
+        lastSlotFivity.Remove(slot);
+        lastSlotFivity.Insert(0,slot);
     }
 
     public void ResetBetPlayers()
@@ -254,6 +288,8 @@ public class GameScreen : BaseScreen
         playersBet.ForEach(x => x.Clear());
         ResetBonus();
         bonusTotal = 0;
+        playerInBet = 0;
+        playerInBetWinner = 0;
     }
 
     public void SetBetPlayersList(BetPlayers bet)

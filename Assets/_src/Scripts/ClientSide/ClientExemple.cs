@@ -13,7 +13,8 @@ public class ClientExemple : WebClientBase
     [SerializeField] string token;
     [SerializeField] TextMeshProUGUI value;
     bool isJoin = false;
-    string playerName;
+    [SerializeField] string playerName;
+    [SerializeField] int betValor;
 
     float paralaxPosition = 0;
     private void Awake()
@@ -65,6 +66,7 @@ public class ClientExemple : WebClientBase
     {
         CanvasManager.Instance.HideLoading();
         Debug.Log("LogResponse:" + msg.code);
+        playerName = msg.name;
     }
 
     void BalanceResponse(BalanceResponse msg)
@@ -115,18 +117,36 @@ public class ClientExemple : WebClientBase
 
         }
     }
+
+    public void SetBetValor(int valor)
+    {
+        betValor = valor;
+        betValor = betValor > 100 ? 100 : betValor;
+        SendMsg(new NextBet { bet = (byte)betValor });
+    }
+
+    public void AddBetValor(int valor)
+    {
+        betValor += valor;
+        betValor = betValor > 100 ? 100 : betValor;
+        //GameScreen.instance.SetBetText(betValor);
+        SendMsg(new NextBet { bet = (byte)betValor});
+    }
+
     public void BetPlayers(BetPlayers msg)
     {
         Debug.Log(msg.multiplier == 0 ? $"[Client] Jogador{msg.name} fez aposta pagando{msg.value}" : $"[Cliente] O jogador {msg.name} Retirou {msg.multiplier}");
         if (msg.multiplier == 0)
         {
             CanvasManager.Instance.SetPlayersBet(msg);
-            GameScreen.instance.totalCashBet += (float)msg.value;
+            if(msg.name == playerName) GameScreen.instance.totalCashBet += (float)msg.value;
+            GameScreen.instance.playerInBet += 1;
         }
         else
         {
             CanvasManager.Instance.SetPlayersWin(msg);
-            GameScreen.instance.totalCashOut += (float)(msg.value * msg.multiplier);
+            if (msg.name == playerName) GameScreen.instance.totalCashOut += (float)(msg.value * msg.multiplier);
+            GameScreen.instance.playerInBetWinner += 1;
         }
     }
 
@@ -137,12 +157,15 @@ public class ClientExemple : WebClientBase
 
     public void NextBet(bool up)
     {
-        SendMsg(new NextBet { bet = (byte)(up ? 1 : 0)});
+        betValor = up? betValor + 1 : betValor - 1;
+        betValor = betValor > 100 ? 100 : betValor < 1 ? 1 : betValor;
+        SendMsg(new NextBet { bet = (byte)betValor});
     }
     
     void NextBetResponse(NextBetResponse msg)
     {
         GameScreen.instance.SetBetText(msg.money);
+        betValor = (int)msg.money;
     }
     public void SendBet()
     {
