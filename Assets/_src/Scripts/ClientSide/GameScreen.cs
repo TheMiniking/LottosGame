@@ -13,52 +13,59 @@ public class GameScreen : BaseScreen
 {
     public static GameScreen instance;
     public bool logs = false;
-    [SerializeField] GameManager gameManager;
-    [SerializeField] Player tank;
+    //---------- Mobile / Desktop ------------
+    [SerializeField] int screen = 0;
+    [SerializeField] Canvas mobile;
+    [SerializeField] Canvas desktop;
+
+    // ---------- Tank e Background -------------
+    [SerializeField] Player tank,tankMobile;
     [SerializeField] Material fundo;
     [SerializeField] float fundoRealtimeVelocity = 0.02f;
     [SerializeField] float fundoRealtimeAtualPosition;
     [SerializeField] bool fundoOnMove = false;
 
-    [SerializeField] float bet;
-    [SerializeField] float stop;
-
-    [SerializeField] TMP_Text txtWalletBalance, txtWalletNickname;
-    [SerializeField] TMP_Text txtTimerMult, txtTimerMensagem, txtBonusTotal, txtTotalCashOut, txtTotalCashBet;
-    [SerializeField] Button stopAnBet;
-    [SerializeField] TMP_Text txtStopAnBet, txtBetVal;
-    [SerializeField] TMP_InputField stopVal, betInput;
-    [SerializeField] List<Button> betButtons, autoStop = new();
-    [SerializeField] List<LastSlot> lastResultObj = new();
-    [SerializeField] List<LastSlot> lastSlotFivity = new();
-    [SerializeField] List<BetPlayersHud> playersBet = new();
-    [SerializeField] List<float> lastResult,lastFivityResult = new();
-    [SerializeField] List<Sprite> lastResultSprite = new();
-    [SerializeField] List<BetPlayers> playersBetList = new();
-
-    [SerializeField] GameObject boxPrefab;
-    [SerializeField] Vector3 initBox = new(0, 0, 0);
+    //----------- Box -------------------
+    [SerializeField] float bonusTotal;
     [SerializeField] List<float> bonusList = new();
-    [SerializeField] List<GameObject> boxOBJ = new();
-    [SerializeField] public List<BoxTank> boxT = new();
+    [SerializeField] GameObject boxPrefab;
+    [SerializeField] Transform fieldBonus;
+    [SerializeField] Vector3 initBox, initBoxMobile;
     [SerializeField] Vector3 direcaoBonus = new();
     [SerializeField] float velocityBonus = 0.1f;
-    [SerializeField] Transform fieldBonus;
-    [SerializeField] GameObject lastFivityOBJ;
-    [SerializeField] float bonusTotal;
+    [SerializeField] List<GameObject> boxOBJ = new();
+    [SerializeField] public List<BoxTank> boxT = new();
+
+    // ---------- UI ----------------
+    // ---------- Player ----------------
+    [SerializeField] TMP_Text txtWalletBalance, txtWalletNickname, txtWalletBalanceMobile, txtWalletNicknameMobile;
+
+    // ---------- Game ----------------
+    public float bet, stop = 0;
+    [SerializeField] public float totalCashOut ,totalCashBet ,playerInBet , playerInBetWinner = 0;
+    [SerializeField] public TMP_Text playerInBetTxt, playerInBetWinnerTxt, playerInBetTxtMobile, playerInBetWinnerTxtMobile;
+    [SerializeField] TMP_Text txtTimerMult, txtTimerMensagem, txtBonusTotal, txtTotalCashOut, txtTotalCashBet;
+    [SerializeField] TMP_Text txtTimerMultMobile, txtTimerMensagemMobile, txtBonusTotalMobile, txtTotalCashOutMobile, txtTotalCashBetMobile;
     [SerializeField] TMP_Text mensagen, roundsTxt;
-    [SerializeField] Animator animMensagen;
+    [SerializeField] TMP_Text mensagenMobile, roundsTxtMobile;
+    [SerializeField] Animator animMensagen, animMensagenMobile;
+    [SerializeField] List<Sprite> lastResultSprite = new();
+    [SerializeField] GameObject lastFivityOBJ, lastFivityOBJMobile;
+    [SerializeField] List<float> lastResult,lastFivityResult = new();
+    [SerializeField] List<LastSlot> lastResultObj, lastSlotFivity = new();
+    [SerializeField] List<LastSlot> lastResultObjMobile, lastSlotFivityMobile = new();
 
-    [SerializeField] public float totalCashOut = 0;
-    [SerializeField] public float totalCashBet = 0;
-
-    [SerializeField] public float playerInBet = 0;
-    [SerializeField] public float playerInBetWinner = 0;
-    [SerializeField] public TMP_Text playerInBetTxt, playerInBetWinnerTxt;
-
-    //adicionado por robson
-    [SerializeField] Toggle autoCashOutToggle;
+    // ---------- Bet Painel ----------------
+    [SerializeField] Button stopAnBet, stopAnBetMobile;
+    [SerializeField] TMP_Text txtStopAnBet, txtBetVal, txtStopAnBetMobile, txtBetValMobile;
+    [SerializeField] TMP_InputField stopVal, betInput;
+    [SerializeField] List<Button> betButtons, autoStop = new();
+    [SerializeField] Toggle autoCashOutToggle;//adicionado por robson
     [SerializeField] Toggle autoPlayToggle;
+
+    // ---------- Bet Game ----------------
+    [SerializeField] List<BetPlayers> playersBetList = new();
+    [SerializeField] List<BetPlayersHud> playersBet,playersBetMobile = new();
 
     private void Awake()
     {
@@ -67,6 +74,7 @@ public class GameScreen : BaseScreen
 
     private void Start()
     {
+        SetCanvas();
         fundo.SetInt("_UseScriptTime", 1);
 
         autoCashOutToggle.onValueChanged.AddListener(x =>
@@ -120,6 +128,18 @@ public class GameScreen : BaseScreen
         ResetBetPlayers();
     }
 
+    void SetCanvas()
+    {
+        screen = Screen.width > Screen.height ? 0 : 1 ;
+        desktop.gameObject.SetActive(screen == 0);
+        mobile.gameObject.SetActive(screen == 1);
+    }
+    void SetCanvas(bool desk)
+    {
+        desktop.gameObject.SetActive(desk);
+        mobile.gameObject.SetActive(!desk);
+    }
+
     public void SetBetText(int bet)
     {
         betInput.SetTextWithoutNotify(bet.ToString());
@@ -137,18 +157,24 @@ public class GameScreen : BaseScreen
         if (boxT.Count > 0) boxT.ForEach(x =>
         {
             x.currentBox.gameObject.transform.position += ((velocityBonus * direcaoBonus) * (fundoRealtimeVelocity * (fundoOnMove ? 1 : 0)));
-            if (x.currentBox.gameObject.transform.position.x - 100 <= tank.gameObject.transform.position.x - 50) { StartCoroutine(Open(x.currentBox)); }
+            if (x.currentBox.gameObject.transform.position.x - 100 <= (screen == 0? tank.gameObject.transform.position.x : tankMobile.gameObject.transform.position.x) - 50) { StartCoroutine(Open(x.currentBox)); }
         });
         txtBonusTotal.text = $"x {bonusTotal:0.00}";
+        txtBonusTotalMobile.text = $"x {bonusTotal:0.00}";
         txtTotalCashOut.text = $"{totalCashOut:0.00}";
+        txtTotalCashOutMobile.text = $"{totalCashOut:0.00}";
         txtTotalCashBet.text = $"{totalCashBet:0.00}";
+        txtTotalCashBetMobile.text = $"{totalCashBet:0.00}";
         playerInBetTxt.text = $"{playerInBet}";
+        playerInBetTxtMobile.text = $"{playerInBet}";
         playerInBetWinnerTxt.text = $"{playerInBetWinner}";
+        playerInBetWinnerTxtMobile.text = $"{playerInBetWinner}";
     }
 
     public void SetRoundsTxt(int rounds)
     {
         roundsTxt.text = rounds == -1 ? "Inf" : $"{rounds}";
+        roundsTxtMobile.text = rounds == -1 ? "Inf" : $"{rounds}";
     }
 
     public void SetWalletNickname(string nickname)
@@ -166,6 +192,8 @@ public class GameScreen : BaseScreen
         if (logs) Debug.Log($"SetTimer: {time}");
         txtTimerMult.text = $"{time:00:00}";
         txtTimerMensagem.text = "Next Round in:";
+        txtTimerMultMobile.text = $"{time:00:00}";
+        txtTimerMensagemMobile.text = "Next Round in:";
 
     }
     public void SetMultplicador(float mult)
@@ -173,6 +201,8 @@ public class GameScreen : BaseScreen
         if (logs) Debug.Log($"SetMultplicador: {mult}");
         txtTimerMult.text = $"x {mult:00.00}";
         txtTimerMensagem.text = "Stop in:";
+        txtTimerMultMobile.text = $"x {mult:00.00}";
+        txtTimerMensagemMobile.text = "Stop in:";
     }
     public void SetTimerMensagem(string time)
     {
@@ -191,11 +221,14 @@ public class GameScreen : BaseScreen
         {
             case "Walking":
                 tank.Walking(true);
+                tankMobile.Walking(true);
                 fundoOnMove = true;
                 break;
             case "Crash":
                 tank.Walking(false);
                 tank.Crash(true);
+                tankMobile.Walking(false);
+                tankMobile.Crash(true);
                 fundoOnMove = false;
                 break;
             case "Repair":
@@ -221,6 +254,8 @@ public class GameScreen : BaseScreen
         if (logs) Debug.Log($"ActiveBet");
         stopAnBet.interactable = true;
         txtStopAnBet.text = $"Bet";
+        stopAnBetMobile.interactable = true;
+        txtStopAnBetMobile.text = $"Bet";
     }
 
     public void DesactiveBet()
@@ -228,6 +263,8 @@ public class GameScreen : BaseScreen
         if (logs) Debug.Log($"DesactiveBet");
         stopAnBet.interactable = false;
         txtStopAnBet.text = $"Wait Round";
+        stopAnBetMobile.interactable = false;
+        txtStopAnBetMobile.text = $"Wait Round";
     }
 
     public void SetBetButtonText(float mult)
@@ -235,6 +272,8 @@ public class GameScreen : BaseScreen
         if (logs) Debug.Log($"SetBetButtonText: {mult}");
         stopAnBet.interactable = true;
         txtStopAnBet.text = $"Stop x{mult:0.00}";
+        stopAnBetMobile.interactable = true;
+        txtStopAnBetMobile.text = $"Stop x{mult:0.00}";
     }
 
     public void SetBetText(double betV)
@@ -257,8 +296,8 @@ public class GameScreen : BaseScreen
         if (logs) Debug.Log($"SetLastResult: {result}");
         lastResult.Add(result);
         lastFivityResult.Add(result);
-        if (lastResult.Count > lastResultObj.Count) lastResult.RemoveAt(0);
-        if (lastFivityResult.Count > 50) lastFivityResult.RemoveAt(0);
+        if (lastResult.Count > (screen == 0 ? lastResultObj.Count : lastResultObjMobile.Count)) lastResult.RemoveAt(0);
+        if (lastFivityResult.Count > (screen == 0 ? lastSlotFivity.Count: lastSlotFivityMobile.Count)) lastFivityResult.RemoveAt(0);
         SetLastFivitySlots(result);
         //lastResultObj.ForEach(x => x.SetActive(false));
         var slot = lastResultObj.Last();
@@ -266,11 +305,17 @@ public class GameScreen : BaseScreen
         slot.transform.SetAsFirstSibling();
         lastResultObj.Remove(slot);
         lastResultObj.Insert(0, slot);
+        var slotII = lastResultObjMobile.Last();
+        slotII.SetBet(result);
+        slotII.transform.SetAsFirstSibling();
+        lastResultObjMobile.Remove(slotII);
+        lastResultObjMobile.Insert(0, slotII);
     }
 
     public void ActiveSlotFivity()
     {
         lastFivityOBJ.SetActive(!lastFivityOBJ.activeSelf);
+        lastFivityOBJMobile.SetActive(!lastFivityOBJMobile.activeSelf);
     }
 
     public void SetLastFivitySlots(float mult)
@@ -333,7 +378,7 @@ public class GameScreen : BaseScreen
         boxOBJ[g].GetComponent<Animator>().Play("Inicial");
         boxOBJ[g].GetComponent<Animator>().SetBool("open", false);
         boxOBJ[g].GetComponent<Animator>().SetBool("kabum", false);
-        boxOBJ[g].transform.position = initBox;
+        boxOBJ[g].transform.position = screen == 0 ? initBox : initBoxMobile;
         boxOBJ[g].transform.Find("Text (TMP)").GetComponent<TMP_Text>().text = boxT[boxT.Count - 1].bonus == 0 ? "BOMB" : $"x {boxT[boxT.Count - 1].bonus}";
     }
 
@@ -347,7 +392,7 @@ public class GameScreen : BaseScreen
         boxOBJ[g].GetComponent<Animator>().Play("Inicial");
         boxOBJ[g].GetComponent<Animator>().SetBool("open", false);
         boxOBJ[g].GetComponent<Animator>().SetBool("kabum", false);
-        boxOBJ[g].transform.position = initBox;
+        boxOBJ[g].transform.position = screen == 0 ? initBox : initBoxMobile;
         boxOBJ[g].transform.Find("Text (TMP)").GetComponent<TMP_Text>().text = bonuss == 0 ? "BOMB" : $"x {bonuss:0.00}";
     }
 
@@ -361,7 +406,7 @@ public class GameScreen : BaseScreen
         yield return new WaitForSeconds(boxT[id].bonus != 0 ? 0.6f : 0.4f);
         //Debug.Log(boxT[id].bonus != 0 ? $"Bonus :x {boxT[id].bonus:0.00}":"Box Explosiva");
         box.gameObject.GetComponent<Animator>().Play("Inicial");
-        box.gameObject.transform.position = initBox;
+        box.gameObject.transform.position = screen == 0 ? initBox : initBoxMobile;
         box.gameObject.SetActive(false);
         if (boxT.Count > id)
         {
@@ -381,7 +426,9 @@ public class GameScreen : BaseScreen
     public void PlayMensagen(string msg)
     {
         mensagen.text = msg;
+        mensagenMobile.text = msg;
         animMensagen.Play("PopUp");
+        animMensagenMobile.Play("PopUp");
     }
 
 }
