@@ -15,8 +15,8 @@ public class GameScreen : BaseScreen
     public bool logs = false;
     //---------- Mobile / Desktop ------------
     [SerializeField] int screen = 0;
-    [SerializeField] Canvas mobile;
-    [SerializeField] Canvas desktop;
+    [SerializeField] GameObject mobile, mobileFundo;
+    [SerializeField] GameObject desktop, desktopFundo;
 
     // ---------- Tank e Background -------------
     [SerializeField] Player tank,tankMobile;
@@ -57,9 +57,9 @@ public class GameScreen : BaseScreen
 
     // ---------- Bet Painel ----------------
     [SerializeField] Button stopAnBet, stopAnBetMobile;
-    [SerializeField] TMP_Text txtStopAnBet, txtBetVal, txtStopAnBetMobile, txtBetValMobile;
+    [SerializeField] TMP_Text txtStopAnBet, txtBetVal, txtStopAnBetMobile, txtBetValMobile, stopValMobile;
     [SerializeField] TMP_InputField stopVal, betInput;
-    [SerializeField] List<Button> betButtons, autoStop = new();
+    [SerializeField] List<Button> betButtons, autoStop, autoStopMobile = new();
     [SerializeField] Toggle autoCashOutToggle;//adicionado por robson
     [SerializeField] Toggle autoPlayToggle;
 
@@ -91,8 +91,7 @@ public class GameScreen : BaseScreen
             float.TryParse(v, out float s);
             Debug.LogWarning(v+" less "+s);
             s = Mathf.Max(1f, s - 1.0f);
-            stopVal.SetTextWithoutNotify($"x {s.ToString("f2")}");
-            GameManager.Instance.SetAutoStop(s);
+            SetStopText(s);
         });
         autoStop[0].onClick.AddListener(() =>
         {
@@ -100,8 +99,23 @@ public class GameScreen : BaseScreen
             float.TryParse(v, out float s);
             Debug.LogWarning(v + " More " + s);
             s = Mathf.Min(1000f, s + 1.0f);
-            stopVal.SetTextWithoutNotify($"x {s.ToString("f2")}");
-            GameManager.Instance.SetAutoStop(s);
+            SetStopText(s);
+        });
+        autoStopMobile[1].onClick.AddListener(() =>
+        {
+            var v = Regex.Replace(stopValMobile.text.Replace(".", ","), @"[^0-9,]", string.Empty);
+            float.TryParse(v, out float s);
+            Debug.LogWarning(v + " less " + s);
+            s = Mathf.Max(1f, s - 1.0f);
+            SetStopText(s);
+        });
+        autoStopMobile[0].onClick.AddListener(() =>
+        {
+            var v = Regex.Replace(stopValMobile.text.Replace(".", ","), @"[^0-9,]", string.Empty);
+            float.TryParse(v, out float s);
+            Debug.LogWarning(v + " More " + s);
+            s = Mathf.Min(1000f, s + 1.0f);
+            SetStopText(s);
         });
         stopVal.onValueChanged.AddListener(x =>
         {
@@ -114,16 +128,14 @@ public class GameScreen : BaseScreen
             float n = 0;
             float.TryParse(resultado, out n);
             n = Mathf.Clamp(n, 1, 1000);
-            stopVal.SetTextWithoutNotify($"x {n.ToString("f2")}");
-            GameManager.Instance.SetAutoStop(n);
+            SetStopText(n);
         });
         betInput.onEndEdit.AddListener(x =>
         {
             int n = 0;
             int.TryParse(x, out n);
             n = Mathf.Clamp(n, 1, 100);
-            betInput.SetTextWithoutNotify(n.ToString());
-            ClientExemple.Instance.SetBetValor(n);
+            SetBetText(n);
         });
         ResetBetPlayers();
     }
@@ -131,18 +143,27 @@ public class GameScreen : BaseScreen
     void SetCanvas()
     {
         screen = Screen.width > Screen.height ? 0 : 1 ;
-        desktop.gameObject.SetActive(screen == 0);
-        mobile.gameObject.SetActive(screen == 1);
+        desktop.SetActive(screen == 0);
+        desktopFundo.SetActive(screen == 0);
+        mobile.SetActive(screen == 1);
+        mobileFundo.SetActive(screen == 1);
     }
     void SetCanvas(bool desk)
     {
         desktop.gameObject.SetActive(desk);
+        desktopFundo.gameObject.SetActive(desk);
         mobile.gameObject.SetActive(!desk);
+        mobileFundo.gameObject.SetActive(!desk);
     }
 
-    public void SetBetText(int bet)
+
+    public void SetStopText(float stop)
     {
-        betInput.SetTextWithoutNotify(bet.ToString());
+        if (logs) Debug.Log($"SetStopText: {stop}");
+        this.stop = stop;
+        stopVal.SetTextWithoutNotify($"{stop}");
+        stopValMobile.text = $"{stop}";
+        GameManager.Instance.SetAutoStop(bet);
     }
 
     IEnumerator MoveCarret()
@@ -186,6 +207,7 @@ public class GameScreen : BaseScreen
     {
         if (logs) Debug.Log($"SetWalletBalance: {balance}");
         txtWalletBalance.text = $"{balance:0.00}";
+        txtWalletBalanceMobile.text = $"{balance:0.00}";
     }
     public void SetTimer(int time)
     {
@@ -280,15 +302,10 @@ public class GameScreen : BaseScreen
     {
         if (logs) Debug.Log($"SetBetText: {betV}");
         this.bet = (float)betV;
+        betInput.SetTextWithoutNotify($"{bet}");
         WebClient.Instance.SetBetValor((float)betV);
         betInput.text = $"{betV}";
-    }
-
-    public void SetStopText(float stopV)
-    {
-        if (logs) Debug.Log($"SetStopText: {stopV}");
-        this.stop = stopV;
-        //txtStopVal.text = $"{stopV:0.00}";
+        txtBetValMobile.text = $"{betV}";
     }
 
     public void SetLastResult(float result)
@@ -325,12 +342,18 @@ public class GameScreen : BaseScreen
         slot.transform.SetAsFirstSibling();
         lastSlotFivity.Remove(slot);
         lastSlotFivity.Insert(0,slot);
+        var slotI = lastSlotFivityMobile.Last();
+        slotI.SetBet(mult);
+        slotI.transform.SetAsFirstSibling();
+        lastSlotFivityMobile.Remove(slotI);
+        lastSlotFivityMobile.Insert(0, slotI);
     }
 
     public void ResetBetPlayers()
     {
         if (logs) Debug.Log($"ResetBetPlayers");
         playersBet.ForEach(x => x.Clear());
+        playersBetMobile.ForEach(x => x.Clear());
         ResetBonus();
         bonusTotal = 0;
         playerInBet = 0;
@@ -348,6 +371,11 @@ public class GameScreen : BaseScreen
         p.transform.SetAsFirstSibling();
         playersBet.RemoveAt(index);
         playersBet.Insert(0, p);
+        var g = playersBetMobile[index];
+        g.Set(bet);
+        g.transform.SetAsFirstSibling();
+        playersBetMobile.RemoveAt(index);
+        playersBetMobile.Insert(0, g);
 
     }
 

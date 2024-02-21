@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] List<int> rounds;
     [SerializeField] List<TMP_InputField> autoPlayStopIncDec = new();
 
-    [SerializeField] Toggle autoStop, autoPlay;
+    [SerializeField] Toggle autoStop, autoStopMobile, autoPlay,autoPlayMobile;
     [SerializeField] bool autoPlayStop = false;
     [SerializeField] float autoStopInicial;
     [SerializeField] int autoStopRoundAtual;
@@ -63,13 +63,18 @@ public class GameManager : MonoBehaviour
         if (valUpgrade[t].isOn) valUpgrade.ForEach(x => { if (x != valUpgrade[t]) x.isOn = false; });
     }
 
-    public void AutoCashoutCheck() => autoStop.isOn = autoPlayStop ? true : autoStop.isOn;
+    public void AutoCashoutCheck()
+    {
+        autoStop.isOn = autoPlayStop ? true : autoStop.isOn;
+        autoStopMobile.isOn = autoPlayStop ? true : autoStopMobile.isOn;
+    }
 
     public void SetAutoPlayToggle()
     {
         autoPlayStop = !autoPlayStop;
         autoPlayAction.ForEach(x => { x.interactable = autoPlayStop; x.isOn = false; });
         autoStop.isOn = !autoPlayStop ? autoStop.isOn : true;
+        autoStopMobile.isOn = !autoPlayStop ? autoStopMobile.isOn : true;
     }
 
     public void SetAutoPlayRoundsToggle()
