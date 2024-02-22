@@ -375,7 +375,7 @@
       <HintPath>Library\PackageCache\com.unity.collections@1.2.4\Unity.Collections.LowLevel.ILSupport\Unity.Collections.LowLevel.ILSupport.dll</HintPath>
     </Reference>
     <Reference Include="Renci.SshNet">
-      <HintPath>Library\PackageCache\com.gamespawner.smartbuild@7629896c1f\Editor\Renci.SshNet.dll</HintPath>
+      <HintPath>Library\PackageCache\com.gamespawner.smartbuild@02de1ba8cf\Editor\Renci.SshNet.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Plastic.Antlr3.Runtime">
       <HintPath>Library\PackageCache\com.unity.collab-proxy@2.2.0\Lib\Editor\PlasticSCM\Unity.Plastic.Antlr3.Runtime.dll</HintPath>
@@ -396,7 +396,7 @@
       <HintPath>Library\PackageCache\com.unity.visualscripting@1.9.0\Runtime\VisualScripting.Flow\Dependencies\NCalc\Unity.VisualScripting.Antlr3.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Bcl.AsyncInterfaces">
-      <HintPath>Library\PackageCache\com.gamespawner.smartbuild@7629896c1f\Editor\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+      <HintPath>Library\PackageCache\com.gamespawner.smartbuild@02de1ba8cf\Editor\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VisualScripting.TextureAssets">
       <HintPath>Library\PackageCache\com.unity.visualscripting@1.9.0\Editor\VisualScripting.Core\EditorAssetResources\Unity.VisualScripting.TextureAssets.dll</HintPath>

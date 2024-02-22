@@ -30,7 +30,6 @@ public class Automatic : MonoBehaviour
             round--;
             if (round == 0)
             {
-                autoPlay = false;
                 CanvasManager.Instance.PlayMensagen("End of AutoPlay");
             }
             GameScreen.instance.SetRoundsTxt(round);
@@ -46,6 +45,7 @@ public class Automatic : MonoBehaviour
         Debug.Log("MatchMultiplier "+value);
         if (autoCashOut && value >= stopmultiplier)
         {
+            Debug.Log($"Stop Auto DEBUG");
             ClientExemple.Instance.SendBet();
             CanvasManager.Instance.PlayMensagen($"CashOut x{value:0.00}");
         }

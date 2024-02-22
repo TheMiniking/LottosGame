@@ -2,6 +2,7 @@ using BV;
 using GameSpawner;
 using System.Collections;
 using TMPro;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class ClientExemple : WebClientBase
@@ -120,15 +121,14 @@ public class ClientExemple : WebClientBase
 
     public void SetBetValor(int valor)
     {
-        betValor = valor;
-        betValor = betValor > 100 ? 100 : betValor;
+        betValor = Mathf.Clamp(valor, 1, 100); 
         SendMsg(new NextBet { bet = (byte)betValor });
     }
 
     public void AddBetValor(int valor)
     {
         betValor += valor;
-        betValor = betValor > 100 ? 100 : betValor;
+        betValor = Mathf.Clamp(betValor, 1, 100);
         //GameScreen.instance.SetBetText(betValor);
         SendMsg(new NextBet { bet = (byte)betValor});
     }
@@ -191,7 +191,7 @@ public class ClientExemple : WebClientBase
         float adjustmentFactor = delayServer / delay;
         while (true)
         {
-            multiSum += multiSum *(.1f* delay);
+            multiSum += multiSum *(.05f* delay);
             multiplier += multiSum;
             CanvasManager.Instance.SetMultiplicador(multiplier);
             if (isJoin)

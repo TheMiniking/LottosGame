@@ -757,6 +757,10 @@
       <Project>{2ADE37EE-F490-3DC0-0492-4986C4758ED9}</Project>
       <Name>Network</Name>
     </ProjectReference>
+    <ProjectReference Include="SmartBuild.csproj">
+      <Project>{9DDA422C-3A2B-58CA-9B34-ECE837B95069}</Project>
+      <Name>SmartBuild</Name>
+    </ProjectReference>
     <ProjectReference Include="Unity.2D.IK.Runtime.csproj">
       <Project>{E9C2C607-655E-EEBE-FC1F-CF20DF1F37E9}</Project>
       <Name>Unity.2D.IK.Runtime</Name>
@@ -928,6 +932,10 @@
     <ProjectReference Include="UnityEngine.UI.csproj">
       <Project>{5FC772B7-026C-82CD-832C-086418274853}</Project>
       <Name>UnityEngine.UI</Name>
+    </ProjectReference>
+    <ProjectReference Include="SmartBuild.Editor.csproj">
+      <Project>{4A47BC67-3041-946B-C62F-BD3993F8573C}</Project>
+      <Name>SmartBuild.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.InternalAPIEditorBridge.005.csproj">
       <Project>{95BB0587-92D6-7F2A-2815-4536740A2BCB}</Project>

@@ -67,6 +67,7 @@ public class GameManager : MonoBehaviour
     {
         autoStop.isOn = autoPlayStop ? true : autoStop.isOn;
         autoStopMobile.isOn = autoPlayStop ? true : autoStopMobile.isOn;
+        AutoStop(autoPlayStop);
     }
 
     public void SetAutoPlayToggle()

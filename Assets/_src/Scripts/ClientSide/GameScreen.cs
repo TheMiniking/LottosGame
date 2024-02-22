@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using BV;
 using System.Text.RegularExpressions;
 using System.Linq;
+using GameSpawner;
 
 [Serializable]
 public class GameScreen : BaseScreen
@@ -50,7 +51,7 @@ public class GameScreen : BaseScreen
     [SerializeField] TMP_Text mensagenMobile, roundsTxtMobile;
     [SerializeField] Animator animMensagen, animMensagenMobile;
     [SerializeField] List<Sprite> lastResultSprite = new();
-    [SerializeField] GameObject lastFivityOBJ, lastFivityOBJMobile;
+    [SerializeField] GameObject lastFivityOBJ, lastFivityOBJMobile, roundsPanelMobile;
     [SerializeField] List<float> lastResult,lastFivityResult = new();
     [SerializeField] List<LastSlot> lastResultObj, lastSlotFivity = new();
     [SerializeField] List<LastSlot> lastResultObjMobile, lastSlotFivityMobile = new();
@@ -60,12 +61,19 @@ public class GameScreen : BaseScreen
     [SerializeField] TMP_Text txtStopAnBet, txtBetVal, txtStopAnBetMobile, txtBetValMobile, stopValMobile;
     [SerializeField] TMP_InputField stopVal, betInput;
     [SerializeField] List<Button> betButtons, autoStop, autoStopMobile = new();
-    [SerializeField] Toggle autoCashOutToggle;//adicionado por robson
-    [SerializeField] Toggle autoPlayToggle;
+    [SerializeField] Toggle autoCashOutToggle, autoCashOutToggleMobile;//adicionado por robson
+    [SerializeField] Toggle autoPlayToggle, autoPlayToggleMobile;//adicionado por robson
 
     // ---------- Bet Game ----------------
     [SerializeField] List<BetPlayers> playersBetList = new();
     [SerializeField] List<BetPlayersHud> playersBet,playersBetMobile = new();
+
+    //---------- Mobile Teclado ------------
+    [SerializeField] GameObject teclado;
+    [SerializeField] List<Button> tecladoButtons = new();   // 0-9 = num, 10 = ponto, 11 = backspace, 12 = enter,13 = cancel
+    [SerializeField] TMP_Text tecladoText;
+    [SerializeField] string tecladoTextValue = "";
+    [SerializeField] bool tecladoMode = false;              // false = bet, true = auto stop
 
     private void Awake()
     {
@@ -85,12 +93,21 @@ public class GameScreen : BaseScreen
         {
             GameManager.Instance.AutoStop(x);
         });
+        autoCashOutToggleMobile.onValueChanged.AddListener(x =>
+        {
+            GameManager.Instance.AutoCashout(x);
+        });
+        autoPlayToggleMobile.onValueChanged.AddListener(x =>
+        {
+            GameManager.Instance.AutoStop(x);
+            if (x) roundsPanelMobile.SetActive(true);
+        });
         autoStop[1].onClick.AddListener(() =>
         {
             var v = Regex.Replace(stopVal.text.Replace(".", ","), @"[^0-9,]", string.Empty);
             float.TryParse(v, out float s);
             Debug.LogWarning(v+" less "+s);
-            s = Mathf.Max(1f, s - 1.0f);
+            s = Mathf.Max(1f, s - 0.10f);
             SetStopText(s);
         });
         autoStop[0].onClick.AddListener(() =>
@@ -98,7 +115,7 @@ public class GameScreen : BaseScreen
             var v = Regex.Replace(stopVal.text.Replace(".", ","), @"[^0-9,]", string.Empty);
             float.TryParse(v, out float s);
             Debug.LogWarning(v + " More " + s);
-            s = Mathf.Min(1000f, s + 1.0f);
+            s = Mathf.Min(1000f, s + 0.10f);
             SetStopText(s);
         });
         autoStopMobile[1].onClick.AddListener(() =>
@@ -161,9 +178,9 @@ public class GameScreen : BaseScreen
     {
         if (logs) Debug.Log($"SetStopText: {stop}");
         this.stop = stop;
-        stopVal.SetTextWithoutNotify($"{stop}");
-        stopValMobile.text = $"{stop}";
-        GameManager.Instance.SetAutoStop(bet);
+        stopVal.SetTextWithoutNotify($"x {stop:0.00}");
+        stopValMobile.text = $"x {stop:0.00}";
+        GameManager.Instance.SetAutoStop(stop);
     }
 
     IEnumerator MoveCarret()
@@ -230,6 +247,7 @@ public class GameScreen : BaseScreen
     {
         if (logs) Debug.Log($"SetTimerMensagem: {time}");
         txtTimerMensagem.text = time;
+        txtTimerMensagemMobile.text = time;
     }
     public void SetBonusTotal(float bonus)
     {
@@ -371,6 +389,9 @@ public class GameScreen : BaseScreen
         p.transform.SetAsFirstSibling();
         playersBet.RemoveAt(index);
         playersBet.Insert(0, p);
+        index = playersBetMobile.FindIndex(b => b.name.text == bet.name);
+        if (index == -1)
+            index = playersBetMobile.Count - 1;
         var g = playersBetMobile[index];
         g.Set(bet);
         g.transform.SetAsFirstSibling();
@@ -457,6 +478,42 @@ public class GameScreen : BaseScreen
         mensagenMobile.text = msg;
         animMensagen.Play("PopUp");
         animMensagenMobile.Play("PopUp");
+    }
+
+
+    public void SelectTeclado(int tecladoSelect)
+    {
+        if (logs) Debug.Log($"SelectTeclado: {(tecladoSelect==0?" Bet ": "AutoStop")}");
+        tecladoMode = tecladoSelect==0? false: true;
+        teclado.SetActive(true);
+        tecladoButtons[10].interactable = tecladoSelect == 1;
+        tecladoText.text = tecladoSelect == 0 ? $"{tecladoTextValue}" : $"x {tecladoTextValue:0.00}";
+    }
+
+    public void SelectTecladoNumber(int number) // 10 = ponto
+    {
+        if (logs) Debug.Log($"SelectTecladoNumber: {number}");
+        tecladoTextValue = number==10 ? tecladoTextValue + "." : tecladoTextValue + number;
+        tecladoText.text = tecladoMode ? $"x {tecladoTextValue:0.00}" : $"{tecladoTextValue}";
+    }
+
+    public void SelectTecladoBackspace()
+    {
+        if (logs) Debug.Log($"SelectTecladoBackspace");
+        if (tecladoTextValue.Length > 0) tecladoTextValue = tecladoTextValue.Substring(0, tecladoTextValue.Length - 1);
+        tecladoText.text = tecladoMode ? $"x {tecladoTextValue:0.00}" : $"{tecladoTextValue}";
+    }
+
+    public void SelectTecladoEnter()
+    {
+        var v = float.Parse(tecladoTextValue.Replace(".", ","));
+        Debug.Log($"normal {v}, formatado {v:0.00}");
+        if (logs) Debug.Log($"SelectTecladoEnter");
+        if (!tecladoMode){
+            ClientExemple.Instance.SetBetValor(int.Parse(tecladoTextValue));}
+        else {SetStopText(v);}
+        tecladoTextValue = "";
+        teclado.SetActive(false);
     }
 
 }
