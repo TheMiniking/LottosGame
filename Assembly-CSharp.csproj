@@ -921,21 +921,21 @@
       <Project>{85BFB7D7-6081-7BD6-1426-B69581133E27}</Project>
       <Name>Unity.2D.Animation.Runtime</Name>
     </ProjectReference>
-    <ProjectReference Include="Unity.2D.Tilemap.Extras.csproj">
-      <Project>{1D96B0CF-54CE-F311-E5F7-0C58C99CFC35}</Project>
-      <Name>Unity.2D.Tilemap.Extras</Name>
-    </ProjectReference>
     <ProjectReference Include="Unity.VisualScripting.Core.Editor.csproj">
       <Project>{18C3F615-AB74-56C2-D2E6-E8DBB35A69DD}</Project>
       <Name>Unity.VisualScripting.Core.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="SmartBuild.Editor.csproj">
+      <Project>{4A47BC67-3041-946B-C62F-BD3993F8573C}</Project>
+      <Name>SmartBuild.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="UnityEngine.UI.csproj">
       <Project>{5FC772B7-026C-82CD-832C-086418274853}</Project>
       <Name>UnityEngine.UI</Name>
     </ProjectReference>
-    <ProjectReference Include="SmartBuild.Editor.csproj">
-      <Project>{4A47BC67-3041-946B-C62F-BD3993F8573C}</Project>
-      <Name>SmartBuild.Editor</Name>
+    <ProjectReference Include="Unity.2D.Tilemap.Extras.csproj">
+      <Project>{1D96B0CF-54CE-F311-E5F7-0C58C99CFC35}</Project>
+      <Name>Unity.2D.Tilemap.Extras</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.InternalAPIEditorBridge.005.csproj">
       <Project>{95BB0587-92D6-7F2A-2815-4536740A2BCB}</Project>

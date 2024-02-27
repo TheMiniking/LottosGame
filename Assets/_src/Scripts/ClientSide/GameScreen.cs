@@ -136,7 +136,7 @@ public class GameScreen : BaseScreen
         });
         stopVal.onValueChanged.AddListener(x =>
         {
-            string resultado = Regex.Replace(x.Replace(",", "."), "[^0-9.]", "");
+            string resultado = Regex.Replace(x.Replace(".","," ), "[^0-9.]", "");
             stopVal.SetTextWithoutNotify(resultado);
         });
         stopVal.onEndEdit.AddListener(x =>
@@ -229,9 +229,9 @@ public class GameScreen : BaseScreen
     public void SetTimer(int time)
     {
         if (logs) Debug.Log($"SetTimer: {time}");
-        txtTimerMult.text = $"{time:00:00}";
+        txtTimerMult.text = $"   {time:00:00}";
         txtTimerMensagem.text = "Next Round in:";
-        txtTimerMultMobile.text = $"{time:00:00}";
+        txtTimerMultMobile.text = $"   {time:00:00}";
         txtTimerMensagemMobile.text = "Next Round in:";
 
     }

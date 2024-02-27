@@ -15,7 +15,8 @@ public class ClientExemple : WebClientBase
     [SerializeField] TextMeshProUGUI value;
     bool isJoin = false;
     [SerializeField] string playerName;
-    [SerializeField] int betValor;
+    [SerializeField][Range(1, 100)] int betValor;
+    [SerializeField] bool debug = true;
 
     float paralaxPosition = 0;
     private void Awake()
@@ -66,13 +67,13 @@ public class ClientExemple : WebClientBase
     void GameLoginResponse(GameLoginResponse msg)
     {
         CanvasManager.Instance.HideLoading();
-        Debug.Log("LogResponse:" + msg.code);
+        if(debug) Debug.Log("LogResponse:" + msg.code);
         playerName = msg.name;
     }
 
     void BalanceResponse(BalanceResponse msg)
     {
-        Debug.Log("BalanceResponse:" + msg.balance);
+        if (debug) Debug.Log("BalanceResponse:" + msg.balance);
         CanvasManager.Instance.SetWalletBalance(msg.balance);
     }
 
@@ -121,17 +122,37 @@ public class ClientExemple : WebClientBase
 
     public void SetBetValor(int valor)
     {
-        betValor = Mathf.Clamp(valor, 1, 100); 
+        betValor = valor;
+        betValor = betValor > 100 ? 100 : betValor < 1 ? 1 : betValor;
         SendMsg(new NextBet { bet = (byte)betValor });
     }
 
     public void AddBetValor(int valor)
     {
         betValor += valor;
-        betValor = Mathf.Clamp(betValor, 1, 100);
-        //GameScreen.instance.SetBetText(betValor);
+        betValor = betValor > 100 ? 100 : betValor < 1 ? 1 : betValor;
         SendMsg(new NextBet { bet = (byte)betValor});
     }
+
+    public void NextBet(bool up)
+    {
+        betValor = up? betValor + 1 : betValor - 1;
+        betValor = betValor > 100 ? 100 : betValor < 1 ? 1 : betValor;
+        SendMsg(new NextBet { bet = (byte)betValor});
+    }
+    
+    void NextBetResponse(NextBetResponse msg)
+    {
+        GameScreen.instance.SetBetText(msg.money);
+        betValor = (int)msg.money;
+    }
+
+
+    public void SendBet()
+    {
+        SendMsg(new PlayRequest());
+    }
+
 
     public void BetPlayers(BetPlayers msg)
     {
@@ -155,23 +176,6 @@ public class ClientExemple : WebClientBase
         Debug.Log("ErrorResponse:" + msg.error);
     }
 
-    public void NextBet(bool up)
-    {
-        betValor = up? betValor + 1 : betValor - 1;
-        betValor = betValor > 100 ? 100 : betValor < 1 ? 1 : betValor;
-        SendMsg(new NextBet { bet = (byte)betValor});
-    }
-    
-    void NextBetResponse(NextBetResponse msg)
-    {
-        GameScreen.instance.SetBetText(msg.money);
-        betValor = (int)msg.money;
-    }
-    public void SendBet()
-    {
-        SendMsg(new PlayRequest());
-    }
-
     IEnumerator DisplayTimer(float time)
     {
         while (time > 0)
@@ -191,7 +195,7 @@ public class ClientExemple : WebClientBase
         float adjustmentFactor = delayServer / delay;
         while (true)
         {
-            multiSum += multiSum *(.05f* delay);
+            multiSum += multiSum *(.001f* delay);
             multiplier += multiSum;
             CanvasManager.Instance.SetMultiplicador(multiplier);
             if (isJoin)

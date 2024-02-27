@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Automatic : MonoBehaviour
 {
@@ -7,6 +9,7 @@ public class Automatic : MonoBehaviour
     [SerializeField] bool autoCashOut;
     [SerializeField] public int round = -1;
     [SerializeField] float stopmultiplier;
+    [SerializeField] List<Toggle> autoToggles = new();
     
     void Start()
     {
@@ -30,6 +33,7 @@ public class Automatic : MonoBehaviour
             round--;
             if (round == 0)
             {
+                autoToggles.ForEach(x => { x.isOn = false; });
                 CanvasManager.Instance.PlayMensagen("End of AutoPlay");
             }
             GameScreen.instance.SetRoundsTxt(round);
