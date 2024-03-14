@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -14,7 +12,7 @@ public class Player : MonoBehaviour
 
     public void Walking(bool v)
     {
-        Debug.Log("Animation:"+( v? "Walking": "Lost"));
+        // Debug.Log("Animation:"+( v? "Walking": "Lost"));
         anim.Play(v ? "Walking" : "Lost");
         //anim.SetBool("walking", v);
     }

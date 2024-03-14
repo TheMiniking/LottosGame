@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEditor;
-using Unity.VisualScripting;
 
 
 public class CanvasManager : MonoBehaviour
@@ -16,7 +12,7 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] GameObject loadingPanel;
 
 
-    private void Awake()
+    void Awake()
     {
         Instance = this;
     }
@@ -39,7 +35,7 @@ public class CanvasManager : MonoBehaviour
     public void HideLoading()
     {
         loadingPanel.SetActive(false);
-        loadingMsg.text = "";
+        loadingMsg.text = string.Empty;
     }
 
     void DesactiveAll()
@@ -69,47 +65,110 @@ public class CanvasManager : MonoBehaviour
     //    gameScreen.SetBet(currentBet);
     //}
 
-    public void SetTimer(int time) => gameScreen.SetTimer(time);
+    public void SetTimer(int time)
+    {
+        gameScreen.SetTimer(time);
+    }
 
-    public void SetMultiplicador(float time) => gameScreen.SetMultplicador(time);
+    public void SetMultiplicador(float time)
+    {
+        gameScreen.SetMultplicador(time);
+    }
 
-    public void SetTimerMensagem(string time) => gameScreen.SetTimerMensagem(time);
+    public void SetTimerMensagem(string time)
+    {
+        gameScreen.SetTimerMensagem(time);
+    }
 
-    public void SetWalletNick(string user) => gameScreen.SetWalletNickname(user);
+    public void SetWalletNick(string user)
+    {
+        gameScreen.SetWalletNickname(user);
+    }
 
-    public void SetWalletBalance(double balance) => gameScreen.SetWalletBalance(balance);
+    public void SetWalletBalance(double balance)
+    {
+        gameScreen.SetWalletBalance(balance);
+    }
 
-    public void SetBonusTotal(float bonus) => gameScreen.SetBonusTotal(bonus);
+    public void SetBonusTotal(float bonus)
+    {
+        gameScreen.SetBonusTotal(bonus);
+    }
 
-    public void SetTankState(string state) => gameScreen.SetTankState(state);
+    public void SetTankState(string state)
+    {
+        gameScreen.SetTankState(state);
+    }
 
-    public void AddVelocityParalax(float value) => gameScreen.AddVelocityParalax(value);
+    public void AddVelocityParalax(float value)
+    {
+        gameScreen.AddVelocityParalax(value);
+    }
 
-    public void ResetVelocityParalax() => gameScreen.ResetVelocityParalax();
+    public void ResetVelocityParalax()
+    {
+        gameScreen.ResetVelocityParalax();
+    }
 
-    public void SetBetActive() => gameScreen.ActiveBet();
+    public void SetBetActive()
+    {
+        gameScreen.ActiveBet();
+    }
 
-    public void SetBetDesactive() => gameScreen.DesactiveBet();
+    public void SetBetDesactive()
+    {
+        gameScreen.DesactiveBet();
+    }
 
-    public void SetBetButtonStop(float mult) => gameScreen.SetBetButtonText(mult);
+    public void SetBetButtonStop(float mult)
+    {
+        gameScreen.SetBetButtonText(mult);
+    }
 
-    public void SetLastPlays(float last) => gameScreen.SetLastResult(last);
+    public void SetLastPlays(float last)
+    {
+        gameScreen.SetLastResult(last);
+    }
 
-    public void SetPlayersBet(BetPlayers bet) => gameScreen.SetBetPlayersList(bet);
+    public void SetPlayersBet(BetPlayers bet)
+    {
+        gameScreen.SetBetPlayersList(bet);
+    }
 
-    public void SetPlayersWin(BetPlayers bet) => gameScreen.SetBetPlayersList(bet);
+    public void SetPlayersWin(BetPlayers bet)
+    {
+        gameScreen.SetBetPlayersList(bet);
+    }
 
-    public void ResetPlayersBet() => gameScreen.ResetBetPlayers();
+    public void ResetPlayersBet()
+    {
+        gameScreen.ResetBetPlayers();
+    }
 
-    public void InstancieBox() => gameScreen.InstantiateBox();
+    public void InstancieBox()
+    {
+        gameScreen.InstantiateBox();
+    }
 
-    public void InstancieBox(float bonus) => gameScreen.InstantiateBox(bonus);
+    public void InstancieBox(float bonus)
+    {
+        gameScreen.InstantiateBox(bonus);
+    }
 
-    public void PlayMensagen(string msg) => gameScreen.PlayMensagen(msg);
+    public void PlayMensagen(string msg)
+    {
+        gameScreen.PlayMensagen(msg);
+    }
 
-    public void AddCashOut(float cash)=> gameScreen.totalCashOut += cash;
+    public void AddCashOut(float cash)
+    {
+        gameScreen.totalCashOut += cash;
+    }
 
-    public void AddCashBet(float cash) => gameScreen.totalCashBet += cash;
+    public void AddCashBet(float cash)
+    {
+        gameScreen.totalCashBet += cash;
+    }
 }
 
 

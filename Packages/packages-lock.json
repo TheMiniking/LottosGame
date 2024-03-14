@@ -5,14 +5,14 @@
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "81489563fd743a0e04a42bd39ea924b7557dcb8f"
+      "hash": "242ddd61dd9d22e28caf393cd923507beafb7e92"
     },
     "com.gamespawner.smartbuild": {
       "version": "http://gitlab.playbrandsgroup.com/agt-games/smartbuild.git",
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "02de1ba8cf6a477f15b13dadc4d6f3ea4b54bb07"
+      "hash": "e9a511e623fe744df26a21621180a94681a35b60"
     },
     "com.gamespawner.webnetwork": {
       "version": "http://gitlab.playbrandsgroup.com/robson.petry/WebNetwork.git",
@@ -21,7 +21,7 @@
       "dependencies": {
         "com.gamespawner.serializer": "1.0.20"
       },
-      "hash": "9db207d980ce49f79c5f99f3b2b538bf5190e75c"
+      "hash": "26513950550dfd8b8eb181bcde4e0a956982ce25"
     },
     "com.unity.2d.animation": {
       "version": "9.0.3",

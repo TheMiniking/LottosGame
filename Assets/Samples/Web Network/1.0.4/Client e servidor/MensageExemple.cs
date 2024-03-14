@@ -15,12 +15,12 @@ public class MensageExemple : INetSerializable
 
     public void Serialize(DataWriter write)
     {
-        write.Put(value1); 
-        write.Put(value2) ;
+        write.Put(value1);
+        write.Put(value2);
     }
 }
 
-public class StartRun: INetSerializable
+public class StartRun : INetSerializable
 {
     public void Deserialize(DataReader reader)
     {
@@ -40,7 +40,7 @@ public class Crash : INetSerializable
 
     public void Serialize(DataWriter write)
     {
-        write.Put(multply); 
+        write.Put(multply);
     }
 }
 public class TimerSync : INetSerializable
@@ -73,7 +73,7 @@ public class BetServer : INetSerializable
 {
     public float value;
     public float stop;
-    public bool  AutoStop { get => stop > 0;}
+    public bool AutoStop => stop > 0;
 
     public void Deserialize(DataReader reader)
     {
@@ -269,4 +269,75 @@ public class AddBonus : INetSerializable
     {
         write.Put(valor);
     }
+}
+[Serializable]
+public class Ranking : INetSerializable
+{
+    public Line[] rankValue;
+    public Line[] rankMulti;
+
+
+    public void Serialize(DataWriter writer)
+    {
+        writer.Put(rankValue);
+        writer.Put(rankMulti);
+    }
+    public void Deserialize(DataReader reader)
+    {
+        reader.Get(ref rankValue);
+        reader.Get(ref rankMulti);
+    }
+}
+[Serializable]
+public class Line : INetSerializable
+{
+    public string name;
+    public float multi;
+    public byte bet;
+    public void Serialize(DataWriter writer)
+    {
+        writer.Put(name);
+        writer.Put(multi);
+        writer.Put(bet);
+    }
+    public void Deserialize(DataReader reader)
+    {
+        reader.Get(ref name);
+        reader.Get(ref multi);
+        reader.Get(ref bet);
+    }
+}
+
+[Serializable]
+public class LastMulti : INetSerializable
+{
+    public float[] multis;
+
+    public void Deserialize(DataReader reader)
+    {
+        reader.Get(ref multis);
+    }
+
+    public void Serialize(DataWriter write)
+    {
+        write.Put(multis);
+    }
+}
+enum ReceiveMsgIdc
+{
+    GameLoginResponse = 1,
+    BalanceResponse = 2,
+    PlayResponse = 3,
+    NextBetResponse = 4,
+    ErrorResponse = 5,
+    BetPlayers = 6,
+    Ranking = 7,
+    LastMulti = 8
+}
+enum SendMsgIdc
+{
+    PlayRequest = 1,
+    NextBet = 2,
+    GetBalance = 3,
+    GetRanking = 4
 }

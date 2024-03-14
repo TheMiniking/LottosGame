@@ -94,9 +94,10 @@ MonoBehaviour:
   canvasGroup: {fileID: 5007334439866467630}
   Image: {fileID: 277801197482930563}
   sprites:
-  - {fileID: -960772031, guid: e2e3bb4ca46ffc34da2d95c9fe6628a9, type: 3}
+  - {fileID: -2135210361, guid: e2e3bb4ca46ffc34da2d95c9fe6628a9, type: 3}
   - {fileID: -788220743, guid: e2e3bb4ca46ffc34da2d95c9fe6628a9, type: 3}
   - {fileID: -1625847446, guid: e2e3bb4ca46ffc34da2d95c9fe6628a9, type: 3}
+  - {fileID: 544473168, guid: e2e3bb4ca46ffc34da2d95c9fe6628a9, type: 3}
 --- !u!225 &5007334439866467630
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -105,7 +106,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3900683531744497507}
   m_Enabled: 1
-  m_Alpha: 0
+  m_Alpha: 1
   m_Interactable: 0
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
@@ -201,7 +202,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 20
+  m_fontSize: 10.35
   m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 1

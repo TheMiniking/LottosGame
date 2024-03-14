@@ -2,7 +2,6 @@ using BV;
 using GameSpawner;
 using System.Collections;
 using TMPro;
-using Unity.Mathematics;
 using UnityEngine;
 
 public class ClientExemple : WebClientBase
@@ -19,36 +18,36 @@ public class ClientExemple : WebClientBase
     [SerializeField] bool debug = true;
 
     float paralaxPosition = 0;
-    private void Awake()
+    void Awake()
     {
         Instance = this;
     }
     protected override void Start()
     {
-#if BUILD_DEV
-    url = urlDev;
-#elif BUILD_TEST
-    url = urlTest;
-# endif
         base.Start();
         CanvasManager.Instance.ShowLoading("Connecting...");
-
-        RegisterHandler<GameLoginResponse>(GameLoginResponse, 40010);
-        RegisterHandler<BalanceResponse>(BalanceResponse);
-        RegisterHandler<PlayResponse<MathStatus>>(PlayResponse, 35559);
-        RegisterHandler<NextBetResponse>(NextBetResponse, 22291);
-        RegisterHandler<ErrorResponse>(ErrorResponse, 54523);
-        RegisterHandler<BetPlayers>(BetPlayers, 30945);
-        CreateConnection(url, token);
-        TryConnect();
-    }
-    protected override void OnOpen()
-    {
-        base.OnOpen();
+        RegisterHandler<GameLoginResponse>(GameLoginResponse, (ushort)ReceiveMsgIdc.GameLoginResponse);
+        RegisterHandler<BalanceResponse>(BalanceResponse, (ushort)ReceiveMsgIdc.BalanceResponse);
+        RegisterHandler<PlayResponse<MathStatus>>(PlayResponse, (ushort)ReceiveMsgIdc.PlayResponse);
+        RegisterHandler<NextBetResponse>(NextBetResponse, (ushort)ReceiveMsgIdc.NextBetResponse);
+        RegisterHandler<ErrorResponse>(ErrorResponse, (ushort)ReceiveMsgIdc.ErrorResponse);
+        RegisterHandler<BetPlayers>(BetPlayers, (ushort)ReceiveMsgIdc.BetPlayers);
+        RegisterHandler<Ranking>(RankResponse, (ushort)ReceiveMsgIdc.Ranking);
+        RegisterHandler<LastMulti>(LastMultiResponse, (ushort)ReceiveMsgIdc.LastMulti);
 #if UNITY_WEBGL && !UNITY_EDITOR
         token = GetTokenID();
 #endif
-        SendMsg(new GameLogin { token = token });
+        CreateConnection((BuildType == BuildType.Dev) ? urlDev : urlTest, token);
+        TryConnect();
+    }
+
+    protected override void OnOpen()
+    {
+        base.OnOpen();
+        //#if UNITY_WEBGL && !UNITY_EDITOR
+        //        token = GetTokenID();
+        //#endif
+        //        SendMsg(new GameLogin { token = token });
     }
     string GetTokenID()
     {
@@ -67,19 +66,28 @@ public class ClientExemple : WebClientBase
     void GameLoginResponse(GameLoginResponse msg)
     {
         CanvasManager.Instance.HideLoading();
-        if(debug) Debug.Log("LogResponse:" + msg.code);
+        if (debug)
+        {
+            Debug.Log("LogResponse:" + msg.code);
+        }
+
         playerName = msg.name;
     }
 
     void BalanceResponse(BalanceResponse msg)
     {
-        if (debug) Debug.Log("BalanceResponse:" + msg.balance);
+        if (debug)
+        {
+            Debug.Log("BalanceResponse:" + msg.balance);
+        }
+
         CanvasManager.Instance.SetWalletBalance(msg.balance);
     }
 
     void PlayResponse(PlayResponse<MathStatus> msg)
     {
         Debug.Log($"PlayResponse: id: {msg.data.id} value : {msg.data.value} ");
+        Debug.Log(($"GamaMenager: ") + (WebClient.Instance == null));
         if (msg.data.id == 0)// Start Timer
         {
             CanvasManager.Instance.ResetPlayersBet();
@@ -94,14 +102,14 @@ public class ClientExemple : WebClientBase
             GameManager.Instance.NewMatchStart();
             StopAllCoroutines();
             CanvasManager.Instance.SetBetDesactive();
-            WebClient.Instance.StartRun(new StartRun {});
+            WebClient.Instance.StartRun(new StartRun { });
             StartCoroutine(DisplayMulti(msg.data.value));
         }
         else if (msg.data.id == 2) // End Round Crash
         {
             GameManager.Instance.EndMatchStart();
             StopAllCoroutines();
-            WebClient.Instance.Crash(new Crash { multply = msg.data.value});
+            WebClient.Instance.Crash(new Crash { multply = msg.data.value });
             Debug.Log("Crash " + msg.data.value);
             isJoin = false;
             CanvasManager.Instance.SetMultiplicador(msg.data.value);
@@ -123,24 +131,24 @@ public class ClientExemple : WebClientBase
     public void SetBetValor(int valor)
     {
         betValor = valor;
-        betValor = betValor > 100 ? 100 : betValor < 1 ? 1 : betValor;
-        SendMsg(new NextBet { bet = (byte)betValor });
+        betValor = (betValor > 100) ? 100 : ((betValor < 1) ? 1 : betValor);
+        SendMsg((ushort)SendMsgIdc.NextBet, new NextBet { bet = (byte)betValor });
     }
 
     public void AddBetValor(int valor)
     {
         betValor += valor;
-        betValor = betValor > 100 ? 100 : betValor < 1 ? 1 : betValor;
-        SendMsg(new NextBet { bet = (byte)betValor});
+        betValor = (betValor > 100) ? 100 : ((betValor < 1) ? 1 : betValor);
+        SendMsg((ushort)SendMsgIdc.NextBet, new NextBet { bet = (byte)betValor });
     }
 
     public void NextBet(bool up)
     {
-        betValor = up? betValor + 1 : betValor - 1;
-        betValor = betValor > 100 ? 100 : betValor < 1 ? 1 : betValor;
-        SendMsg(new NextBet { bet = (byte)betValor});
+        betValor = up ? (betValor + 1) : (betValor - 1);
+        betValor = (betValor > 100) ? 100 : ((betValor < 1) ? 1 : betValor);
+        SendMsg((ushort)SendMsgIdc.NextBet, new NextBet { bet = (byte)betValor });
     }
-    
+
     void NextBetResponse(NextBetResponse msg)
     {
         GameScreen.instance.SetBetText(msg.money);
@@ -150,23 +158,31 @@ public class ClientExemple : WebClientBase
 
     public void SendBet()
     {
-        SendMsg(new PlayRequest());
+        SendMsg((ushort)SendMsgIdc.PlayRequest, new PlayRequest());
     }
 
 
     public void BetPlayers(BetPlayers msg)
     {
-        Debug.Log(msg.multiplier == 0 ? $"[Client] Jogador{msg.name} fez aposta pagando{msg.value}" : $"[Cliente] O jogador {msg.name} Retirou {msg.multiplier}");
+        Debug.Log((msg.multiplier == 0) ? ($"[Client] Jogador{msg.name} fez aposta pagando{msg.value}") : ($"[Cliente] O jogador {msg.name} Retirou {msg.multiplier}"));
         if (msg.multiplier == 0)
         {
             CanvasManager.Instance.SetPlayersBet(msg);
-            if(msg.name == playerName) GameScreen.instance.totalCashBet += (float)msg.value;
+            if (msg.name == playerName)
+            {
+                GameScreen.instance.totalCashBet += (float)msg.value;
+            }
+
             GameScreen.instance.playerInBet += 1;
         }
         else
         {
             CanvasManager.Instance.SetPlayersWin(msg);
-            if (msg.name == playerName) GameScreen.instance.totalCashOut += (float)(msg.value * msg.multiplier);
+            if (msg.name == playerName)
+            {
+                GameScreen.instance.totalCashOut += (float)(msg.value * msg.multiplier);
+            }
+
             GameScreen.instance.playerInBetWinner += 1;
         }
     }
@@ -174,6 +190,24 @@ public class ClientExemple : WebClientBase
     void ErrorResponse(ErrorResponse msg)
     {
         Debug.Log("ErrorResponse:" + msg.error);
+
+    }
+    void RankResponse(Ranking ranking)
+    {
+        Debug.Log("RankResponse mult:" + JsonUtility.ToJson(ranking));
+        Line[] jsonMult = ranking.rankMulti;
+        Line[] jsonCash = ranking.rankValue;
+        GameScreen.instance.SetRank(jsonMult, jsonCash);
+    }
+
+    void LastMultiResponse(LastMulti lastMulti)
+    {
+        Debug.Log("LastMultiResponse:" + lastMulti.multis.Length);
+        for (int i = 0; i < lastMulti.multis.Length; i++)
+
+        {
+            CanvasManager.Instance.SetLastPlays(lastMulti.multis[i]);
+        }
     }
 
     IEnumerator DisplayTimer(float time)
@@ -184,29 +218,51 @@ public class ClientExemple : WebClientBase
             CanvasManager.Instance.SetTimer((int)time);
             yield return new WaitForSeconds(1);
         }
-        
+
     }
 
-    IEnumerator DisplayMulti(float multiSum)
+    //IEnumerator DisplayMulti(float multiSum)
+    //{
+    //    float multiplier = 1;
+    //    float delay = 0.1f;
+    //    float delayServer = 0.5f;
+    //    float adjustmentFactor = delayServer / delay;
+    //    while (true)
+    //    {
+    //        multiSum += multiSum * (.001f * delay);
+    //        multiplier += multiSum;
+    //        CanvasManager.Instance.SetMultiplicador(multiplier);
+    //        if (isJoin)
+    //        {
+    //            CanvasManager.Instance.SetBetButtonStop(multiplier);
+
+    //            GameManager.Instance.MatchMultiplier(multiplier);
+    //        }
+    //        //value.text = multiplier.ToString("f2") + "x";
+    //        yield return new WaitForSeconds(delay);
+    //    }
+    //}
+    public IEnumerator DisplayMulti(float multiSum)
     {
+        Debug.Log("DisplayMulti " + multiSum);
         float multiplier = 1;
-        float delay = 0.1f;
-        float delayServer = 0.5f;
-        float adjustmentFactor = delayServer / delay;
+        float timer = Time.time - multiSum;
         while (true)
         {
-            multiSum += multiSum *(.001f* delay);
-            multiplier += multiSum;
-            CanvasManager.Instance.SetMultiplicador(multiplier);
+            multiplier = MultiplierCalculator(Time.time - timer);
             if (isJoin)
             {
                 CanvasManager.Instance.SetBetButtonStop(multiplier);
-
-                GameManager.Instance.MatchMultiplier(multiplier);
+                GameManager.Instance.MatchMultiplier(multiplier);// Auto CashOut
             }
+            CanvasManager.Instance.SetMultiplicador(multiplier);
             //value.text = multiplier.ToString("f2") + "x";
-            yield return new WaitForSeconds(delay);
+            yield return new WaitForSeconds(0.03f);
         }
     }
-
+    float MultiplierCalculator(float tempoDecorrido)
+    {
+        //Debug.Log("MultiplierCalculator " + tempoDecorrido);
+        return 1.01f + (2 * Mathf.Pow(tempoDecorrido / 10, 1.5f));
+    }
 }

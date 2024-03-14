@@ -368,7 +368,7 @@
       <HintPath>C:\Program Files\Unity\Hub\Editor\2022.3.9f1\Editor\Data\Managed\UnityEngine\UnityEditor.UnityConnectModule.dll</HintPath>
     </Reference>
     <Reference Include="websocket-sharp">
-      <HintPath>Library\PackageCache\com.gamespawner.webnetwork@9db207d980\Runtime\Plugins\websocket-sharp.dll</HintPath>
+      <HintPath>Library\PackageCache\com.gamespawner.webnetwork@2651395055\Runtime\Plugins\websocket-sharp.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Collections.LowLevel.ILSupport">
       <HintPath>Library\PackageCache\com.unity.collections@1.2.4\Unity.Collections.LowLevel.ILSupport\Unity.Collections.LowLevel.ILSupport.dll</HintPath>
@@ -756,10 +756,6 @@
     <ProjectReference Include="Network.csproj">
       <Project>{2ADE37EE-F490-3DC0-0492-4986C4758ED9}</Project>
       <Name>Network</Name>
-    </ProjectReference>
-    <ProjectReference Include="SmartBuild.csproj">
-      <Project>{9DDA422C-3A2B-58CA-9B34-ECE837B95069}</Project>
-      <Name>SmartBuild</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.2D.IK.Runtime.csproj">
       <Project>{E9C2C607-655E-EEBE-FC1F-CF20DF1F37E9}</Project>

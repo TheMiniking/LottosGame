@@ -10,7 +10,7 @@ public class Automatic : MonoBehaviour
     [SerializeField] public int round = -1;
     [SerializeField] float stopmultiplier;
     [SerializeField] List<Toggle> autoToggles = new();
-    
+
     void Start()
     {
 
@@ -24,16 +24,19 @@ public class Automatic : MonoBehaviour
     //quando inicia o tempo pra entrar na partida
     public void NewMatchInit()
     {
-        Debug.Log(autoPlay+" NewMatchInit " + round);
-        if (autoPlay && (round == -1 || round > 0))
+        Debug.Log(autoPlay + " NewMatchInit " + round);
+        if (autoPlay && ((round == -1) || (round > 0)))
         {
             ClientExemple.Instance.SendBet();
             CanvasManager.Instance.PlayMensagen("AutoPlay Bet");
-            if (round>0)
-            round--;
+            if (round > 0)
+            {
+                round--;
+            }
+
             if (round == 0)
             {
-                autoToggles.ForEach(x => { x.isOn = false; });
+                autoToggles.ForEach(x => x.isOn = false);
                 CanvasManager.Instance.PlayMensagen("End of AutoPlay");
             }
             GameScreen.instance.SetRoundsTxt(round);
@@ -46,10 +49,10 @@ public class Automatic : MonoBehaviour
     }
     public void MatchMultiplier(float value)
     {
-        Debug.Log("MatchMultiplier "+value);
-        if (autoCashOut && value >= stopmultiplier)
+        // Debug.Log("MatchMultiplier "+value);
+        if (autoCashOut && (value >= stopmultiplier))
         {
-            Debug.Log($"Stop Auto DEBUG");
+            //Debug.Log($"Stop Auto DEBUG");
             ClientExemple.Instance.SendBet();
             CanvasManager.Instance.PlayMensagen($"CashOut x{value:0.00}");
         }

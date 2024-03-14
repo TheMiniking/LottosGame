@@ -1,10 +1,10 @@
+using GameSpawner;
 using Serializer;
 using UnityEngine;
-using GameSpawner;
 
 namespace BV
 {
-     
+
     public class WebClient : WebClientBase
     {
         public static WebClient Instance;
@@ -13,7 +13,7 @@ namespace BV
         [SerializeField] string token;
         bool isRunning = false;
 
-        private void Awake()
+        void Awake()
         {
             Instance = this;
         }
@@ -57,7 +57,7 @@ namespace BV
 
         public void SendMensagem<T>(T msg) where T : INetSerializable
         {
-            SendMsg(msg);
+            SendMsg(0, msg);
         }
 
         #region RespostaServer
@@ -216,12 +216,12 @@ namespace BV
             //    Debug.Log(stop != 0 ? $"Start bet [Client] , Auto Bet ON. bet:{bet} Stop:{stop:0.00}" : "Start bet [Client] : " + bet);
 
             //}
-            SendMsg(new PlayRequest());
+            SendMsg((ushort)SendMsgIdc.PlayRequest, new PlayRequest());
         }
 
         public void GetBalance()
         {
-            SendMsg(new BalanceCreditServer());
+            SendMsg((ushort)SendMsgIdc.GetBalance, new BalanceCreditServer());
         }
 
         public void SetBetValor(float bet)
@@ -231,28 +231,30 @@ namespace BV
         }
         public void AddBonus(float bonus)
         {
-            SendMsg(new AddBonus { valor = bonus });
+            //SendMsg(new AddBonus { valor = bonus });
         }
         #endregion
+
+
     }
 
-   
+
 
 }
- public class MathStatus : INetSerializable
+public class MathStatus : INetSerializable
+{
+    public byte id;
+    public float value;
+
+    public void Deserialize(DataReader reader)
     {
-        public byte id;
-        public float value;
-
-        public void Deserialize(DataReader reader)
-        {
-            reader.Get(ref id);
-            reader.Get(ref value);
-        }
-
-        public void Serialize(DataWriter write)
-        {
-            write.Put(id);
-            write.Put(value);
-        }
+        reader.Get(ref id);
+        reader.Get(ref value);
     }
+
+    public void Serialize(DataWriter write)
+    {
+        write.Put(id);
+        write.Put(value);
+    }
+}

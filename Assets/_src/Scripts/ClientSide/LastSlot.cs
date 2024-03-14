@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -10,12 +9,12 @@ public class LastSlot : MonoBehaviour
     [SerializeField] CanvasGroup canvasGroup;
     [SerializeField] Image Image;
     [SerializeField] List<Sprite> sprites;
-    
-    public void SetBet( float valor)
+
+    public void SetBet(float valor)
     {
         multply.text = $"x {valor:0.00}";
         canvasGroup.alpha = 1;
-        Image.sprite = valor < 2f ? sprites[0] : valor < 5 ? sprites[1] : sprites[2];
+        Image.sprite = (valor < 1.5f) ? sprites[0] : ((valor < 2f) ? sprites[3] : ((valor < 5) ? sprites[1] : sprites[2]));
 
     }
 }
