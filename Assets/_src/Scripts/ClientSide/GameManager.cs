@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections;
+﻿using BV;
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using BV;
 
 public class GameManager : MonoBehaviour
 {
@@ -27,7 +26,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] List<int> rounds;
     [SerializeField] List<TMP_InputField> autoPlayStopIncDec = new();
 
-    [SerializeField] Toggle autoStop, autoStopMobile, autoPlay,autoPlayMobile;
+    [SerializeField] Toggle autoStop, autoStopMobile, autoPlay, autoPlayMobile;
     [SerializeField] bool autoPlayStop = false;
     [SerializeField] float autoStopInicial;
     [SerializeField] int autoStopRoundAtual;
@@ -39,14 +38,23 @@ public class GameManager : MonoBehaviour
     [SerializeField] bool log = false;
     [SerializeField] Automatic auto;
 
-    private void Awake()
+    void Awake()
     {
         Instance = this;
     }
 
-    private void Update()
+    void Start()
     {
-        if(isWalking && automaticPlayThisTurn) automaticPlayThisTurn = false;
+        autoPlay.onValueChanged.AddListener(x => SetAutoPlayRoundsToggle());
+        SetAutoPlayRoundsToggle();
+    }
+
+    void Update()
+    {
+        if (isWalking && automaticPlayThisTurn)
+        {
+            automaticPlayThisTurn = false;
+        }
     }
 
     public void CheckAutoPlay()
@@ -60,7 +68,10 @@ public class GameManager : MonoBehaviour
 
     public void SetUpgradeToggle(int t)
     {
-        if (valUpgrade[t].isOn) valUpgrade.ForEach(x => { if (x != valUpgrade[t]) x.isOn = false; });
+        if (valUpgrade[t].isOn)
+        {
+            valUpgrade.ForEach(x => { if (x != valUpgrade[t]) { x.isOn = false; } });
+        }
     }
 
     public void AutoCashoutCheck()
@@ -74,28 +85,37 @@ public class GameManager : MonoBehaviour
     {
         autoPlayStop = !autoPlayStop;
         autoPlayAction.ForEach(x => { x.interactable = autoPlayStop; x.isOn = false; });
-        autoStop.isOn = !autoPlayStop ? autoStop.isOn : true;
-        autoStopMobile.isOn = !autoPlayStop ? autoStopMobile.isOn : true;
+        autoStop.isOn = (!autoPlayStop) ? autoStop.isOn : true;
+        autoStopMobile.isOn = (!autoPlayStop) ? autoStopMobile.isOn : true;
     }
 
     public void SetAutoPlayRoundsToggle()
     {
-        if (!autoPlay.isOn) autoPlayAction[2].isOn = false;
-        if (autoPlayAction[2].isOn)
+        if (!autoPlay.isOn)
         {
-            autoPlayRounds.ForEach(x => x.interactable = true);
             SetAutoPlayRoundsAtual(0);
+            autoPlayRounds.ForEach(x => { x.interactable = false; x.GetComponent<Image>().sprite = autoPlayRoundImagens[0]; });
         }
         else
         {
+            autoPlayRounds.ForEach(x => x.interactable = true);
             SetAutoPlayRoundsAtual(0);
-            autoPlayRounds.ForEach(x =>{ x.interactable = false; x.GetComponent<Image>().sprite = autoPlayRoundImagens[0]; }) ;
         }
     }
 
     public void SetAutoPlayRoundsAtual(int t)
     {
-        autoPlayRounds.ForEach(x => { if (x != autoPlayRounds[t]) x.GetComponent<Image>().sprite = autoPlayRoundImagens[0]; else x.GetComponent<Image>().sprite = autoPlayRoundImagens[1]; });
+        autoPlayRounds.ForEach(x =>
+        {
+            if (x != autoPlayRounds[t])
+            {
+                x.GetComponent<Image>().sprite = autoPlayRoundImagens[0];
+            }
+            else
+            {
+                x.GetComponent<Image>().sprite = autoPlayRoundImagens[1];
+            }
+        });
         autoStopRoundAtualCicle = rounds[t];
         autoStopRoundAtual = 0;
         auto.round = rounds[t];
@@ -112,49 +132,70 @@ public class GameManager : MonoBehaviour
 
     public float UpDownAutoStop(float modify, bool toUp)
     {
-        stopValBet = toUp ? stopValBet + modify : stopValBet - modify;
-        stopValBet = stopValBet < 1.01f ? 1.01f : stopValBet;
+        stopValBet = toUp ? (stopValBet + modify) : (stopValBet - modify);
+        stopValBet = (stopValBet < 1.01f) ? 1.01f : stopValBet;
         return stopValBet;
     }// Controle de valores, para onde parar automaticamente
     public float UpDownAutoStop(bool toUp)
     {
         if (stepStop)
         {
-            var step = StepCount();
-            if (toUp) stopValBet = step != -1 ? stopValBet + stepUpgree[step] : stopValBet + 1;
-            else stopValBet = step != -1 ? stopValBet - stepUpgree[step] : stopValBet - 1;
-            stopValBet = stopValBet < 1f ? 1f : stopValBet;
+            int step = StepCount();
+            if (toUp)
+            {
+                stopValBet = (step != -1) ? (stopValBet + stepUpgree[step]) : (stopValBet + 1);
+            }
+            else
+            {
+                stopValBet = (step != -1) ? (stopValBet - stepUpgree[step]) : (stopValBet - 1);
+            }
+
+            stopValBet = (stopValBet < 1f) ? 1f : stopValBet;
             return stopValBet;
         }
         else
         {
-            stopValBet = toUp ? stopValBet + 1 : stopValBet - 1;
-            stopValBet = stopValBet < 1f ? 1f : stopValBet;
+            stopValBet = toUp ? (stopValBet + 1) : (stopValBet - 1);
+            stopValBet = (stopValBet < 1f) ? 1f : stopValBet;
             return stopValBet;
         }
     }// Controle de valores, para onde parar automaticamente
 
     public float UpDownBetAmount(bool toUp)
     {
-        var step = StepCount();
-        if (toUp) valueToBet = step != -1 ? valueToBet + stepUpgree[step] : valueToBet + 1;
-        else valueToBet = step != -1 ? valueToBet - stepUpgree[step] : valueToBet - 1;
-        valueToBet = valueToBet < 1 ? 1f : valueToBet > credits ? credits : valueToBet;
+        int step = StepCount();
+        if (toUp)
+        {
+            valueToBet = (step != -1) ? (valueToBet + stepUpgree[step]) : (valueToBet + 1);
+        }
+        else
+        {
+            valueToBet = (step != -1) ? (valueToBet - stepUpgree[step]) : (valueToBet - 1);
+        }
+
+        valueToBet = (valueToBet < 1) ? 1f : ((valueToBet > credits) ? credits : valueToBet);
         return valueToBet;
     }//Controle de Valores da aposta
 
     public float UpDownBetAmount(float modify, bool toUp, int step)
     {
-        if (toUp) valueToBet = step == 1 ? valueToBet + modify : step == 2 ? valueToBet * 2 : credits;
-        else valueToBet = step == 1 ? valueToBet - modify : step == 2 ? valueToBet / 2 : 1f;
-        valueToBet = valueToBet < 1 ? 1f : valueToBet > credits ? credits : valueToBet;
+        if (toUp)
+        {
+            valueToBet = (step == 1) ? (valueToBet + modify) : ((step == 2) ? (valueToBet * 2) : credits);
+        }
+        else
+        {
+            valueToBet = (step == 1) ? (valueToBet - modify) : ((step == 2) ? (valueToBet / 2) : 1f);
+        }
+
+        valueToBet = (valueToBet < 1) ? 1f : ((valueToBet > credits) ? credits : valueToBet);
         return valueToBet;
     }//Controle de Valores da aposta
 
     public int StepCount()
     {
         int step = -1;
-        valUpgrade.ForEach(x => { if (x.isOn) step = valUpgrade.IndexOf(x); });
+        valUpgrade.ForEach(x => { if (x.isOn) { step = valUpgrade.IndexOf(x); } });
         return step;
     }
 
@@ -162,36 +203,42 @@ public class GameManager : MonoBehaviour
     {
         if (autoPlayStop)
         {
-            var max = autoPlayStopIncDec[0].text != "" ? int.Parse(autoPlayStopIncDec[0].text) : 0;
-            var min = autoPlayStopIncDec[1].text != "" ? int.Parse(autoPlayStopIncDec[1].text) : 0;
+            int max = (autoPlayStopIncDec[0].text != string.Empty) ? int.Parse(autoPlayStopIncDec[0].text) : 0;
+            int min = (autoPlayStopIncDec[1].text != string.Empty) ? int.Parse(autoPlayStopIncDec[1].text) : 0;
             autoStopInicial = credits;
             autoStopRoundAtual = 0;
             automaticPlay = true;
             WebClient.Instance.SendBet(valueToBet, autoStop.isOn ? stopValBet : 0);
             CanvasManager.Instance.PlayMensagen($"Auto Play Active . Bet : {valueToBet:00.00}, Stop On: {stopValBet:0.00}");
         }
-        else {
+        else
+        {
             WebClient.Instance.SendBet(valueToBet, autoStop.isOn ? stopValBet : 0);
-            CanvasManager.Instance.PlayMensagen(autoStop.isOn? $"Bet : {valueToBet:00.00}, Stop On: {stopValBet:0.00}" : $"Bet {valueToBet:0.00}");
+            CanvasManager.Instance.PlayMensagen(autoStop.isOn ? ($"Bet : {valueToBet:00.00}, Stop On: {stopValBet:0.00}") : ($"Bet {valueToBet:0.00}"));
         }
     }
 
     public void SendBetAutomatic()
     {
-        var max = autoPlayStopIncDec[0].text != "" ? int.Parse(autoPlayStopIncDec[0].text) : 0;
-        var min = autoPlayStopIncDec[1].text != "" ? int.Parse(autoPlayStopIncDec[1].text) : 0;
-        var mode = AutomaticMode();
-        switch (mode){
+        int max = (autoPlayStopIncDec[0].text != string.Empty) ? int.Parse(autoPlayStopIncDec[0].text) : 0;
+        int min = (autoPlayStopIncDec[1].text != string.Empty) ? int.Parse(autoPlayStopIncDec[1].text) : 0;
+        string mode = AutomaticMode();
+        switch (mode)
+        {
             case "Inc/Dec":
-                if(credits < (autoStopInicial + max))
+                if (credits < autoStopInicial + max)
                 {
-                    if(credits > (autoStopInicial - min))
+                    if (credits > autoStopInicial - min)
                     {
                         if (autoStopRoundAtual < autoStopRoundAtualCicle)
                         {
                             WebClient.Instance.SendBet(valueToBet, stopValBet);
                             automaticPlay = true;
-                            if (log) Debug.Log($"SendBet Inc/Dec ");
+                            if (log)
+                            {
+                                Debug.Log($"SendBet Inc/Dec ");
+                            }
+
                             autoStopRoundAtual++;
                             CanvasManager.Instance.PlayMensagen($"AutoBet : {valueToBet:00.00}, Stop On: {stopValBet:0.00}");
                         }
@@ -202,13 +249,17 @@ public class GameManager : MonoBehaviour
                 else { TurnOfAutomatic(); }
                 break;
             case "Inc":
-                if (credits < (autoStopInicial + max))
+                if (credits < autoStopInicial + max)
                 {
                     if (autoStopRoundAtual < autoStopRoundAtualCicle)
                     {
                         WebClient.Instance.SendBet(valueToBet, stopValBet);
                         automaticPlay = true;
-                        if (log) Debug.Log($"SendBet Inc");
+                        if (log)
+                        {
+                            Debug.Log($"SendBet Inc");
+                        }
+
                         autoStopRoundAtual++;
                         CanvasManager.Instance.PlayMensagen($"AutoBet : {valueToBet:00.00}, Stop On: {stopValBet:0.00}");
                     }
@@ -217,13 +268,17 @@ public class GameManager : MonoBehaviour
                 else { TurnOfAutomatic(); }
                 break;
             case "Dec":
-                if (credits > (autoStopInicial - min))
+                if (credits > autoStopInicial - min)
                 {
-                    if(autoStopRoundAtual < autoStopRoundAtualCicle)
+                    if (autoStopRoundAtual < autoStopRoundAtualCicle)
                     {
                         WebClient.Instance.SendBet(valueToBet, stopValBet);
                         automaticPlay = true;
-                        if (log) Debug.Log($"SendBet Dec");
+                        if (log)
+                        {
+                            Debug.Log($"SendBet Dec");
+                        }
+
                         autoStopRoundAtual++;
                         CanvasManager.Instance.PlayMensagen($"AutoBet : {valueToBet:00.00}, Stop On: {stopValBet:0.00}");
                     }
@@ -236,7 +291,11 @@ public class GameManager : MonoBehaviour
                 {
                     WebClient.Instance.SendBet(valueToBet, stopValBet);
                     automaticPlay = true;
-                    if (log) Debug.Log($"SendBet Round");
+                    if (log)
+                    {
+                        Debug.Log($"SendBet Round");
+                    }
+
                     autoStopRoundAtual++;
                     CanvasManager.Instance.PlayMensagen($"AutoBet : {valueToBet:00.00}, Stop On: {stopValBet:0.00}");
                 }
@@ -247,16 +306,30 @@ public class GameManager : MonoBehaviour
 
     string AutomaticMode()
     {
-        if (autoPlayAction[0].isOn && autoPlayAction[1].isOn) return "Inc/Dec";
-        if (autoPlayAction[0].isOn) return "Inc";
-        if (autoPlayAction[1].isOn) return "Dec";
-        else return "Round";
+        if (autoPlayAction[0].isOn && autoPlayAction[1].isOn)
+        {
+            return "Inc/Dec";
+        }
+
+        if (autoPlayAction[0].isOn)
+        {
+            return "Inc";
+        }
+
+        if (autoPlayAction[1].isOn)
+        {
+            return "Dec";
+        }
+        else
+        {
+            return "Round";
+        }
     }
 
     void TurnOfAutomatic()
     {
         automaticPlay = false;
-        autoPlayAction.ForEach(x => { x.isOn = false; });
+        autoPlayAction.ForEach(x => x.isOn = false);
         CanvasManager.Instance.PlayMensagen("End Of Auto Play");
     }
     //adicionado por Robson

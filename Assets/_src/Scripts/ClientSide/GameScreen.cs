@@ -74,6 +74,8 @@ public class GameScreen : BaseScreen
     [SerializeField] List<Button> betButtons, autoStop, autoStopMobile = new();
     [SerializeField] Toggle autoCashOutToggle, autoCashOutToggleMobile;//adicionado por robson
     [SerializeField] Toggle autoPlayToggle, autoPlayToggleMobile;//adicionado por robson
+    [SerializeField] WinExtra extraWin;
+    [SerializeField] Transform extraWinPanel, extraWinPanelMobile;
 
     // ---------- Bet Game ----------------
     [SerializeField] List<BetPlayers> playersBetList = new();
@@ -96,10 +98,12 @@ public class GameScreen : BaseScreen
     {
         SetCanvas();
         fundo.SetInt("_UseScriptTime", 1);
+
         playerControl.onClick.AddListener(ShowPlayers);
         rankControl.onClick.AddListener(ShowRank);
         playerControlMobile.onClick.AddListener(ShowPlayers);
         rankControlMobile.onClick.AddListener(ShowRank);
+
         autoCashOutToggle.onValueChanged.AddListener(x => GameManager.Instance.AutoCashout(x));
         autoPlayToggle.onValueChanged.AddListener(x => GameManager.Instance.AutoStop(x));
         autoCashOutToggleMobile.onValueChanged.AddListener(x => GameManager.Instance.AutoCashout(x));
@@ -164,6 +168,7 @@ public class GameScreen : BaseScreen
             SetBetText(n);
         });
         ResetBetPlayers();
+        ShowPlayers();
     }
 
     void SetCanvas()
@@ -492,7 +497,11 @@ public class GameScreen : BaseScreen
         g.transform.SetAsFirstSibling();
         playersBetMobile.RemoveAt(index);
         playersBetMobile.Insert(0, g);
-
+        if (!playerShow && (bet.multiplier > 0))
+        {
+            WinExtra h = Instantiate(extraWin, (screen == 0) ? extraWinPanel : extraWinPanelMobile);
+            h.SetText($"{bet.name}  $ {bet.multiplier * bet.value:#,0.00}");
+        }
     }
 
     public void SetBetPlayersWin(BetPlayers bet)
@@ -689,18 +698,26 @@ public class GameScreen : BaseScreen
         }
     }
 
+    bool rankShow = false;
+
     public void ShowRank()
     {
-        if (rankCanvas.activeSelf)
+        if (playerShow)
         {
-            rankCanvas.SetActive(false);
+            ShowPlayers();
         }
-        else { rankCanvas.SetActive(true); }
-        if (rankCanvasMobile.activeSelf)
+        if (rankShow)
         {
-            rankCanvasMobile.SetActive(false);
+            rankCanvas.GetComponent<Animator>().Play("Hide");
+            rankCanvasMobile.GetComponent<Animator>().Play("Hide");
+            rankShow = false;
         }
-        else { rankCanvasMobile.SetActive(true); }
+        else
+        {
+            rankCanvas.GetComponent<Animator>().Play("Show");
+            rankCanvasMobile.GetComponent<Animator>().Play("Show");
+            rankShow = true;
+        }
         rankMultiplier.Sort((x, y) => y.multiplier.CompareTo(x.multiplier));
         rankCash.Sort((x, y) => (y.value * y.multiplier).CompareTo(x.value * x.multiplier));
         if (rankMultiplier.Count >= rankSlotsMultiplier.Count)
@@ -722,12 +739,25 @@ public class GameScreen : BaseScreen
 
     }
 
+    bool playerShow = false;
     public void ShowPlayers()
     {
-        if (playerPanel.activeSelf) { playerPanel.SetActive(false); }
-        else { playerPanel.SetActive(true); }
-        if (playerPanelMobile.activeSelf) { playerPanelMobile.SetActive(false); }
-        else { playerPanelMobile.SetActive(true); }
+        if (rankShow)
+        {
+            ShowRank();
+        }
+        if (playerShow)
+        {
+            playerPanel.GetComponent<Animator>().Play("Hide");
+            playerPanelMobile.GetComponent<Animator>().Play("Hide");
+            playerShow = false;
+        }
+        else
+        {
+            playerPanel.GetComponent<Animator>().Play("Show");
+            playerPanelMobile.GetComponent<Animator>().Play("Show");
+            playerShow = true;
+        }
     }
 }
 

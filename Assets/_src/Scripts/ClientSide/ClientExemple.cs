@@ -164,7 +164,11 @@ public class ClientExemple : WebClientBase
 
     public void BetPlayers(BetPlayers msg)
     {
-        Debug.Log((msg.multiplier == 0) ? ($"[Client] Jogador{msg.name} fez aposta pagando{msg.value}") : ($"[Cliente] O jogador {msg.name} Retirou {msg.multiplier}"));
+        if (debug)
+        {
+            Debug.Log((msg.multiplier == 0) ? ($"[Client] Jogador{msg.name} fez aposta pagando{msg.value}") : ($"[Cliente] O jogador {msg.name} Retirou {msg.multiplier}"));
+        }
+
         if (msg.multiplier == 0)
         {
             CanvasManager.Instance.SetPlayersBet(msg);
@@ -181,6 +185,7 @@ public class ClientExemple : WebClientBase
             if (msg.name == playerName)
             {
                 GameScreen.instance.totalCashOut += (float)(msg.value * msg.multiplier);
+                GameScreen.instance.PlayMensagen($"You Win $ {msg.value * msg.multiplier:#,0.00}");
             }
 
             GameScreen.instance.playerInBetWinner += 1;
