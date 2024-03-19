@@ -104,6 +104,7 @@ public class ClientExemple : WebClientBase
             CanvasManager.Instance.SetBetDesactive();
             WebClient.Instance.StartRun(new StartRun { });
             StartCoroutine(DisplayMulti(msg.data.value));
+            AudioManager.Instance.StopResumeSFX(false);
         }
         else if (msg.data.id == 2) // End Round Crash
         {
@@ -113,6 +114,8 @@ public class ClientExemple : WebClientBase
             Debug.Log("Crash " + msg.data.value);
             isJoin = false;
             CanvasManager.Instance.SetMultiplicador(msg.data.value);
+            AudioManager.Instance.StopResumeSFX(true);
+            AudioManager.Instance.PlayOneShot(2);
         }
         else if (msg.data.id == 3) // Join Round
         {

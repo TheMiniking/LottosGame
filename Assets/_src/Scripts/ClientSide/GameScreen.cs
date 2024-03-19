@@ -149,7 +149,7 @@ public class GameScreen : BaseScreen
         });
         stopVal.onValueChanged.AddListener(x =>
         {
-            string resultado = Regex.Replace(x.Replace(".", ","), "[^0-9.]", string.Empty);
+            string resultado = Regex.Replace(x.Replace(".", ","), "[^0-9,]", string.Empty);
             stopVal.SetTextWithoutNotify(resultado);
         });
         stopVal.onEndEdit.AddListener(x =>

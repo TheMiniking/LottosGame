@@ -74,6 +74,7 @@
     <Compile Include="Assets\_src\Scripts\ServerSide\RTPTank.cs" />
     <Compile Include="Assets\Samples\Web Network\1.0.4\Client e servidor\WebServer.cs" />
     <Compile Include="Assets\Samples\Web Network\1.0.4\Client e servidor\WebClient.cs" />
+    <Compile Include="Assets\_src\Scripts\ClientSide\AudioManager.cs" />
     <Compile Include="Assets\JMO Assets\Cartoon FX (legacy)\Scripts\CFX_LightIntensityFade.cs" />
     <Compile Include="Assets\_src\Scripts\ClientSide\LastSlot.cs" />
     <Compile Include="Assets\_src\Scripts\ClientSide\Player.cs" />
