@@ -14,7 +14,6 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] public TMP_Text betButtonText, roundsText, timerText, multiplierText, messageText, balanceText, inPlayersText, inPlayersWinnersText, totalWinAmountText;
     [SerializeField] public Toggle autoCashOutToggle, autoPlayToggle;
     [SerializeField] public List<Button> roundsButton = new();
-    [SerializeField] public Button roundsButtonAdd, roundsButtonSub;
     [SerializeField] public List<Sprite> buttonsSpites = new();
     [SerializeField] public List<Button> betModButtons = new(); // 0= up , 1 = down, 2-6 = +5/+10/+25/+50/Max 
     [SerializeField] public Button betButton, crashOutButtonAdd, crashOutButtonSub, configButton;
@@ -46,24 +45,30 @@ public class CanvasManager : MonoBehaviour
 
     void Start()
     {
+        ShowPlayers();
+        ResetBets();
         tradDropdown.onValueChanged.AddListener(delegate { SetTraduction(tradDropdown.value); });
         tradDropdown.value = traduction;
         rankButton.onClick.AddListener(ShowRank);
-        playerButton.onClick.AddListener(ShowPlayers);
-        ShowPlayers();
         configButton.onClick.AddListener(() => configObj.SetActive(!configObj.activeSelf));
+        playerButton.onClick.AddListener(ShowPlayers);
     }
 
     void Update()
     {
         inPlayersText.text = $"{playerInBet}";
         inPlayersWinnersText.text = $"{playerInBetWinners}";
-        totalWinAmountText.text = $"$ {totalWinAmount:#,0.00}";
+        totalWinAmountText.text = $"{traduction switch { 0 => "$", 1 => "R$" }} {totalWinAmount:#,0.00}";
+    }
+
+    void OnEnable()
+    {
+        if (Instance != this) { Instance = this; }
     }
 
     public void SetBetInput(int value)
     {
-        betInput.text = $"$ {value}";
+        betInput.text = $" {traduction switch { 0 => "$", 1 => "R$" }} {value}";
     }
 
     public void SetAutoCashOutInput(float value)
@@ -99,6 +104,16 @@ public class CanvasManager : MonoBehaviour
         {
             0 => "Bet",
             1 => "Apostar"
+        };
+        betButton.interactable = true;
+    }
+
+    public void SetBetButtonCancel()
+    {
+        betButtonText.text = traduction switch
+        {
+            0 => "Cancel Bet",
+            1 => "Cancelar Aposta"
         };
         betButton.interactable = true;
     }
@@ -166,7 +181,7 @@ public class CanvasManager : MonoBehaviour
 
     internal void SetBalanceTxt(double balance)
     {
-        balanceText.text = $"$ {balance:#,0.00}";
+        balanceText.text = $"{traduction switch { 0 => "$", 1 => "R$" }} {balance:#,0.00}";
     }
 
     public void ResetBets()
@@ -196,11 +211,18 @@ public class CanvasManager : MonoBehaviour
             if (!playerShow)
             {
                 WinExtra winExtra = Instantiate(winExtraPrefab, transform);
-                winExtra.SetText($"{bet.name} ${bet.value * bet.multiplier:#,0.00}");
+                winExtra.SetText($"{bet.name} {traduction switch { 0 => "$", 1 => "R$" }} {bet.value * bet.multiplier:#,0.00}");
             }
 
         }
-        else { playerInBet++; }
+        else
+        {
+            playerInBet++;
+            if (bet.name == ClientCommands.Instance.playerName)
+            {
+                SetBetButtonCancel();
+            }
+        }
     }
 
     public void SetRank(Line[] rankMult, Line[] rankCashh)
@@ -244,16 +266,8 @@ public class CanvasManager : MonoBehaviour
         {
             ShowPlayers();
         }
-        if (rankShow)
-        {
-            rankCanvas.GetComponent<Animator>().Play("Hide");
-            rankShow = false;
-        }
-        else
-        {
-            rankCanvas.GetComponent<Animator>().Play("Show");
-            rankShow = true;
-        }
+        rankCanvas.GetComponent<Animator>().Play(rankShow ? "Hide" : "Show");
+        rankShow = !rankShow;
         rankMultiplier.Sort((x, y) => y.multiplier.CompareTo(x.multiplier));
         rankCash.Sort((x, y) => (y.value * y.multiplier).CompareTo(x.value * x.multiplier));
         if (rankMultiplier.Count >= rankSlotsMultiplier.Count)
@@ -282,16 +296,8 @@ public class CanvasManager : MonoBehaviour
         {
             ShowRank();
         }
-        if (playerShow)
-        {
-            playerPanel.GetComponent<Animator>().Play("Hide");
-            playerShow = false;
-        }
-        else
-        {
-            playerPanel.GetComponent<Animator>().Play("Show");
-            playerShow = true;
-        }
+        playerPanel.GetComponent<Animator>().Play(playerShow ? "Hide" : "Show");
+        playerShow = !playerShow;
     }
 
     public void SetTraduction(int trad)
@@ -307,5 +313,6 @@ public class CanvasManager : MonoBehaviour
                 tradTexts.ForEach(x => x.text = GameManager.Instance.tradPortugues[tradTexts.IndexOf(x)]);
                 break;
         }
+
     }
 }

@@ -26,14 +26,14 @@ public class BetPlayersHud : MonoBehaviour
         if (rank == true)
         {
             multply.text = $"x {_bet.multiplier:0.00}";
-            credits.text = $"$ {_bet.value * _bet.multiplier:#,0.00}";
+            credits.text = $"{CanvasManager.Instance.traduction switch { 0 => "$", 1 => "R$" }}{_bet.value * _bet.multiplier:#,0.00}";
             anim.Play("BetRank");
             return;
         }
         if (_bet.multiplier >= 1)
         {
             multply.text = $"x {_bet.multiplier:0.00}";
-            credits.text = $"$ {_bet.value * _bet.multiplier:#,0.00}";
+            credits.text = $"{CanvasManager.Instance.traduction switch { 0 => "$", 1 => "R$" }}{_bet.value * _bet.multiplier:#,0.00}";
             anim.Play("BetWin");
         }
         else

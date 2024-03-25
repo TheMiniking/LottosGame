@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +12,8 @@ public class AudioManager : MonoBehaviour
     public Toggle musicToggle, sfxToggle, musicToggleMobile, sfxToggleMobile;
     public Slider musicSlider, sfxSlider, musicSliderMobile, sfxSliderMobile;
     public float musicVolume, sfxVolume;
+
+    public List<Button> allButtons;
 
     void Awake()
     {
@@ -33,6 +36,7 @@ public class AudioManager : MonoBehaviour
         musicSliderMobile.onValueChanged.AddListener(x => VolumeMusic(x));
         sfxToggleMobile.onValueChanged.AddListener(x => SfxMute(x));
         sfxSliderMobile.onValueChanged.AddListener(x => VolumeSFX(x));
+        allButtons.ForEach(x => x.onClick.AddListener(() => PlayOneShot(0)));
     }
 
     public void PlayMusic()
@@ -60,8 +64,8 @@ public class AudioManager : MonoBehaviour
 
     public void SfxMute(bool mute)
     {
-        if (!mute) { sfx1.mute = true; sfx2.mute = true; }
-        else { sfx1.mute = false; sfx2.mute = false; }
+        if (!mute) { sfx1.mute = true; sfx2.mute = true; oneshot.mute = true; }
+        else { sfx1.mute = false; sfx2.mute = false; oneshot.mute = false; }
     }
 
     public void StopResumeMusic(bool pause)

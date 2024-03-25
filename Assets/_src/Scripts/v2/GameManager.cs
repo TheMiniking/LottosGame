@@ -41,6 +41,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        Screen.sleepTimeout = SleepTimeout.NeverSleep; // disable screen sleep
         SetScreenMode();
         roundsFivityOBJ.SetActive(false);
         CanvasManager.Instance.betModButtons[0].onClick.AddListener(() => ModValorBet(true, 1));
@@ -72,8 +73,6 @@ public class GameManager : MonoBehaviour
             n = (n < 1.0f) ? 1.0f : ((n > 999f) ? 999f : n);
             SetValorAutoCashOut(n);
         });
-        //CanvasManager.Instance.roundsButtonAdd.onClick.AddListener(() => ModRound(true)); //Removido Layout
-        //CanvasManager.Instance.roundsButtonSub.onClick.AddListener(() => ModRound(false));//Removido Layout
         CanvasManager.Instance.roundsButton[0]?.onClick.AddListener(() => SetRounds(-1));
         CanvasManager.Instance.roundsButton[1]?.onClick.AddListener(() => SetRounds(10));
         CanvasManager.Instance.roundsButton[2]?.onClick.AddListener(() => SetRounds(25));
@@ -81,14 +80,13 @@ public class GameManager : MonoBehaviour
         CanvasManager.Instance.roundsButton[4]?.onClick.AddListener(() => SetRounds(100));
         CanvasManager.Instance.autoCashOutToggle.onValueChanged.AddListener(x => AutoCashOut(x));
         CanvasManager.Instance.autoPlayToggle.onValueChanged.AddListener(x => AutoStop(x));
-        CanvasManager.Instance.SetRoundsText(betRounds);
+        SetRoundButtons(0);
     }
 
     void Update()
     {
         fundoRealtimeAtualPosition = fundoOnMove ? (fundoRealtimeAtualPosition + fundoRealtimeVelocity) : fundoRealtimeAtualPosition;
         fundo.SetFloat("_RealTimeUpdate", fundoRealtimeAtualPosition);
-        //descida.SetFloat("_RealTimeUpdate", fundoRealtimeAtualPosition);
         if (isMobile && (Screen.height < Screen.width)) { SetScreenMode(); }
         if (!isMobile && (Screen.height > Screen.width)) { SetScreenMode(); }
     }
@@ -212,7 +210,11 @@ public class GameManager : MonoBehaviour
     //quando inicia o tempo pra entrar na partida
     public void NewMatchInit()
     {
-        Debug.Log(activeAutoPlay + " NewMatchInit " + betRounds);
+        if (debug)
+        {
+            Debug.Log(activeAutoPlay + " NewMatchInit " + betRounds);
+        }
+
         if (activeAutoPlay && ((betRounds == -1) || (betRounds > 0)))
         {
             ClientCommands.Instance.SendBet();
@@ -237,7 +239,11 @@ public class GameManager : MonoBehaviour
     }
     public void MatchMultiplier(float value)
     {
-        Debug.Log("MatchMultiplier :" + value + "autocash " + (activeAutoCashOut ? "ativo" : "desativo"));
+        if (debug)
+        {
+            Debug.Log("MatchMultiplier :" + value + "autocash " + (activeAutoCashOut ? "ativo" : "desativo"));
+        }
+
         if (activeAutoCashOut && (value >= autoCashOut))
         {
             Debug.Log($"Stop Auto DEBUG");
@@ -258,7 +264,7 @@ public class GameManager : MonoBehaviour
 
     internal void AutoStop(bool x)
     {
-        activeAutoCashOut = x;
+        activeAutoPlay = x;
         switch (traduction)
         {
             case 0:
@@ -272,7 +278,7 @@ public class GameManager : MonoBehaviour
 
     internal void AutoCashOut(bool x)
     {
-        activeAutoPlay = x;
+        activeAutoCashOut = x;
         if (x)
         {
             CanvasManager.Instance.autoCashOutToggle.isOn = true;
@@ -306,7 +312,11 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator DisplayMulti(float multiSum)
     {
-        Debug.Log("DisplayMulti " + multiSum);
+        if (debug)
+        {
+            Debug.Log("DisplayMulti " + multiSum);
+        }
+
         float multiplier = 1;
         float timer = Time.time - multiSum;
         while (true)
@@ -386,7 +396,6 @@ public class GameManager : MonoBehaviour
     public void SelectTecladoEnter()
     {
         float v = float.Parse(tecladoTextValue.Replace(".", ","));
-        Debug.Log($"normal {v}, formatado {v:0.00}");
         if (debug)
         {
             Debug.Log($"SelectTecladoEnter");

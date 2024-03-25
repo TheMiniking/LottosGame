@@ -22,8 +22,6 @@ public class ClientCommands : WebClientBase
     protected override void Start()
     {
         base.Start();
-        //FakeServer.Instance.GetFakeUser("Miniking");
-
         RegisterHandler<GameLoginResponse>(GameLoginResponse, (ushort)ReceiveMsgIdc.GameLoginResponse);
         RegisterHandler<BalanceResponse>(BalanceResponse, (ushort)ReceiveMsgIdc.BalanceResponse);
         RegisterHandler<PlayResponse<MathStatus>>(PlayResponse, (ushort)ReceiveMsgIdc.PlayResponse);
@@ -43,9 +41,8 @@ public class ClientCommands : WebClientBase
     protected override void OnOpen()
     {
         base.OnOpen();
-
-
     }
+
     string GetTokenID()
     {
         int pm = Application.absoluteURL.IndexOf("?token=");
@@ -174,7 +171,11 @@ public class ClientCommands : WebClientBase
 
     public void SendBet()
     {
-        Debug.Log("[Client] Send Bet");
+        if (debug)
+        {
+            Debug.Log("[Client] Send Bet");
+        }
+
         SendMsg((ushort)SendMsgIdc.PlayRequest, new PlayRequest());
     }
 
@@ -184,8 +185,11 @@ public class ClientCommands : WebClientBase
         GameManager.Instance.isWalking = true;
         GameManager.Instance.canBet = false;
         CanvasManager.Instance.SetPlayerState("Walking");
-        Debug.Log("Start Corrida");
         AudioManager.Instance.StopResumeSFX(false);
+        if (debug)
+        {
+            Debug.Log("Start Corrida");
+        }
     }
 
     public void Crash(Crash msg)
@@ -196,10 +200,13 @@ public class ClientCommands : WebClientBase
         GameManager.Instance.ResetVelocityParalax();
         CanvasManager.Instance.SetPlayerState("Lost");
         CanvasManager.Instance.SetLastPlays(msg.multply);
-        Debug.Log("Kabum , Distance x" + msg.multply);
         GameManager.Instance.fundoOnMove = false;
         AudioManager.Instance.StopResumeSFX(true);
         AudioManager.Instance.PlayOneShot(2);
+        if (debug)
+        {
+            Debug.Log("Kabum , Distance x" + msg.multply);
+        }
     }
 }
 

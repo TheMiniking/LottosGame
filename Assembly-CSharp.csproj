@@ -58,12 +58,12 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\2022.3.9f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\_src\Scripts\ServerHUD.cs" />
     <Compile Include="Assets\JMO Assets\Cartoon FX (legacy)\Scripts\CFX_AutoRotate.cs" />
     <Compile Include="Assets\JMO Assets\Cartoon FX (legacy)\Demo\Assets\CFX_Demo_RandomDirectionTranslate.cs" />
     <Compile Include="Assets\Mine\GameMine.cs" />
     <Compile Include="Assets\_src\Scripts\Universal\Wallet.cs" />
     <Compile Include="Assets\JMO Assets\Cartoon FX (legacy)\Scripts\CFX_LightFlicker.cs" />
+    <Compile Include="Assets\_src\Scripts\Universal\ServerHUD.cs" />
     <Compile Include="Assets\_src\Scripts\v2\ClientCommands.cs" />
     <Compile Include="Assets\_src\Scripts\v2\CanvasManager.cs" />
     <Compile Include="Assets\_src\Scripts\Universal\BetPlayersHud.cs" />
