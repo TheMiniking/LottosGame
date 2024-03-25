@@ -36,6 +36,7 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] public TMP_Dropdown tradDropdown;
 
     [SerializeField] WinExtra winExtraPrefab;
+    [SerializeField] GameObject loadingPanel;
 
     void Awake()
     {
@@ -64,6 +65,11 @@ public class CanvasManager : MonoBehaviour
     void OnEnable()
     {
         if (Instance != this) { Instance = this; }
+    }
+
+    public void ShowLoadingPanel(bool value)
+    {
+        loadingPanel.SetActive(value);
     }
 
     public void SetBetInput(int value)

@@ -40,6 +40,7 @@ public class ClientCommands : WebClientBase
 
     protected override void OnOpen()
     {
+        CanvasManager.Instance.ShowLoadingPanel(false);
         base.OnOpen();
     }
 
@@ -54,6 +55,7 @@ public class ClientCommands : WebClientBase
     }
     protected override void OnClose(int closeCode)
     {
+        CanvasManager.Instance.ShowLoadingPanel(true);
         base.OnClose(closeCode);
     }
     public void GameLoginResponse(GameLoginResponse msg)
