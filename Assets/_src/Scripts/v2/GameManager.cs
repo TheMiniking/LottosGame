@@ -218,7 +218,7 @@ public class GameManager : MonoBehaviour
         if (activeAutoPlay && ((betRounds == -1) || (betRounds > 0)))
         {
             ClientCommands.Instance.SendBet();
-            CanvasManager.Instance.PlayMessage(traduction switch { 0 => "AutoPlay Bet", 1 => "Aposta Automatica" });
+            CanvasManager.Instance.PlayMessage(traduction switch { 0 => "AutoPlay Bet", 1 => "Aposta Automatica" , _ => "AutoPlay Bet"});
             if (betRounds > 0)
             {
                 betRounds--;
@@ -226,7 +226,7 @@ public class GameManager : MonoBehaviour
 
             if (betRounds == 0)
             {
-                CanvasManager.Instance.PlayMessage(traduction switch { 0 => "End of AutoPlay", 1 => "Fim da Aposta Automatica" });
+                CanvasManager.Instance.PlayMessage(traduction switch { 0 => "End of AutoPlay", 1 => "Fim da Aposta Automatica" , _ => "End of AutoPlay"});
                 CanvasManager.Instance.autoPlayToggle.isOn = false;
             }
             CanvasManager.Instance.SetRoundsText(betRounds);
@@ -248,7 +248,7 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log($"Stop Auto DEBUG");
             ClientCommands.Instance.SendBet();      //envia o comando para o servidor para parar o auto
-            CanvasManager.Instance.PlayMessage(traduction switch { 0 => $"CashOut x{value:0.00}", 1 => $"Saiu x{value:0.00}" });
+            CanvasManager.Instance.PlayMessage(traduction switch { 0 => $"CashOut x{value:0.00}", 1 => $"Saiu x{value:0.00}" , _ => $"CashOut x{value:0.00}"});
         }
     }
 
@@ -273,6 +273,10 @@ public class GameManager : MonoBehaviour
             case 1:
                 CanvasManager.Instance.PlayMessage(x ? "Automatico Ativo" : "automatico Desativado");
                 break;
+            default:
+                CanvasManager.Instance.PlayMessage(x ? "AutoPlay Active" : "AutoPlay Desactive");
+                break;
+
         }
     }
 
@@ -291,6 +295,10 @@ public class GameManager : MonoBehaviour
             case 1:
                 CanvasManager.Instance.PlayMessage(x ? "Saida Auto Ativa" : "Saida Auto Desativo");
                 break;
+            default:
+                CanvasManager.Instance.PlayMessage(x ? "CashOut Active" : "CashOut Desactive");
+                break;
+
         }
 
     }
@@ -347,6 +355,8 @@ public class GameManager : MonoBehaviour
 
         fundoRealtimeVelocity = 0.07f;
     }
+
+    public string MoedaAtual() => traduction switch { 0 => "$", 1 => "R$" ,_ => "$"};
 
     public void SelectTeclado(int teclado)
     {

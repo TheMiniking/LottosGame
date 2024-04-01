@@ -12,7 +12,7 @@ public class LastSlot : MonoBehaviour
 
     public void SetBet(float valor)
     {
-        multply.text = $"x {valor:0.00}";
+        multply.text = valor > 0 ? $"x {valor:0.00}" : "x -.--";
         canvasGroup.alpha = 1;
         Image.sprite = (valor < 1.5f) ? sprites[0] : ((valor < 2f) ? sprites[3] : ((valor < 5) ? sprites[1] : sprites[2]));
 

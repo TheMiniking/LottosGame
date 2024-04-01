@@ -24,6 +24,7 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] public int playerInBet, playerInBetWinners;
     [SerializeField] public float totalWinAmount = 0f;
     [SerializeField] public GameObject configObj;
+    [SerializeField] public float balanceVal,betVal;
     //-------------Rank-----------------
     [SerializeField] GameObject rankCanvas, playerPanel;
     [SerializeField] Button rankButton, playerButton;
@@ -59,7 +60,7 @@ public class CanvasManager : MonoBehaviour
     {
         inPlayersText.text = $"{playerInBet}";
         inPlayersWinnersText.text = $"{playerInBetWinners}";
-        totalWinAmountText.text = $"{traduction switch { 0 => "$", 1 => "R$" }} {totalWinAmount:#,0.00}";
+        totalWinAmountText.text = $"{GameManager.Instance.MoedaAtual()} {totalWinAmount:#,0.00}";
     }
 
     void OnEnable()
@@ -74,7 +75,8 @@ public class CanvasManager : MonoBehaviour
 
     public void SetBetInput(int value)
     {
-        betInput.text = $" {traduction switch { 0 => "$", 1 => "R$" }} {value}";
+        betVal = value;
+        betInput.text = $" {GameManager.Instance.MoedaAtual()} {betVal}";
     }
 
     public void SetAutoCashOutInput(float value)
@@ -109,7 +111,8 @@ public class CanvasManager : MonoBehaviour
         betButtonText.text = traduction switch
         {
             0 => "Bet",
-            1 => "Apostar"
+            1 => "Apostar",
+            _ => "Bet"
         };
         betButton.interactable = true;
     }
@@ -119,7 +122,8 @@ public class CanvasManager : MonoBehaviour
         betButtonText.text = traduction switch
         {
             0 => "Cancel Bet",
-            1 => "Cancelar Aposta"
+            1 => "Cancelar Aposta",
+            _ => "Cancel Bet"
         };
         betButton.interactable = true;
     }
@@ -129,7 +133,8 @@ public class CanvasManager : MonoBehaviour
         betButtonText.text = traduction switch
         {
             0 => "Wait Round",
-            1 => "Espere a Rodada"
+            1 => "Espere a Rodada",
+            _ => "Wait Round"
         };
         betButton.interactable = false;
     }
@@ -139,7 +144,8 @@ public class CanvasManager : MonoBehaviour
         betButtonText.text = traduction switch
         {
             0 => $"Stop {var:0.00}",
-            1 => $"Parar {var:0.00}"
+            1 => $"Parar {var:0.00}",
+            _ => $"Stop {var:0.00}"
         };
         betButton.interactable = true;
     }
@@ -152,7 +158,7 @@ public class CanvasManager : MonoBehaviour
     public void SetLastPlays(float multply)
     {
         multipliers.Add(multply);
-        multipliersFivity.Add(multply);
+        multipliersFivity.Insert(0,multply);
         if (multipliers.Count > multipliersSlots.Count)
         {
             multipliers.RemoveAt(0);
@@ -160,11 +166,11 @@ public class CanvasManager : MonoBehaviour
 
         if (multipliersFivity.Count > multipliersSlotsFivity.Count)
         {
-            multipliersFivity.RemoveAt(0);
+            multipliersFivity.RemoveAt(multipliersFivity.Count - 1);
         }
 
         SetSlot(multply);
-        SetSlotFivity(multply);
+        SetSlotFivity();
     }
 
     public void SetSlot(float multply)
@@ -185,9 +191,19 @@ public class CanvasManager : MonoBehaviour
         multipliersSlotsFivity.Insert(0, slot);
     }
 
+    public void SetSlotFivity()
+    {
+        multipliersSlotsFivity.ForEach(x => {
+            if (multipliersSlotsFivity.IndexOf(x) <= multipliersFivity.Count-1)
+                x.SetBet(multipliersFivity[multipliersSlotsFivity.IndexOf(x)]); 
+            else  x.SetBet(0); 
+        });
+    }
+
     internal void SetBalanceTxt(double balance)
     {
-        balanceText.text = $"{traduction switch { 0 => "$", 1 => "R$" }} {balance:#,0.00}";
+        balanceVal = (float)balance;
+        balanceText.text = $"{GameManager.Instance.MoedaAtual()} {balanceVal:#,0.00}";
     }
 
     public void ResetBets()
@@ -217,7 +233,7 @@ public class CanvasManager : MonoBehaviour
             if (!playerShow)
             {
                 WinExtra winExtra = Instantiate(winExtraPrefab, transform);
-                winExtra.SetText($"{bet.name} {traduction switch { 0 => "$", 1 => "R$" }} {bet.value * bet.multiplier:#,0.00}");
+                winExtra.SetText($"{bet.name} {GameManager.Instance.MoedaAtual()} {bet.value * bet.multiplier:#,0.00}");
             }
 
         }
@@ -319,6 +335,8 @@ public class CanvasManager : MonoBehaviour
                 tradTexts.ForEach(x => x.text = GameManager.Instance.tradPortugues[tradTexts.IndexOf(x)]);
                 break;
         }
-
+        betSlots.ForEach(x => x.Reload());
+        balanceText.text = $"{GameManager.Instance.MoedaAtual()} {balanceVal:#,0.00}";
+        betInput.text = $" {GameManager.Instance.MoedaAtual()} {betVal}";
     }
 }

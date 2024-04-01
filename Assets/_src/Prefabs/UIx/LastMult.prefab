@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 277801197482930563}
   - component: {fileID: 5358145960434467852}
   - component: {fileID: 5007334439866467630}
+  - component: {fileID: 7703126426593662502}
   m_Layer: 0
   m_Name: LastMult
   m_TagString: Untagged
@@ -110,6 +111,26 @@ CanvasGroup:
   m_Interactable: 0
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
+--- !u!114 &7703126426593662502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3900683531744497507}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreLayout: 0
+  m_MinWidth: 23
+  m_MinHeight: 10
+  m_PreferredWidth: 45
+  m_PreferredHeight: 20
+  m_FlexibleWidth: 1
+  m_FlexibleHeight: 1
+  m_LayoutPriority: 1
 --- !u!1 &4635912249209415164
 GameObject:
   m_ObjectHideFlags: 0
@@ -202,7 +223,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 18
+  m_fontSize: 14.25
   m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 1

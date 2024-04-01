@@ -1,6 +1,8 @@
 ﻿using GameSpawner;
+using JetBrains.Annotations;
 using Serializer;
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class ClientCommands : WebClientBase
@@ -12,7 +14,8 @@ public class ClientCommands : WebClientBase
     [SerializeField] string token;
     [SerializeField] bool debug = true;
     public string playerName;
-    public bool isRunning;
+    public bool isRunning, onConnect=false;
+    Conection data ;
 
     void Awake()
     {
@@ -34,6 +37,8 @@ public class ClientCommands : WebClientBase
         token = GetTokenID();
 #endif
         CreateConnection((BuildType == BuildType.Dev) ? urlDev : urlTest, token);
+        data = new Conection() { data =new byte[] { 255, 255 } };
+        onConnect = true;
         TryConnect();
     }
 
@@ -99,7 +104,7 @@ public class ClientCommands : WebClientBase
             StartRun(new StartRun());
             StartCoroutine(GameManager.Instance.DisplayMulti(msg.data.value));
             GameManager.Instance.fundoOnMove = true;
-
+            StartCoroutine(ConfirmConnection());
         }
         else if (msg.data.id == 2) // End Round Crash
         {
@@ -109,6 +114,7 @@ public class ClientCommands : WebClientBase
             GameManager.Instance.isJoin = false;
             CanvasManager.Instance.SetMultiplierText(msg.data.value);
             GameManager.Instance.fundoOnMove = false;
+            StartCoroutine(ConfirmConnection());
         }
         else if (msg.data.id == 3) // Join Round
         {
@@ -133,14 +139,14 @@ public class ClientCommands : WebClientBase
 
     public void BetPlayers(BetPlayers msg)
     {
-        Debug.Log((msg.multiplier == 0) ? ($"[Client] Jogador{msg.name} fez aposta pagando{msg.value}") : ($"[Cliente] O jogador {msg.name} Retirou {msg.multiplier}"));
+        if (debug) Debug.Log((msg.multiplier == 0) ? ($"[Client] Jogador{msg.name} fez aposta pagando{msg.value}") : ($"[Cliente] O jogador {msg.name} Retirou {msg.multiplier}"));
         CanvasManager.Instance.SetBetSlot(msg);
 
     }
 
     void RankResponse(Ranking ranking)
     {
-        Debug.Log("RankResponse mult:" + ranking.rankValue.Length + " / cash :" + ranking.rankMulti.Length);
+        if (debug) Debug.Log("RankResponse mult:" + ranking.rankValue.Length + " / cash :" + ranking.rankMulti.Length);
         Line[] jsonMult = ranking.rankMulti;
         Line[] jsonCash = ranking.rankValue;
         CanvasManager.Instance.SetRank(jsonMult, jsonCash);
@@ -148,7 +154,7 @@ public class ClientCommands : WebClientBase
 
     void LastMultiResponse(LastMulti lastMulti)
     {
-        Debug.Log("LastMultiResponse:" + lastMulti.multis);
+        if (debug) Debug.Log("LastMultiResponse:" + lastMulti.multis);
         foreach (float item in lastMulti.multis)
         {
             CanvasManager.Instance.SetLastPlays(item);
@@ -157,7 +163,7 @@ public class ClientCommands : WebClientBase
 
     public void NextBet(int value)
     {
-        Debug.Log("[Client] Next Bet " + value);
+        if (debug) Debug.Log("[Client] Next Bet " + value);
         SendMsg((ushort)SendMsgIdc.NextBet, new NextBet { bet = (byte)value });
     }
 
@@ -209,6 +215,33 @@ public class ClientCommands : WebClientBase
         {
             Debug.Log("Kabum , Distance x" + msg.multply);
         }
+    }
+    
+    IEnumerator ConfirmConnection()
+    {
+        if (debug) Debug.Log($"[Client] ConfirmConnection : {onConnect}");
+        while (true)
+        {
+            SendMsg((ushort)SendMsgIdc.Connection, data);
+            if (debug) Debug.Log("[Client] ConfirmConnection Sent");
+            yield return new WaitForSeconds(30f);
+        }
+    }
+}
+
+[Serializable]
+public class Conection : INetSerializable
+{
+    public byte[] data;
+
+    public void Deserialize(DataReader reader)
+    {
+        reader.Get(ref data);
+    }
+
+    public void Serialize(DataWriter write)
+    {
+        write.Put(data);
     }
 }
 
@@ -362,5 +395,6 @@ enum SendMsgIdc
     PlayRequest = 1,
     NextBet = 2,
     GetBalance = 3,
-    GetRanking = 4
+    GetRanking = 4,
+    Connection = 5
 }

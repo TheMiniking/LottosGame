@@ -9,6 +9,7 @@ public class BetPlayersHud : MonoBehaviour
     public TMP_Text multply;
     public TMP_Text credits;
     public Animator anim;
+    public float betVal, multiplierVal, creditsVal;
 
     internal void Clear()
     {
@@ -16,24 +17,30 @@ public class BetPlayersHud : MonoBehaviour
         bet.text = string.Empty;
         multply.text = string.Empty;
         credits.text = string.Empty;
+        creditsVal = 0;
+        multiplierVal = 0;
+        betVal = 0;
         anim.Play("Default");
     }
 
     internal void Set(BetPlayers _bet, bool? rank = null)
     {
         name.text = _bet.name;
-        bet.text = $"{_bet.value:0.00}";
+        betVal =(float) _bet.value;
+        multiplierVal = _bet.multiplier;
+        creditsVal =(float) _bet.value * _bet.multiplier;
+        bet.text = $"{GameManager.Instance.MoedaAtual()}{betVal:0.00}";
         if (rank == true)
         {
-            multply.text = $"x {_bet.multiplier:0.00}";
-            credits.text = $"{CanvasManager.Instance.traduction switch { 0 => "$", 1 => "R$" }}{_bet.value * _bet.multiplier:#,0.00}";
+            multply.text = $"x {multiplierVal:0.00}";
+            credits.text = $"{GameManager.Instance.MoedaAtual()}{creditsVal:#,0.00}";
             anim.Play("BetRank");
             return;
         }
         if (_bet.multiplier >= 1)
         {
-            multply.text = $"x {_bet.multiplier:0.00}";
-            credits.text = $"{CanvasManager.Instance.traduction switch { 0 => "$", 1 => "R$" }}{_bet.value * _bet.multiplier:#,0.00}";
+            multply.text = $"x {multiplierVal:0.00}";
+            credits.text = $"{GameManager.Instance.MoedaAtual()}{creditsVal:#,0.00}";
             anim.Play("BetWin");
         }
         else
@@ -42,5 +49,12 @@ public class BetPlayersHud : MonoBehaviour
             credits.text = $"--";
             anim.Play("Normal");
         }
+    }
+
+    internal void Reload()
+    {
+        bet.text = $"{GameManager.Instance.MoedaAtual()}{betVal:0.00}";
+        multply.text = $"x {multiplierVal:0.00}";
+        credits.text = $"{GameManager.Instance.MoedaAtual()}{creditsVal:#,0.00}";
     }
 }
