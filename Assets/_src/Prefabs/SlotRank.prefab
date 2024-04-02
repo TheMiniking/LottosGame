@@ -67,8 +67,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: x 999,00
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: bfad03e53d6ae6046ad28c4915d073e7, type: 2}
-  m_sharedMaterial: {fileID: 1073025327753946764, guid: bfad03e53d6ae6046ad28c4915d073e7, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: afcec5bd12e536247bf1c496bcdd67c9, type: 2}
+  m_sharedMaterial: {fileID: -1699255697596630656, guid: afcec5bd12e536247bf1c496bcdd67c9, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -92,12 +92,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 8
+  m_fontSize: 10
   m_fontSizeBase: 11
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 5
-  m_fontSizeMax: 8
+  m_fontSizeMax: 10
   m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -192,7 +192,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.5232055, g: 1, b: 0, a: 1}
+  m_Color: {r: 0.80441487, g: 1, b: 0.5911949, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -305,6 +305,9 @@ MonoBehaviour:
   multply: {fileID: 7428109498294543805}
   credits: {fileID: 7549570741550023966}
   anim: {fileID: 4107390586692833917}
+  betVal: 0
+  multiplierVal: 0
+  creditsVal: 0
 --- !u!95 &4107390586692833917
 Animator:
   serializedVersion: 5
@@ -393,8 +396,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: $ 100
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: bfad03e53d6ae6046ad28c4915d073e7, type: 2}
-  m_sharedMaterial: {fileID: 1073025327753946764, guid: bfad03e53d6ae6046ad28c4915d073e7, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: afcec5bd12e536247bf1c496bcdd67c9, type: 2}
+  m_sharedMaterial: {fileID: -1699255697596630656, guid: afcec5bd12e536247bf1c496bcdd67c9, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -604,10 +607,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 100.000,00
+  m_text: $ 999.000,00
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: bfad03e53d6ae6046ad28c4915d073e7, type: 2}
-  m_sharedMaterial: {fileID: 1073025327753946764, guid: bfad03e53d6ae6046ad28c4915d073e7, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: afcec5bd12e536247bf1c496bcdd67c9, type: 2}
+  m_sharedMaterial: {fileID: -1699255697596630656, guid: afcec5bd12e536247bf1c496bcdd67c9, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -631,12 +634,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 8
+  m_fontSize: 9.95
   m_fontSizeBase: 10
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 1
-  m_fontSizeMax: 8
+  m_fontSizeMax: 10
   m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -738,10 +741,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: OITOCHAR
+  m_text: Name Grande Comp.
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: bfad03e53d6ae6046ad28c4915d073e7, type: 2}
-  m_sharedMaterial: {fileID: 1073025327753946764, guid: bfad03e53d6ae6046ad28c4915d073e7, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: afcec5bd12e536247bf1c496bcdd67c9, type: 2}
+  m_sharedMaterial: {fileID: -1699255697596630656, guid: afcec5bd12e536247bf1c496bcdd67c9, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -765,13 +768,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 12.35
+  m_fontSize: 13
   m_fontSizeBase: 11
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 5
   m_fontSizeMax: 14
-  m_fontStyle: 1
+  m_fontStyle: 33
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
