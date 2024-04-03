@@ -9,7 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8344424517667819725}
-  - component: {fileID: 7507583215949293536}
+  - component: {fileID: 8038100908140146525}
+  - component: {fileID: 3763370358391100140}
   m_Layer: 0
   m_Name: Client
   m_TagString: Untagged
@@ -32,7 +33,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7507583215949293536
+--- !u!114 &8038100908140146525
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,15 +42,31 @@ MonoBehaviour:
   m_GameObject: {fileID: 1717301008028739644}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9b3ed06d3c94764eaa5bedd2878a39f, type: 3}
+  m_Script: {fileID: 11500000, guid: 9a3b36d6cf1a0bb409ff6dc729275d19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  autoReconnect: 1
   logs: 1
-  BeguinTryConnect:
-    m_PersistentCalls:
-      m_Calls: []
-  EndTryConnect:
-    m_PersistentCalls:
-      m_Calls: []
-  url: 
-  token: 
+  json: 0
+  buildType: 0
+  urlTest: wss://gameserverstest.orderoftheheadlessmule.com/game1003
+  urlDev: wss://gameserversdev.orderoftheheadlessmule.com/game1003
+  token: Mjh8bWluaWtpbmd8MXxmNjNlYmNiMC0zYmJhLTQwYjAtOTFiNy03NzI5MDI1NzJmNzE=
+  debug: 1
+  playerName: 
+  isRunning: 0
+  onConnect: 0
+--- !u!114 &3763370358391100140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1717301008028739644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b58fe2fc04dc800469450abda7a86c7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxCmdPerFrame: 500
+  current: 0

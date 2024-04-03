@@ -94,9 +94,25 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void VolumeMusic(float volume) { music.volume = volume; musicVolume = volume; musicSlider.value = volume; musicSliderMobile.value = volume; }
+    public void VolumeMusic(float volume) 
+    {
+        music.volume = volume; 
+        musicSlider.value = volume; 
+        musicSliderMobile.value = volume; 
+        volume = volume / 2;
+        musicVolume = volume; 
+    }
 
-    public void VolumeSFX(float volume) { sfx1.volume = volume; sfx2.volume = volume; sfxVolume = volume; sfxSlider.value = volume; sfxSliderMobile.value = volume; }
+    public void VolumeSFX(float volume)
+    {
+        sfxVolume = volume; 
+        sfxSlider.value = volume; 
+        sfxSliderMobile.value = volume; 
+        volume = volume / 2;
+        sfx1.volume = volume; 
+        sfx2.volume = volume; 
+        oneshot.volume = volume;
+    }
 
     public void SetMusic(int music) { this.music.clip = musicList[music]; }
 

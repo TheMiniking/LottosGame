@@ -11,7 +11,7 @@ public class CanvasManager : MonoBehaviour
     public static CanvasManager Instance;
     [SerializeField] Canvas Canvas;
     [SerializeField] public TMP_InputField betInput, autoCashOutInput;
-    [SerializeField] public TMP_Text betButtonText, roundsText, timerText, multiplierText, messageText, balanceText, inPlayersText, inPlayersWinnersText, totalWinAmountText;
+    [SerializeField] public TMP_Text betButtonText, roundsText, timerText, multiplierText,multiplierTextMensage, messageText, balanceText, inPlayersText, inPlayersWinnersText, totalWinAmountText;
     [SerializeField] public Toggle autoCashOutToggle, autoPlayToggle;
     [SerializeField] public List<Button> roundsButton = new();
     [SerializeField] public List<Sprite> buttonsSpites = new();
@@ -150,6 +150,13 @@ public class CanvasManager : MonoBehaviour
         betButton.interactable = true;
     }
 
+    public void SetMultiplierTextMensage(bool timer)
+    {
+        multiplierTextMensage.text = (timer) ? 
+            traduction switch { 0 => "Next Round in :", 1 => "Proxima Rodada em :", _ => "Next Round in :" } :
+            traduction switch { 0 => "Bet Multiplier :", 1 => "Multiplicador de Aposta :", _ => "Bet Multiplier :" };
+    }
+
     public void SetPlayerState(string str)
     {
         playerAnimator.Play(str);
@@ -263,9 +270,10 @@ public class CanvasManager : MonoBehaviour
         cash.Sort((x, y) => (y.value * y.multiplier).CompareTo(x.value * x.multiplier));
         rankMultiplier = mult;
         rankCash = cash;
+        Debug.Log($"rankMultiplier {rankMultiplier.Count} rankCash {rankCash.Count} rankSlotsMultiplier {rankSlotsMultiplier.Count} rankSlotsCash {rankSlotsCash.Count}");
         if (rankMultiplier.Count >= rankSlotsMultiplier.Count)
         {
-            rankSlotsMultiplier.ForEach(x => x.Set(mult[rankSlotsMultiplier.IndexOf(x)], true));
+            rankSlotsMultiplier.ForEach(x => x.Set(rankMultiplier[rankSlotsMultiplier.IndexOf(x)], true));
         }
         else
         {

@@ -1,5 +1,4 @@
 ﻿using GameSpawner;
-using JetBrains.Annotations;
 using Serializer;
 using System;
 using System.Collections;
@@ -95,6 +94,7 @@ public class ClientCommands : WebClientBase
             GameManager.Instance.NewMatchInit();            // AutoPlay Start
             StartCoroutine(GameManager.Instance.DisplayTimer(msg.data.value));
             CanvasManager.Instance.SetBetButtonBet();
+            CanvasManager.Instance.SetMultiplierTextMensage(true);
         }
         else if (msg.data.id == 1)// Start Round 
         {
@@ -105,6 +105,7 @@ public class ClientCommands : WebClientBase
             StartCoroutine(GameManager.Instance.DisplayMulti(msg.data.value));
             GameManager.Instance.fundoOnMove = true;
             StartCoroutine(ConfirmConnection());
+            CanvasManager.Instance.SetMultiplierTextMensage(false);
         }
         else if (msg.data.id == 2) // End Round Crash
         {
@@ -222,9 +223,9 @@ public class ClientCommands : WebClientBase
         if (debug) Debug.Log($"[Client] ConfirmConnection : {onConnect}");
         while (true)
         {
-            SendMsg((ushort)SendMsgIdc.Connection, data);
+            SendMsg(ushort.MaxValue, data);
             if (debug) Debug.Log("[Client] ConfirmConnection Sent");
-            yield return new WaitForSeconds(30f);
+            yield return new WaitForSeconds(60f);
         }
     }
 }

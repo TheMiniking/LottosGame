@@ -73,11 +73,11 @@ public class GameManager : MonoBehaviour
             n = (n < 1.0f) ? 1.0f : ((n > 999f) ? 999f : n);
             SetValorAutoCashOut(n);
         });
-        CanvasManager.Instance.roundsButton[0]?.onClick.AddListener(() => SetRounds(-1));
-        CanvasManager.Instance.roundsButton[1]?.onClick.AddListener(() => SetRounds(10));
-        CanvasManager.Instance.roundsButton[2]?.onClick.AddListener(() => SetRounds(25));
-        CanvasManager.Instance.roundsButton[3]?.onClick.AddListener(() => SetRounds(50));
-        CanvasManager.Instance.roundsButton[4]?.onClick.AddListener(() => SetRounds(100));
+        CanvasManager.Instance.roundsButton[0]?.onClick.AddListener(() => SetRoundButtons(0));
+        CanvasManager.Instance.roundsButton[1]?.onClick.AddListener(() => SetRoundButtons(1));
+        CanvasManager.Instance.roundsButton[2]?.onClick.AddListener(() => SetRoundButtons(2));
+        CanvasManager.Instance.roundsButton[3]?.onClick.AddListener(() => SetRoundButtons(3));
+        CanvasManager.Instance.roundsButton[4]?.onClick.AddListener(() => SetRoundButtons(4));
         CanvasManager.Instance.autoCashOutToggle.onValueChanged.AddListener(x => AutoCashOut(x));
         CanvasManager.Instance.autoPlayToggle.onValueChanged.AddListener(x => AutoStop(x));
         SetRoundButtons(0);
