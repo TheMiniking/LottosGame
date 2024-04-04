@@ -4,10 +4,11 @@ using UnityEngine;
 public class WinExtra : MonoBehaviour
 {
     [SerializeField] TMP_Text text;
+    [SerializeField] CanvasGroup canvasGroup;
 
     void Update()
     {
-        if (text.color.a == 0)
+        if (canvasGroup.alpha == 0)
         {
             Destroy(gameObject);
         }

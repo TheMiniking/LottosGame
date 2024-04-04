@@ -53,8 +53,9 @@ public class BetPlayersHud : MonoBehaviour
 
     internal void Reload()
     {
-        bet.text = $"{GameManager.Instance.MoedaAtual()}{betVal:0.00}";
-        multply.text = $"x {multiplierVal:0.00}";
-        credits.text = $"{GameManager.Instance.MoedaAtual()}{creditsVal:#,0.00}";
+        if (name.text == string.Empty) return;
+        bet.text = betVal!= 0? $"{GameManager.Instance.MoedaAtual()}{betVal:0.00}" : string.Empty;
+        multply.text = multiplierVal!= 0? $"x {multiplierVal:0.00}" : string.Empty;
+        credits.text = creditsVal!= 0? $"{GameManager.Instance.MoedaAtual()}{creditsVal:#,0.00}" : string.Empty;
     }
 }
