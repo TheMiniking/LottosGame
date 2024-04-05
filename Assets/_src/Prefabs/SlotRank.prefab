@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: x 999.99
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: afcec5bd12e536247bf1c496bcdd67c9, type: 2}
   m_sharedMaterial: {fileID: -1699255697596630656, guid: afcec5bd12e536247bf1c496bcdd67c9, type: 2}
@@ -318,7 +318,7 @@ Animator:
   m_GameObject: {fileID: 4241434837663593688}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 0d5ee2a1df39f1d43bd8c60cbdc02dc8, type: 2}
+  m_Controller: {fileID: 9100000, guid: 1aa5a33f69a35444aa2bb45b3677942d, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -394,7 +394,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: $ 100
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: afcec5bd12e536247bf1c496bcdd67c9, type: 2}
   m_sharedMaterial: {fileID: -1699255697596630656, guid: afcec5bd12e536247bf1c496bcdd67c9, type: 2}
@@ -607,7 +607,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: $ 999,000.00
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: afcec5bd12e536247bf1c496bcdd67c9, type: 2}
   m_sharedMaterial: {fileID: -1699255697596630656, guid: afcec5bd12e536247bf1c496bcdd67c9, type: 2}
@@ -634,7 +634,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 9.95
+  m_fontSize: 10
   m_fontSizeBase: 10
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -741,7 +741,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: 'Nome Grande Composto
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: afcec5bd12e536247bf1c496bcdd67c9, type: 2}
   m_sharedMaterial: {fileID: -1699255697596630656, guid: afcec5bd12e536247bf1c496bcdd67c9, type: 2}
@@ -768,7 +770,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 14
+  m_fontSize: 10.8
   m_fontSizeBase: 11
   m_fontWeight: 400
   m_enableAutoSizing: 1

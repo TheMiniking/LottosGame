@@ -489,7 +489,7 @@ GameObject:
   - component: {fileID: 3547680369422268308}
   - component: {fileID: 8314835784995133164}
   - component: {fileID: 6112661592503562223}
-  - component: {fileID: 7927427785574804010}
+  - component: {fileID: 876572509101842972}
   m_Layer: 0
   m_Name: BetPlayer Mobile
   m_TagString: Untagged
@@ -575,11 +575,11 @@ MonoBehaviour:
   bet: {fileID: 477284474758198619}
   multply: {fileID: 8701175459755340406}
   credits: {fileID: 8648672382110814808}
-  anim: {fileID: 7927427785574804010}
+  anim: {fileID: 876572509101842972}
   betVal: 0
   multiplierVal: 0
   creditsVal: 0
---- !u!95 &7927427785574804010
+--- !u!95 &876572509101842972
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
@@ -589,7 +589,7 @@ Animator:
   m_GameObject: {fileID: 4100745149902714307}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1aa5a33f69a35444aa2bb45b3677942d, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

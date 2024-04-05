@@ -124,23 +124,21 @@ public class GameManager : MonoBehaviour
 
     public void SetBet(int bets)
     {
+        if(debug) Debug.Log($"SetBet, valor atual: {bets}"); 
         bet = bets;
         ClientCommands.Instance.NextBet(bet);
     }
 
     public void ModValorBet(bool up, int? valor)
     {
-        if (isWalking)
-        {
-            return;
-        }
-
-        bet = up ? (bet + valor ?? 1) : (bet - valor ?? 1);
-        bet = (bet <= 0) ? 1 : ((bet > 100) ? 100 : bet);
-        ClientCommands.Instance.NextBet(bet);
+        if (isJoin)return;
+        var betI = bet;
+        betI = up ? (betI + valor ?? 1) : (betI - valor ?? 1);
+        betI = (betI <= 0) ? 1 : ((betI > 100) ? 100 : betI);
+        ClientCommands.Instance.NextBet((int)betI);
         if (debug)
         {
-            Debug.Log($"ModBet, valor atual: {bet}");
+            Debug.Log($"ModBet, valor atual: {betI}");
         }
     }
 
@@ -367,7 +365,7 @@ public class GameManager : MonoBehaviour
         }
 
         tecladoMode = (teclado == 0) ? true : false;
-        tecladoButtons[10].interactable = teclado == 1;
+        tecladoButtons[10].gameObject.SetActive(teclado == 1);
         tecladoText.text = (teclado == 0) ? ($"{tecladoTextValue}") : ($"x {tecladoTextValue:0.00}");
         tecladoShowMode.text = (teclado == 0) ? "Bet" : "CashOut";
 
