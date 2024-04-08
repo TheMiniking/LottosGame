@@ -126,7 +126,7 @@ public class ClientCommands : WebClientBase
         {
             GameManager.Instance.isJoin = false;
             CanvasManager.Instance.SetBetButtonCantBet();
-            CanvasManager.Instance.PlayMessage("Finish Bet");
+            //CanvasManager.Instance.PlayMessage("Finish Bet");
         }
     }
 

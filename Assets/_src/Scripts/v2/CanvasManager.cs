@@ -25,6 +25,7 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] public float totalWinAmount = 0f;
     [SerializeField] public GameObject configObj;
     [SerializeField] public float balanceVal,betVal;
+    [SerializeField] int betButtonStatus;//0 = Bet, 1 = Cancel, 2 = Stop, 3 = Cant Bet
     //-------------Rank-----------------
     [SerializeField] GameObject rankCanvas, playerPanel;
     [SerializeField] Button rankButton, playerButton;
@@ -54,6 +55,7 @@ public class CanvasManager : MonoBehaviour
         rankButton.onClick.AddListener(ShowRank);
         configButton.onClick.AddListener(() => configObj.SetActive(!configObj.activeSelf));
         playerButton.onClick.AddListener(ShowPlayers);
+        betButton.onClick.AddListener(() => BetMensages());
     }
 
     void Update()
@@ -71,6 +73,25 @@ public class CanvasManager : MonoBehaviour
     public void ShowLoadingPanel(bool value)
     {
         loadingPanel.SetActive(value);
+    }
+
+    public void BetMensages()
+    {
+        switch (betButtonStatus)
+        {
+            case 0:
+                PlayMessage(traduction switch { 0 => "Send Bet", 1 => "Aposta Enviada", _ => "Send Bet" });
+                break;
+            case 1:
+                PlayMessage(traduction switch { 0 => "Cancel Bet", 1 => "Aposta Cancelada", _ => "Cancel Bet" });
+                break;
+            case 2:
+                PlayMessage(traduction switch { 0 => "Finish Bet", 1 => "Aposta Finalizada", _ => "Finish Bet" });
+                break;
+            case 3:
+                PlayMessage(traduction switch { 0 => "Cant Bet, Wait Next Round", 1 => "Não Pode Aposta, Espere a Proxima Rodada", _ => "Cant Bet, Wait Next Round" });
+                break;
+        }
     }
 
     public void SetBetInput(int value)
@@ -114,7 +135,8 @@ public class CanvasManager : MonoBehaviour
             1 => "Apostar",
             _ => "Bet"
         };
-        betButton.interactable = true;
+        //betButton.interactable = true;
+        betButtonStatus = 0;
     }
 
     public void SetBetButtonCancel()
@@ -125,7 +147,8 @@ public class CanvasManager : MonoBehaviour
             1 => "Cancelar Aposta",
             _ => "Cancel Bet"
         };
-        betButton.interactable = true;
+        //betButton.interactable = true;
+        betButtonStatus = 1;
     }
 
     public void SetBetButtonCantBet()
@@ -136,7 +159,8 @@ public class CanvasManager : MonoBehaviour
             1 => "Espere a Rodada",
             _ => "Wait Round"
         };
-        betButton.interactable = false;
+        //betButton.interactable = false;
+        betButtonStatus = 3;
     }
 
     public void SetBetButtonStop(float var)
@@ -147,7 +171,8 @@ public class CanvasManager : MonoBehaviour
             1 => $"Parar {var:0.00}",
             _ => $"Stop {var:0.00}"
         };
-        betButton.interactable = true;
+        //betButton.interactable = true;
+        betButtonStatus = 2;
     }
 
     public void SetMultiplierTextMensage(bool timer)

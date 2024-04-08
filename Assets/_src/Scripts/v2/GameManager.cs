@@ -239,7 +239,7 @@ public class GameManager : MonoBehaviour
     {
         if (debug)
         {
-            Debug.Log("MatchMultiplier :" + value + "autocash " + (activeAutoCashOut ? "ativo" : "desativo"));
+            Debug.Log("MatchMultiplier :" + value + " autocash " + (activeAutoCashOut ? "ativo" : "desativo"));
         }
 
         if (activeAutoCashOut && (value >= autoCashOut))
