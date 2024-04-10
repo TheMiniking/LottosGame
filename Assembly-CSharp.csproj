@@ -79,6 +79,7 @@
     <Compile Include="Assets\JMO Assets\Cartoon FX (legacy)\Demo\Assets\CFX_Demo_New.cs" />
     <Compile Include="Assets\_src\Scripts\WinExtra.cs" />
     <Compile Include="Assets\_src\Scripts\Universal\GameTank.cs" />
+    <Compile Include="Assets\_src\Scripts\v2\Tutorial.cs" />
     <Compile Include="Assets\JMO Assets\Cartoon FX (legacy)\Demo\Assets\CFX_Demo_RandomDir.cs" />
     <Compile Include="Assets\_src\Scripts\Universal\ElementMove.cs" />
     <Compile Include="Assets\JMO Assets\Cartoon FX (legacy)\Demo\Assets\CFX_Demo_RotateCamera.cs" />

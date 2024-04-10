@@ -15,6 +15,7 @@ public class ClientCommands : WebClientBase
     public string playerName;
     public bool isRunning, onConnect=false;
     Conection data ;
+    public bool onTutorial = false;
 
     void Awake()
     {
@@ -74,6 +75,7 @@ public class ClientCommands : WebClientBase
 
     public void BalanceResponse(BalanceResponse msg)
     {
+        if(onTutorial) return;
         if (debug)
         {
             Debug.Log("BalanceResponse:" + msg.balance);
@@ -83,6 +85,7 @@ public class ClientCommands : WebClientBase
 
     public void PlayResponse(PlayResponse<MathStatus> msg)
     {
+        if (onTutorial) return;
         if (debug)
         {
             Debug.Log($"PlayResponse: id: {msg.data.id} value : {msg.data.value} ");
@@ -140,7 +143,8 @@ public class ClientCommands : WebClientBase
 
     public void BetPlayers(BetPlayers msg)
     {
-        if (debug) Debug.Log((msg.multiplier == 0) ? ($"[Client] Jogador{msg.name} fez aposta pagando{msg.value}") : ($"[Cliente] O jogador {msg.name} Retirou {msg.multiplier}"));
+        if (onTutorial) return;
+        if (debug) Debug.Log((msg.multiplier == 0) ? ($"[Client] Jogador {msg.name} fez aposta pagando{msg.value}") : ($"[Cliente] O jogador {msg.name} Retirou {msg.multiplier}"));
         CanvasManager.Instance.SetBetSlot(msg);
 
     }
@@ -164,12 +168,14 @@ public class ClientCommands : WebClientBase
 
     public void NextBet(int value)
     {
+        if (onTutorial) return;
         if (debug) Debug.Log("[Client] Next Bet " + value);
         SendMsg((ushort)SendMsgIdc.NextBet, new NextBet { bet = (byte)value });
     }
 
     public void NextBetResponse(NextBetResponse msg)
     {
+        if (onTutorial) return;
         if (debug)
         {
             Debug.Log($"[Servidor] NextBetResponse: Bet: {msg.money} ");
@@ -180,6 +186,7 @@ public class ClientCommands : WebClientBase
 
     public void SendBet()
     {
+        if (onTutorial) return;
         if (debug)
         {
             Debug.Log("[Client] Send Bet");
@@ -218,14 +225,24 @@ public class ClientCommands : WebClientBase
         }
     }
     
+    DateTime time = DateTime.Now;
     IEnumerator ConfirmConnection()
     {
-        if (debug) Debug.Log($"[Client] ConfirmConnection : {onConnect}");
+        //if (debug) Debug.Log($"[Client] ConfirmConnection : {onConnect}");
         while (true)
         {
-            SendMsg(ushort.MaxValue, data);
-            if (debug) Debug.Log("[Client] ConfirmConnection Sent");
-            yield return new WaitForSeconds(60f);
+            if (time + TimeSpan.FromSeconds(60f) <= DateTime.Now )
+            {
+                SendMsg(ushort.MaxValue, data);
+                time = DateTime.Now;
+                if (debug) Debug.Log($"[Client] ConfirmConnection Sent");
+                yield return new WaitForSeconds(60f);
+            }
+            else
+            {
+                yield return new WaitForSeconds(60f);
+            }
+            
         }
     }
 }
