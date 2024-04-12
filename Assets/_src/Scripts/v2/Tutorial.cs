@@ -10,11 +10,18 @@ public class Tutorial : MonoBehaviour
     [SerializeField] List<GameObject> partList = new ();
     [SerializeField] List<GameObject> partTutorial = new ();
     [SerializeField] Button betValOk;
+    [SerializeField] List<Button> fakeBetControl = new ();
 
     private void OnEnable()
     {
         onTutorial = true;
         ClientCommands.Instance.onTutorial = onTutorial;
+        fakeBetControl[0].onClick.AddListener(() => FakeNextBet(1, true));
+        fakeBetControl[1].onClick.AddListener(() => FakeNextBet(1, false));
+        fakeBetControl[2].onClick.AddListener(() => FakeNextBet(5, true));
+        fakeBetControl[3].onClick.AddListener(() => FakeNextBet(10, true));
+        fakeBetControl[4].onClick.AddListener(() => FakeNextBet(25, true));
+        fakeBetControl[5].onClick.AddListener(() => FakeNextBet(50, true));
     }
 
     private void OnDisable()
@@ -43,7 +50,7 @@ public class Tutorial : MonoBehaviour
         }
     }
 
-    void NextTutorialPart()
+    public void NextTutorialPart()
     {
         parts++;
         SetTutorialPart(parts);
@@ -71,14 +78,25 @@ public class Tutorial : MonoBehaviour
                 partTutorial[1].SetActive(false);
                 StopCoroutine(FakeTimerI());
                 CanvasManager.Instance.SetBetSlot(new BetPlayers() { name = ClientCommands.Instance.playerName, value = 100, multiplier = 0 });
+                CanvasManager.Instance.SetBalanceTxt(400);
                 break;
             case 4:
-                partTutorial[1].SetActive(false);
+                partTutorial[2].SetActive(false);
+                StartCoroutine(FakeMultply());
+                break;
+            case 5:
+                partTutorial[3].SetActive(false);
+                CanvasManager.Instance.SetBetSlot(new BetPlayers() { name = ClientCommands.Instance.playerName, value = 100, multiplier = 2f });
+                CanvasManager.Instance.SetBalanceTxt(600);
+                break;
+            case 6:
+                partTutorial[4].SetActive(false);
+                this.gameObject.SetActive(false);
                 break;
         }
     }
 
-    void FakeNextBet(int? value, bool up)
+    public void FakeNextBet(int? value, bool up)
     {
         fakeBet = up ? (fakeBet + value ?? 1) : (fakeBet - value ?? 1);
         fakeBet = fakeBet < 1 ? 1 : fakeBet > 100 ? 100 : fakeBet;
@@ -88,6 +106,7 @@ public class Tutorial : MonoBehaviour
     }
 
     bool onTimerI = false;
+    bool onMultply = false;
      IEnumerator FakeTimerI()
     {
         var time = 16;
@@ -100,5 +119,27 @@ public class Tutorial : MonoBehaviour
                 onTimerI = false;
         }
         partTutorial[1].SetActive(true);
+    }
+
+    IEnumerator FakeMultply()
+    {
+        var time = 5;
+        onTimerI = true;
+        while (onTimerI)
+        {
+            CanvasManager.Instance.SetTimerText(time--);
+            yield return new WaitForSeconds(1f);
+            onTimerI = time != 0;
+        }
+        onMultply = true;
+        var multShow = 0f;
+        while (onMultply)
+        {
+            CanvasManager.Instance.SetMultiplierText(multShow += 0.1f);
+            CanvasManager.Instance.SetBetButtonStop(multShow);
+            yield return new WaitForSeconds(0.2f);
+            onMultply = multShow < 2;
+        }
+        partTutorial[3].SetActive(true);
     }
 }
