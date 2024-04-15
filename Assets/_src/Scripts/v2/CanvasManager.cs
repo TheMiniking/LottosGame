@@ -111,13 +111,15 @@ public class CanvasManager : MonoBehaviour
         roundsText.text = (value == -1) ? "Inf" : ($"{value}");
     }
 
-    public void SetTimerText(int value)
+    public void SetTimerText(int value,bool? tutorial = false)
     {
+        if(ClientCommands.Instance.onTutorial && tutorial == false) return;
         timerText.text = $"{value:00:00}";
     }
 
-    public void SetMultiplierText(float value)
+    public void SetMultiplierText(float value, bool? tutorial = false)
     {
+        if(ClientCommands.Instance.onTutorial && tutorial == false) return;
         multiplierText.text = $"x {value:0.00}";
     }
 

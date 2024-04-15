@@ -15,7 +15,7 @@ public class Tutorial : MonoBehaviour
     private void OnEnable()
     {
         onTutorial = true;
-        ClientCommands.Instance.onTutorial = onTutorial;
+        ClientCommands.Instance.OnTutorial(onTutorial);
         fakeBetControl[0].onClick.AddListener(() => FakeNextBet(1, true));
         fakeBetControl[1].onClick.AddListener(() => FakeNextBet(1, false));
         fakeBetControl[2].onClick.AddListener(() => FakeNextBet(5, true));
@@ -27,7 +27,7 @@ public class Tutorial : MonoBehaviour
     private void OnDisable()
     {
         onTutorial = false;
-        ClientCommands.Instance.onTutorial = onTutorial;
+        ClientCommands.Instance.OnTutorial(onTutorial);
     }
 
     void SetTutorialPart(int part)
@@ -38,7 +38,7 @@ public class Tutorial : MonoBehaviour
         }
         else
         {
-            if(part <= partList.Count)
+            if(part < partList.Count)
             {
                 partList[part-2].SetActive(false);
                 partList[part-1].SetActive(true);
@@ -62,34 +62,51 @@ public class Tutorial : MonoBehaviour
     {
         switch (part)
         {
-            case 1:
+            case 0:
+                Debug.Log("Simulaçao pt. 0");
                 partTutorial[0].SetActive(true);
                 CanvasManager.Instance.SetBalanceTxt(500);
                 GameManager.Instance.bet = 10;
                 CanvasManager.Instance.SetBetInput(10);
                 fakeBet = 10;
                 break;
-            case 2:
+            case 1:
+                Debug.Log("Simulaçao pt. 1");
                 partTutorial[0].SetActive(false);
                 onTimerI = true;
                 StartCoroutine(FakeTimerI());
                 break;
-            case 3:
+            case 2:
+                Debug.Log("Simulaçao pt. 2");
                 partTutorial[1].SetActive(false);
                 StopCoroutine(FakeTimerI());
                 CanvasManager.Instance.SetBetSlot(new BetPlayers() { name = ClientCommands.Instance.playerName, value = 100, multiplier = 0 });
                 CanvasManager.Instance.SetBalanceTxt(400);
+                NextTutorialPart();
                 break;
-            case 4:
+            case 3:
+                Debug.Log("Simulaçao pt. 3");
                 partTutorial[2].SetActive(false);
                 StartCoroutine(FakeMultply());
                 break;
-            case 5:
+            case 4:
+                Debug.Log("Simulaçao pt. 4");
                 partTutorial[3].SetActive(false);
                 CanvasManager.Instance.SetBetSlot(new BetPlayers() { name = ClientCommands.Instance.playerName, value = 100, multiplier = 2f });
                 CanvasManager.Instance.SetBalanceTxt(600);
+                CanvasManager.Instance.SetMultiplierText(2f);
+                ClientCommands.Instance.Crash(new Crash { multply = 2f });
+                GameManager.Instance.isJoin = false;
+                GameManager.Instance.EndMatchStart();
+                StopAllCoroutines();;
+                NextTutorialPart();
+                break;
+            case 5:
+                Debug.Log("Simulaçao pt. 5 ");
+                partTutorial[4].SetActive(true);
                 break;
             case 6:
+                Debug.Log("Simulaçao pt. 6 - Final");
                 partTutorial[4].SetActive(false);
                 this.gameObject.SetActive(false);
                 break;
@@ -109,10 +126,10 @@ public class Tutorial : MonoBehaviour
     bool onMultply = false;
      IEnumerator FakeTimerI()
     {
-        var time = 16;
+        var time = 10;
         while (onTimerI)
         {
-            CanvasManager.Instance.SetTimerText(time--);
+            CanvasManager.Instance.SetTimerText(time-- , true);
             if(time >= 5)
                 yield return new WaitForSeconds(1f);
             else
@@ -123,21 +140,23 @@ public class Tutorial : MonoBehaviour
 
     IEnumerator FakeMultply()
     {
+        Debug.Log("FakeMultply Start");
         var time = 5;
         onTimerI = true;
         while (onTimerI)
         {
-            CanvasManager.Instance.SetTimerText(time--);
+            CanvasManager.Instance.SetTimerText(time-- , true);
             yield return new WaitForSeconds(1f);
             onTimerI = time != 0;
         }
         onMultply = true;
         var multShow = 0f;
+        ClientCommands.Instance.StartRun(new StartRun {});
         while (onMultply)
         {
-            CanvasManager.Instance.SetMultiplierText(multShow += 0.1f);
+            CanvasManager.Instance.SetMultiplierText(multShow += 0.01f,true);
             CanvasManager.Instance.SetBetButtonStop(multShow);
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(0.02f);
             onMultply = multShow < 2;
         }
         partTutorial[3].SetActive(true);

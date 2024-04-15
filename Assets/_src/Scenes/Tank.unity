@@ -3992,7 +3992,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Acima temos as Mensagens de rodada. Logo abaixo temos o pomporizador,
+  m_text: "Acima temos as Mensagens de rodada. Logo abaixo temos o temporizador,
     onde vai mostrar o tempo antes da partida come\xE7ar , \xE9 o momento que voce
     pode fazer sua aposta."
   m_isRightToLeft: 0

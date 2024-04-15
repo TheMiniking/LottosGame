@@ -124,14 +124,14 @@ public class GameManager : MonoBehaviour
 
     public void SetBet(int bets)
     {
-        if(debug) Debug.Log($"SetBet, valor atual: {bets}"); 
+        if (debug) Debug.Log($"SetBet, valor atual: {bets}");
         bet = bets;
         ClientCommands.Instance.NextBet(bet);
     }
 
     public void ModValorBet(bool up, int? valor)
     {
-        if (isJoin)return;
+        if (isJoin) return;
         var betI = bet;
         betI = up ? (betI + valor ?? 1) : (betI - valor ?? 1);
         betI = (betI <= 0) ? 1 : ((betI > 100) ? 100 : betI);
@@ -216,7 +216,7 @@ public class GameManager : MonoBehaviour
         if (activeAutoPlay && ((betRounds == -1) || (betRounds > 0)))
         {
             ClientCommands.Instance.SendBet();
-            CanvasManager.Instance.PlayMessage(traduction switch { 0 => "AutoPlay Bet", 1 => "Aposta Automatica" , _ => "AutoPlay Bet"});
+            CanvasManager.Instance.PlayMessage(traduction switch { 0 => "AutoPlay Bet", 1 => "Aposta Automatica", _ => "AutoPlay Bet" });
             if (betRounds > 0)
             {
                 betRounds--;
@@ -224,7 +224,7 @@ public class GameManager : MonoBehaviour
 
             if (betRounds == 0)
             {
-                CanvasManager.Instance.PlayMessage(traduction switch { 0 => "End of AutoPlay", 1 => "Fim da Aposta Automatica" , _ => "End of AutoPlay"});
+                CanvasManager.Instance.PlayMessage(traduction switch { 0 => "End of AutoPlay", 1 => "Fim da Aposta Automatica", _ => "End of AutoPlay" });
                 CanvasManager.Instance.autoPlayToggle.isOn = false;
             }
             CanvasManager.Instance.SetRoundsText(betRounds);
@@ -246,7 +246,7 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log($"Stop Auto DEBUG");
             ClientCommands.Instance.SendBet();      //envia o comando para o servidor para parar o auto
-            CanvasManager.Instance.PlayMessage(traduction switch { 0 => $"CashOut x{value:0.00}", 1 => $"Saiu x{value:0.00}" , _ => $"CashOut x{value:0.00}"});
+            CanvasManager.Instance.PlayMessage(traduction switch { 0 => $"CashOut x{value:0.00}", 1 => $"Saiu x{value:0.00}", _ => $"CashOut x{value:0.00}" });
         }
     }
 
@@ -354,7 +354,7 @@ public class GameManager : MonoBehaviour
         fundoRealtimeVelocity = 0.07f;
     }
 
-    public string MoedaAtual() => traduction switch { 0 => "$", 1 => "R$" ,_ => "$"};
+    public string MoedaAtual() => traduction switch { 0 => "$", 1 => "R$", _ => "$" };
 
     public void SelectTeclado(int teclado)
     {

@@ -63,6 +63,21 @@ public class ClientCommands : WebClientBase
         CanvasManager.Instance.ShowLoadingPanel(true);
         base.OnClose(closeCode);
     }
+
+    double balance = 0f;
+    int bet = 0;
+
+    public void OnTutorial(bool value)
+    {
+        onTutorial = value;
+        if (!onTutorial)
+        {
+            CanvasManager.Instance.SetBalanceTxt(balance);
+            NextBet(bet);
+            CanvasManager.Instance.totalWinAmount = 0f;
+        }
+    }
+
     public void GameLoginResponse(GameLoginResponse msg)
     {
         if (debug)
@@ -75,7 +90,11 @@ public class ClientCommands : WebClientBase
 
     public void BalanceResponse(BalanceResponse msg)
     {
-        if(onTutorial) return;
+        if (onTutorial)
+        {
+            balance = msg.balance;
+            return;
+        }
         if (debug)
         {
             Debug.Log("BalanceResponse:" + msg.balance);
@@ -85,7 +104,6 @@ public class ClientCommands : WebClientBase
 
     public void PlayResponse(PlayResponse<MathStatus> msg)
     {
-        if (onTutorial) return;
         if (debug)
         {
             Debug.Log($"PlayResponse: id: {msg.data.id} value : {msg.data.value} ");
@@ -106,7 +124,6 @@ public class ClientCommands : WebClientBase
             CanvasManager.Instance.SetBetButtonCantBet();
             StartRun(new StartRun());
             StartCoroutine(GameManager.Instance.DisplayMulti(msg.data.value));
-            GameManager.Instance.fundoOnMove = true;
             StartCoroutine(ConfirmConnection());
             CanvasManager.Instance.SetMultiplierTextMensage(false);
         }
@@ -117,7 +134,6 @@ public class ClientCommands : WebClientBase
             Crash(new Crash { multply = msg.data.value });
             GameManager.Instance.isJoin = false;
             CanvasManager.Instance.SetMultiplierText(msg.data.value);
-            GameManager.Instance.fundoOnMove = false;
             StartCoroutine(ConfirmConnection());
         }
         else if (msg.data.id == 3) // Join Round
@@ -175,7 +191,11 @@ public class ClientCommands : WebClientBase
 
     public void NextBetResponse(NextBetResponse msg)
     {
-        if (onTutorial) return;
+        if (onTutorial)
+        {
+            bet = (int)msg.money;
+            return;
+        }
         if (debug)
         {
             Debug.Log($"[Servidor] NextBetResponse: Bet: {msg.money} ");
@@ -202,6 +222,7 @@ public class ClientCommands : WebClientBase
         GameManager.Instance.canBet = false;
         CanvasManager.Instance.SetPlayerState("Walking");
         AudioManager.Instance.StopResumeSFX(false);
+        GameManager.Instance.fundoOnMove = true;
         if (debug)
         {
             Debug.Log("Start Corrida");
