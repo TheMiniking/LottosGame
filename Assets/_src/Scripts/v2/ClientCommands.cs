@@ -16,6 +16,7 @@ public class ClientCommands : WebClientBase
     public bool isRunning, onConnect=false;
     Conection data ;
     public bool onTutorial = false;
+    [SerializeField] public int atualStatus;// 0: Timer 1: round 2: Crash 3:OutRound
 
     void Awake()
     {
@@ -116,6 +117,7 @@ public class ClientCommands : WebClientBase
             StartCoroutine(GameManager.Instance.DisplayTimer(msg.data.value));
             CanvasManager.Instance.SetBetButtonBet();
             CanvasManager.Instance.SetMultiplierTextMensage(true);
+            atualStatus = 0;
         }
         else if (msg.data.id == 1)// Start Round 
         {
@@ -126,6 +128,7 @@ public class ClientCommands : WebClientBase
             StartCoroutine(GameManager.Instance.DisplayMulti(msg.data.value));
             StartCoroutine(ConfirmConnection());
             CanvasManager.Instance.SetMultiplierTextMensage(false);
+            atualStatus = 1;
         }
         else if (msg.data.id == 2) // End Round Crash
         {
@@ -135,6 +138,7 @@ public class ClientCommands : WebClientBase
             GameManager.Instance.isJoin = false;
             CanvasManager.Instance.SetMultiplierText(msg.data.value);
             StartCoroutine(ConfirmConnection());
+            atualStatus = 2;
         }
         else if (msg.data.id == 3) // Join Round
         {
@@ -145,6 +149,7 @@ public class ClientCommands : WebClientBase
         {
             GameManager.Instance.isJoin = false;
             CanvasManager.Instance.SetBetButtonCantBet();
+            atualStatus = 3;
             //CanvasManager.Instance.PlayMessage("Finish Bet");
         }
     }
@@ -215,8 +220,9 @@ public class ClientCommands : WebClientBase
         SendMsg((ushort)SendMsgIdc.PlayRequest, new PlayRequest());
     }
 
-    public void StartRun(StartRun msg)
+    public void StartRun(StartRun msg, bool? tutorial = false)
     {
+        if(onTutorial && tutorial == false) return;
         isRunning = true;
         GameManager.Instance.isWalking = true;
         GameManager.Instance.canBet = false;

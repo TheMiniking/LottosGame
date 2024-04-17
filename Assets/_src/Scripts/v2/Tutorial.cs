@@ -109,6 +109,19 @@ public class Tutorial : MonoBehaviour
                 Debug.Log("Simulaçao pt. 6 - Final");
                 partTutorial[4].SetActive(false);
                 this.gameObject.SetActive(false);
+                CanvasManager.Instance.ResetBets();
+                switch (ClientCommands.Instance.atualStatus) 
+                {
+                    case 0:
+                        CanvasManager.Instance.SetBetButtonBet();
+                        break;
+                    case 1:
+                        CanvasManager.Instance.SetBetButtonCantBet();
+                        break;
+                    case 2:
+                        CanvasManager.Instance.SetBetButtonBet();
+                        break;
+                }
                 break;
         }
     }
@@ -151,7 +164,7 @@ public class Tutorial : MonoBehaviour
         }
         onMultply = true;
         var multShow = 0f;
-        ClientCommands.Instance.StartRun(new StartRun {});
+        ClientCommands.Instance.StartRun(new StartRun {},true);
         while (onMultply)
         {
             CanvasManager.Instance.SetMultiplierText(multShow += 0.01f,true);
@@ -161,4 +174,12 @@ public class Tutorial : MonoBehaviour
         }
         partTutorial[3].SetActive(true);
     }
+
+    public void StopInteration()
+    {
+        CanvasManager.Instance.PlayMessage(GameManager.Instance.traduction switch {
+            0 => "Follow tutorial steps", 
+            1 => "Siga as etapas do tutorial",
+            _ => "Follow tutorial steps" });
+    } 
 }

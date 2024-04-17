@@ -153,8 +153,9 @@ public class CanvasManager : MonoBehaviour
         betButtonStatus = 1;
     }
 
-    public void SetBetButtonCantBet()
+    public void SetBetButtonCantBet(bool? tutorial = false)
     {
+        if (ClientCommands.Instance.onTutorial && tutorial == false) return;
         betButtonText.text = traduction switch
         {
             0 => "Wait Round",

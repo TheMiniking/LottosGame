@@ -63,7 +63,7 @@ Material:
     m_Floats:
     - _IntensidadeNight: 0
     - _NightFall: 1
-    - _RealTimeUpdate: 764.26044
+    - _RealTimeUpdate: 98.59907
     - _UseScriptTime: 1
     - _VelNuvem: 0.01
     - _Velocity: 2
