@@ -36,9 +36,12 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] public int traduction = 0;//0= english, 1 = Portugues
     [SerializeField] public List<TMP_Text> tradTexts = new();
     [SerializeField] public TMP_Dropdown tradDropdown;
+    [SerializeField] public Button showTutorial;
 
     [SerializeField] WinExtra winExtraPrefab;
     [SerializeField] GameObject loadingPanel;
+
+    [SerializeField] Tutorial tutorial;
 
     void Awake()
     {
@@ -56,6 +59,7 @@ public class CanvasManager : MonoBehaviour
         configButton.onClick.AddListener(() => configObj.SetActive(!configObj.activeSelf));
         playerButton.onClick.AddListener(ShowPlayers);
         betButton.onClick.AddListener(() => BetMensages());
+        showTutorial.onClick.AddListener(ShowTutorial);
     }
 
     void Update()
@@ -374,5 +378,10 @@ public class CanvasManager : MonoBehaviour
         betSlots.ForEach(x => x.Reload());
         balanceText.text = $"{GameManager.Instance.MoedaAtual()} {balanceVal:#,0.00}";
         betInput.text = $" {GameManager.Instance.MoedaAtual()} {betVal}";
+    }
+
+    public void ShowTutorial()
+    {
+        tutorial.gameObject.SetActive(true);
     }
 }

@@ -117,6 +117,7 @@ public class Tutorial : MonoBehaviour
                         break;
                     case 1:
                         CanvasManager.Instance.SetBetButtonCantBet();
+                        ClientCommands.Instance.StartRun(new StartRun(), true);
                         break;
                     case 2:
                         CanvasManager.Instance.SetBetButtonBet();
