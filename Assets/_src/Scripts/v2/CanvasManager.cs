@@ -38,6 +38,9 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] public TMP_Dropdown tradDropdown;
     [SerializeField] public Button showTutorial;
 
+    [SerializeField] public Action<int> OnTraductionChange;
+    [SerializeField] int compTeraduction;
+
     [SerializeField] WinExtra winExtraPrefab;
     [SerializeField] GameObject loadingPanel;
 
@@ -67,6 +70,7 @@ public class CanvasManager : MonoBehaviour
         inPlayersText.text = $"{playerInBet}";
         inPlayersWinnersText.text = $"{playerInBetWinners}";
         totalWinAmountText.text = $"{GameManager.Instance.MoedaAtual()} {totalWinAmount:#,0.00}";
+        if (traduction != compTeraduction) SetTraduction(traduction);
     }
 
     void OnEnable()
@@ -378,6 +382,8 @@ public class CanvasManager : MonoBehaviour
         betSlots.ForEach(x => x.Reload());
         balanceText.text = $"{GameManager.Instance.MoedaAtual()} {balanceVal:#,0.00}";
         betInput.text = $" {GameManager.Instance.MoedaAtual()} {betVal}";
+        OnTraductionChange(traduction);
+        compTeraduction = trad;
     }
 
     public void ShowTutorial()

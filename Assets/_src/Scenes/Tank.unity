@@ -350,6 +350,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5067255087037610166, guid: 7b630559e06547a4fa906ac5b9a13ccc, type: 3}
   m_PrefabInstance: {fileID: 8662318737675696072}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &30722894 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2872161814370543692, guid: 6e96940cd32edc74fae02295d9bb70f4, type: 3}
+  m_PrefabInstance: {fileID: 651500467859511069}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &36378767
 GameObject:
   m_ObjectHideFlags: 0
@@ -829,6 +834,7 @@ GameObject:
   - component: {fileID: 103629822}
   - component: {fileID: 103629824}
   - component: {fileID: 103629823}
+  - component: {fileID: 103629825}
   m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -953,6 +959,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 103629821}
   m_CullTransparentMesh: 1
+--- !u!114 &103629825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 103629821}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0a80cbff0461c84186297a19859da59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textToTranslate: {fileID: 103629823}
+  languages:
+  - Here you choose the amount of your bet. The bigger the bet, the bigger the return.
+  - Aqui voce escolhe o valor da sua aposta. Quanto maior for a aposta maior o retorno.
 --- !u!1 &104841545
 GameObject:
   m_ObjectHideFlags: 0
@@ -1206,6 +1228,7 @@ GameObject:
   - component: {fileID: 114116356}
   - component: {fileID: 114116358}
   - component: {fileID: 114116357}
+  - component: {fileID: 114116359}
   m_Layer: 0
   m_Name: Text (TMP) (1)
   m_TagString: Untagged
@@ -1329,6 +1352,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 114116355}
   m_CullTransparentMesh: 1
+--- !u!114 &114116359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 114116355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0a80cbff0461c84186297a19859da59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textToTranslate: {fileID: 114116357}
+  languages:
+  - Press the button to place your bet.
+  - Aperte no botao para fazer sua aposta.
 --- !u!114 &126119070 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 9186098973488498240, guid: 7b630559e06547a4fa906ac5b9a13ccc, type: 3}
@@ -2571,7 +2610,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &271272293
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2743,7 +2782,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2872161814370543692, guid: 6e96940cd32edc74fae02295d9bb70f4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 389569956}
   m_SourcePrefab: {fileID: 100100000, guid: 6e96940cd32edc74fae02295d9bb70f4, type: 3}
 --- !u!224 &273500375 stripped
 RectTransform:
@@ -3018,7 +3060,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 59683552024582384, guid: ba489dd94d435ec46adc32284c49eca6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1854930721}
   m_SourcePrefab: {fileID: 100100000, guid: ba489dd94d435ec46adc32284c49eca6, type: 3}
 --- !u!224 &296965792 stripped
 RectTransform:
@@ -3227,7 +3272,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &317992202
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3338,6 +3383,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1283900793}
     m_Modifications:
+    - target: {fileID: 2618454517875857800, guid: fe9c73dec42b5d6419240f76ff44f3a7, type: 3}
+      propertyPath: languages.Array.data[0]
+      value: Finish
+      objectReference: {fileID: 0}
+    - target: {fileID: 2618454517875857800, guid: fe9c73dec42b5d6419240f76ff44f3a7, type: 3}
+      propertyPath: languages.Array.data[1]
+      value: Finalizar
+      objectReference: {fileID: 0}
     - target: {fileID: 4833039878786334241, guid: fe9c73dec42b5d6419240f76ff44f3a7, type: 3}
       propertyPath: m_Name
       value: B-Tutorial
@@ -3698,6 +3751,7 @@ GameObject:
   - component: {fileID: 343831893}
   - component: {fileID: 343831895}
   - component: {fileID: 343831894}
+  - component: {fileID: 343831896}
   m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -3822,6 +3876,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 343831892}
   m_CullTransparentMesh: 1
+--- !u!114 &343831896
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 343831892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0a80cbff0461c84186297a19859da59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textToTranslate: {fileID: 343831894}
+  languages:
+  - First we will increase our bet up to R$100. Before our timer starts.
+  - 'Primeiro vamos aumentar nossa aposta ate R$ 100. Antes do nosso temporizador
+    se iniciar. '
 --- !u!1 &360561357
 GameObject:
   m_ObjectHideFlags: 0
@@ -4062,6 +4133,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a36c179488c336447b9fa24a61d974e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &376868948 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 59683552024582384, guid: ba489dd94d435ec46adc32284c49eca6, type: 3}
+  m_PrefabInstance: {fileID: 1295203168}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &380160707 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3975390786399698136, guid: 7b630559e06547a4fa906ac5b9a13ccc, type: 3}
@@ -4100,6 +4176,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a36c179488c336447b9fa24a61d974e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &389569953 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2872161814370543692, guid: 6e96940cd32edc74fae02295d9bb70f4, type: 3}
+  m_PrefabInstance: {fileID: 273500374}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &389569954 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4728842910127790464, guid: 6e96940cd32edc74fae02295d9bb70f4, type: 3}
+  m_PrefabInstance: {fileID: 273500374}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 389569953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &389569956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 389569953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0a80cbff0461c84186297a19859da59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textToTranslate: {fileID: 389569954}
+  languages:
+  - 'Here the bet button '
+  - Aqui fica o Botao de aposta
 --- !u!114 &401521425 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7112214348472635705, guid: 7b630559e06547a4fa906ac5b9a13ccc, type: 3}
@@ -4439,6 +4547,7 @@ GameObject:
   - component: {fileID: 433405450}
   - component: {fileID: 433405452}
   - component: {fileID: 433405451}
+  - component: {fileID: 433405453}
   m_Layer: 0
   m_Name: principal
   m_TagString: Untagged
@@ -4562,6 +4671,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 433405449}
   m_CullTransparentMesh: 1
+--- !u!114 &433405453
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 433405449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0a80cbff0461c84186297a19859da59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textToTranslate: {fileID: 433405451}
+  languages:
+  - Play Demo?
+  - Jogar Tutorial?
 --- !u!1 &442061377
 GameObject:
   m_ObjectHideFlags: 0
@@ -4740,7 +4865,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2872161814370543692, guid: 6e96940cd32edc74fae02295d9bb70f4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1667308419}
   m_SourcePrefab: {fileID: 100100000, guid: 6e96940cd32edc74fae02295d9bb70f4, type: 3}
 --- !u!224 &452967519 stripped
 RectTransform:
@@ -4828,6 +4956,11 @@ PrefabInstance:
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3057489109171569457, guid: c4fd43c8a65a6a44a98f57188c648199, type: 3}
   m_PrefabInstance: {fileID: 459492525}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &468212149 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 59683552024582384, guid: ba489dd94d435ec46adc32284c49eca6, type: 3}
+  m_PrefabInstance: {fileID: 1154967176}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &474193670
 GameObject:
@@ -4937,6 +5070,7 @@ GameObject:
   - component: {fileID: 487518709}
   - component: {fileID: 487518711}
   - component: {fileID: 487518710}
+  - component: {fileID: 487518712}
   m_Layer: 0
   m_Name: Text (TMP) (1)
   m_TagString: Untagged
@@ -5011,7 +5145,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 29.5
+  m_fontSize: 30
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -5061,6 +5195,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 487518708}
   m_CullTransparentMesh: 1
+--- !u!114 &487518712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 487518708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0a80cbff0461c84186297a19859da59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textToTranslate: {fileID: 487518710}
+  languages:
+  - Press the stop button to withdraw the bet and multiply before the tank breaks!
+  - Aperte no botao para para retirar a aposta e multiplicar antes do tanque quebrar!
 --- !u!114 &490634358 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 895351147997628199, guid: 97ec1e94a45707c48a3ea1b002cfd9c9, type: 3}
@@ -5072,6 +5222,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &494493068 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 59683552024582384, guid: ba489dd94d435ec46adc32284c49eca6, type: 3}
+  m_PrefabInstance: {fileID: 1073523196}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &501241719 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6786164834081035227, guid: 97ec1e94a45707c48a3ea1b002cfd9c9, type: 3}
@@ -5091,6 +5246,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1498026417}
     m_Modifications:
+    - target: {fileID: 2618454517875857800, guid: fe9c73dec42b5d6419240f76ff44f3a7, type: 3}
+      propertyPath: languages.Array.data[0]
+      value: Next >>
+      objectReference: {fileID: 0}
+    - target: {fileID: 2618454517875857800, guid: fe9c73dec42b5d6419240f76ff44f3a7, type: 3}
+      propertyPath: languages.Array.data[1]
+      value: Proximo >>
+      objectReference: {fileID: 0}
     - target: {fileID: 4833039878786334241, guid: fe9c73dec42b5d6419240f76ff44f3a7, type: 3}
       propertyPath: m_Name
       value: B-Tutorial
@@ -5304,6 +5467,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 769743925}
     m_Modifications:
+    - target: {fileID: 2618454517875857800, guid: fe9c73dec42b5d6419240f76ff44f3a7, type: 3}
+      propertyPath: languages.Array.data[0]
+      value: Next >>
+      objectReference: {fileID: 0}
+    - target: {fileID: 2618454517875857800, guid: fe9c73dec42b5d6419240f76ff44f3a7, type: 3}
+      propertyPath: languages.Array.data[1]
+      value: Proximo >>
+      objectReference: {fileID: 0}
     - target: {fileID: 4833039878786334241, guid: fe9c73dec42b5d6419240f76ff44f3a7, type: 3}
       propertyPath: m_Name
       value: B-Tutorial
@@ -5556,7 +5727,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6515931519441596604, guid: f09e22925ba2f6a4cb63688b7c3324a4, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.000015258789
+      value: 0.000030517578
       objectReference: {fileID: 0}
     - target: {fileID: 6515931519441596604, guid: f09e22925ba2f6a4cb63688b7c3324a4, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -5577,7 +5748,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4150214453845488204, guid: f09e22925ba2f6a4cb63688b7c3324a4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1042505063}
   m_SourcePrefab: {fileID: 100100000, guid: f09e22925ba2f6a4cb63688b7c3324a4, type: 3}
 --- !u!224 &510561037 stripped
 RectTransform:
@@ -5595,6 +5769,7 @@ GameObject:
   - component: {fileID: 512107819}
   - component: {fileID: 512107821}
   - component: {fileID: 512107820}
+  - component: {fileID: 512107822}
   m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -5668,7 +5843,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 72
+  m_fontSize: 49.85
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -5718,6 +5893,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 512107818}
   m_CullTransparentMesh: 1
+--- !u!114 &512107822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 512107818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0a80cbff0461c84186297a19859da59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textToTranslate: {fileID: 512107820}
+  languages:
+  - No
+  - "N\xE3o"
 --- !u!114 &513423949 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6965616473852809283, guid: 97ec1e94a45707c48a3ea1b002cfd9c9, type: 3}
@@ -6180,6 +6371,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 557729501}
   m_CullTransparentMesh: 1
+--- !u!1 &559392270 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7459238880422751521, guid: ed974f32e8efe744da7c92ac420142d2, type: 3}
+  m_PrefabInstance: {fileID: 7965835317727917499}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &564115378
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6518,6 +6714,7 @@ GameObject:
   - component: {fileID: 576209556}
   - component: {fileID: 576209558}
   - component: {fileID: 576209557}
+  - component: {fileID: 576209559}
   m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -6593,7 +6790,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 27.7
+  m_fontSize: 28.95
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -6643,6 +6840,26 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 576209555}
   m_CullTransparentMesh: 1
+--- !u!114 &576209559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 576209555}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0a80cbff0461c84186297a19859da59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textToTranslate: {fileID: 576209557}
+  languages:
+  - ' Above we have the Round Messages. Just below we have the timer, which will
+    show the time before the match starts, this is the moment you can place your
+    bet.'
+  - "Acima temos as Mensagens de rodada. Logo abaixo temos o temporizador, onde vai
+    mostrar o tempo antes da partida come\xE7ar , \xE9 o momento que voce pode fazer
+    sua aposta."
 --- !u!1 &577835917
 GameObject:
   m_ObjectHideFlags: 0
@@ -6698,6 +6915,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &585904012 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2872161814370543692, guid: 6e96940cd32edc74fae02295d9bb70f4, type: 3}
+  m_PrefabInstance: {fileID: 998573992}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &586499764
 GameObject:
   m_ObjectHideFlags: 0
@@ -7178,6 +7400,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1124473328}
     m_Modifications:
+    - target: {fileID: 2618454517875857800, guid: fe9c73dec42b5d6419240f76ff44f3a7, type: 3}
+      propertyPath: languages.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2618454517875857800, guid: fe9c73dec42b5d6419240f76ff44f3a7, type: 3}
+      propertyPath: languages.Array.data[0]
+      value: 'Next >> '
+      objectReference: {fileID: 0}
+    - target: {fileID: 2618454517875857800, guid: fe9c73dec42b5d6419240f76ff44f3a7, type: 3}
+      propertyPath: languages.Array.data[1]
+      value: Proximo >>
+      objectReference: {fileID: 0}
     - target: {fileID: 4833039878786334241, guid: fe9c73dec42b5d6419240f76ff44f3a7, type: 3}
       propertyPath: m_Name
       value: B-Tutorial
@@ -7458,6 +7692,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1481325401}
     m_Modifications:
+    - target: {fileID: 2618454517875857800, guid: fe9c73dec42b5d6419240f76ff44f3a7, type: 3}
+      propertyPath: languages.Array.data[0]
+      value: Next >>
+      objectReference: {fileID: 0}
+    - target: {fileID: 2618454517875857800, guid: fe9c73dec42b5d6419240f76ff44f3a7, type: 3}
+      propertyPath: languages.Array.data[1]
+      value: Proximo >>
+      objectReference: {fileID: 0}
     - target: {fileID: 4833039878786334241, guid: fe9c73dec42b5d6419240f76ff44f3a7, type: 3}
       propertyPath: m_Name
       value: B-Tutorial
@@ -7639,6 +7881,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1029815154}
     m_Modifications:
+    - target: {fileID: 2618454517875857800, guid: fe9c73dec42b5d6419240f76ff44f3a7, type: 3}
+      propertyPath: languages.Array.data[0]
+      value: 'Next >> '
+      objectReference: {fileID: 0}
+    - target: {fileID: 2618454517875857800, guid: fe9c73dec42b5d6419240f76ff44f3a7, type: 3}
+      propertyPath: languages.Array.data[1]
+      value: Proximo >>
+      objectReference: {fileID: 0}
     - target: {fileID: 4833039878786334241, guid: fe9c73dec42b5d6419240f76ff44f3a7, type: 3}
       propertyPath: m_Name
       value: B-Tutorial
@@ -7801,6 +8051,11 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8236180370367004583, guid: fe9c73dec42b5d6419240f76ff44f3a7, type: 3}
   m_PrefabInstance: {fileID: 650054291}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &657878013 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 59683552024582384, guid: ba489dd94d435ec46adc32284c49eca6, type: 3}
+  m_PrefabInstance: {fileID: 1930764123}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &661633724 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1444457034012185695, guid: 97ec1e94a45707c48a3ea1b002cfd9c9, type: 3}
@@ -7930,6 +8185,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 670345728}
   m_CullTransparentMesh: 1
+--- !u!1 &673838173 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4150214453845488204, guid: f09e22925ba2f6a4cb63688b7c3324a4, type: 3}
+  m_PrefabInstance: {fileID: 1525790571}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &674693101
 GameObject:
   m_ObjectHideFlags: 0
@@ -8013,6 +8273,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1757961629}
     m_Modifications:
+    - target: {fileID: 2618454517875857800, guid: fe9c73dec42b5d6419240f76ff44f3a7, type: 3}
+      propertyPath: languages.Array.data[0]
+      value: Next >>
+      objectReference: {fileID: 0}
+    - target: {fileID: 2618454517875857800, guid: fe9c73dec42b5d6419240f76ff44f3a7, type: 3}
+      propertyPath: languages.Array.data[1]
+      value: Proximo >>
+      objectReference: {fileID: 0}
     - target: {fileID: 4833039878786334241, guid: fe9c73dec42b5d6419240f76ff44f3a7, type: 3}
       propertyPath: m_Name
       value: B-Tutorial
@@ -8748,6 +9016,7 @@ GameObject:
   - component: {fileID: 732000262}
   - component: {fileID: 732000264}
   - component: {fileID: 732000263}
+  - component: {fileID: 732000265}
   m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -8874,6 +9143,26 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 732000261}
   m_CullTransparentMesh: 1
+--- !u!114 &732000265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 732000261}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0a80cbff0461c84186297a19859da59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textToTranslate: {fileID: 732000263}
+  languages:
+  - Below we have the buttons for automatic plays and automatic exits. Configure
+    as you wish!
+  - 'Abaixo Temos os botoes para jogadas automaticas e saidas automaticas.
+
+    Configure
+    como desejar!'
 --- !u!114 &734921199 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 43253195017371742, guid: 7b630559e06547a4fa906ac5b9a13ccc, type: 3}
@@ -9272,7 +9561,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 59683552024582384, guid: ba489dd94d435ec46adc32284c49eca6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 895119677}
   m_SourcePrefab: {fileID: 100100000, guid: ba489dd94d435ec46adc32284c49eca6, type: 3}
 --- !u!224 &753517944 stripped
 RectTransform:
@@ -9459,6 +9751,7 @@ GameObject:
   - component: {fileID: 784126433}
   - component: {fileID: 784126435}
   - component: {fileID: 784126434}
+  - component: {fileID: 784126436}
   m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -9584,6 +9877,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 784126432}
   m_CullTransparentMesh: 1
+--- !u!114 &784126436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 784126432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0a80cbff0461c84186297a19859da59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textToTranslate: {fileID: 784126434}
+  languages:
+  - Above we have the Round Messages. Just below we have the timer, which will show
+    the time before the match starts, this is the moment you can place your bet.
+  - "Acima temos as Mensagens de rodada. Logo abaixo temos o temporizador, onde vai
+    mostrar o tempo antes da partida come\xE7ar , \xE9 o momento que voce pode fazer
+    sua aposta."
 --- !u!114 &790292974 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 9094129702458691479, guid: 7b630559e06547a4fa906ac5b9a13ccc, type: 3}
@@ -9614,6 +9926,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1334261}
     m_Modifications:
+    - target: {fileID: 2618454517875857800, guid: fe9c73dec42b5d6419240f76ff44f3a7, type: 3}
+      propertyPath: languages.Array.data[0]
+      value: Next >>
+      objectReference: {fileID: 0}
+    - target: {fileID: 2618454517875857800, guid: fe9c73dec42b5d6419240f76ff44f3a7, type: 3}
+      propertyPath: languages.Array.data[1]
+      value: Proximo >>
+      objectReference: {fileID: 0}
     - target: {fileID: 4833039878786334241, guid: fe9c73dec42b5d6419240f76ff44f3a7, type: 3}
       propertyPath: m_Name
       value: B-Tutorial
@@ -9787,6 +10107,7 @@ GameObject:
   - component: {fileID: 799004570}
   - component: {fileID: 799004572}
   - component: {fileID: 799004571}
+  - component: {fileID: 799004573}
   m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -9911,6 +10232,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 799004569}
   m_CullTransparentMesh: 1
+--- !u!114 &799004573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 799004569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0a80cbff0461c84186297a19859da59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textToTranslate: {fileID: 799004571}
+  languages:
+  - ' Here you choose the amount of your bet. The bigger the bet, the bigger the
+    return.'
+  - Aqui voce escolhe o valor da sua aposta. Quanto maior for a aposta maior o retorno.
+--- !u!1 &800016459 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 59683552024582384, guid: ba489dd94d435ec46adc32284c49eca6, type: 3}
+  m_PrefabInstance: {fileID: 2146244868}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &806587223
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10482,6 +10825,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7669e208de1c97f47ace15fa418efd76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &833098416 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4382940500523659191, guid: 20d34151d067f9147a98f12b49ad2c21, type: 3}
+  m_PrefabInstance: {fileID: 6962862623180800173}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &834790458
 GameObject:
   m_ObjectHideFlags: 0
@@ -10775,12 +11123,20 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 59683552024582384, guid: ba489dd94d435ec46adc32284c49eca6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1948725616}
   m_SourcePrefab: {fileID: 100100000, guid: ba489dd94d435ec46adc32284c49eca6, type: 3}
 --- !u!224 &870956469 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8683417434811297989, guid: ba489dd94d435ec46adc32284c49eca6, type: 3}
   m_PrefabInstance: {fileID: 870956468}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &874593629 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4382940500523659191, guid: 20d34151d067f9147a98f12b49ad2c21, type: 3}
+  m_PrefabInstance: {fileID: 1157419490}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &874995765
 GameObject:
@@ -11058,6 +11414,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a36c179488c336447b9fa24a61d974e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &895119674 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 59683552024582384, guid: ba489dd94d435ec46adc32284c49eca6, type: 3}
+  m_PrefabInstance: {fileID: 753517943}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &895119675 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2924035030602470865, guid: ba489dd94d435ec46adc32284c49eca6, type: 3}
+  m_PrefabInstance: {fileID: 753517943}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 895119674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &895119677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 895119674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0a80cbff0461c84186297a19859da59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textToTranslate: {fileID: 895119675}
+  languages:
+  - Timer and Multiplier
+  - "Temporizador \ne Multiplicador"
 --- !u!1 &896191763
 GameObject:
   m_ObjectHideFlags: 0
@@ -11416,6 +11804,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1757585796}
     m_Modifications:
+    - target: {fileID: 2618454517875857800, guid: fe9c73dec42b5d6419240f76ff44f3a7, type: 3}
+      propertyPath: languages.Array.data[0]
+      value: Next >>
+      objectReference: {fileID: 0}
+    - target: {fileID: 2618454517875857800, guid: fe9c73dec42b5d6419240f76ff44f3a7, type: 3}
+      propertyPath: languages.Array.data[1]
+      value: Proximo >>
+      objectReference: {fileID: 0}
     - target: {fileID: 4833039878786334241, guid: fe9c73dec42b5d6419240f76ff44f3a7, type: 3}
       propertyPath: m_Name
       value: B-Tutorial
@@ -11771,8 +12167,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5842222, y: -0.18543044}
   m_AnchorMax: {x: 0.99850947, y: -0.0016570534}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0.37677002}
+  m_SizeDelta: {x: 0, y: 0.75355}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &948802764
 MonoBehaviour:
@@ -12206,6 +12602,7 @@ GameObject:
   - component: {fileID: 966904374}
   - component: {fileID: 966904373}
   - component: {fileID: 966904372}
+  - component: {fileID: 966904375}
   m_Layer: 0
   m_Name: Button (1)
   m_TagString: Untagged
@@ -12327,6 +12724,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 966904370}
   m_CullTransparentMesh: 1
+--- !u!114 &966904375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 966904370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0a80cbff0461c84186297a19859da59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textToTranslate: {fileID: 0}
+  languages: []
 --- !u!1 &973909457
 GameObject:
   m_ObjectHideFlags: 0
@@ -12727,13 +13138,43 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2872161814370543692, guid: 6e96940cd32edc74fae02295d9bb70f4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 998573996}
   m_SourcePrefab: {fileID: 100100000, guid: 6e96940cd32edc74fae02295d9bb70f4, type: 3}
 --- !u!224 &998573993 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4029013550771088165, guid: 6e96940cd32edc74fae02295d9bb70f4, type: 3}
   m_PrefabInstance: {fileID: 998573992}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &998573994 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4728842910127790464, guid: 6e96940cd32edc74fae02295d9bb70f4, type: 3}
+  m_PrefabInstance: {fileID: 998573992}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 585904012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &998573996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 585904012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0a80cbff0461c84186297a19859da59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textToTranslate: {fileID: 998573994}
+  languages:
+  - Message about  the round
+  - "Mensagem sobre\n a rodada"
 --- !u!1 &1002168455
 GameObject:
   m_ObjectHideFlags: 0
@@ -13028,6 +13469,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1013612020 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4150214453845488204, guid: f09e22925ba2f6a4cb63688b7c3324a4, type: 3}
+  m_PrefabInstance: {fileID: 1141745802458995210}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1016720179
 GameObject:
   m_ObjectHideFlags: 0
@@ -13542,7 +13988,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4029013550771088165, guid: 6e96940cd32edc74fae02295d9bb70f4, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.0000076293945
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4029013550771088165, guid: 6e96940cd32edc74fae02295d9bb70f4, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -13575,7 +14021,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2872161814370543692, guid: 6e96940cd32edc74fae02295d9bb70f4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1624017409}
   m_SourcePrefab: {fileID: 100100000, guid: 6e96940cd32edc74fae02295d9bb70f4, type: 3}
 --- !u!224 &1038647588 stripped
 RectTransform:
@@ -13593,6 +14042,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1042505060 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4150214453845488204, guid: f09e22925ba2f6a4cb63688b7c3324a4, type: 3}
+  m_PrefabInstance: {fileID: 510561036}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1042505061 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4890971587734217710, guid: f09e22925ba2f6a4cb63688b7c3324a4, type: 3}
+  m_PrefabInstance: {fileID: 510561036}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1042505060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1042505063
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1042505060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0a80cbff0461c84186297a19859da59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textToTranslate: {fileID: 1042505061}
+  languages:
+  - Here is the bet button.
+  - Aqui fica o botao de aposta.
 --- !u!1 &1044078214
 GameObject:
   m_ObjectHideFlags: 0
@@ -13610,7 +14091,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1044078215
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13941,7 +14422,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4150214453845488204, guid: f09e22925ba2f6a4cb63688b7c3324a4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1741684063}
   m_SourcePrefab: {fileID: 100100000, guid: f09e22925ba2f6a4cb63688b7c3324a4, type: 3}
 --- !u!224 &1063321159 stripped
 RectTransform:
@@ -14275,13 +14759,43 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 59683552024582384, guid: ba489dd94d435ec46adc32284c49eca6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1073523200}
   m_SourcePrefab: {fileID: 100100000, guid: ba489dd94d435ec46adc32284c49eca6, type: 3}
 --- !u!224 &1073523197 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8683417434811297989, guid: ba489dd94d435ec46adc32284c49eca6, type: 3}
   m_PrefabInstance: {fileID: 1073523196}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1073523198 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2924035030602470865, guid: ba489dd94d435ec46adc32284c49eca6, type: 3}
+  m_PrefabInstance: {fileID: 1073523196}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 494493068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1073523200
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 494493068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0a80cbff0461c84186297a19859da59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textToTranslate: {fileID: 1073523198}
+  languages:
+  - Button to autoplay
+  - Botao para jogadas automaticas
 --- !u!1 &1074918985
 GameObject:
   m_ObjectHideFlags: 0
@@ -14357,6 +14871,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1074918985}
   m_CullTransparentMesh: 1
+--- !u!1 &1080320258 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 59683552024582384, guid: ba489dd94d435ec46adc32284c49eca6, type: 3}
+  m_PrefabInstance: {fileID: 1827873780}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1087437686
 GameObject:
   m_ObjectHideFlags: 0
@@ -14972,7 +15491,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4728842910127790464, guid: 6e96940cd32edc74fae02295d9bb70f4, type: 3}
       propertyPath: m_fontSize
-      value: 29.8
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 4728842910127790464, guid: 6e96940cd32edc74fae02295d9bb70f4, type: 3}
       propertyPath: m_enableWordWrapping
@@ -14981,7 +15500,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2872161814370543692, guid: 6e96940cd32edc74fae02295d9bb70f4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1432492172}
   m_SourcePrefab: {fileID: 100100000, guid: 6e96940cd32edc74fae02295d9bb70f4, type: 3}
 --- !u!224 &1121221849 stripped
 RectTransform:
@@ -14999,6 +15521,7 @@ GameObject:
   - component: {fileID: 1121790903}
   - component: {fileID: 1121790905}
   - component: {fileID: 1121790904}
+  - component: {fileID: 1121790906}
   m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -15122,6 +15645,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1121790902}
   m_CullTransparentMesh: 1
+--- !u!114 &1121790906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1121790902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0a80cbff0461c84186297a19859da59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textToTranslate: {fileID: 1121790904}
+  languages:
+  - Now let's demonstrate with a game. With a Fictitious balance of $500
+  - Agora vamos demonstrar com uma partida. Com saldo Ficticio de R$ 500
 --- !u!1 &1124473327
 GameObject:
   m_ObjectHideFlags: 0
@@ -15735,6 +16274,7 @@ MonoBehaviour:
   - {fileID: 513423949}
   tradDropdown: {fileID: 1910406881}
   showTutorial: {fileID: 618888997}
+  compTeraduction: 0
   winExtraPrefab: {fileID: 5474850458660635220, guid: e9c943d3d77f23749ba7e9ea81c23933, type: 3}
   loadingPanel: {fileID: 993515115}
   tutorial: {fileID: 1643376754}
@@ -15768,6 +16308,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 577835918}
     m_Modifications:
+    - target: {fileID: 2618454517875857800, guid: fe9c73dec42b5d6419240f76ff44f3a7, type: 3}
+      propertyPath: languages.Array.data[0]
+      value: Next >>
+      objectReference: {fileID: 0}
+    - target: {fileID: 2618454517875857800, guid: fe9c73dec42b5d6419240f76ff44f3a7, type: 3}
+      propertyPath: languages.Array.data[1]
+      value: Proximo >>
+      objectReference: {fileID: 0}
     - target: {fileID: 4833039878786334241, guid: fe9c73dec42b5d6419240f76ff44f3a7, type: 3}
       propertyPath: m_Name
       value: B-Tutorial
@@ -16039,7 +16587,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2924035030602470865, guid: ba489dd94d435ec46adc32284c49eca6, type: 3}
       propertyPath: m_fontSize
-      value: 19.3
+      value: 20.9
       objectReference: {fileID: 0}
     - target: {fileID: 8683417434811297989, guid: ba489dd94d435ec46adc32284c49eca6, type: 3}
       propertyPath: m_Pivot.x
@@ -16124,13 +16672,43 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 59683552024582384, guid: ba489dd94d435ec46adc32284c49eca6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1154967180}
   m_SourcePrefab: {fileID: 100100000, guid: ba489dd94d435ec46adc32284c49eca6, type: 3}
 --- !u!224 &1154967177 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8683417434811297989, guid: ba489dd94d435ec46adc32284c49eca6, type: 3}
   m_PrefabInstance: {fileID: 1154967176}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1154967178 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2924035030602470865, guid: ba489dd94d435ec46adc32284c49eca6, type: 3}
+  m_PrefabInstance: {fileID: 1154967176}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 468212149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1154967180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 468212149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0a80cbff0461c84186297a19859da59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textToTranslate: {fileID: 1154967178}
+  languages:
+  - Use para aumentar a aposta
+  - Use to increase the bet
 --- !u!1 &1156715020
 GameObject:
   m_ObjectHideFlags: 0
@@ -16309,13 +16887,43 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4382940500523659191, guid: 20d34151d067f9147a98f12b49ad2c21, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1157419494}
   m_SourcePrefab: {fileID: 100100000, guid: 20d34151d067f9147a98f12b49ad2c21, type: 3}
 --- !u!224 &1157419491 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4458070980314696913, guid: 20d34151d067f9147a98f12b49ad2c21, type: 3}
   m_PrefabInstance: {fileID: 1157419490}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1157419492 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7479498572070766718, guid: 20d34151d067f9147a98f12b49ad2c21, type: 3}
+  m_PrefabInstance: {fileID: 1157419490}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 874593629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1157419494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 874593629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0a80cbff0461c84186297a19859da59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textToTranslate: {fileID: 1157419492}
+  languages:
+  - The bets in green are the ones that managed to come out
+  - As aposta em verde sao as que  conseguiu sair
 --- !u!1001 &1158500979
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16423,7 +17031,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 59683552024582384, guid: ba489dd94d435ec46adc32284c49eca6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1290337080}
   m_SourcePrefab: {fileID: 100100000, guid: ba489dd94d435ec46adc32284c49eca6, type: 3}
 --- !u!224 &1158500980 stripped
 RectTransform:
@@ -16471,6 +17082,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1551570498}
     m_Modifications:
+    - target: {fileID: 2618454517875857800, guid: fe9c73dec42b5d6419240f76ff44f3a7, type: 3}
+      propertyPath: languages.Array.data[0]
+      value: Next >>
+      objectReference: {fileID: 0}
+    - target: {fileID: 2618454517875857800, guid: fe9c73dec42b5d6419240f76ff44f3a7, type: 3}
+      propertyPath: languages.Array.data[1]
+      value: Proximo >>
+      objectReference: {fileID: 0}
     - target: {fileID: 4833039878786334241, guid: fe9c73dec42b5d6419240f76ff44f3a7, type: 3}
       propertyPath: m_Name
       value: B-Tutorial
@@ -16687,10 +17306,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 769743925}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: -1.5946449, y: 1.0039995}
-  m_AnchorMax: {x: 0.8191166, y: 6.408053}
-  m_AnchoredPosition: {x: 1356.3469, y: -1837.6}
-  m_SizeDelta: {x: -2324.6929, y: -2524.8}
+  m_AnchorMin: {x: 0.73743516, y: -0.1764736}
+  m_AnchorMax: {x: 0.9987033, y: 0.0027654795}
+  m_AnchoredPosition: {x: 0, y: 0.000061035156}
+  m_SizeDelta: {x: 0, y: 0.00012207031}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1180304472
 MonoBehaviour:
@@ -17064,6 +17683,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1913003947}
     m_Modifications:
+    - target: {fileID: 2618454517875857800, guid: fe9c73dec42b5d6419240f76ff44f3a7, type: 3}
+      propertyPath: languages.Array.data[0]
+      value: Next >>
+      objectReference: {fileID: 0}
+    - target: {fileID: 2618454517875857800, guid: fe9c73dec42b5d6419240f76ff44f3a7, type: 3}
+      propertyPath: languages.Array.data[1]
+      value: Proximo >>
+      objectReference: {fileID: 0}
     - target: {fileID: 4833039878786334241, guid: fe9c73dec42b5d6419240f76ff44f3a7, type: 3}
       propertyPath: m_Name
       value: B-Tutorial
@@ -17360,6 +17987,7 @@ GameObject:
   - component: {fileID: 1243313545}
   - component: {fileID: 1243313547}
   - component: {fileID: 1243313546}
+  - component: {fileID: 1243313548}
   m_Layer: 0
   m_Name: principal
   m_TagString: Untagged
@@ -17433,7 +18061,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 72
+  m_fontSize: 68.3
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -17483,6 +18111,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1243313544}
   m_CullTransparentMesh: 1
+--- !u!114 &1243313548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1243313544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0a80cbff0461c84186297a19859da59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textToTranslate: {fileID: 1243313546}
+  languages:
+  - Play Demo?
+  - Jogar Tutorial?
 --- !u!114 &1246565386 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7566347343029686097, guid: 7b630559e06547a4fa906ac5b9a13ccc, type: 3}
@@ -17692,8 +18336,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 1.2067871, y: 0}
+  m_SizeDelta: {x: 2.4137, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1268462020
 GameObject:
@@ -17706,6 +18350,7 @@ GameObject:
   - component: {fileID: 1268462021}
   - component: {fileID: 1268462023}
   - component: {fileID: 1268462022}
+  - component: {fileID: 1268462024}
   m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -17830,6 +18475,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1268462020}
   m_CullTransparentMesh: 1
+--- !u!114 &1268462024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1268462020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0a80cbff0461c84186297a19859da59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textToTranslate: {fileID: 1268462022}
+  languages:
+  - ' Below we have the Bet button. Where Controls entry, exit and cancellation.'
+  - 'Abaixo Temos o botao para Aposta. Onde Controla a entrada,  saida e cancelamento
+    . '
 --- !u!114 &1271872265 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1564081366992941043, guid: 7b630559e06547a4fa906ac5b9a13ccc, type: 3}
@@ -18027,6 +18689,38 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1290337077 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 59683552024582384, guid: ba489dd94d435ec46adc32284c49eca6, type: 3}
+  m_PrefabInstance: {fileID: 1158500979}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1290337078 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2924035030602470865, guid: ba489dd94d435ec46adc32284c49eca6, type: 3}
+  m_PrefabInstance: {fileID: 1158500979}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1290337077}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1290337080
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1290337077}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0a80cbff0461c84186297a19859da59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textToTranslate: {fileID: 1290337078}
+  languages:
+  - "Valor do multiplicador tem que alcan\xE7ar para sair"
+  - ' Multiplier value must be reached to exit'
 --- !u!1001 &1295203168
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18134,13 +18828,43 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 59683552024582384, guid: ba489dd94d435ec46adc32284c49eca6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1295203172}
   m_SourcePrefab: {fileID: 100100000, guid: ba489dd94d435ec46adc32284c49eca6, type: 3}
 --- !u!224 &1295203169 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8683417434811297989, guid: ba489dd94d435ec46adc32284c49eca6, type: 3}
   m_PrefabInstance: {fileID: 1295203168}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1295203170 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2924035030602470865, guid: ba489dd94d435ec46adc32284c49eca6, type: 3}
+  m_PrefabInstance: {fileID: 1295203168}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 376868948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1295203172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 376868948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0a80cbff0461c84186297a19859da59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textToTranslate: {fileID: 1295203170}
+  languages:
+  - Bets on green are those that managed to win.
+  - Aposta em verde sao as que conseguiram sair.
 --- !u!1 &1297373861
 GameObject:
   m_ObjectHideFlags: 0
@@ -18950,6 +19674,7 @@ GameObject:
   - component: {fileID: 1405192050}
   - component: {fileID: 1405192052}
   - component: {fileID: 1405192051}
+  - component: {fileID: 1405192053}
   m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -19073,6 +19798,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1405192049}
   m_CullTransparentMesh: 1
+--- !u!114 &1405192053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1405192049}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0a80cbff0461c84186297a19859da59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textToTranslate: {fileID: 1405192051}
+  languages:
+  - No
+  - Nao
 --- !u!1 &1405249215
 GameObject:
   m_ObjectHideFlags: 0
@@ -19239,6 +19980,38 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1718221856990899757, guid: 7b630559e06547a4fa906ac5b9a13ccc, type: 3}
   m_PrefabInstance: {fileID: 8662318737675696072}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1432492169 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2872161814370543692, guid: 6e96940cd32edc74fae02295d9bb70f4, type: 3}
+  m_PrefabInstance: {fileID: 1121221848}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1432492170 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4728842910127790464, guid: 6e96940cd32edc74fae02295d9bb70f4, type: 3}
+  m_PrefabInstance: {fileID: 1121221848}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1432492169}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1432492172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1432492169}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0a80cbff0461c84186297a19859da59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textToTranslate: {fileID: 1432492170}
+  languages:
+  - Button to auto Cashout
+  - Botao para saidas automaticas
 --- !u!1001 &1444516363
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19247,6 +20020,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1820686488}
     m_Modifications:
+    - target: {fileID: 2618454517875857800, guid: fe9c73dec42b5d6419240f76ff44f3a7, type: 3}
+      propertyPath: languages.Array.data[0]
+      value: Simule >>
+      objectReference: {fileID: 0}
+    - target: {fileID: 2618454517875857800, guid: fe9c73dec42b5d6419240f76ff44f3a7, type: 3}
+      propertyPath: languages.Array.data[1]
+      value: Simular >>
+      objectReference: {fileID: 0}
     - target: {fileID: 4833039878786334241, guid: fe9c73dec42b5d6419240f76ff44f3a7, type: 3}
       propertyPath: m_Name
       value: B-Tutorial
@@ -19793,7 +20574,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4382940500523659191, guid: 20d34151d067f9147a98f12b49ad2c21, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1619682940}
   m_SourcePrefab: {fileID: 100100000, guid: 20d34151d067f9147a98f12b49ad2c21, type: 3}
 --- !u!224 &1463043619 stripped
 RectTransform:
@@ -20112,6 +20896,11 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3788190612671201415, guid: 588fb91c0c5f9264492a7b462d6f5ce7, type: 3}
   m_PrefabInstance: {fileID: 1090991996}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1501277899 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 59683552024582384, guid: ba489dd94d435ec46adc32284c49eca6, type: 3}
+  m_PrefabInstance: {fileID: 1801863005}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1503868021 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4232964374771372888, guid: 97ec1e94a45707c48a3ea1b002cfd9c9, type: 3}
@@ -20228,6 +21017,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 664358173}
     m_Modifications:
+    - target: {fileID: 2618454517875857800, guid: fe9c73dec42b5d6419240f76ff44f3a7, type: 3}
+      propertyPath: languages.Array.data[0]
+      value: Finish
+      objectReference: {fileID: 0}
+    - target: {fileID: 2618454517875857800, guid: fe9c73dec42b5d6419240f76ff44f3a7, type: 3}
+      propertyPath: languages.Array.data[1]
+      value: Finalizar
+      objectReference: {fileID: 0}
     - target: {fileID: 4833039878786334241, guid: fe9c73dec42b5d6419240f76ff44f3a7, type: 3}
       propertyPath: m_Name
       value: B-Tutorial
@@ -20763,7 +21560,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4890971587734217710, guid: f09e22925ba2f6a4cb63688b7c3324a4, type: 3}
       propertyPath: m_fontSize
-      value: 10
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 4890971587734217710, guid: f09e22925ba2f6a4cb63688b7c3324a4, type: 3}
       propertyPath: m_margin.x
@@ -20860,13 +21657,43 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4150214453845488204, guid: f09e22925ba2f6a4cb63688b7c3324a4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1525790575}
   m_SourcePrefab: {fileID: 100100000, guid: f09e22925ba2f6a4cb63688b7c3324a4, type: 3}
 --- !u!224 &1525790572 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6515931519441596604, guid: f09e22925ba2f6a4cb63688b7c3324a4, type: 3}
   m_PrefabInstance: {fileID: 1525790571}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1525790573 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4890971587734217710, guid: f09e22925ba2f6a4cb63688b7c3324a4, type: 3}
+  m_PrefabInstance: {fileID: 1525790571}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 673838173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1525790575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 673838173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0a80cbff0461c84186297a19859da59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textToTranslate: {fileID: 1525790573}
+  languages:
+  - Here is your Balance
+  - Aqui fica seu Saldo
 --- !u!114 &1532372881 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8456517286947109313, guid: 7b630559e06547a4fa906ac5b9a13ccc, type: 3}
@@ -20889,6 +21716,7 @@ GameObject:
   - component: {fileID: 1532728849}
   - component: {fileID: 1532728851}
   - component: {fileID: 1532728850}
+  - component: {fileID: 1532728852}
   m_Layer: 0
   m_Name: Text (TMP) (1)
   m_TagString: Untagged
@@ -21012,6 +21840,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1532728848}
   m_CullTransparentMesh: 1
+--- !u!114 &1532728852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1532728848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0a80cbff0461c84186297a19859da59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textToTranslate: {fileID: 1532728850}
+  languages:
+  - Press the button to place your bet.
+  - Aperte no botao para fazer sua aposta.
 --- !u!114 &1535034448 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8056877386641475021, guid: 7b630559e06547a4fa906ac5b9a13ccc, type: 3}
@@ -21473,6 +22317,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 638947599}
     m_Modifications:
+    - target: {fileID: 2618454517875857800, guid: fe9c73dec42b5d6419240f76ff44f3a7, type: 3}
+      propertyPath: languages.Array.data[0]
+      value: Simule >>
+      objectReference: {fileID: 0}
+    - target: {fileID: 2618454517875857800, guid: fe9c73dec42b5d6419240f76ff44f3a7, type: 3}
+      propertyPath: languages.Array.data[1]
+      value: Simular
+      objectReference: {fileID: 0}
     - target: {fileID: 4833039878786334241, guid: fe9c73dec42b5d6419240f76ff44f3a7, type: 3}
       propertyPath: m_Name
       value: B-Tutorial
@@ -21761,6 +22613,7 @@ GameObject:
   - component: {fileID: 1594058951}
   - component: {fileID: 1594058953}
   - component: {fileID: 1594058952}
+  - component: {fileID: 1594058954}
   m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -21885,6 +22738,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1594058950}
   m_CullTransparentMesh: 1
+--- !u!114 &1594058954
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594058950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0a80cbff0461c84186297a19859da59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textToTranslate: {fileID: 1594058952}
+  languages:
+  - First we will increase our bet up to $100. Before our timer starts.
+  - 'Primeiro vamos aumentar nossa aposta ate R$ 100. Antes do nosso temporizador
+    se iniciar. '
 --- !u!114 &1604163733 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2620401129975068195, guid: 97ec1e94a45707c48a3ea1b002cfd9c9, type: 3}
@@ -21993,6 +22863,72 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1614175920}
   m_CullTransparentMesh: 1
+--- !u!1 &1619682937 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4382940500523659191, guid: 20d34151d067f9147a98f12b49ad2c21, type: 3}
+  m_PrefabInstance: {fileID: 1463043618}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1619682938 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7479498572070766718, guid: 20d34151d067f9147a98f12b49ad2c21, type: 3}
+  m_PrefabInstance: {fileID: 1463043618}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1619682937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1619682940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1619682937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0a80cbff0461c84186297a19859da59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textToTranslate: {fileID: 1619682938}
+  languages:
+  - Button of Cashout
+  - 'Botao para saidas
+
+    Automaticas'
+--- !u!1 &1624017406 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2872161814370543692, guid: 6e96940cd32edc74fae02295d9bb70f4, type: 3}
+  m_PrefabInstance: {fileID: 1038647587}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1624017407 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4728842910127790464, guid: 6e96940cd32edc74fae02295d9bb70f4, type: 3}
+  m_PrefabInstance: {fileID: 1038647587}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1624017406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1624017409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1624017406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0a80cbff0461c84186297a19859da59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textToTranslate: {fileID: 1624017407}
+  languages:
+  - Button of Autoplay
+  - Botao para Jogadas automaticas
 --- !u!114 &1625394781 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5014763131242302449, guid: 97ec1e94a45707c48a3ea1b002cfd9c9, type: 3}
@@ -22639,6 +23575,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7669e208de1c97f47ace15fa418efd76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1652323305 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4150214453845488204, guid: f09e22925ba2f6a4cb63688b7c3324a4, type: 3}
+  m_PrefabInstance: {fileID: 2108716858}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1659678564
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22707,6 +23648,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a36c179488c336447b9fa24a61d974e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1667308416 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2872161814370543692, guid: 6e96940cd32edc74fae02295d9bb70f4, type: 3}
+  m_PrefabInstance: {fileID: 452967518}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1667308417 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4728842910127790464, guid: 6e96940cd32edc74fae02295d9bb70f4, type: 3}
+  m_PrefabInstance: {fileID: 452967518}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1667308416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1667308419
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1667308416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0a80cbff0461c84186297a19859da59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textToTranslate: {fileID: 1667308417}
+  languages:
+  - Message about the round
+  - Mensagem sobre a rodada
 --- !u!114 &1670203051 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 727495490385908707, guid: 97ec1e94a45707c48a3ea1b002cfd9c9, type: 3}
@@ -22726,6 +23699,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 165285103}
     m_Modifications:
+    - target: {fileID: 2618454517875857800, guid: fe9c73dec42b5d6419240f76ff44f3a7, type: 3}
+      propertyPath: languages.Array.data[0]
+      value: Next >>
+      objectReference: {fileID: 0}
+    - target: {fileID: 2618454517875857800, guid: fe9c73dec42b5d6419240f76ff44f3a7, type: 3}
+      propertyPath: languages.Array.data[1]
+      value: Proximo
+      objectReference: {fileID: 0}
     - target: {fileID: 4833039878786334241, guid: fe9c73dec42b5d6419240f76ff44f3a7, type: 3}
       propertyPath: m_Name
       value: B-Tutorial
@@ -22918,6 +23899,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7669e208de1c97f47ace15fa418efd76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1693560010 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 59683552024582384, guid: ba489dd94d435ec46adc32284c49eca6, type: 3}
+  m_PrefabInstance: {fileID: 5461977367841109741}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1699915948 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7305954220041667186, guid: 7b630559e06547a4fa906ac5b9a13ccc, type: 3}
@@ -23470,6 +24456,7 @@ MonoBehaviour:
   - {fileID: 2059299261}
   tradDropdown: {fileID: 1607862815}
   showTutorial: {fileID: 1789820904}
+  compTeraduction: 0
   winExtraPrefab: {fileID: 5474850458660635220, guid: e9c943d3d77f23749ba7e9ea81c23933, type: 3}
   loadingPanel: {fileID: 1419073467}
   tutorial: {fileID: 879686832}
@@ -23838,6 +24825,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7669e208de1c97f47ace15fa418efd76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1741684060 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4150214453845488204, guid: f09e22925ba2f6a4cb63688b7c3324a4, type: 3}
+  m_PrefabInstance: {fileID: 1063321158}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1741684061 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4890971587734217710, guid: f09e22925ba2f6a4cb63688b7c3324a4, type: 3}
+  m_PrefabInstance: {fileID: 1063321158}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1741684060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1741684063
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1741684060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0a80cbff0461c84186297a19859da59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textToTranslate: {fileID: 1741684061}
+  languages:
+  - With this play you won $200
+  - Com essa jogada voce ganhou R$ 200
 --- !u!1001 &1744799290
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23846,6 +24865,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1626400191}
     m_Modifications:
+    - target: {fileID: 2618454517875857800, guid: fe9c73dec42b5d6419240f76ff44f3a7, type: 3}
+      propertyPath: languages.Array.data[0]
+      value: Next >>
+      objectReference: {fileID: 0}
+    - target: {fileID: 2618454517875857800, guid: fe9c73dec42b5d6419240f76ff44f3a7, type: 3}
+      propertyPath: languages.Array.data[1]
+      value: Proximo >>
+      objectReference: {fileID: 0}
     - target: {fileID: 4833039878786334241, guid: fe9c73dec42b5d6419240f76ff44f3a7, type: 3}
       propertyPath: m_Name
       value: B-Tutorial
@@ -24663,13 +25690,43 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 59683552024582384, guid: ba489dd94d435ec46adc32284c49eca6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1801863009}
   m_SourcePrefab: {fileID: 100100000, guid: ba489dd94d435ec46adc32284c49eca6, type: 3}
 --- !u!224 &1801863006 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8683417434811297989, guid: ba489dd94d435ec46adc32284c49eca6, type: 3}
   m_PrefabInstance: {fileID: 1801863005}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1801863007 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2924035030602470865, guid: ba489dd94d435ec46adc32284c49eca6, type: 3}
+  m_PrefabInstance: {fileID: 1801863005}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1501277899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1801863009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1501277899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0a80cbff0461c84186297a19859da59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textToTranslate: {fileID: 1801863007}
+  languages:
+  - Bet Value
+  - 'Valor da aposta '
 --- !u!114 &1807464087 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3200606564987663328, guid: 7b630559e06547a4fa906ac5b9a13ccc, type: 3}
@@ -24791,10 +25848,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1124473328}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: -0.9817821, y: 1.0039995}
-  m_AnchorMax: {x: 1.4319795, y: 6.408053}
-  m_AnchoredPosition: {x: 423.65933, y: -1837}
-  m_SizeDelta: {x: -1780.3983, y: -2527}
+  m_AnchorMin: {x: 0.23475416, y: -0.18098156}
+  m_AnchorMax: {x: 0.99999887, y: 0.0017855084}
+  m_AnchoredPosition: {x: 0, y: 0.000061035156}
+  m_SizeDelta: {x: 0, y: 0.00012207031}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1817478590
 MonoBehaviour:
@@ -25062,13 +26119,43 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 59683552024582384, guid: ba489dd94d435ec46adc32284c49eca6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1827873784}
   m_SourcePrefab: {fileID: 100100000, guid: ba489dd94d435ec46adc32284c49eca6, type: 3}
 --- !u!224 &1827873781 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8683417434811297989, guid: ba489dd94d435ec46adc32284c49eca6, type: 3}
   m_PrefabInstance: {fileID: 1827873780}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1827873782 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2924035030602470865, guid: ba489dd94d435ec46adc32284c49eca6, type: 3}
+  m_PrefabInstance: {fileID: 1827873780}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1080320258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1827873784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1080320258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0a80cbff0461c84186297a19859da59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textToTranslate: {fileID: 1827873782}
+  languages:
+  - Here is your bet and that of other players
+  - Aqui fica a sua aposta e dos outros jogadores
 --- !u!114 &1828042487 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3869677576098249053, guid: 97ec1e94a45707c48a3ea1b002cfd9c9, type: 3}
@@ -25252,6 +26339,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1854930718 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 59683552024582384, guid: ba489dd94d435ec46adc32284c49eca6, type: 3}
+  m_PrefabInstance: {fileID: 296965791}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1854930719 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2924035030602470865, guid: ba489dd94d435ec46adc32284c49eca6, type: 3}
+  m_PrefabInstance: {fileID: 296965791}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1854930718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1854930721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1854930718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0a80cbff0461c84186297a19859da59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textToTranslate: {fileID: 1854930719}
+  languages:
+  - And it's already added to your balance
+  - "E ja \xE9 adicionado ao seu balan\xE7o"
 --- !u!1 &1856215188
 GameObject:
   m_ObjectHideFlags: 0
@@ -25541,6 +26660,7 @@ GameObject:
   - component: {fileID: 1860253835}
   - component: {fileID: 1860253837}
   - component: {fileID: 1860253836}
+  - component: {fileID: 1860253838}
   m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -25664,6 +26784,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1860253834}
   m_CullTransparentMesh: 1
+--- !u!114 &1860253838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1860253834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0a80cbff0461c84186297a19859da59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textToTranslate: {fileID: 1860253836}
+  languages:
+  - Now let's demonstrate with a game. With a Fictitious balance of $500
+  - Agora vamos demonstrar com uma partida. Com saldo Ficticio de R$ 500
 --- !u!114 &1860992007 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1807222422481069079, guid: 7b630559e06547a4fa906ac5b9a13ccc, type: 3}
@@ -25799,6 +26935,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1877682749}
   m_CullTransparentMesh: 1
+--- !u!1 &1886231834 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4382940500523659191, guid: 20d34151d067f9147a98f12b49ad2c21, type: 3}
+  m_PrefabInstance: {fileID: 2080021580}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1890946198 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6767235078224369990, guid: 7b630559e06547a4fa906ac5b9a13ccc, type: 3}
@@ -25810,6 +26951,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1893747977 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4150214453845488204, guid: f09e22925ba2f6a4cb63688b7c3324a4, type: 3}
+  m_PrefabInstance: {fileID: 5208847992386431011}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1902100543
 GameObject:
   m_ObjectHideFlags: 0
@@ -26357,13 +27503,43 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 59683552024582384, guid: ba489dd94d435ec46adc32284c49eca6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1930764127}
   m_SourcePrefab: {fileID: 100100000, guid: ba489dd94d435ec46adc32284c49eca6, type: 3}
 --- !u!224 &1930764124 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8683417434811297989, guid: ba489dd94d435ec46adc32284c49eca6, type: 3}
   m_PrefabInstance: {fileID: 1930764123}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1930764125 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2924035030602470865, guid: ba489dd94d435ec46adc32284c49eca6, type: 3}
+  m_PrefabInstance: {fileID: 1930764123}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 657878013}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1930764127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 657878013}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0a80cbff0461c84186297a19859da59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textToTranslate: {fileID: 1930764125}
+  languages:
+  - Timer and Multiplier
+  - Temporizador e Multiplicador
 --- !u!1 &1932645593
 GameObject:
   m_ObjectHideFlags: 0
@@ -26599,6 +27775,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7669e208de1c97f47ace15fa418efd76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1948725613 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 59683552024582384, guid: ba489dd94d435ec46adc32284c49eca6, type: 3}
+  m_PrefabInstance: {fileID: 870956468}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1948725614 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2924035030602470865, guid: ba489dd94d435ec46adc32284c49eca6, type: 3}
+  m_PrefabInstance: {fileID: 870956468}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1948725613}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1948725616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1948725613}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0a80cbff0461c84186297a19859da59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textToTranslate: {fileID: 1948725614}
+  languages:
+  - With this play you won $200
+  - "Com essa jogada voc\xEA ganhou R$ 200"
 --- !u!114 &1952755190 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8601964379018374584, guid: 7b630559e06547a4fa906ac5b9a13ccc, type: 3}
@@ -26662,6 +27870,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1262795183}
     m_Modifications:
+    - target: {fileID: 2618454517875857800, guid: fe9c73dec42b5d6419240f76ff44f3a7, type: 3}
+      propertyPath: languages.Array.data[0]
+      value: Next >>
+      objectReference: {fileID: 0}
+    - target: {fileID: 2618454517875857800, guid: fe9c73dec42b5d6419240f76ff44f3a7, type: 3}
+      propertyPath: languages.Array.data[1]
+      value: Proximo >>
+      objectReference: {fileID: 0}
     - target: {fileID: 4833039878786334241, guid: fe9c73dec42b5d6419240f76ff44f3a7, type: 3}
       propertyPath: m_Name
       value: B-Tutorial
@@ -26937,6 +28153,7 @@ GameObject:
   - component: {fileID: 2005063925}
   - component: {fileID: 2005063927}
   - component: {fileID: 2005063926}
+  - component: {fileID: 2005063928}
   m_Layer: 0
   m_Name: Text (TMP) (1)
   m_TagString: Untagged
@@ -27061,6 +28278,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2005063924}
   m_CullTransparentMesh: 1
+--- !u!114 &2005063928
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2005063924}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0a80cbff0461c84186297a19859da59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textToTranslate: {fileID: 2005063926}
+  languages:
+  - Press the stop button to withdraw the bet and multiply before the tank breaks!
+  - Aperte no botao para para retirar a aposta e multiplicar antes do tanque quebrar!
 --- !u!114 &2013834032 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1203069224981699520, guid: 7b630559e06547a4fa906ac5b9a13ccc, type: 3}
@@ -27484,10 +28717,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 769743925}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: -1.5956047, y: 0.00392434}
-  m_AnchorMax: {x: -0.1897294, y: 1.0261286}
-  m_AnchoredPosition: {x: 1277.8569, y: -293.65997}
-  m_SizeDelta: {x: -887.081, y: -403.31}
+  m_AnchorMin: {x: -0.0017181202, y: -0.17640013}
+  m_AnchorMax: {x: 0.5827858, y: 0.002695832}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: -0.000015258789}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2032053275
 MonoBehaviour:
@@ -28016,13 +29249,43 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4382940500523659191, guid: 20d34151d067f9147a98f12b49ad2c21, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2080021584}
   m_SourcePrefab: {fileID: 100100000, guid: 20d34151d067f9147a98f12b49ad2c21, type: 3}
 --- !u!224 &2080021581 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4458070980314696913, guid: 20d34151d067f9147a98f12b49ad2c21, type: 3}
   m_PrefabInstance: {fileID: 2080021580}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2080021582 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7479498572070766718, guid: 20d34151d067f9147a98f12b49ad2c21, type: 3}
+  m_PrefabInstance: {fileID: 2080021580}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1886231834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2080021584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1886231834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0a80cbff0461c84186297a19859da59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textToTranslate: {fileID: 2080021582}
+  languages:
+  - Here is your bet and that of other players
+  - Aqui fica a sua aposta e dos outros jogadores
 --- !u!1 &2083378152
 GameObject:
   m_ObjectHideFlags: 0
@@ -28238,13 +29501,43 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4150214453845488204, guid: f09e22925ba2f6a4cb63688b7c3324a4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2108716862}
   m_SourcePrefab: {fileID: 100100000, guid: f09e22925ba2f6a4cb63688b7c3324a4, type: 3}
 --- !u!224 &2108716859 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6515931519441596604, guid: f09e22925ba2f6a4cb63688b7c3324a4, type: 3}
   m_PrefabInstance: {fileID: 2108716858}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2108716860 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4890971587734217710, guid: f09e22925ba2f6a4cb63688b7c3324a4, type: 3}
+  m_PrefabInstance: {fileID: 2108716858}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1652323305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2108716862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1652323305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0a80cbff0461c84186297a19859da59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textToTranslate: {fileID: 2108716860}
+  languages:
+  - The gain has been added to your balance
+  - "O ganho foi adicionado ao seu balan\xE7o"
 --- !u!114 &2112804119 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2144601988153706454, guid: 7b630559e06547a4fa906ac5b9a13ccc, type: 3}
@@ -28833,18 +30126,75 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 59683552024582384, guid: ba489dd94d435ec46adc32284c49eca6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2146244872}
   m_SourcePrefab: {fileID: 100100000, guid: ba489dd94d435ec46adc32284c49eca6, type: 3}
 --- !u!224 &2146244869 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8683417434811297989, guid: ba489dd94d435ec46adc32284c49eca6, type: 3}
   m_PrefabInstance: {fileID: 2146244868}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2146244870 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2924035030602470865, guid: ba489dd94d435ec46adc32284c49eca6, type: 3}
+  m_PrefabInstance: {fileID: 2146244868}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 800016459}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2146244872
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 800016459}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0a80cbff0461c84186297a19859da59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textToTranslate: {fileID: 2146244870}
+  languages:
+  - Here is your balance.
+  - Aqui fica seu Saldo.
 --- !u!224 &156423918487634903 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6515931519441596604, guid: f09e22925ba2f6a4cb63688b7c3324a4, type: 3}
   m_PrefabInstance: {fileID: 1141745802458995210}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &156423918487634904 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4890971587734217710, guid: f09e22925ba2f6a4cb63688b7c3324a4, type: 3}
+  m_PrefabInstance: {fileID: 1141745802458995210}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1013612020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &156423918487634906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1013612020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0a80cbff0461c84186297a19859da59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textToTranslate: {fileID: 156423918487634904}
+  languages:
+  - Here are all the gains from this session.
+  - Aqui fica todo ganho dessa sessao.
 --- !u!114 &462477554698338696 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 667742967283181114, guid: 97ec1e94a45707c48a3ea1b002cfd9c9, type: 3}
@@ -28954,7 +30304,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4728842910127790464, guid: 6e96940cd32edc74fae02295d9bb70f4, type: 3}
       propertyPath: m_fontSize
-      value: 24.4
+      value: 18.35
       objectReference: {fileID: 0}
     - target: {fileID: 4728842910127790464, guid: 6e96940cd32edc74fae02295d9bb70f4, type: 3}
       propertyPath: m_enableWordWrapping
@@ -28967,7 +30317,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2872161814370543692, guid: 6e96940cd32edc74fae02295d9bb70f4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3464674551451918950}
   m_SourcePrefab: {fileID: 100100000, guid: 6e96940cd32edc74fae02295d9bb70f4, type: 3}
 --- !u!114 &806009762183942688 stripped
 MonoBehaviour:
@@ -29098,7 +30451,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4150214453845488204, guid: f09e22925ba2f6a4cb63688b7c3324a4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 156423918487634906}
   m_SourcePrefab: {fileID: 100100000, guid: f09e22925ba2f6a4cb63688b7c3324a4, type: 3}
 --- !u!114 &2454011962913812736 stripped
 MonoBehaviour:
@@ -29143,6 +30499,33 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 4029013550771088165, guid: 6e96940cd32edc74fae02295d9bb70f4, type: 3}
   m_PrefabInstance: {fileID: 651500467859511069}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3464674551451918948 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4728842910127790464, guid: 6e96940cd32edc74fae02295d9bb70f4, type: 3}
+  m_PrefabInstance: {fileID: 651500467859511069}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 30722894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3464674551451918950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 30722894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0a80cbff0461c84186297a19859da59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textToTranslate: {fileID: 3464674551451918948}
+  languages:
+  - Use the buttons + and - to control value bet
+  - Use os Botoes + e - para controlar o valor da aposta
 --- !u!114 &3577879901226474697 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4666772883154991487, guid: 97ec1e94a45707c48a3ea1b002cfd9c9, type: 3}
@@ -29181,11 +30564,65 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 4458070980314696913, guid: 20d34151d067f9147a98f12b49ad2c21, type: 3}
   m_PrefabInstance: {fileID: 6962862623180800173}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4323784577868352910 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7479498572070766718, guid: 20d34151d067f9147a98f12b49ad2c21, type: 3}
+  m_PrefabInstance: {fileID: 6962862623180800173}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 833098416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4323784577868352912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 833098416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0a80cbff0461c84186297a19859da59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textToTranslate: {fileID: 4323784577868352910}
+  languages:
+  - "Bet value. \nUse + / - to control."
+  - "Valor da aposta. \nUse + / - para controlar."
 --- !u!224 &4437641043981828891 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4488164805776626499, guid: ed974f32e8efe744da7c92ac420142d2, type: 3}
   m_PrefabInstance: {fileID: 7965835317727917499}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4437641043981828892 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 67795952526701721, guid: ed974f32e8efe744da7c92ac420142d2, type: 3}
+  m_PrefabInstance: {fileID: 7965835317727917499}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 559392270}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4437641043981828894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 559392270}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0a80cbff0461c84186297a19859da59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textToTranslate: {fileID: 4437641043981828892}
+  languages:
+  - "Use + / - to control \ncashout value"
+  - "Use + / - para controlar \no valor da saida"
 --- !u!114 &4645192495915310583 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6378989215647100532, guid: 97ec1e94a45707c48a3ea1b002cfd9c9, type: 3}
@@ -29311,13 +30748,43 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4150214453845488204, guid: f09e22925ba2f6a4cb63688b7c3324a4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5208847992386431015}
   m_SourcePrefab: {fileID: 100100000, guid: f09e22925ba2f6a4cb63688b7c3324a4, type: 3}
 --- !u!224 &5208847992386431012 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6515931519441596604, guid: f09e22925ba2f6a4cb63688b7c3324a4, type: 3}
   m_PrefabInstance: {fileID: 5208847992386431011}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5208847992386431013 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4890971587734217710, guid: f09e22925ba2f6a4cb63688b7c3324a4, type: 3}
+  m_PrefabInstance: {fileID: 5208847992386431011}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1893747977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5208847992386431015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1893747977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0a80cbff0461c84186297a19859da59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textToTranslate: {fileID: 5208847992386431013}
+  languages:
+  - Use to increase the bet
+  - Use para aumentar a aposta
 --- !u!114 &5310958913727086520 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1508608831920579561, guid: 97ec1e94a45707c48a3ea1b002cfd9c9, type: 3}
@@ -29344,6 +30811,10 @@ PrefabInstance:
     - target: {fileID: 181963004157382335, guid: ba489dd94d435ec46adc32284c49eca6, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -21.400024
+      objectReference: {fileID: 0}
+    - target: {fileID: 2924035030602470865, guid: ba489dd94d435ec46adc32284c49eca6, type: 3}
+      propertyPath: m_fontSize
+      value: 24.6
       objectReference: {fileID: 0}
     - target: {fileID: 8683417434811297989, guid: ba489dd94d435ec46adc32284c49eca6, type: 3}
       propertyPath: m_Pivot.x
@@ -29428,13 +30899,43 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 59683552024582384, guid: ba489dd94d435ec46adc32284c49eca6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5461977367841109745}
   m_SourcePrefab: {fileID: 100100000, guid: ba489dd94d435ec46adc32284c49eca6, type: 3}
 --- !u!224 &5461977367841109742 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8683417434811297989, guid: ba489dd94d435ec46adc32284c49eca6, type: 3}
   m_PrefabInstance: {fileID: 5461977367841109741}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5461977367841109743 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2924035030602470865, guid: ba489dd94d435ec46adc32284c49eca6, type: 3}
+  m_PrefabInstance: {fileID: 5461977367841109741}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1693560010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5461977367841109745
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1693560010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0a80cbff0461c84186297a19859da59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textToTranslate: {fileID: 5461977367841109743}
+  languages:
+  - Here are all the gains from this session.
+  - Aqui fica todo ganho dessa sessao.
 --- !u!114 &5520550465586748299 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 119994071479901085, guid: 97ec1e94a45707c48a3ea1b002cfd9c9, type: 3}
@@ -29843,7 +31344,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4382940500523659191, guid: 20d34151d067f9147a98f12b49ad2c21, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4323784577868352912}
   m_SourcePrefab: {fileID: 100100000, guid: 20d34151d067f9147a98f12b49ad2c21, type: 3}
 --- !u!1001 &7965835317727917499
 PrefabInstance:
@@ -29972,7 +31476,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7459238880422751521, guid: ed974f32e8efe744da7c92ac420142d2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4437641043981828894}
   m_SourcePrefab: {fileID: 100100000, guid: ed974f32e8efe744da7c92ac420142d2, type: 3}
 --- !u!224 &8182403744792920144 stripped
 RectTransform:
@@ -30378,6 +31885,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 882655986}
+    - target: {fileID: 2085881713599680285, guid: 7b630559e06547a4fa906ac5b9a13ccc, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -5
+      objectReference: {fileID: 0}
     - target: {fileID: 2144601988153706454, guid: 7b630559e06547a4fa906ac5b9a13ccc, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -31486,7 +32997,11 @@ PrefabInstance:
       objectReference: {fileID: 1298522128}
     - target: {fileID: 7166017972073636201, guid: 7b630559e06547a4fa906ac5b9a13ccc, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7180255408708621361, guid: 7b630559e06547a4fa906ac5b9a13ccc, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.00012207031
       objectReference: {fileID: 0}
     - target: {fileID: 7217599817913455569, guid: 7b630559e06547a4fa906ac5b9a13ccc, type: 3}
       propertyPath: m_AnchorMax.y
@@ -31740,6 +33255,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7837697516643498995, guid: 7b630559e06547a4fa906ac5b9a13ccc, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -5
+      objectReference: {fileID: 0}
     - target: {fileID: 7865305993190183460, guid: 7b630559e06547a4fa906ac5b9a13ccc, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -31875,6 +33394,10 @@ PrefabInstance:
     - target: {fileID: 8395000249778465259, guid: 7b630559e06547a4fa906ac5b9a13ccc, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8504847915664060034, guid: 7b630559e06547a4fa906ac5b9a13ccc, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.00012207031
       objectReference: {fileID: 0}
     - target: {fileID: 8522836132597129651, guid: 7b630559e06547a4fa906ac5b9a13ccc, type: 3}
       propertyPath: m_AnchorMax.y
@@ -32658,7 +34181,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5417270184762634441, guid: 97ec1e94a45707c48a3ea1b002cfd9c9, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.33682203
+      value: 0.33682013
       objectReference: {fileID: 0}
     - target: {fileID: 5588435431056254100, guid: 97ec1e94a45707c48a3ea1b002cfd9c9, type: 3}
       propertyPath: m_AnchoredPosition.y

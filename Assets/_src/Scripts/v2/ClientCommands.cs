@@ -2,6 +2,7 @@
 using Serializer;
 using System;
 using System.Collections;
+using System.Web;
 using UnityEngine;
 
 public class ClientCommands : WebClientBase
@@ -17,6 +18,8 @@ public class ClientCommands : WebClientBase
     Conection data ;
     public bool onTutorial = false;
     [SerializeField] public int atualStatus;// 0: Timer 1: round 2: Crash 3:OutRound
+    [SerializeField] string urltoken;
+    [SerializeField] string urlLanguage; //pt,en,es
 
     void Awake()
     {
@@ -47,6 +50,8 @@ public class ClientCommands : WebClientBase
     protected override void OnOpen()
     {
         CanvasManager.Instance.ShowLoadingPanel(false);
+        GetParameters();
+        CanvasManager.Instance.SetTraduction(urlLanguage switch { "en" => 0, "pt" => 1, _ => 0 });
         base.OnOpen();
     }
 
@@ -59,6 +64,21 @@ public class ClientCommands : WebClientBase
         }
         return "0";
     }
+    
+    [ContextMenu("Get Parameters")]
+    public void GetParameters()
+    {
+        int pm = Application.absoluteURL.IndexOf("?");
+        if (pm != -1)
+        {
+            var queryString = Application.absoluteURL.Split("?")[1];
+            var queryParams = HttpUtility.ParseQueryString(queryString);
+
+            urltoken = queryParams["token"];
+            urlLanguage = queryParams["language"]; //pt,en,es
+        }
+    }
+
     protected override void OnClose(int closeCode)
     {
         CanvasManager.Instance.ShowLoadingPanel(true);
@@ -272,6 +292,8 @@ public class ClientCommands : WebClientBase
             
         }
     }
+
+   
 }
 
 [Serializable]
