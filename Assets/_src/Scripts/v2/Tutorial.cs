@@ -69,6 +69,7 @@ public class Tutorial : MonoBehaviour
                 GameManager.Instance.bet = 10;
                 CanvasManager.Instance.SetBetInput(10);
                 fakeBet = 10;
+                CanvasManager.Instance.SetMultiplierTextMensage(true,true);
                 break;
             case 1:
                 Debug.Log("Simulaçao pt. 1");
@@ -80,7 +81,7 @@ public class Tutorial : MonoBehaviour
                 Debug.Log("Simulaçao pt. 2");
                 partTutorial[1].SetActive(false);
                 StopCoroutine(FakeTimerI());
-                CanvasManager.Instance.SetBetSlot(new BetPlayers() { name = ClientCommands.Instance.playerName, value = 100, multiplier = 0 });
+                CanvasManager.Instance.SetBetSlot(new BetPlayers() { name = ClientCommands.Instance.playerName, value = 100, multiplier = 0 },true);
                 CanvasManager.Instance.SetBalanceTxt(400);
                 NextTutorialPart();
                 break;
@@ -92,10 +93,10 @@ public class Tutorial : MonoBehaviour
             case 4:
                 Debug.Log("Simulaçao pt. 4");
                 partTutorial[3].SetActive(false);
-                CanvasManager.Instance.SetBetSlot(new BetPlayers() { name = ClientCommands.Instance.playerName, value = 100, multiplier = 2f });
+                CanvasManager.Instance.SetBetSlot(new BetPlayers() { name = ClientCommands.Instance.playerName, value = 100, multiplier = 2f }, true);
                 CanvasManager.Instance.SetBalanceTxt(600);
                 CanvasManager.Instance.SetMultiplierText(2f);
-                ClientCommands.Instance.Crash(new Crash { multply = 2f });
+                ClientCommands.Instance.Crash(new Crash { multply = 2f },true);
                 GameManager.Instance.isJoin = false;
                 GameManager.Instance.EndMatchStart();
                 StopAllCoroutines();;
@@ -117,12 +118,14 @@ public class Tutorial : MonoBehaviour
                         break;
                     case 1:
                         CanvasManager.Instance.SetBetButtonCantBet();
-                        ClientCommands.Instance.StartRun(new StartRun(), true);
+                        ClientCommands.Instance.StartRun(new StartRun());
                         break;
                     case 2:
                         CanvasManager.Instance.SetBetButtonBet();
                         break;
                 }
+                parts = 0; // reset
+                PlayerPrefs.SetInt("tutorial", 1);
                 break;
         }
     }
@@ -166,6 +169,7 @@ public class Tutorial : MonoBehaviour
         onMultply = true;
         var multShow = 0f;
         ClientCommands.Instance.StartRun(new StartRun {},true);
+        CanvasManager.Instance.SetMultiplierTextMensage(false,true);
         while (onMultply)
         {
             CanvasManager.Instance.SetMultiplierText(multShow += 0.01f,true);

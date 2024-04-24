@@ -2610,7 +2610,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &271272293
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3272,7 +3272,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &317992202
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7391,7 +7391,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 618888995}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 874995765}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &623594867
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12602,7 +12614,6 @@ GameObject:
   - component: {fileID: 966904374}
   - component: {fileID: 966904373}
   - component: {fileID: 966904372}
-  - component: {fileID: 966904375}
   m_Layer: 0
   m_Name: Button (1)
   m_TagString: Untagged
@@ -12724,20 +12735,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 966904370}
   m_CullTransparentMesh: 1
---- !u!114 &966904375
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 966904370}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0a80cbff0461c84186297a19859da59, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  textToTranslate: {fileID: 0}
-  languages: []
 --- !u!1 &973909457
 GameObject:
   m_ObjectHideFlags: 0
@@ -12993,7 +12990,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 993515115}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -14178,6 +14175,7 @@ GameObject:
   - component: {fileID: 1048160374}
   - component: {fileID: 1048160376}
   - component: {fileID: 1048160375}
+  - component: {fileID: 1048160377}
   m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -14304,6 +14302,26 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1048160373}
   m_CullTransparentMesh: 1
+--- !u!114 &1048160377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1048160373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0a80cbff0461c84186297a19859da59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textToTranslate: {fileID: 1048160375}
+  languages:
+  - Below we have the buttons for automatic plays and automatic exits. Configure
+    as you wish!
+  - 'Abaixo Temos os botoes para jogadas automaticas e saidas automaticas.
+
+    Configure
+    como desejar!'
 --- !u!114 &1052371024 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7154464945623836342, guid: 97ec1e94a45707c48a3ea1b002cfd9c9, type: 3}
@@ -16707,8 +16725,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textToTranslate: {fileID: 1154967178}
   languages:
-  - Use para aumentar a aposta
   - Use to increase the bet
+  - Use para aumentar a aposta
 --- !u!1 &1156715020
 GameObject:
   m_ObjectHideFlags: 0
@@ -18719,8 +18737,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textToTranslate: {fileID: 1290337078}
   languages:
-  - "Valor do multiplicador tem que alcan\xE7ar para sair"
   - ' Multiplier value must be reached to exit'
+  - "Valor do multiplicador tem que alcan\xE7ar para sair"
 --- !u!1001 &1295203168
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20473,6 +20491,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 577835918}
     m_Modifications:
+    - target: {fileID: 429317267442304831, guid: 20d34151d067f9147a98f12b49ad2c21, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -27.700005
+      objectReference: {fileID: 0}
+    - target: {fileID: 429317267442304831, guid: 20d34151d067f9147a98f12b49ad2c21, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.000015258789
+      objectReference: {fileID: 0}
     - target: {fileID: 4382940500523659191, guid: 20d34151d067f9147a98f12b49ad2c21, type: 3}
       propertyPath: m_Name
       value: Seta+Text Cima
@@ -21166,6 +21192,7 @@ GameObject:
   - component: {fileID: 1513593977}
   - component: {fileID: 1513593979}
   - component: {fileID: 1513593978}
+  - component: {fileID: 1513593980}
   m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -21290,6 +21317,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1513593976}
   m_CullTransparentMesh: 1
+--- !u!114 &1513593980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1513593976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0a80cbff0461c84186297a19859da59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textToTranslate: {fileID: 1513593978}
+  languages:
+  - Below we have the Bet button. Where Controls entry, exit and cancellation.
+  - 'Abaixo Temos o botao para Aposta. Onde Controla a entrada,  saida e cancelamento
+    . '
 --- !u!1 &1513681203
 GameObject:
   m_ObjectHideFlags: 0
@@ -23592,6 +23636,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Client
       objectReference: {fileID: 0}
+    - target: {fileID: 8038100908140146525, guid: ce47ab05205a71a47a621d2e0868914a, type: 3}
+      propertyPath: buildType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8344424517667819725, guid: ce47ab05205a71a47a621d2e0868914a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1211.1522
@@ -24680,6 +24728,7 @@ GameObject:
   - component: {fileID: 1726205224}
   - component: {fileID: 1726205226}
   - component: {fileID: 1726205225}
+  - component: {fileID: 1726205227}
   m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -24803,6 +24852,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1726205223}
   m_CullTransparentMesh: 1
+--- !u!114 &1726205227
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1726205223}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0a80cbff0461c84186297a19859da59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textToTranslate: {fileID: 1726205225}
+  languages:
+  - Connecting...
+  - Conectando...
 --- !u!114 &1726703375 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3366535319593531838, guid: 7b630559e06547a4fa906ac5b9a13ccc, type: 3}
@@ -25421,7 +25486,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1789820902}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 523819905}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1794320048 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5660778261056759551, guid: 7b630559e06547a4fa906ac5b9a13ccc, type: 3}
@@ -34181,7 +34258,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5417270184762634441, guid: 97ec1e94a45707c48a3ea1b002cfd9c9, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.33682013
+      value: 0.3368168
       objectReference: {fileID: 0}
     - target: {fileID: 5588435431056254100, guid: 97ec1e94a45707c48a3ea1b002cfd9c9, type: 3}
       propertyPath: m_AnchoredPosition.y

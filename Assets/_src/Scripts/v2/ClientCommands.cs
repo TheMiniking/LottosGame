@@ -50,9 +50,13 @@ public class ClientCommands : WebClientBase
     protected override void OnOpen()
     {
         CanvasManager.Instance.ShowLoadingPanel(false);
-        GetParameters();
-        CanvasManager.Instance.SetTraduction(urlLanguage switch { "en" => 0, "pt" => 1, _ => 0 });
         base.OnOpen();
+    }
+
+    protected override void OnClose(int closeCode)
+    {
+        CanvasManager.Instance.ShowLoadingPanel(true);
+        base.OnClose(closeCode);
     }
 
     string GetTokenID()
@@ -79,11 +83,6 @@ public class ClientCommands : WebClientBase
         }
     }
 
-    protected override void OnClose(int closeCode)
-    {
-        CanvasManager.Instance.ShowLoadingPanel(true);
-        base.OnClose(closeCode);
-    }
 
     double balance = 0f;
     int bet = 0;
@@ -111,11 +110,8 @@ public class ClientCommands : WebClientBase
 
     public void BalanceResponse(BalanceResponse msg)
     {
-        if (onTutorial)
-        {
-            balance = msg.balance;
-            return;
-        }
+        balance = msg.balance;
+        if (onTutorial) return;
         if (debug)
         {
             Debug.Log("BalanceResponse:" + msg.balance);
@@ -255,8 +251,9 @@ public class ClientCommands : WebClientBase
         }
     }
 
-    public void Crash(Crash msg)
+    public void Crash(Crash msg, bool? tutorial = false)
     {
+        if (onTutorial && tutorial == false) return;
         isRunning = false;
         GameManager.Instance.isWalking = false;
         GameManager.Instance.canBet = true;

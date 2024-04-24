@@ -63,6 +63,8 @@ public class CanvasManager : MonoBehaviour
         playerButton.onClick.AddListener(ShowPlayers);
         betButton.onClick.AddListener(() => BetMensages());
         showTutorial.onClick.AddListener(ShowTutorial);
+        if (!PlayerPrefs.HasKey("tutorial")) PlayerPrefs.SetInt("tutorial", 0);
+        tutorial.gameObject.SetActive(PlayerPrefs.GetInt("tutorial") == 0);
     }
 
     void Update()
@@ -186,8 +188,9 @@ public class CanvasManager : MonoBehaviour
         betButtonStatus = 2;
     }
 
-    public void SetMultiplierTextMensage(bool timer)
+    public void SetMultiplierTextMensage(bool timer, bool? tutorial = false)
     {
+        if(ClientCommands.Instance.onTutorial && tutorial == false) return;
         multiplierTextMensage.text = (timer) ? 
             traduction switch { 0 => "Next Round in :", 1 => "Proxima Rodada em :", _ => "Next Round in :" } :
             traduction switch { 0 => "Bet Multiplier :", 1 => "Multiplicador de Aposta :", _ => "Bet Multiplier :" };
@@ -249,15 +252,17 @@ public class CanvasManager : MonoBehaviour
         balanceText.text = $"{GameManager.Instance.MoedaAtual()} {balanceVal:#,0.00}";
     }
 
-    public void ResetBets()
+    public void ResetBets(bool? tutorial = false)
     {
+        if(ClientCommands.Instance.onTutorial && tutorial == false) return;
         betSlots.ForEach(x => x.Clear());
         playerInBet = 0;
         playerInBetWinners = 0;
     }
 
-    public void SetBetSlot(BetPlayers bet)
+    public void SetBetSlot(BetPlayers bet, bool tutorial = false)
     {
+        if(ClientCommands.Instance.onTutorial && tutorial == false) return;
         int index = betSlots.FindIndex(x => x.name.text == bet.name);
         if (index == -1)
         {
