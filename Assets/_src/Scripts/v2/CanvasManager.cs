@@ -63,6 +63,8 @@ public class CanvasManager : MonoBehaviour
         playerButton.onClick.AddListener(ShowPlayers);
         betButton.onClick.AddListener(() => BetMensages());
         showTutorial.onClick.AddListener(ShowTutorial);
+        if (!PlayerPrefs.HasKey("traduction")) PlayerPrefs.SetInt("traduction",0);
+        SetTraduction(PlayerPrefs.GetInt("traduction"));
         if (!PlayerPrefs.HasKey("tutorial")) PlayerPrefs.SetInt("tutorial", 0);
         tutorial.gameObject.SetActive(PlayerPrefs.GetInt("tutorial") == 0);
     }
@@ -387,7 +389,7 @@ public class CanvasManager : MonoBehaviour
         betSlots.ForEach(x => x.Reload());
         balanceText.text = $"{GameManager.Instance.MoedaAtual()} {balanceVal:#,0.00}";
         betInput.text = $" {GameManager.Instance.MoedaAtual()} {betVal}";
-        OnTraductionChange(traduction);
+        OnTraductionChange?.Invoke(traduction);
         compTeraduction = trad;
     }
 
