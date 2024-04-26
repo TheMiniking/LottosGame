@@ -50,6 +50,7 @@ public class ClientCommands : WebClientBase
     protected override void OnOpen()
     {
         CanvasManager.Instance.ShowLoadingPanel(false);
+        GetParameters();
         base.OnOpen();
     }
 
@@ -81,6 +82,7 @@ public class ClientCommands : WebClientBase
             urltoken = queryParams["token"];
             urlLanguage = queryParams["language"]; //pt,en,es
         }
+        CanvasManager.Instance.SetTraduction(urlLanguage switch { "pt" => 1,"PT" => 1,"Pt" => 1, "en" => 0, "EN" => 0, "En" => 0, _ => 0 });
     }
 
 
