@@ -26,12 +26,16 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] public GameObject configObj;
     [SerializeField] public float balanceVal,betVal;
     [SerializeField] int betButtonStatus;//0 = Bet, 1 = Cancel, 2 = Stop, 3 = Cant Bet
+
+    [Header("Rank")]
     //-------------Rank-----------------
     [SerializeField] GameObject rankCanvas, playerPanel;
     [SerializeField] Button rankButton, playerButton;
     [SerializeField] public List<BetPlayers> rankMultiplier = new();
     [SerializeField] public List<BetPlayers> rankCash = new();
     [SerializeField] public List<BetPlayersHud> rankSlotsMultiplier, rankSlotsCash = new();
+
+    [Header("Tradution")]
     //-------------Tradutions-------------
     [SerializeField] public int traduction = 0;//0= english, 1 = Portugues
     [SerializeField] public List<TMP_Text> tradTexts = new();
