@@ -15,8 +15,8 @@ public class BetPlayersHud : MonoBehaviour
     {
         name.text = string.Empty;
         bet.text = string.Empty;
-        multply.text = string.Empty;
-        credits.text = string.Empty;
+        multply.text = "x -.--";
+        credits.text = $"{GameManager.Instance.MoedaAtual()} -.--";
         creditsVal = 0;
         multiplierVal = 0;
         betVal = 0;

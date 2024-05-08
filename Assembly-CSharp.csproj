@@ -60,6 +60,7 @@
   <ItemGroup>
     <Compile Include="Assets\JMO Assets\Cartoon FX (legacy)\Scripts\CFX_AutoRotate.cs" />
     <Compile Include="Assets\JMO Assets\Cartoon FX (legacy)\Demo\Assets\CFX_Demo_RandomDirectionTranslate.cs" />
+    <Compile Include="Assets\_src\Textures\Guerra\MovingParalaxObjects.cs" />
     <Compile Include="Assets\Mine\GameMine.cs" />
     <Compile Include="Assets\_src\Scripts\Universal\Wallet.cs" />
     <Compile Include="Assets\JMO Assets\Cartoon FX (legacy)\Scripts\CFX_LightFlicker.cs" />
@@ -82,6 +83,7 @@
     <Compile Include="Assets\_src\Scripts\Universal\GameTank.cs" />
     <Compile Include="Assets\_src\Scripts\v2\Tutorial.cs" />
     <Compile Include="Assets\JMO Assets\Cartoon FX (legacy)\Demo\Assets\CFX_Demo_RandomDir.cs" />
+    <Compile Include="Assets\_src\Scripts\FundoGuerra.cs" />
     <Compile Include="Assets\_src\Scripts\Universal\ElementMove.cs" />
     <Compile Include="Assets\JMO Assets\Cartoon FX (legacy)\Demo\Assets\CFX_Demo_RotateCamera.cs" />
     <Compile Include="Assets\JMO Assets\Cartoon FX (legacy)\Scripts\CFX_AutoDestructShuriken.cs" />
