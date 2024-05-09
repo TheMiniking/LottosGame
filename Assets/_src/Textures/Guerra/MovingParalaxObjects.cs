@@ -26,6 +26,9 @@ public class MovingParalaxObjects : MonoBehaviour
         this.transform.position = initialPosition;
         var r = Random.Range(0, movingObjectsVariants.Count);
         movingObjectsVariants.ForEach(x => x.GetComponent<CanvasGroup>().alpha = movingObjectsVariants[r] == x ? 1 : 0);
-        if (specialFX != null && movingObjectsVariants[2].GetComponent<CanvasGroup>().alpha == 1) specialFX.SetActive(Random.Range(0, 5)==0);
+        if (specialFX == null) return;
+        if (r != 0) specialFX.SetActive(Random.Range(0, 5)==0);
+        
+        
     }
 }

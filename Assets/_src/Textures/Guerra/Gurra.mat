@@ -41,7 +41,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _RealTimeVelocity: 50999.7
+    - _RealTimeVelocity: 64826.688
     - _Velocity: 10
     - _useTimeScript: 1
     - _velocity: 1

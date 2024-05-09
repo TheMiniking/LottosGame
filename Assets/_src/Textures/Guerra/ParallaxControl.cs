@@ -10,6 +10,6 @@ public class ParallaxControl : MonoBehaviour
     private void Update()
     {
         var p = parallaxMaterial.GetFloat("_RealTimeVelocity");
-        parallaxMaterial.SetFloat("_RealTimeVelocity", p + velocity * Time.deltaTime);
+        parallaxMaterial.SetFloat("_RealTimeVelocity",GameManager.Instance.fundoOnMove? p + velocity * Time.deltaTime : p);
     }
 }
