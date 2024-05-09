@@ -61,7 +61,6 @@
     <Compile Include="Assets\JMO Assets\Cartoon FX (legacy)\Scripts\CFX_AutoRotate.cs" />
     <Compile Include="Assets\JMO Assets\Cartoon FX (legacy)\Demo\Assets\CFX_Demo_RandomDirectionTranslate.cs" />
     <Compile Include="Assets\_src\Textures\Guerra\MovingParalaxObjects.cs" />
-    <Compile Include="Assets\Mine\GameMine.cs" />
     <Compile Include="Assets\_src\Scripts\Universal\Wallet.cs" />
     <Compile Include="Assets\JMO Assets\Cartoon FX (legacy)\Scripts\CFX_LightFlicker.cs" />
     <Compile Include="Assets\_src\Scripts\Universal\ServerHUD.cs" />
@@ -70,6 +69,7 @@
     <Compile Include="Assets\_src\Scripts\Universal\BetPlayersHud.cs" />
     <Compile Include="Assets\_src\Scripts\Universal\Bonus.cs" />
     <Compile Include="Assets\Samples\Web Network\1.0.4\Client e servidor\Mathematics.cs" />
+    <Compile Include="Assets\_src\Scripts\ClientSide\WinExtra.cs" />
     <Compile Include="Assets\_src\Scripts\ServerSide\AnimRTP.cs" />
     <Compile Include="Assets\_src\Scripts\v2\GameManager.cs" />
     <Compile Include="Assets\_src\Scripts\ClientSide\AudioManager.cs" />
@@ -79,14 +79,14 @@
     <Compile Include="Assets\_src\Scripts\Universal\BaseScreen.cs" />
     <Compile Include="Assets\JMO Assets\Cartoon FX (legacy)\Demo\Assets\CFX_Demo_New.cs" />
     <Compile Include="Assets\_src\Scripts\v2\TradutorAutomatic.cs" />
-    <Compile Include="Assets\_src\Scripts\WinExtra.cs" />
     <Compile Include="Assets\_src\Scripts\Universal\GameTank.cs" />
     <Compile Include="Assets\_src\Scripts\v2\Tutorial.cs" />
+    <Compile Include="Assets\_src\Scripts\ClientSide\FundoGuerra.cs" />
     <Compile Include="Assets\JMO Assets\Cartoon FX (legacy)\Demo\Assets\CFX_Demo_RandomDir.cs" />
-    <Compile Include="Assets\_src\Scripts\FundoGuerra.cs" />
     <Compile Include="Assets\_src\Scripts\Universal\ElementMove.cs" />
     <Compile Include="Assets\JMO Assets\Cartoon FX (legacy)\Demo\Assets\CFX_Demo_RotateCamera.cs" />
     <Compile Include="Assets\JMO Assets\Cartoon FX (legacy)\Scripts\CFX_AutoDestructShuriken.cs" />
+    <Compile Include="Assets\_src\Textures\Guerra\ParallaxControl.cs" />
     <Compile Include="Assets\JMO Assets\Cartoon FX (legacy)\Demo\Assets\CFX_Demo_Translate.cs" />
     <Compile Include="Assets\JMO Assets\Cartoon FX (legacy)\Demo\Assets\CFX_AutoStopLoopedEffect.cs" />
   </ItemGroup>

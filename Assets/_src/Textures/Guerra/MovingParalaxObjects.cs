@@ -8,11 +8,12 @@ public class MovingParalaxObjects : MonoBehaviour
     [SerializeField] Vector3 initialPosition;
     [SerializeField] float finalPosition;
     [SerializeField] List<GameObject> movingObjectsVariants;
+    [SerializeField] GameObject specialFX;
 
     private void Start()
     {
         var r = Random.Range(0, movingObjectsVariants.Count);
-        movingObjectsVariants.ForEach(x => x.SetActive(movingObjectsVariants[r] == x));
+        movingObjectsVariants.ForEach(x => x.GetComponent<CanvasGroup>().alpha= movingObjectsVariants[r] == x ? 1 : 0);
     }
     private void Update()
     {
@@ -24,6 +25,7 @@ public class MovingParalaxObjects : MonoBehaviour
     {
         this.transform.position = initialPosition;
         var r = Random.Range(0, movingObjectsVariants.Count);
-        movingObjectsVariants.ForEach(x => x.SetActive(movingObjectsVariants[r] == x));
+        movingObjectsVariants.ForEach(x => x.GetComponent<CanvasGroup>().alpha = movingObjectsVariants[r] == x ? 1 : 0);
+        if (specialFX != null && movingObjectsVariants[2].GetComponent<CanvasGroup>().alpha == 1) specialFX.SetActive(Random.Range(0, 5)==0);
     }
 }

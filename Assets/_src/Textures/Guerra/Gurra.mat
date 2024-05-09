@@ -41,9 +41,9 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _RealTimeVelocity: 1
+    - _RealTimeVelocity: 50999.7
     - _Velocity: 10
-    - _useTimeScript: 0
+    - _useTimeScript: 1
     - _velocity: 1
     m_Colors:
     - _Direcao: {r: 1, g: 0, b: 0, a: 0}
