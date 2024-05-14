@@ -1,3 +1,5 @@
+using PrimeTween;
+using System.Collections;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -5,22 +7,150 @@ public class Player : MonoBehaviour
     [SerializeField] Animator anim;
     [SerializeField] GameObject explosion;
     [SerializeField] GameObject fire;
+    [SerializeField] int tankNum;
+    [SerializeField] bool lastMovingStatus = false;
+    [SerializeField] RectTransform tankTrasform,canvasTrasform;
+    [SerializeField] Vector2 inicialPos;
+    [SerializeField] float velocity;
+    [SerializeField] float movimentMaxDistance;
 
+    [SerializeField] BetPlayersHud tankBet;
+ 
     void Start()
     {
+
+    }
+
+    private void Update()
+    {
+        switch (tankNum)
+        {
+            case 1:
+                if(ClientCommands.Instance.tank1OnRunning != lastMovingStatus)
+                {
+                    lastMovingStatus = ClientCommands.Instance.tank1OnRunning;
+                    Walking(lastMovingStatus);
+                }
+                break;
+            case 2:
+                if (ClientCommands.Instance.tank2OnRunning != lastMovingStatus)
+                {
+                    lastMovingStatus = ClientCommands.Instance.tank2OnRunning;
+                    Walking(lastMovingStatus);
+                }
+                break;
+            case 3:
+                if (ClientCommands.Instance.tank3OnRunning != lastMovingStatus)
+                {
+                    lastMovingStatus = ClientCommands.Instance.tank3OnRunning;
+                    Walking(lastMovingStatus);
+                }
+                break;
+        }
+
     }
 
     public void Walking(bool v)
     {
-        // Debug.Log("Animation:"+( v? "Walking": "Lost"));
         anim.Play(v ? "Walking" : "Lost");
-        //anim.SetBool("walking", v);
+        if (!v)
+        {
+            StopCoroutine(GoCenter());
+            StopCoroutine(MovingAuto());
+            StartCoroutine(GoBack(tankTrasform));
+        }
+        else
+        {
+            StopCoroutine(MovingAuto());
+            StopCoroutine(GoBack(tankTrasform));
+            StartCoroutine(GoCenter());
+
+        }
     }
     public void Crash(bool v)
     {
         Debug.Log("Crash");
         anim.Play("Lost");
-        //explosion.SetActive(v);
-        //fire.SetActive(v);
+    }
+
+    public IEnumerator GoBack(RectTransform tank)
+    {
+        Tween.UIAnchoredPositionX(tank, endValue: -Screen.width/2 , duration: 3);
+        for (int i = 0; i < 3; i++)
+        {
+            yield return new WaitForSeconds(1);
+            if (lastMovingStatus) break;
+        }
+        Debug.Log("End GoBack");
+    }
+    public IEnumerator GoCenter()
+    {
+        
+        Tween.UIAnchoredPositionX(tankTrasform, endValue: 0, duration: 2);
+        for (int i = 0; i < 2; i++)
+        {
+            yield return new WaitForSeconds(1);
+            if (!lastMovingStatus) break;
+        }
+        StartCoroutine(MovingAuto());
+        Debug.Log("End GoCenter");
+    }
+    public IEnumerator MovingAuto()
+    {
+            var n = Random.Range(0, 2);
+        while (lastMovingStatus)
+        {
+            int d = Random.Range(1, 3);
+            if (n == 0) 
+            {
+                Tween.UIAnchoredPositionX(tankTrasform, endValue:Random.Range(50,75), duration:d);
+                for (int i = 0; i < d+1; i++)
+                {
+                    yield return new WaitForSeconds(1);
+                    if (!lastMovingStatus) break;
+                }
+                
+            }
+            else
+            {
+                Tween.UIAnchoredPositionX(tankTrasform, endValue: Random.Range(-75, -50), duration: d+3);
+                for (int i = 0; i < d + 4; i++)
+                {
+                    yield return new WaitForSeconds(1);
+                    if (!lastMovingStatus) break;
+                }
+            }
+            n = n == 0 ? 1 : 0;
+        }
+        Debug.Log("End MovingAuto");
+    }
+
+    public void CreateTankStop(BetPlayers bet)
+    {
+        var tank = Instantiate(tankBet, canvasTrasform);
+        tank.GetComponent<RectTransform>().anchoredPosition = inicialPos;
+        tank.Set(bet);
+        StartCoroutine(tank.GoBack(tank.GetComponent<RectTransform>()));
+    }
+
+   public void FakeExit()
+    {
+        CreateTankStop(new BetPlayers() { name = "FakeExit", value = Random.Range(1f, 100f), multiplier = Random.Range(1f, 100f)});
+    }
+
+    public void ButtonTestTank()
+    {
+        switch (tankNum)
+        {
+            case 1:
+                ClientCommands.Instance.tank1OnRunning = !ClientCommands.Instance.tank1OnRunning;
+                break;
+            case 2:
+                ClientCommands.Instance.tank2OnRunning = !ClientCommands.Instance.tank2OnRunning;
+                break;
+            case 3:
+                ClientCommands.Instance.tank3OnRunning = !ClientCommands.Instance.tank3OnRunning;
+                break;
+        }
     }
 }
