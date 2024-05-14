@@ -1,4 +1,6 @@
+using PrimeTween;
 using System;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 
@@ -10,6 +12,7 @@ public class BetPlayersHud : MonoBehaviour
     public TMP_Text credits;
     public Animator anim;
     public float betVal, multiplierVal, creditsVal;
+    public float velocity = 5f;
 
     internal void Clear()
     {
@@ -57,5 +60,13 @@ public class BetPlayersHud : MonoBehaviour
         bet.text = betVal!= 0? $"{GameManager.Instance.MoedaAtual()}{betVal:0.00}" : string.Empty;
         multply.text = multiplierVal!= 0? $"x {multiplierVal:0.00}" : string.Empty;
         credits.text = creditsVal!= 0? $"{GameManager.Instance.MoedaAtual()}{creditsVal:#,0.00}" : string.Empty;
+    }
+
+    public IEnumerator GoBack(RectTransform tank)
+    {
+        Tween.UIAnchoredPositionX(tank, endValue: -Screen.width / 2, duration: 3);
+        yield return new WaitForSeconds(3);
+        Debug.Log("End GoBack");
+        Destroy(tank.gameObject);
     }
 }

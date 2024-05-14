@@ -3,6 +3,7 @@
     "com.gamespawner.serializer": "http://gitlab.playbrandsgroup.com/agt-games/serializer.git",
     "com.gamespawner.smartbuild": "http://gitlab.playbrandsgroup.com/agt-games/smartbuild.git",
     "com.gamespawner.webnetwork": "http://gitlab.playbrandsgroup.com/robson.petry/WebNetwork.git",
+    "com.kyrylokuzyk.primetween": "file:../Assets/Plugins/PrimeTween/internal/com.kyrylokuzyk.primetween.tgz",
     "com.unity.collab-proxy": "2.2.0",
     "com.unity.feature.2d": "2.0.0",
     "com.unity.ide.rider": "3.0.24",

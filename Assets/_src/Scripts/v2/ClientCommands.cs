@@ -20,6 +20,7 @@ public class ClientCommands : WebClientBase
     [SerializeField] public int atualStatus;// 0: Timer 1: round 2: Crash 3:OutRound
     [SerializeField] string urltoken;
     [SerializeField] string urlLanguage; //pt,en,es
+    [SerializeField] public bool tank1OnRunning, tank2OnRunning, tank3OnRunning;
 
     void Awake()
     {
