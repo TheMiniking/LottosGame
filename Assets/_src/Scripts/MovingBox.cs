@@ -2,7 +2,9 @@ using PrimeTween;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MovingBox : MonoBehaviour
 {
@@ -13,10 +15,17 @@ public class MovingBox : MonoBehaviour
     [SerializeField] GameObject boxIndicador,boxIndicador2;
     [SerializeField] TMP_Text indicador,indicador2;
     [Range(0, 1f), SerializeField] float margin =0.02f;
+    [Range(0, 1f), SerializeField] float offScreamDistance =1f;
+    [SerializeField] float screenLimit;
+    [SerializeField] float maxDistance;
+    [SerializeField] Slider slider;
+
 
     private void OnEnable()
     {
         GoToOrigin();
+        boxDistance = thisBox.anchoredPosition.x;
+        screenLimit = (Screen.width - (margin * Screen.width)) / 2;
         GoToCenter();
     }
 
@@ -27,10 +36,13 @@ public class MovingBox : MonoBehaviour
         indicador2.text = $"{boxDistance/100:00.0} M";
         if (boxDistance < initPosition)
         {
-            if(boxDistance > (Screen.width - (margin * Screen.width))/ 2)
+            if(boxDistance > screenLimit)
             { 
                 boxIndicador.SetActive(true);
                 boxIndicador2.SetActive(false);
+                float sliderValue = ( boxDistance - screenLimit) / (maxDistance - screenLimit);
+                slider.value = sliderValue;
+                Debug.Log($"posiçao : {sliderValue:0.0000}");
             }
             else
             {
