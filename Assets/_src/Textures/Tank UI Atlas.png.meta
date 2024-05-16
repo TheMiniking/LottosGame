@@ -72,7 +72,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 2
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -134,10 +134,10 @@ TextureImporter:
       name: Tank UI Atlas_3
       rect:
         serializedVersion: 2
-        x: 702
-        y: 987
-        width: 82
-        height: 25
+        x: 742
+        y: 989
+        width: 42
+        height: 24
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -176,12 +176,12 @@ TextureImporter:
       name: Tank UI Atlas_5
       rect:
         serializedVersion: 2
-        x: 703
-        y: 955
-        width: 82
-        height: 25
+        x: 702
+        y: 960
+        width: 79
+        height: 22
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -218,13 +218,13 @@ TextureImporter:
       name: Tank UI Atlas_7
       rect:
         serializedVersion: 2
-        x: 17
-        y: 876
+        x: 4
+        y: 714
         width: 60
         height: 60
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 5, y: 0, z: 6, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -239,13 +239,13 @@ TextureImporter:
       name: Tank UI Atlas_8
       rect:
         serializedVersion: 2
-        x: 86
-        y: 786
-        width: 356
-        height: 150
+        x: 12
+        y: 3
+        width: 993
+        height: 326
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 50, y: 19, z: 48, w: 0}
+      border: {x: 35, y: 19, z: 33, w: 4}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -428,8 +428,8 @@ TextureImporter:
       name: Tank UI Atlas_17
       rect:
         serializedVersion: 2
-        x: 17
-        y: 807
+        x: 4
+        y: 645
         width: 60
         height: 60
       alignment: 0
@@ -659,8 +659,8 @@ TextureImporter:
       name: Tank UI Atlas_30
       rect:
         serializedVersion: 2
-        x: 7
-        y: 612
+        x: 3
+        y: 780
         width: 414
         height: 166
       alignment: 0
@@ -765,7 +765,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 10
-        y: 571
+        y: 599
         width: 112
         height: 33
       alignment: 0
@@ -786,7 +786,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 129
-        y: 571
+        y: 599
         width: 112
         height: 33
       alignment: 0
@@ -807,7 +807,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 248
-        y: 571
+        y: 599
         width: 112
         height: 33
       alignment: 0
@@ -828,7 +828,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 367
-        y: 572
+        y: 600
         width: 112
         height: 33
       alignment: 0
@@ -996,7 +996,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 481
-        y: 569
+        y: 598
         width: 43
         height: 37
       alignment: 0
