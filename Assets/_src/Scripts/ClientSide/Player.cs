@@ -9,10 +9,14 @@ public class Player : MonoBehaviour
     [SerializeField] GameObject fire;
     [SerializeField] int tankNum;
     [SerializeField] bool lastMovingStatus = false;
-    [SerializeField] RectTransform tankTrasform,canvasTrasform;
+    [SerializeField] RectTransform tankTrasform, canvasTrasform;
     [SerializeField] Vector2 inicialPos;
     [SerializeField] float velocity;
     [SerializeField] float movimentMaxDistance;
+    [SerializeField] GameObject selectImage;
+
+    [SerializeField] public bool selected;
+        
 
     [SerializeField] BetPlayersHud tankBet;
  
@@ -47,6 +51,7 @@ public class Player : MonoBehaviour
                 }
                 break;
         }
+        if (selected != selectImage.activeSelf) selectImage.SetActive(selected);
 
     }
 
@@ -75,7 +80,7 @@ public class Player : MonoBehaviour
 
     public IEnumerator GoBack(RectTransform tank)
     {
-        Tween.UIAnchoredPositionX(tank, endValue: -Screen.width/2 , duration: 3);
+        Tween.UIAnchoredPositionX(tank, endValue: -(Screen.width/4) , duration: 3);
         for (int i = 0; i < 3; i++)
         {
             yield return new WaitForSeconds(1);

@@ -37,7 +37,7 @@ public class ClientCommands : WebClientBase
         RegisterHandler<ErrorResponse>(ErrorResponse, (ushort)ReceiveMsgIdc.ErrorResponse);
         RegisterHandler<BetPlayers>(BetPlayers, (ushort)ReceiveMsgIdc.BetPlayers);
         RegisterHandler<Ranking>(RankResponse, (ushort)ReceiveMsgIdc.Ranking);
-        RegisterHandler<LastMulti>(LastMultiResponse, (ushort)ReceiveMsgIdc.LastMulti);
+        RegisterHandler<LastMultiFivity>(LastMultiResponse, (ushort)ReceiveMsgIdc.LastMulti);
 #if UNITY_WEBGL && !UNITY_EDITOR
         token = GetTokenID();
 #endif
@@ -194,13 +194,13 @@ public class ClientCommands : WebClientBase
         if (debug) Debug.Log("RankResponse mult:" + ranking.rankValue.Length + " / cash :" + ranking.rankMulti.Length);
         Line[] jsonMult = ranking.rankMulti;
         Line[] jsonCash = ranking.rankValue;
-        CanvasManager.Instance.SetRank(jsonMult, jsonCash);
+        //CanvasManager.Instance.SetRank(jsonMult, jsonCash);
     }
 
-    void LastMultiResponse(LastMulti lastMulti)
+    void LastMultiResponse(LastMultiFivity lastMulti)
     {
         if (debug) Debug.Log("LastMultiResponse:" + lastMulti.multis);
-        foreach (float item in lastMulti.multis)
+        foreach (LastMultiTriple item in lastMulti.multis)
         {
             CanvasManager.Instance.SetLastPlays(item);
         }
@@ -262,7 +262,7 @@ public class ClientCommands : WebClientBase
         GameManager.Instance.canBet = true;
         GameManager.Instance.ResetVelocityParalax();
         CanvasManager.Instance.SetPlayerState("Lost");
-        CanvasManager.Instance.SetLastPlays(msg.multply);
+        //CanvasManager.Instance.SetLastPlays(msg.multply);
         GameManager.Instance.fundoOnMove = false;
         AudioManager.Instance.StopResumeSFX(true);
         AudioManager.Instance.PlayOneShot(2);
@@ -331,6 +331,22 @@ public class BetPlayers : INetSerializable
         write.Put(name);
         write.Put(value);
         write.Put(multiplier);
+    }
+}
+
+[Serializable]
+public class LastMultiTriple : INetSerializable
+{
+    public float[] multis;
+
+    public void Deserialize(DataReader reader)
+    {
+        reader.Get(ref multis);
+    }
+
+    public void Serialize(DataWriter write)
+    {
+        write.Put(multis);
     }
 }
 
@@ -435,6 +451,23 @@ public class Line : INetSerializable
 public class LastMulti : INetSerializable
 {
     public float[] multis;
+
+    public void Deserialize(DataReader reader)
+    {
+        reader.Get(ref multis);
+    }
+
+    public void Serialize(DataWriter write)
+    {
+        write.Put(multis);
+    }
+}
+
+
+[Serializable]
+public class LastMultiFivity : INetSerializable
+{
+    public LastMultiTriple[] multis;
 
     public void Deserialize(DataReader reader)
     {

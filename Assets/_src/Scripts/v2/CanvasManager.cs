@@ -18,8 +18,8 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] public List<Button> betModButtons = new(); // 0= up , 1 = down, 2-6 = +5/+10/+25/+50/Max 
     [SerializeField] public Button betButton, crashOutButtonAdd, crashOutButtonSub, configButton;
     [SerializeField] public Animator messageAnimator, playerAnimator;
-    [SerializeField] public List<LastSlot> multipliersSlots, multipliersSlotsFivity = new();
-    [SerializeField] public List<float> multipliers, multipliersFivity = new();
+    [SerializeField] public List<LastRoundHUD> multipliersSlots, multipliersSlotsFivity = new();
+    [SerializeField] public List<LastMultiTriple> multipliers, multipliersFivity = new();
     [SerializeField] public List<BetPlayersHud> betSlots = new();
     [SerializeField] public int playerInBet, playerInBetWinners;
     [SerializeField] public float totalWinAmount = 0f;
@@ -27,28 +27,28 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] public float balanceVal,betVal;
     [SerializeField] int betButtonStatus;//0 = Bet, 1 = Cancel, 2 = Stop, 3 = Cant Bet
 
-    [Header("Rank")]
-    //-------------Rank-----------------
-    [SerializeField] GameObject rankCanvas, playerPanel;
-    [SerializeField] Button rankButton, playerButton;
-    [SerializeField] public List<BetPlayers> rankMultiplier = new();
-    [SerializeField] public List<BetPlayers> rankCash = new();
-    [SerializeField] public List<BetPlayersHud> rankSlotsMultiplier, rankSlotsCash = new();
+    //[Header("Rank")]
+    ////-------------Rank-----------------
+    //[SerializeField] GameObject rankCanvas, playerPanel;
+    //[SerializeField] Button rankButton, playerButton;
+    //[SerializeField] public List<BetPlayers> rankMultiplier = new();
+    //[SerializeField] public List<BetPlayers> rankCash = new();
+    //[SerializeField] public List<BetPlayersHud> rankSlotsMultiplier, rankSlotsCash = new();
 
     [Header("Tradution")]
     //-------------Tradutions-------------
     [SerializeField] public int traduction = 0;//0= english, 1 = Portugues
-    [SerializeField] public List<TMP_Text> tradTexts = new();
     [SerializeField] public TMP_Dropdown tradDropdown;
-    [SerializeField] public Button showTutorial;
+    //[SerializeField] public List<TMP_Text> tradTexts = new();
+    //[SerializeField] public Button showTutorial;
 
     [SerializeField] public Action<int> OnTraductionChange;
-    [SerializeField] int compTeraduction;
+    [SerializeField] int compTraduction;
 
     [SerializeField] WinExtra winExtraPrefab;
     [SerializeField] GameObject loadingPanel;
 
-    [SerializeField] Tutorial tutorial;
+    //[SerializeField] Tutorial tutorial;
 
     void Awake()
     {
@@ -58,19 +58,19 @@ public class CanvasManager : MonoBehaviour
 
     void Start()
     {
-        ShowPlayers();
+        //ShowPlayers();
         ResetBets();
         tradDropdown.onValueChanged.AddListener(delegate { SetTraduction(tradDropdown.value); });
         tradDropdown.value = traduction;
-        rankButton.onClick.AddListener(ShowRank);
+        //rankButton.onClick.AddListener(ShowRank);
         configButton.onClick.AddListener(() => configObj.SetActive(!configObj.activeSelf));
-        playerButton.onClick.AddListener(ShowPlayers);
+        //playerButton.onClick.AddListener(ShowPlayers);
         betButton.onClick.AddListener(() => BetMensages());
-        showTutorial.onClick.AddListener(ShowTutorial);
+        //showTutorial.onClick.AddListener(ShowTutorial);
         if (!PlayerPrefs.HasKey("traduction")) PlayerPrefs.SetInt("traduction",0);
         SetTraduction(PlayerPrefs.GetInt("traduction"));
         if (!PlayerPrefs.HasKey("tutorial")) PlayerPrefs.SetInt("tutorial", 0);
-        tutorial.gameObject.SetActive(PlayerPrefs.GetInt("tutorial") == 0);
+        //tutorial.gameObject.SetActive(PlayerPrefs.GetInt("tutorial") == 0);
     }
 
     void Update()
@@ -78,7 +78,7 @@ public class CanvasManager : MonoBehaviour
         inPlayersText.text = $"{playerInBet}";
         inPlayersWinnersText.text = $"{playerInBetWinners}";
         totalWinAmountText.text = $"{GameManager.Instance.MoedaAtual()} {totalWinAmount:#,0.00}";
-        if (traduction != compTeraduction) SetTraduction(traduction);
+        if (traduction != compTraduction) SetTraduction(traduction);
     }
 
     void OnEnable()
@@ -207,7 +207,7 @@ public class CanvasManager : MonoBehaviour
         playerAnimator.Play(str);
     }
 
-    public void SetLastPlays(float multply)
+    public void SetLastPlays(LastMultiTriple multply)
     {
         multipliers.Add(multply);
         multipliersFivity.Insert(0,multply);
@@ -225,19 +225,19 @@ public class CanvasManager : MonoBehaviour
         SetSlotFivity();
     }
 
-    public void SetSlot(float multply)
+    public void SetSlot(LastMultiTriple multply)
     {
-        LastSlot slot = multipliersSlots.Last();
-        slot.SetBet(multply);
+        LastRoundHUD slot = multipliersSlots.Last();
+        slot.Set(multply);
         slot.transform.SetAsLastSibling();
         multipliersSlots.Remove(slot);
         multipliersSlots.Insert(0, slot);
     }
 
-    public void SetSlotFivity(float multply)
+    public void SetSlotFivity(LastMultiTriple multply)
     {
-        LastSlot slot = multipliersSlotsFivity.Last();
-        slot.SetBet(multply);
+        LastRoundHUD slot = multipliersSlotsFivity.Last();
+        slot.Set(multply);
         slot.transform.SetAsLastSibling();
         multipliersSlotsFivity.Remove(slot);
         multipliersSlotsFivity.Insert(0, slot);
@@ -247,8 +247,8 @@ public class CanvasManager : MonoBehaviour
     {
         multipliersSlotsFivity.ForEach(x => {
             if (multipliersSlotsFivity.IndexOf(x) <= multipliersFivity.Count-1)
-                x.SetBet(multipliersFivity[multipliersSlotsFivity.IndexOf(x)]); 
-            else  x.SetBet(0); 
+                x.Set(multipliersFivity[multipliersSlotsFivity.IndexOf(x)]); 
+            else  x.Clear(); 
         });
     }
 
@@ -284,11 +284,11 @@ public class CanvasManager : MonoBehaviour
         {
             playerInBetWinners++;
             if (bet.name == ClientCommands.Instance.playerName) { totalWinAmount += ((float)bet.value) * bet.multiplier; }
-            if (!playerShow)
-            {
-                WinExtra winExtra = Instantiate(winExtraPrefab, transform);
-                winExtra.SetText($"{bet.name} {GameManager.Instance.MoedaAtual()} {bet.value * bet.multiplier:#,0.00}");
-            }
+            //if (!playerShow)
+            //{
+            //    WinExtra winExtra = Instantiate(winExtraPrefab, transform);
+            //    winExtra.SetText($"{bet.name} {GameManager.Instance.MoedaAtual()} {bet.value * bet.multiplier:#,0.00}");
+            //}
 
         }
         else
@@ -301,104 +301,104 @@ public class CanvasManager : MonoBehaviour
         }
     }
 
-    public void SetRank(Line[] rankMult, Line[] rankCashh)
-    {
-        List<BetPlayers> mult = new List<BetPlayers>();
-        List<BetPlayers> cash = new List<BetPlayers>();
-        foreach (Line item in rankMult)
-        {
-            mult.Add(new BetPlayers { name = item.name, value = item.bet, multiplier = item.multi });
-        }
-        foreach (Line item in rankCashh)
-        {
-            cash.Add(new BetPlayers { name = item.name, value = item.bet, multiplier = item.multi });
-        }
-        mult.Sort((x, y) => y.multiplier.CompareTo(x.multiplier));
-        cash.Sort((x, y) => (y.value * y.multiplier).CompareTo(x.value * x.multiplier));
-        rankMultiplier = mult;
-        rankCash = cash;
-        Debug.Log($"rankMultiplier {rankMultiplier.Count} rankCash {rankCash.Count} rankSlotsMultiplier {rankSlotsMultiplier.Count} rankSlotsCash {rankSlotsCash.Count}");
-        if (rankMultiplier.Count >= rankSlotsMultiplier.Count)
-        {
-            rankSlotsMultiplier.ForEach(x => x.Set(rankMultiplier[rankSlotsMultiplier.IndexOf(x)], true));
-        }
-        else
-        {
-            rankMultiplier.ForEach(x => rankSlotsMultiplier[rankMultiplier.IndexOf(x)].Set(x, true));
-        }
-        if (cash.Count >= rankSlotsCash.Count)
-        {
-            rankSlotsCash.ForEach(x => x.Set(cash[rankSlotsCash.IndexOf(x)], true));
-        }
-        else
-        {
-            rankCash.ForEach(x => rankSlotsCash[rankCash.IndexOf(x)].Set(x, true));
-        }
-    }
-    bool rankShow = false;
+    //public void SetRank(Line[] rankMult, Line[] rankCashh)
+    //{
+    //    List<BetPlayers> mult = new List<BetPlayers>();
+    //    List<BetPlayers> cash = new List<BetPlayers>();
+    //    foreach (Line item in rankMult)
+    //    {
+    //        mult.Add(new BetPlayers { name = item.name, value = item.bet, multiplier = item.multi });
+    //    }
+    //    foreach (Line item in rankCashh)
+    //    {
+    //        cash.Add(new BetPlayers { name = item.name, value = item.bet, multiplier = item.multi });
+    //    }
+    //    mult.Sort((x, y) => y.multiplier.CompareTo(x.multiplier));
+    //    cash.Sort((x, y) => (y.value * y.multiplier).CompareTo(x.value * x.multiplier));
+    //    rankMultiplier = mult;
+    //    rankCash = cash;
+    //    Debug.Log($"rankMultiplier {rankMultiplier.Count} rankCash {rankCash.Count} rankSlotsMultiplier {rankSlotsMultiplier.Count} rankSlotsCash {rankSlotsCash.Count}");
+    //    if (rankMultiplier.Count >= rankSlotsMultiplier.Count)
+    //    {
+    //        rankSlotsMultiplier.ForEach(x => x.Set(rankMultiplier[rankSlotsMultiplier.IndexOf(x)], true));
+    //    }
+    //    else
+    //    {
+    //        rankMultiplier.ForEach(x => rankSlotsMultiplier[rankMultiplier.IndexOf(x)].Set(x, true));
+    //    }
+    //    if (cash.Count >= rankSlotsCash.Count)
+    //    {
+    //        rankSlotsCash.ForEach(x => x.Set(cash[rankSlotsCash.IndexOf(x)], true));
+    //    }
+    //    else
+    //    {
+    //        rankCash.ForEach(x => rankSlotsCash[rankCash.IndexOf(x)].Set(x, true));
+    //    }
+    //}
+    //bool rankShow = false;
 
-    public void ShowRank()
-    {
-        if (playerShow)
-        {
-            ShowPlayers();
-        }
-        rankCanvas.GetComponent<Animator>().Play(rankShow ? "Hide" : "Show");
-        rankShow = !rankShow;
-        rankMultiplier.Sort((x, y) => y.multiplier.CompareTo(x.multiplier));
-        rankCash.Sort((x, y) => (y.value * y.multiplier).CompareTo(x.value * x.multiplier));
-        if (rankMultiplier.Count >= rankSlotsMultiplier.Count)
-        {
-            rankSlotsMultiplier.ForEach(x => x.Set(rankMultiplier[rankSlotsMultiplier.IndexOf(x)], true));
-        }
-        else
-        {
-            rankMultiplier.ForEach(x => rankSlotsMultiplier[rankMultiplier.IndexOf(x)].Set(x, true));
-        }
-        if (rankCash.Count >= rankSlotsCash.Count)
-        {
-            rankSlotsCash.ForEach(x => x.Set(rankCash[rankSlotsCash.IndexOf(x)], true));
-        }
-        else
-        {
-            rankCash.ForEach(x => rankSlotsCash[rankCash.IndexOf(x)].Set(x, true));
-        }
+    //public void ShowRank()
+    //{
+    //    if (playerShow)
+    //    {
+    //        ShowPlayers();
+    //    }
+    //    rankCanvas.GetComponent<Animator>().Play(rankShow ? "Hide" : "Show");
+    //    rankShow = !rankShow;
+    //    rankMultiplier.Sort((x, y) => y.multiplier.CompareTo(x.multiplier));
+    //    rankCash.Sort((x, y) => (y.value * y.multiplier).CompareTo(x.value * x.multiplier));
+    //    if (rankMultiplier.Count >= rankSlotsMultiplier.Count)
+    //    {
+    //        rankSlotsMultiplier.ForEach(x => x.Set(rankMultiplier[rankSlotsMultiplier.IndexOf(x)], true));
+    //    }
+    //    else
+    //    {
+    //        rankMultiplier.ForEach(x => rankSlotsMultiplier[rankMultiplier.IndexOf(x)].Set(x, true));
+    //    }
+    //    if (rankCash.Count >= rankSlotsCash.Count)
+    //    {
+    //        rankSlotsCash.ForEach(x => x.Set(rankCash[rankSlotsCash.IndexOf(x)], true));
+    //    }
+    //    else
+    //    {
+    //        rankCash.ForEach(x => rankSlotsCash[rankCash.IndexOf(x)].Set(x, true));
+    //    }
 
-    }
+    //}
 
-    bool playerShow = false;
-    public void ShowPlayers()
-    {
-        if (rankShow)
-        {
-            ShowRank();
-        }
-        playerPanel.GetComponent<Animator>().Play(playerShow ? "Hide" : "Show");
-        playerShow = !playerShow;
-    }
+    //bool playerShow = false;
+    //public void ShowPlayers()
+    //{
+    //    if (rankShow)
+    //    {
+    //        ShowRank();
+    //    }
+    //    playerPanel.GetComponent<Animator>().Play(playerShow ? "Hide" : "Show");
+    //    playerShow = !playerShow;
+    //}
 
     public void SetTraduction(int trad)
     {
         traduction = trad;
         GameManager.Instance.traduction = trad;
-        switch (trad)
-        {
-            case 0:
-                tradTexts.ForEach(x => x.text = GameManager.Instance.tradEnglish[tradTexts.IndexOf(x)]);
-                break;
-            case 1:
-                tradTexts.ForEach(x => x.text = GameManager.Instance.tradPortugues[tradTexts.IndexOf(x)]);
-                break;
-        }
-        betSlots.ForEach(x => x.Reload());
+        //switch (trad)
+        //{
+        //    case 0:
+        //        tradTexts.ForEach(x => x.text = GameManager.Instance.tradEnglish[tradTexts.IndexOf(x)]);
+        //        break;
+        //    case 1:
+        //        tradTexts.ForEach(x => x.text = GameManager.Instance.tradPortugues[tradTexts.IndexOf(x)]);
+        //        break;
+        //}
+        //betSlots.ForEach(x => x.Reload());
         balanceText.text = $"{GameManager.Instance.MoedaAtual()} {balanceVal:#,0.00}";
         betInput.text = $" {GameManager.Instance.MoedaAtual()} {betVal}";
         OnTraductionChange?.Invoke(traduction);
-        compTeraduction = trad;
+        compTraduction = trad;
     }
 
-    public void ShowTutorial()
-    {
-        tutorial.gameObject.SetActive(true);
-    }
+    //public void ShowTutorial()
+    //{
+    //    tutorial.gameObject.SetActive(true);
+    //}
 }
