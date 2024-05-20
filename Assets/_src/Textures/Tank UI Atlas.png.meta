@@ -181,7 +181,7 @@ TextureImporter:
         width: 79
         height: 22
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1012,6 +1012,90 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Tank UI Atlas_43
+      rect:
+        serializedVersion: 2
+        x: 487
+        y: 640
+        width: 43
+        height: 43
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 765440d5d85129d47bca46577fe8e006
+      internalID: -1107551486
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tank UI Atlas_44
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 662
+        width: 94
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 098f3c887841e194a9d4aa398676e545
+      internalID: 732356053
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tank UI Atlas_45
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 669
+        width: 104
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3e2429e2bc6b1ad43aa93bab3d047845
+      internalID: 1452320160
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tank UI Atlas_46
+      rect:
+        serializedVersion: 2
+        x: 280
+        y: 673
+        width: 106
+        height: 91
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 28df55d09c8d93740af78f7f0cd359c9
+      internalID: -925126293
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -1061,6 +1145,10 @@ TextureImporter:
       Tank UI Atlas_40: -1304637154
       Tank UI Atlas_41: -1553058608
       Tank UI Atlas_42: -1559146159
+      Tank UI Atlas_43: -1107551486
+      Tank UI Atlas_44: 732356053
+      Tank UI Atlas_45: 1452320160
+      Tank UI Atlas_46: -925126293
       Tank UI Atlas_5: -84361736
       Tank UI Atlas_6: 783519597
       Tank UI Atlas_7: 1353255585
