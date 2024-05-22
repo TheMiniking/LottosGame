@@ -1,24 +1,29 @@
-﻿using System;
+﻿using Christina.UI;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 
 public class CanvasManager : MonoBehaviour
 {
+    [SerializeField] public bool onTest = false;
     public static CanvasManager Instance;
     [SerializeField] Canvas Canvas;
+    [SerializeField] public TMP_Text betValueText, cashoutValueText,roundsTextII;
     [SerializeField] public TMP_InputField betInput, autoCashOutInput;
     [SerializeField] public TMP_Text betButtonText, roundsText, timerText, multiplierText,multiplierTextMensage, messageText, balanceText, inPlayersText, inPlayersWinnersText, totalWinAmountText;
-    [SerializeField] public Toggle autoCashOutToggle, autoPlayToggle;
+    [SerializeField] public Slider autoCashOutToggle, autoPlayToggle, roundsSlider;
     [SerializeField] public List<Button> roundsButton = new();
     [SerializeField] public List<Sprite> buttonsSpites = new();
     [SerializeField] public List<Button> betModButtons = new(); // 0= up , 1 = down, 2-6 = +5/+10/+25/+50/Max 
     [SerializeField] public Button betButton, crashOutButtonAdd, crashOutButtonSub, configButton;
     [SerializeField] public Animator messageAnimator, playerAnimator;
-    [SerializeField] public List<LastRoundHUD> multipliersSlots, multipliersSlotsFivity = new();
+    [SerializeField] public List<LastRoundHUD> multipliersSlots = new();
+    [SerializeField] public List<LastRoundHUD> multipliersSlotsFivity = new();
     [SerializeField] public List<LastMultiTriple> multipliers, multipliersFivity = new();
     [SerializeField] public List<BetPlayersHud> betSlots = new();
     [SerializeField] public int playerInBet, playerInBetWinners;
@@ -49,6 +54,11 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] GameObject loadingPanel;
 
     //[SerializeField] Tutorial tutorial;
+
+    [SerializeField] List<Player> tankList = new ();
+    [SerializeField] List<Sprite> tankSprites = new();
+    [SerializeField] List<Image> selectedTankSprites = new ();
+    [SerializeField] Image selTank,selTankBig;
 
     void Awake()
     {
@@ -91,6 +101,15 @@ public class CanvasManager : MonoBehaviour
         loadingPanel.SetActive(value);
     }
 
+    public void SelectTank(int value)
+    {
+        GameManager.Instance.selectedTankNum = value;
+        tankList.ForEach(x => x.selected = tankList.IndexOf(x) == value);
+        selectedTankSprites.ForEach(x => x.gameObject.SetActive( selectedTankSprites.IndexOf(x) == value));
+        selTank.sprite = tankSprites[value];
+        selTankBig.sprite = tankSprites[value];
+    }
+
     public void BetMensages()
     {
         switch (betButtonStatus)
@@ -114,17 +133,20 @@ public class CanvasManager : MonoBehaviour
     {
         betVal = value;
         betInput.text = $" {GameManager.Instance.MoedaAtual()} {betVal}";
+        betValueText.text = $" {GameManager.Instance.MoedaAtual()} {betVal}";
     }
 
     public void SetAutoCashOutInput(float value)
     {
         autoCashOutInput.text = $"x {value:0.00}";
+        cashoutValueText.text = $"x {value:0.00}";
     }
 
     public void SetRoundsText(int value)
     {
         value = (value == 0) ? (-1) : value;
         roundsText.text = (value == -1) ? "Inf" : ($"{value}");
+        roundsTextII.text = (value == -1) ? "Inf" : ($"{value}");
     }
 
     public void SetTimerText(int value,bool? tutorial = false)
@@ -222,7 +244,7 @@ public class CanvasManager : MonoBehaviour
         }
 
         SetSlot(multply);
-        SetSlotFivity();
+        SetSlotFivity(multply);
     }
 
     public void SetSlot(LastMultiTriple multply)
@@ -238,18 +260,20 @@ public class CanvasManager : MonoBehaviour
     {
         LastRoundHUD slot = multipliersSlotsFivity.Last();
         slot.Set(multply);
-        slot.transform.SetAsLastSibling();
+        slot.transform.SetAsFirstSibling();
         multipliersSlotsFivity.Remove(slot);
         multipliersSlotsFivity.Insert(0, slot);
     }
 
     public void SetSlotFivity()
     {
-        multipliersSlotsFivity.ForEach(x => {
-            if (multipliersSlotsFivity.IndexOf(x) <= multipliersFivity.Count-1)
-                x.Set(multipliersFivity[multipliersSlotsFivity.IndexOf(x)]); 
-            else  x.Clear(); 
+        multipliersSlotsFivity.ForEach(x =>
+        {
+            if (multipliersSlotsFivity.IndexOf(x) <= multipliersFivity.Count - 1)
+                x.Set(multipliersFivity[multipliersSlotsFivity.IndexOf(x)]);
+            else x.Clear();
         });
+        //multipliersSlotsFivity.ForEach(x => x.Set(multipliersFivity[multipliersSlotsFivity.IndexOf(x)]));
     }
 
     internal void SetBalanceTxt(double balance)
@@ -393,6 +417,7 @@ public class CanvasManager : MonoBehaviour
         //betSlots.ForEach(x => x.Reload());
         balanceText.text = $"{GameManager.Instance.MoedaAtual()} {balanceVal:#,0.00}";
         betInput.text = $" {GameManager.Instance.MoedaAtual()} {betVal}";
+        betValueText.text = $" {GameManager.Instance.MoedaAtual()} {betVal}";
         OnTraductionChange?.Invoke(traduction);
         compTraduction = trad;
     }

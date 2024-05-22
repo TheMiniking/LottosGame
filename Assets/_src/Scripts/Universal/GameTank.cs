@@ -90,7 +90,6 @@ public class GameTank : MonoBehaviour
         StartCoroutine(CountDownStart());
         StartCoroutine(TankInicialize());
         StartCoroutine(GameStart());
-        Application.targetFrameRate = 60;
     }
     void FixedUpdate()
     {

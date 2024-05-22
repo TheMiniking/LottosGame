@@ -12,7 +12,7 @@ public class MovingBox : MonoBehaviour
     [SerializeField] float initPosition;
     [SerializeField] float duration;
     [SerializeField] public float boxDistance;
-    [SerializeField] GameObject boxIndicador,boxIndicador2;
+    [SerializeField] GameObject boxIndicador,boxIndicador2,paraquedas;
     [SerializeField] TMP_Text indicador,indicador2;
     [Range(0, 1f), SerializeField] float margin =0.02f;
     [Range(0, 1f), SerializeField] float offScreamDistance =1f;
@@ -25,7 +25,7 @@ public class MovingBox : MonoBehaviour
     {
         GoToOrigin();
         boxDistance = thisBox.anchoredPosition.x;
-        screenLimit = (Screen.width - (margin * Screen.width)) / 2;
+        screenLimit = (Screen.width - (margin * Screen.width) + (Screen.width / 3)) / 2;
         GoToCenter();
     }
 
@@ -40,12 +40,13 @@ public class MovingBox : MonoBehaviour
             { 
                 boxIndicador.SetActive(true);
                 boxIndicador2.SetActive(false);
+                paraquedas.SetActive(true);
                 float sliderValue = ( boxDistance - screenLimit) / (maxDistance - screenLimit);
                 slider.value = sliderValue;
-                Debug.Log($"posiçao : {sliderValue:0.0000}");
             }
             else
             {
+                paraquedas.SetActive(false);
                 boxIndicador.SetActive(false);
                 boxIndicador2.SetActive(true);
             }

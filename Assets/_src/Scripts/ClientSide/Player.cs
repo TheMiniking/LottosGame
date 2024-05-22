@@ -16,9 +16,10 @@ public class Player : MonoBehaviour
     [SerializeField] GameObject selectImage;
 
     [SerializeField] public bool selected;
-        
+    [SerializeField] Tween tween;
 
     [SerializeField] BetPlayersHud tankBet;
+    [SerializeField] GameObject explosionFX , fireFX , concertarFX ; 
  
     void Start()
     {
@@ -80,22 +81,34 @@ public class Player : MonoBehaviour
 
     public IEnumerator GoBack(RectTransform tank)
     {
-        Tween.UIAnchoredPositionX(tank, endValue: -(Screen.width/4) , duration: 3);
+        tween = Tween.UIAnchoredPositionX(tank, endValue: -(Screen.width/4) , duration: 3)
+            .OnComplete(this, target => { fireFX.SetActive(false); });
+        explosionFX.SetActive(true);
+        fireFX.SetActive(true);
         for (int i = 0; i < 3; i++)
         {
             yield return new WaitForSeconds(1);
-            if (lastMovingStatus) break;
+            if (lastMovingStatus) 
+            { 
+                tween.Stop();
+                break;
+            }
+
         }
+        fireFX.SetActive(false);
         Debug.Log("End GoBack");
     }
     public IEnumerator GoCenter()
     {
-        
-        Tween.UIAnchoredPositionX(tankTrasform, endValue: 0, duration: 2);
+
+        tween = Tween.UIAnchoredPositionX(tankTrasform, endValue: 0, duration: 2);
         for (int i = 0; i < 2; i++)
         {
             yield return new WaitForSeconds(1);
-            if (!lastMovingStatus) break;
+            if (!lastMovingStatus) { 
+                tween.Stop();
+                break;
+            }
         }
         StartCoroutine(MovingAuto());
         Debug.Log("End GoCenter");
@@ -108,21 +121,29 @@ public class Player : MonoBehaviour
             int d = Random.Range(1, 3);
             if (n == 0) 
             {
-                Tween.UIAnchoredPositionX(tankTrasform, endValue:Random.Range(50,75), duration:d);
+                tween = Tween.UIAnchoredPositionX(tankTrasform, endValue:Random.Range(50,75), duration:d);
                 for (int i = 0; i < d+1; i++)
                 {
                     yield return new WaitForSeconds(1);
-                    if (!lastMovingStatus) break;
+                    if (!lastMovingStatus)
+                    {
+                        tween.Stop();
+                        break;
+                    }
                 }
                 
             }
             else
             {
-                Tween.UIAnchoredPositionX(tankTrasform, endValue: Random.Range(-75, -50), duration: d+3);
+                tween = Tween.UIAnchoredPositionX(tankTrasform, endValue: Random.Range(-75, -50), duration: d+3);
                 for (int i = 0; i < d + 4; i++)
                 {
                     yield return new WaitForSeconds(1);
-                    if (!lastMovingStatus) break;
+                    if (!lastMovingStatus)
+                    {
+                        tween.Stop();
+                        break;
+                    }
                 }
             }
             n = n == 0 ? 1 : 0;

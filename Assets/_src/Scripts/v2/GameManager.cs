@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,7 +13,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] bool debug = false;
     [SerializeField][Range(1f, 999f)] float autoCashOut = 1f;
     [SerializeField][Range(1, 100)] public int bet;
-    [SerializeField][Range(-1, 100)] int betRounds = -1;
+    [SerializeField][Range(-1, 1000)] int betRounds = -1;
     [SerializeField] List<int> rounds = new();
     [SerializeField] public bool isJoin = false;
     public bool canBet, isMobile, isWalking = false;
@@ -33,6 +34,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] public int traduction = 0;
     [SerializeField] public List<string> tradEnglish, tradPortugues = new();
 
+    //---------------------------------
+    [SerializeField] public int selectedTankNum;
+
 
     void Awake()
     {
@@ -42,6 +46,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         Screen.sleepTimeout = SleepTimeout.NeverSleep; // disable screen sleep
+        Application.targetFrameRate = 120;
         SetScreenMode();
         roundsFivityOBJ.SetActive(false);
         CanvasManager.Instance.betModButtons[0].onClick.AddListener(() => ModValorBet(true, 1));
@@ -78,8 +83,17 @@ public class GameManager : MonoBehaviour
         CanvasManager.Instance.roundsButton[2]?.onClick.AddListener(() => SetRoundButtons(2));
         CanvasManager.Instance.roundsButton[3]?.onClick.AddListener(() => SetRoundButtons(3));
         CanvasManager.Instance.roundsButton[4]?.onClick.AddListener(() => SetRoundButtons(4));
-        CanvasManager.Instance.autoCashOutToggle.onValueChanged.AddListener(x => AutoCashOut(x));
-        CanvasManager.Instance.autoPlayToggle.onValueChanged.AddListener(x => AutoStop(x));
+        CanvasManager.Instance.roundsSlider.onValueChanged.AddListener(x => SetRoundSlider((int)x));
+        CanvasManager.Instance.autoCashOutToggle.onValueChanged.AddListener(x => 
+        { 
+            if (x == 0) AutoCashOut(false);
+            if (x == 1) AutoCashOut(true);
+        });
+        CanvasManager.Instance.autoPlayToggle.onValueChanged.AddListener(x =>
+        {
+            if (x == 0) AutoStop(false);
+            if (x == 1) AutoStop(true);
+        });
         SetRoundButtons(0);
     }
 
@@ -135,6 +149,7 @@ public class GameManager : MonoBehaviour
         var betI = bet;
         betI = up ? (betI + valor ?? 1) : (betI - valor ?? 1);
         betI = (betI <= 0) ? 1 : ((betI > 100) ? 100 : betI);
+        if(CanvasManager.Instance.onTest) CanvasManager.Instance.SetBetInput(betI);
         ClientCommands.Instance.NextBet((int)betI);
         if (debug)
         {
@@ -186,6 +201,17 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void SetRoundSlider(int i)
+    {
+        betRounds = i;
+        betRounds = betRounds == 1000? -1 : betRounds;
+        CanvasManager.Instance.SetRoundsText(i);
+        if (debug)
+        {
+            Debug.Log($"SetRounds, valor atual: {betRounds}");
+        }
+    }
+
     public void ResetRoundsSprite()
     {
         CanvasManager.Instance.roundsButton.ForEach(x => x.GetComponent<Image>().sprite = CanvasManager.Instance.buttonsSpites[0]);
@@ -194,7 +220,7 @@ public class GameManager : MonoBehaviour
     public void ModRound(bool up)
     {
         betRounds = up ? ((betRounds == -1) ? 1 : (betRounds + 1)) : (betRounds - 1);
-        betRounds = (betRounds == 0) ? (-1) : ((betRounds < -1) ? 100 : ((betRounds > 100) ? (-1) : betRounds));
+        betRounds = (betRounds == 0) ? (-1) : ((betRounds < -1) ? 999 : ((betRounds > 999) ? (-1) : betRounds));
         CanvasManager.Instance.SetRoundsText(betRounds);
     }
 
@@ -225,7 +251,7 @@ public class GameManager : MonoBehaviour
             if (betRounds == 0)
             {
                 CanvasManager.Instance.PlayMessage(traduction switch { 0 => "End of AutoPlay", 1 => "Fim da Aposta Automatica", _ => "End of AutoPlay" });
-                CanvasManager.Instance.autoPlayToggle.isOn = false;
+                CanvasManager.Instance.autoPlayToggle.value = 0;
             }
             CanvasManager.Instance.SetRoundsText(betRounds);
         }
@@ -283,7 +309,7 @@ public class GameManager : MonoBehaviour
         activeAutoCashOut = x;
         if (x)
         {
-            CanvasManager.Instance.autoCashOutToggle.isOn = true;
+            CanvasManager.Instance.autoCashOutToggle.value = 1;
         }
         switch (traduction)
         {
