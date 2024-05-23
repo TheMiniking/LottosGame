@@ -160,7 +160,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7494322717986017002}
-  - {fileID: 1604435044005738149}
   - {fileID: 2349665778817519624}
   - {fileID: 3042936126898881647}
   - {fileID: 5701792412700554117}
@@ -248,6 +247,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1604435044005738149}
   - component: {fileID: 774289396369740691}
+  - component: {fileID: 1074083933812829091}
   m_Layer: 9
   m_Name: Coruja 2
   m_TagString: Untagged
@@ -271,18 +271,18 @@ RectTransform:
   - {fileID: 2933792912095087539}
   - {fileID: 5407334958895511750}
   - {fileID: 8612863628629990657}
-  - {fileID: 3932878141860849417}
   - {fileID: 5989963606341637321}
   - {fileID: 8527016531084755858}
+  - {fileID: 3932878141860849417}
   - {fileID: 1789968780623763102}
   - {fileID: 6745869916027877070}
   - {fileID: 3718660198770902253}
-  m_Father: {fileID: 4894476067716542571}
+  m_Father: {fileID: 6993901403499018883}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: -0.16255684, y: 0.395042}
   m_AnchorMax: {x: 0.93077123, y: 2.5816674}
-  m_AnchoredPosition: {x: 20.4, y: -24.6}
-  m_SizeDelta: {x: -9.332809, y: -116.47591}
+  m_AnchoredPosition: {x: 11.823736, y: -25.746632}
+  m_SizeDelta: {x: -16.160309, y: -64.58792}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &774289396369740691
 CanvasRenderer:
@@ -292,6 +292,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2138374241733821699}
   m_CullTransparentMesh: 1
+--- !u!95 &1074083933812829091
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2138374241733821699}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 88dedbf3c339b584d9368db847587da9, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2438810168126837649
 GameObject:
   m_ObjectHideFlags: 0
@@ -2330,7 +2351,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 3632056720413384472, guid: 787c113ba1e4f494e9b3a68d3f4bd8e5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1604435044005738149}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 9192910736343643671, guid: 787c113ba1e4f494e9b3a68d3f4bd8e5, type: 3}
       insertIndex: -1
@@ -2367,3 +2391,8 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!224 &6993901403499018883 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 3632056720413384472, guid: 787c113ba1e4f494e9b3a68d3f4bd8e5, type: 3}
+  m_PrefabInstance: {fileID: 6010330906053928347}
+  m_PrefabAsset: {fileID: 0}

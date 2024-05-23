@@ -3771,6 +3771,32 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 23.086914}
   m_SizeDelta: {x: 398.36, y: 163.0775}
   m_Pivot: {x: 1, y: 0}
+--- !u!1 &88931256 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2138374241733821699, guid: 3712487016f188244a76d6ba0b6cde38, type: 3}
+  m_PrefabInstance: {fileID: 3824239124903124836}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &88931259
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 88931256}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 88dedbf3c339b584d9368db847587da9, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &89215901
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6933,7 +6959,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 31.9
+  m_fontSize: 30.65
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -35451,6 +35477,32 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8683417434811297989, guid: ba489dd94d435ec46adc32284c49eca6, type: 3}
   m_PrefabInstance: {fileID: 870956468}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &871733637 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4065872306327152465, guid: ae1c69b8c00eca14db5fe22f9705cb69, type: 3}
+  m_PrefabInstance: {fileID: 9100660404238743072}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &871733640
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 871733637}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 88dedbf3c339b584d9368db847587da9, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &874593629 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4382940500523659191, guid: 20d34151d067f9147a98f12b49ad2c21, type: 3}
@@ -42240,6 +42292,32 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1016720179}
   m_CullTransparentMesh: 1
+--- !u!1 &1020114913 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3889366595299406139, guid: af5efa6fbeeb9eb49a9e35df3a7b3912, type: 3}
+  m_PrefabInstance: {fileID: 7824704210957821778}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1020114916
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1020114913}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 88dedbf3c339b584d9368db847587da9, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!224 &1020681147 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7344538843911480227, guid: b0ccd6e2f0248784b9e7ad77d98701ad, type: 3}
@@ -43803,7 +43881,7 @@ MonoBehaviour:
   margin: 0.4
   offScreamDistance: 1
   screenLimit: 0
-  maxDistance: 2500
+  maxDistance: 3000
   slider: {fileID: 1609450912}
 --- !u!114 &1048819658
 MonoBehaviour:
@@ -43951,7 +44029,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30.55
+  m_fontSize: 27.55
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -51922,7 +52000,7 @@ MonoBehaviour:
   margin: 0.4
   offScreamDistance: 1
   screenLimit: 0
-  maxDistance: 2500
+  maxDistance: 3000
   slider: {fileID: 71551290}
 --- !u!114 &1228850982
 MonoBehaviour:
@@ -63249,7 +63327,7 @@ MonoBehaviour:
   margin: 0.4
   offScreamDistance: 1
   screenLimit: 0
-  maxDistance: 2500
+  maxDistance: 3000
   slider: {fileID: 1530614915}
 --- !u!114 &1481286341
 MonoBehaviour:
@@ -66810,7 +66888,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 63.05
+  m_fontSize: 56.85
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -89868,6 +89946,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -35.6
       objectReference: {fileID: 0}
+    - target: {fileID: 3196106625315559737, guid: 3712487016f188244a76d6ba0b6cde38, type: 3}
+      propertyPath: tankBet
+      value: 
+      objectReference: {fileID: 7224159893329724554, guid: 4b25d19d3003ce04a90dbe1ec7248846, type: 3}
+    - target: {fileID: 3196106625315559737, guid: 3712487016f188244a76d6ba0b6cde38, type: 3}
+      propertyPath: canvasTrasform
+      value: 
+      objectReference: {fileID: 733963947}
     - target: {fileID: 4894476067716542571, guid: 3712487016f188244a76d6ba0b6cde38, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -89967,7 +90053,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2138374241733821699, guid: 3712487016f188244a76d6ba0b6cde38, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 88931259}
   m_SourcePrefab: {fileID: 100100000, guid: 3712487016f188244a76d6ba0b6cde38, type: 3}
 --- !u!114 &4243544515874678176 stripped
 MonoBehaviour:
@@ -91312,6 +91401,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7540706910105146778, guid: af5efa6fbeeb9eb49a9e35df3a7b3912, type: 3}
+      propertyPath: tankBet
+      value: 
+      objectReference: {fileID: 7224159893329724554, guid: 4b25d19d3003ce04a90dbe1ec7248846, type: 3}
+    - target: {fileID: 7540706910105146778, guid: af5efa6fbeeb9eb49a9e35df3a7b3912, type: 3}
+      propertyPath: canvasTrasform
+      value: 
+      objectReference: {fileID: 733963947}
     - target: {fileID: 7685388724954756320, guid: af5efa6fbeeb9eb49a9e35df3a7b3912, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -33
@@ -91319,7 +91416,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3889366595299406139, guid: af5efa6fbeeb9eb49a9e35df3a7b3912, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1020114916}
   m_SourcePrefab: {fileID: 100100000, guid: af5efa6fbeeb9eb49a9e35df3a7b3912, type: 3}
 --- !u!1001 &7965835317727917499
 PrefabInstance:
@@ -94892,6 +94992,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4732156127067552168, guid: ae1c69b8c00eca14db5fe22f9705cb69, type: 3}
+      propertyPath: tankBet
+      value: 
+      objectReference: {fileID: 7224159893329724554, guid: 4b25d19d3003ce04a90dbe1ec7248846, type: 3}
+    - target: {fileID: 4732156127067552168, guid: ae1c69b8c00eca14db5fe22f9705cb69, type: 3}
+      propertyPath: canvasTrasform
+      value: 
+      objectReference: {fileID: 733963947}
     - target: {fileID: 5296402112605351463, guid: ae1c69b8c00eca14db5fe22f9705cb69, type: 3}
       propertyPath: m_Name
       value: Tank Green
@@ -95039,7 +95147,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4065872306327152465, guid: ae1c69b8c00eca14db5fe22f9705cb69, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 871733640}
   m_SourcePrefab: {fileID: 100100000, guid: ae1c69b8c00eca14db5fe22f9705cb69, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

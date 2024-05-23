@@ -63,12 +63,14 @@ public class Player : MonoBehaviour
         {
             StopCoroutine(GoCenter());
             StopCoroutine(MovingAuto());
+            tween.Stop();
             StartCoroutine(GoBack(tankTrasform));
         }
         else
         {
             StopCoroutine(MovingAuto());
             StopCoroutine(GoBack(tankTrasform));
+            tween.Stop();
             StartCoroutine(GoCenter());
 
         }
@@ -82,20 +84,10 @@ public class Player : MonoBehaviour
     public IEnumerator GoBack(RectTransform tank)
     {
         tween = Tween.UIAnchoredPositionX(tank, endValue: -(Screen.width/4) , duration: 3)
-            .OnComplete(this, target => { fireFX.SetActive(false); });
+            .OnComplete(this, target => { fireFX.SetActive(false);  tween.Stop(); tween = Tween.UIAnchoredPositionX(tank, endValue: -(Screen.width / 2), duration: 0); });
         explosionFX.SetActive(true);
         fireFX.SetActive(true);
-        for (int i = 0; i < 3; i++)
-        {
-            yield return new WaitForSeconds(1);
-            if (lastMovingStatus) 
-            { 
-                tween.Stop();
-                break;
-            }
-
-        }
-        fireFX.SetActive(false);
+        yield return new WaitForSeconds(3);
         Debug.Log("End GoBack");
     }
     public IEnumerator GoCenter()
@@ -107,6 +99,7 @@ public class Player : MonoBehaviour
             yield return new WaitForSeconds(1);
             if (!lastMovingStatus) { 
                 tween.Stop();
+                Debug.Log("Stop GoCenter");
                 break;
             }
         }
@@ -122,26 +115,28 @@ public class Player : MonoBehaviour
             if (n == 0) 
             {
                 tween = Tween.UIAnchoredPositionX(tankTrasform, endValue:Random.Range(50,75), duration:d);
-                for (int i = 0; i < d+1; i++)
+                //yield return new WaitForSeconds(d);
+                for (int i = 0; i < d + 1; i++)
                 {
                     yield return new WaitForSeconds(1);
                     if (!lastMovingStatus)
                     {
-                        tween.Stop();
+                        Debug.Log($"Stop MovingAuto {i}");
                         break;
                     }
                 }
-                
+
             }
             else
             {
                 tween = Tween.UIAnchoredPositionX(tankTrasform, endValue: Random.Range(-75, -50), duration: d+3);
+                //yield return new WaitForSeconds(d);
                 for (int i = 0; i < d + 4; i++)
                 {
                     yield return new WaitForSeconds(1);
                     if (!lastMovingStatus)
                     {
-                        tween.Stop();
+                        Debug.Log($"Stop MovingAuto {i}");
                         break;
                     }
                 }
@@ -153,8 +148,8 @@ public class Player : MonoBehaviour
 
     public void CreateTankStop(BetPlayers bet)
     {
-        var tank = Instantiate(tankBet, canvasTrasform);
-        tank.GetComponent<RectTransform>().anchoredPosition = inicialPos;
+        Quaternion q = new Quaternion();
+        var tank = Instantiate(tankBet, tankTrasform.position ,q,canvasTrasform);
         tank.Set(bet);
         StartCoroutine(tank.GoBack(tank.GetComponent<RectTransform>()));
     }

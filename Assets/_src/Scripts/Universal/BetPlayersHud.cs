@@ -23,7 +23,7 @@ public class BetPlayersHud : MonoBehaviour
         creditsVal = 0;
         multiplierVal = 0;
         betVal = 0;
-        anim.Play("Default");
+        if (anim != null) anim.Play("Default");
     }
 
     internal void Set(BetPlayers _bet, bool? rank = null)
@@ -37,20 +37,20 @@ public class BetPlayersHud : MonoBehaviour
         {
             multply.text = $"x {multiplierVal:0.00}";
             credits.text = $"{GameManager.Instance.MoedaAtual()}{creditsVal:#,0.00}";
-            anim.Play("BetRank");
+            if (anim != null) anim?.Play("BetRank");
             return;
         }
         if (_bet.multiplier >= 1)
         {
             multply.text = $"x {multiplierVal:0.00}";
             credits.text = $"{GameManager.Instance.MoedaAtual()}{creditsVal:#,0.00}";
-            anim.Play("BetWin");
+            if (anim != null) anim?.Play("BetWin");
         }
         else
         {
             multply.text = $"--";
             credits.text = $"--";
-            anim.Play("Normal");
+            if (anim != null) anim?.Play("Normal");
         }
     }
 
@@ -64,7 +64,7 @@ public class BetPlayersHud : MonoBehaviour
 
     public IEnumerator GoBack(RectTransform tank)
     {
-        Tween.UIAnchoredPositionX(tank, endValue: -Screen.width / 2, duration: 3);
+        Tween.UIAnchoredPositionX(tank, endValue: -Screen.width / 2, duration: 3, ease: Ease.Linear);
         yield return new WaitForSeconds(3);
         Debug.Log("End GoBack");
         Destroy(tank.gameObject);
