@@ -1060,7 +1060,7 @@ TextureImporter:
         width: 99
         height: 120
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1081,7 +1081,7 @@ TextureImporter:
         width: 104
         height: 107
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1102,7 +1102,7 @@ TextureImporter:
         width: 111
         height: 102
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1110,6 +1110,48 @@ TextureImporter:
       bones: []
       spriteID: 2c11a7577569c3049bb8da9f1d471942
       internalID: -1831915007
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tank UI Atlas_46
+      rect:
+        serializedVersion: 2
+        x: 491
+        y: 854
+        width: 32
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6961a565062f2d849acba36f3be70928
+      internalID: -376805072
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tank UI Atlas_47
+      rect:
+        serializedVersion: 2
+        x: 505
+        y: 881
+        width: 22
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e76965037579330499b231c8e381e695
+      internalID: -62452438
       vertices: []
       indices: 
       edges: []
@@ -1166,6 +1208,8 @@ TextureImporter:
       Tank UI Atlas_43: 393308287
       Tank UI Atlas_44: -76398478
       Tank UI Atlas_45: -1831915007
+      Tank UI Atlas_46: -376805072
+      Tank UI Atlas_47: -62452438
       Tank UI Atlas_5: -84361736
       Tank UI Atlas_6: 783519597
       Tank UI Atlas_7: 1353255585
