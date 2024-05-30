@@ -8,7 +8,7 @@ public class TradutorAutomatic : MonoBehaviour
     [SerializeField] TMP_Text textToTranslate;
     [SerializeField,Tooltip("0 - English, 1 - Portuguese")] List<string> languages;
 
-    private void OnEnable()
+    private void Start()
     {
         CanvasManager.Instance.OnTraductionChange += Translate;
         Translate(GameManager.Instance.traduction);

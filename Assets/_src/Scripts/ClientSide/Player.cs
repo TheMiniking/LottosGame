@@ -83,7 +83,7 @@ public class Player : MonoBehaviour
 
     public IEnumerator GoBack(RectTransform tank)
     {
-        tween = Tween.UIAnchoredPositionX(tank, endValue: -(Screen.width/4) , duration: 3)
+        tween = Tween.UIAnchoredPositionX(tank, endValue: -(Screen.width/2) , duration: 3)
             .OnComplete(this, target => { fireFX.SetActive(false);  tween.Stop(); tween = Tween.UIAnchoredPositionX(tank, endValue: -(Screen.width / 2), duration: 0); });
         explosionFX.SetActive(true);
         fireFX.SetActive(true);
@@ -92,8 +92,8 @@ public class Player : MonoBehaviour
     }
     public IEnumerator GoCenter()
     {
-
         tween = Tween.UIAnchoredPositionX(tankTrasform, endValue: 0, duration: 2);
+        fireFX.SetActive(false);
         for (int i = 0; i < 2; i++)
         {
             yield return new WaitForSeconds(1);

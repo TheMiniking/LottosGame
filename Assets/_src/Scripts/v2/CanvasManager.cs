@@ -44,6 +44,8 @@ public class CanvasManager : MonoBehaviour
     //-------------Tradutions-------------
     [SerializeField] public int traduction = 0;//0= english, 1 = Portugues
     [SerializeField] public TMP_Dropdown tradDropdown;
+    [SerializeField] List<Sprite> bandeiras;
+    [SerializeField] Image bandeira;
     //[SerializeField] public List<TMP_Text> tradTexts = new();
     //[SerializeField] public Button showTutorial;
 
@@ -71,6 +73,7 @@ public class CanvasManager : MonoBehaviour
         //ShowPlayers();
         ResetBets();
         tradDropdown.onValueChanged.AddListener(delegate { SetTraduction(tradDropdown.value); });
+        tradDropdown.onValueChanged.AddListener(x => bandeira.sprite = bandeiras[x]);
         tradDropdown.value = traduction;
         //rankButton.onClick.AddListener(ShowRank);
         configButton.onClick.AddListener(() => configObj.SetActive(!configObj.activeSelf));

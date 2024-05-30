@@ -9,7 +9,7 @@ public class AudioManager : MonoBehaviour
     public AudioSource music, sfx1, sfx2, oneshot;
     public List<AudioClip> musicList;
     public List<AudioClip> sfxList;
-    public Toggle musicToggle, sfxToggle, musicToggleMobile, sfxToggleMobile;
+    public Slider musicToggle, sfxToggle, musicToggleMobile, sfxToggleMobile;
     public Slider musicSlider, sfxSlider, musicSliderMobile, sfxSliderMobile;
     public float musicVolume, sfxVolume;
 
@@ -28,15 +28,19 @@ public class AudioManager : MonoBehaviour
         VolumeSFX(sfxVolume);
         PlaySFX(0);
         StopResumeSFX(true);
-        musicToggle.onValueChanged.AddListener(x => MusicMute(x));
+        musicToggle.onValueChanged.AddListener(x => MusicMute(x == 1));
         musicSlider.onValueChanged.AddListener(x => VolumeMusic(x));
-        sfxToggle.onValueChanged.AddListener(x => SfxMute(x));
+        sfxToggle.onValueChanged.AddListener(x => SfxMute(x == 1));
         sfxSlider.onValueChanged.AddListener(x => VolumeSFX(x));
-        musicToggleMobile.onValueChanged.AddListener(x => MusicMute(x));
+        musicToggleMobile.onValueChanged.AddListener(x => MusicMute(x == 1));
         musicSliderMobile.onValueChanged.AddListener(x => VolumeMusic(x));
-        sfxToggleMobile.onValueChanged.AddListener(x => SfxMute(x));
+        sfxToggleMobile.onValueChanged.AddListener(x => SfxMute(x == 1));
         sfxSliderMobile.onValueChanged.AddListener(x => VolumeSFX(x));
         allButtons.ForEach(x => x.onClick.AddListener(() => PlayOneShot(0)));
+        musicToggle.value = 1;
+        sfxToggle.value = 1;
+        musicToggleMobile.value = 1;
+        sfxToggleMobile.value = 1;
     }
 
     public void PlayMusic()
