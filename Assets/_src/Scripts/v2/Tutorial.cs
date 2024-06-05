@@ -96,7 +96,7 @@ public class Tutorial : MonoBehaviour
                 CanvasManager.Instance.SetBetSlot(new BetPlayers() { name = ClientCommands.Instance.playerName, value = 100, multiplier = 2f }, true);
                 CanvasManager.Instance.SetBalanceTxt(600);
                 CanvasManager.Instance.SetMultiplierText(2f);
-                ClientCommands.Instance.Crash(new Crash { multply = 2f },true);
+                ClientCommands.Instance.Crash(new Crash { multply = 2f },0,true);
                 GameManager.Instance.isJoin = false;
                 GameManager.Instance.EndMatchStart();
                 StopAllCoroutines();;

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using PrimeTween;
+using Unity.VisualScripting;
 
 public class TestItens : MonoBehaviour
 {
@@ -90,8 +91,8 @@ public class TestItens : MonoBehaviour
 
     public void SetNewLastRound()
     {
-        float[] f = new float[] { Random.Range(0f, 6f), Random.Range(0f, 6f), Random.Range(0f, 6f) };
-        CanvasManager.Instance.SetLastPlays(new LastMultiTriple { multis = f });
+        LastMulti f = new() { multis = new multiplier[3] { new multiplier { multiply = Random.Range(1f, 6f), tankid= 0}, new multiplier { multiply = Random.Range(1f, 6f), tankid = 1 }, new multiplier { multiply = Random.Range(1f, 6f), tankid = 2 } } };
+        CanvasManager.Instance.SetLastPlays(f);
     }
 
     public void SelectTankAleatorio ()

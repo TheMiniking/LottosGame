@@ -11,6 +11,8 @@ public class ClientCommands : WebClientBase
     string url;
     [SerializeField] string urlTest;
     [SerializeField] string urlDev;
+    [SerializeField] string urlLocalhost = "ws://localhost:1003";
+    [SerializeField] bool uselocalhost;
     [SerializeField] string token;
     [SerializeField] bool debug = true;
     public string playerName;
@@ -21,6 +23,7 @@ public class ClientCommands : WebClientBase
     [SerializeField] string urltoken;
     [SerializeField] string urlLanguage; //pt,en,es
     [SerializeField] public bool tank1OnRunning, tank2OnRunning, tank3OnRunning;
+    [SerializeField] LastMulti slots = new() { multis = new multiplier[3] { new multiplier { multiply = 0, tankid = 0 }, new multiplier { multiply = 0, tankid = 1 }, new multiplier { multiply = 0, tankid = 2 } } };
 
     void Awake()
     {
@@ -38,10 +41,18 @@ public class ClientCommands : WebClientBase
         RegisterHandler<BetPlayers>(BetPlayers, (ushort)ReceiveMsgIdc.BetPlayers);
         RegisterHandler<Ranking>(RankResponse, (ushort)ReceiveMsgIdc.Ranking);
         RegisterHandler<LastMultiFivity>(LastMultiResponse, (ushort)ReceiveMsgIdc.LastMulti);
+        RegisterHandler<BonusDrop>(BonusDropResponse, (ushort)ReceiveMsgIdc.BonusDrop);
 #if UNITY_WEBGL && !UNITY_EDITOR
         token = GetTokenID();
 #endif
-        CreateConnection((BuildType == BuildType.Dev) ? urlDev : urlTest, token);
+        if (uselocalhost)
+        {
+            CreateConnection(urlLocalhost, token);
+        }
+        else
+        {
+            CreateConnection((BuildType == BuildType.Dev) ? urlDev : urlTest, token);
+        }
         data = new Conection() { data =new byte[] { 255, 255 } };
         onConnect = true;
         TryConnect();
@@ -129,17 +140,23 @@ public class ClientCommands : WebClientBase
             Debug.Log($"PlayResponse: id: {msg.data.id} value : {msg.data.value} ");
         }
 
+        //msg.data.tankid tank da mensagem atual 0,1,2 
+
         if (msg.data.id == 0)// Start Timer
         {
+            CanvasManager.Instance.bonus.ForEach(x => x.gameObject.SetActive(false));
             CanvasManager.Instance.ResetBets();
             GameManager.Instance.NewMatchInit();            // AutoPlay Start
             StartCoroutine(GameManager.Instance.DisplayTimer(msg.data.value));
             CanvasManager.Instance.SetBetButtonBet();
             CanvasManager.Instance.SetMultiplierTextMensage(true);
+            CanvasManager.Instance.SetPlayerState(0, null,true);
+            CanvasManager.Instance.ShowCanvasSelectTank(true);
             atualStatus = 0;
         }
         else if (msg.data.id == 1)// Start Round 
         {
+            CanvasManager.Instance.ShowCanvasSelectTank(false);
             GameManager.Instance.NewMathStart();
             StopAllCoroutines();
             CanvasManager.Instance.SetBetButtonCantBet();
@@ -151,13 +168,44 @@ public class ClientCommands : WebClientBase
         }
         else if (msg.data.id == 2) // End Round Crash
         {
-            GameManager.Instance.EndMatchStart();
-            StopAllCoroutines();
-            Crash(new Crash { multply = msg.data.value });
-            GameManager.Instance.isJoin = false;
-            CanvasManager.Instance.SetMultiplierText(msg.data.value);
+            switch (msg.data.tankid)
+            {
+                case 0:
+                    tank1OnRunning = false;
+                    break;
+                case 1:
+                    tank2OnRunning = false;
+                    break;
+                case 2:
+                    tank3OnRunning = false;
+                    break;
+            }
+            Crash(new Crash { multply = msg.data.value }, msg.data.tankid);
+            if(GameManager.Instance.selectedTankNum == msg.data.tankid)
+            {
+                GameManager.Instance.isJoin = false;
+            }
+            if(!tank1OnRunning && !tank2OnRunning && !tank3OnRunning)
+            {
+                if(slots.multis[0].multiply != 0 && slots.multis[1].multiply != 0 && slots.multis[2].multiply != 0)
+                {
+                     CanvasManager.Instance.SetLastPlays(slots);
+                } 
+                slots = new() { multis = new multiplier[3] { new multiplier { multiply = 0, tankid = 0 }, new multiplier { multiply = 0, tankid = 1 }, new multiplier { multiply = 0, tankid = 2 } } };
+                isRunning = false;
+                CanvasManager.Instance.tankList.ForEach(x => x.Stop());
+                CanvasManager.Instance.bonus.ForEach(x => x.GetComponent<MovingBox>().Stop());
+                GameManager.Instance.isWalking = false;
+                GameManager.Instance.canBet = true;
+                GameManager.Instance.ResetVelocityParalax();
+                GameManager.Instance.fundoOnMove = false;
+                GameManager.Instance.EndMatchStart();
+                StopAllCoroutines();
+                CanvasManager.Instance.SetMultiplierText(msg.data.value);
+            }
             StartCoroutine(ConfirmConnection());
             atualStatus = 2;
+            
         }
         else if (msg.data.id == 3) // Join Round
         {
@@ -200,7 +248,7 @@ public class ClientCommands : WebClientBase
     void LastMultiResponse(LastMultiFivity lastMulti)
     {
         if (debug) Debug.Log("LastMultiResponse:" + lastMulti.multis);
-        foreach (LastMultiTriple item in lastMulti.multis)
+        foreach (LastMulti item in lastMulti.multis)
         {
             CanvasManager.Instance.SetLastPlays(item);
         }
@@ -228,6 +276,15 @@ public class ClientCommands : WebClientBase
         CanvasManager.Instance.SetBetInput((int)msg.money);
     }
 
+    public void BonusDropResponse(BonusDrop msg)
+    {
+        if (debug)
+        {
+            Debug.Log("[Servidor] BonusDropResponse");
+        }
+        CanvasManager.Instance.PlayBonus(msg);
+    }
+
     public void SendBet()
     {
         if (onTutorial) return;
@@ -236,7 +293,7 @@ public class ClientCommands : WebClientBase
             Debug.Log("[Client] Send Bet");
         }
 
-        SendMsg((ushort)SendMsgIdc.PlayRequest, new PlayRequest());
+        SendMsg((ushort)SendMsgIdc.PlayRequest, new PlayRequest ((byte)UnityEngine.Random.Range(0, 3)));// tankid = 0,1,2
     }
 
     public void StartRun(StartRun msg, bool? tutorial = false)
@@ -245,7 +302,10 @@ public class ClientCommands : WebClientBase
         isRunning = true;
         GameManager.Instance.isWalking = true;
         GameManager.Instance.canBet = false;
-        CanvasManager.Instance.SetPlayerState("Walking");
+        //CanvasManager.Instance.SetPlayerState(true,0,true);
+        tank1OnRunning = true;
+        tank2OnRunning = true;
+        tank3OnRunning = true;
         AudioManager.Instance.StopResumeSFX(false);
         GameManager.Instance.fundoOnMove = true;
         if (debug)
@@ -254,18 +314,24 @@ public class ClientCommands : WebClientBase
         }
     }
 
-    public void Crash(Crash msg, bool? tutorial = false)
+    public void Crash(Crash msg,byte tankid, bool? tutorial = false)
     {
         if (onTutorial && tutorial == false) return;
-        isRunning = false;
-        GameManager.Instance.isWalking = false;
-        GameManager.Instance.canBet = true;
-        GameManager.Instance.ResetVelocityParalax();
-        CanvasManager.Instance.SetPlayerState("Lost");
-        //CanvasManager.Instance.SetLastPlays(msg.multply);
-        GameManager.Instance.fundoOnMove = false;
+        CanvasManager.Instance.SetPlayerState(tankid,false);
         AudioManager.Instance.StopResumeSFX(true);
         AudioManager.Instance.PlayOneShot(2);
+        switch (tankid)
+        {
+            case 0:
+                slots.multis[0].multiply = msg.multply;
+                break;
+            case 1:
+                slots.multis[1].multiply = msg.multply;
+                break;
+            case 2:
+                slots.multis[2].multiply = msg.multply;
+                break;
+        }
         if (debug)
         {
             Debug.Log("Kabum , Distance x" + msg.multply);
@@ -334,38 +400,27 @@ public class BetPlayers : INetSerializable
     }
 }
 
-[Serializable]
-public class LastMultiTriple : INetSerializable
-{
-    public float[] multis;
 
-    public void Deserialize(DataReader reader)
-    {
-        reader.Get(ref multis);
-    }
-
-    public void Serialize(DataWriter write)
-    {
-        write.Put(multis);
-    }
-}
 
 [Serializable]
 public class MathStatus : INetSerializable
 {
     public byte id;
     public float value;
+    public byte tankid;
 
     public void Deserialize(DataReader reader)
     {
         reader.Get(ref id);
         reader.Get(ref value);
+        reader.Get(ref tankid);
     }
 
     public void Serialize(DataWriter write)
     {
         write.Put(id);
         write.Put(value);
+        write.Put(tankid);
     }
 }
 
@@ -448,9 +503,28 @@ public class Line : INetSerializable
 }
 
 [Serializable]
+public class multiplier : INetSerializable
+{
+    public float multiply;
+    public byte tankid;
+
+    public void Deserialize(DataReader reader)
+    {
+        reader.Get(ref multiply);
+        reader.Get(ref tankid);
+    }
+
+    public void Serialize(DataWriter write)
+    {
+        write.Put(multiply);
+        write.Put(tankid);
+    }
+}
+
+[Serializable]
 public class LastMulti : INetSerializable
 {
-    public float[] multis;
+    public multiplier[] multis;
 
     public void Deserialize(DataReader reader)
     {
@@ -463,11 +537,10 @@ public class LastMulti : INetSerializable
     }
 }
 
-
 [Serializable]
 public class LastMultiFivity : INetSerializable
 {
-    public LastMultiTriple[] multis;
+    public LastMulti[] multis;
 
     public void Deserialize(DataReader reader)
     {
@@ -477,6 +550,26 @@ public class LastMultiFivity : INetSerializable
     public void Serialize(DataWriter write)
     {
         write.Put(multis);
+    }
+}
+public class BonusDrop : INetSerializable
+{
+    public int matchId;
+    public int prize;
+    public int time;
+
+    public void Deserialize(DataReader reader)
+    {
+        reader.Get(ref matchId);
+        reader.Get(ref prize);
+        reader.Get(ref time);
+    }  
+
+    public void Serialize(DataWriter write)
+    {
+        write.Put(matchId);
+        write.Put(prize);
+        write.Put(time);
     }
 }
 enum ReceiveMsgIdc
@@ -488,7 +581,8 @@ enum ReceiveMsgIdc
     ErrorResponse = 5,
     BetPlayers = 6,
     Ranking = 7,
-    LastMulti = 8
+    LastMulti = 8,
+    BonusDrop = 9
 }
 enum SendMsgIdc
 {

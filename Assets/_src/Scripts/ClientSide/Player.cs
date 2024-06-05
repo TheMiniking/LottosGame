@@ -31,21 +31,39 @@ public class Player : MonoBehaviour
         switch (tankNum)
         {
             case 1:
-                if(ClientCommands.Instance.tank1OnRunning != lastMovingStatus)
+                if (ClientCommands.Instance.tank1OnRunning != lastMovingStatus && !ClientCommands.Instance.tank2OnRunning && !ClientCommands.Instance.tank3OnRunning )
+                {
+                    lastMovingStatus = false;
+                    explosionFX.SetActive(true);
+                    fireFX.SetActive(true);
+                }
+                else if (ClientCommands.Instance.tank1OnRunning != lastMovingStatus)
                 {
                     lastMovingStatus = ClientCommands.Instance.tank1OnRunning;
                     Walking(lastMovingStatus);
                 }
                 break;
             case 2:
-                if (ClientCommands.Instance.tank2OnRunning != lastMovingStatus)
+                if (ClientCommands.Instance.tank2OnRunning != lastMovingStatus && !ClientCommands.Instance.tank1OnRunning && !ClientCommands.Instance.tank3OnRunning)
+                {
+                    lastMovingStatus = false;
+                    explosionFX.SetActive(true);
+                    fireFX.SetActive(true);
+                }
+                else if(ClientCommands.Instance.tank2OnRunning != lastMovingStatus)
                 {
                     lastMovingStatus = ClientCommands.Instance.tank2OnRunning;
                     Walking(lastMovingStatus);
                 }
                 break;
             case 3:
-                if (ClientCommands.Instance.tank3OnRunning != lastMovingStatus)
+                if (ClientCommands.Instance.tank3OnRunning != lastMovingStatus && !ClientCommands.Instance.tank2OnRunning && !ClientCommands.Instance.tank1OnRunning)
+                {
+                    lastMovingStatus = false;
+                    explosionFX.SetActive(true);
+                    fireFX.SetActive(true);
+                }
+                else if(ClientCommands.Instance.tank3OnRunning != lastMovingStatus)
                 {
                     lastMovingStatus = ClientCommands.Instance.tank3OnRunning;
                     Walking(lastMovingStatus);
@@ -54,6 +72,13 @@ public class Player : MonoBehaviour
         }
         if (selected != selectImage.activeSelf) selectImage.SetActive(selected);
 
+    }
+
+    public void Stop()
+    {
+        tween.Stop();
+        fireFX.SetActive(false);
+        Debug.Log($"Stop Obrigatorio, tweeeen: {tween.isAlive}");
     }
 
     public void Walking(bool v)
@@ -81,65 +106,49 @@ public class Player : MonoBehaviour
         anim.Play("Lost");
     }
 
+    public void Reset()
+    {
+        tween = Tween.UIAnchoredPositionX(tankTrasform, endValue: 0, duration: 2);
+        fireFX.SetActive(false);
+    }
+
     public IEnumerator GoBack(RectTransform tank)
     {
-        tween = Tween.UIAnchoredPositionX(tank, endValue: -(Screen.width/2) , duration: 3)
-            .OnComplete(this, target => { fireFX.SetActive(false);  tween.Stop(); tween = Tween.UIAnchoredPositionX(tank, endValue: -(Screen.width / 2), duration: 0); });
+        tween.Stop();
+        tween = Tween.UIAnchoredPositionX(tank, endValue: -(Screen.width/2) , duration: 6)
+            .OnComplete(this, target => { 
+                fireFX.SetActive(false); 
+                tween = Tween.UIAnchoredPositionX(tank, endValue: -(Screen.width / 2), duration: 0); });
         explosionFX.SetActive(true);
         fireFX.SetActive(true);
-        yield return new WaitForSeconds(3);
+        yield return null;
         Debug.Log("End GoBack");
     }
     public IEnumerator GoCenter()
     {
-        tween = Tween.UIAnchoredPositionX(tankTrasform, endValue: 0, duration: 2);
+        tween.Stop();
         fireFX.SetActive(false);
-        for (int i = 0; i < 2; i++)
-        {
-            yield return new WaitForSeconds(1);
-            if (!lastMovingStatus) { 
-                tween.Stop();
-                Debug.Log("Stop GoCenter");
-                break;
-            }
-        }
-        StartCoroutine(MovingAuto());
+        tween = Tween.UIAnchoredPositionX(tankTrasform, endValue: 0, duration: 2)
+                .OnComplete(this, target => {StartCoroutine(MovingAuto());});
+        yield return null;
         Debug.Log("End GoCenter");
     }
     public IEnumerator MovingAuto()
     {
-            var n = Random.Range(0, 2);
+        var n = Random.Range(0, 2);
         while (lastMovingStatus)
         {
-            int d = Random.Range(1, 3);
+            tween.Stop();
+            int d = Random.Range(2, 6);
             if (n == 0) 
             {
                 tween = Tween.UIAnchoredPositionX(tankTrasform, endValue:Random.Range(50,75), duration:d);
-                //yield return new WaitForSeconds(d);
-                for (int i = 0; i < d + 1; i++)
-                {
-                    yield return new WaitForSeconds(1);
-                    if (!lastMovingStatus)
-                    {
-                        Debug.Log($"Stop MovingAuto {i}");
-                        break;
-                    }
-                }
-
+                yield return new WaitForSeconds(d);
             }
             else
             {
                 tween = Tween.UIAnchoredPositionX(tankTrasform, endValue: Random.Range(-75, -50), duration: d+3);
-                //yield return new WaitForSeconds(d);
-                for (int i = 0; i < d + 4; i++)
-                {
-                    yield return new WaitForSeconds(1);
-                    if (!lastMovingStatus)
-                    {
-                        Debug.Log($"Stop MovingAuto {i}");
-                        break;
-                    }
-                }
+                yield return new WaitForSeconds(d+3);
             }
             n = n == 0 ? 1 : 0;
         }

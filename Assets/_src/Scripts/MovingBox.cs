@@ -19,7 +19,7 @@ public class MovingBox : MonoBehaviour
     [SerializeField] float screenLimit;
     [SerializeField] float maxDistance;
     [SerializeField] Slider slider;
-
+    [SerializeField] Tween tween;
 
     private void OnEnable()
     {
@@ -27,6 +27,11 @@ public class MovingBox : MonoBehaviour
         boxDistance = thisBox.anchoredPosition.x;
         screenLimit = (Screen.width - (margin * Screen.width) + (Screen.width / 3)) / 2;
         GoToCenter();
+    }
+
+    private void OnDisable()
+    {
+        boxIndicador.SetActive(false);
     }
 
     private void Update()
@@ -59,13 +64,17 @@ public class MovingBox : MonoBehaviour
     }
     public void GoToCenter()
     {
-        Tween.UIAnchoredPositionX(thisBox, endValue: 0, duration: duration,Ease.Linear);
+        tween = Tween.UIAnchoredPositionX(thisBox, endValue: 0, duration: duration,Ease.Linear);
         boxIndicador.SetActive(true);
     }
 
     public void GoToOrigin()
     {
-        Tween.UIAnchoredPositionX(thisBox, endValue: initPosition, duration: 0);
+       tween =Tween.UIAnchoredPositionX(thisBox, endValue: initPosition, duration: 0);
     }
 
+    public void Stop()
+    {
+        tween.Stop();
+    }
 }

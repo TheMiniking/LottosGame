@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
     //---------------------------------
     [SerializeField] public int selectedTankNum;
 
-
+    [SerializeField, Tooltip("Velocidade do Fundo : Base = 1f")] public float paralaxVelocity = 1f;
     void Awake()
     {
         Instance = this;
@@ -58,8 +58,7 @@ public class GameManager : MonoBehaviour
         CanvasManager.Instance.betModButtons[6]?.onClick.AddListener(() => ModValorBet(true, 100));
         CanvasManager.Instance.betInput.onEndEdit.AddListener(x =>
         {
-            int n = 0;
-            int.TryParse(x, out n);
+            int.TryParse(x, out int n);
             n = (n < 1) ? 1 : ((n > 100) ? 100 : n);
             SetBet(n);
         });

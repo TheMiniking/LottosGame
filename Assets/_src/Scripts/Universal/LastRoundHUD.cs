@@ -23,13 +23,13 @@ public class LastRoundHUD : MonoBehaviour
         round.alpha = 0;
     }
 
-    internal void Set(LastMultiTriple _bet)
+    internal void Set(LastMulti _bet)
     {
         int best = 0;
         for (int i = 0; i < _bet.multis.Length; i++)
         {
-            bets[i].text = $"x {_bet.multis[i]:0.00}";
-            best = _bet.multis[i] > _bet.multis[best] ? i : best;
+            bets[i].text = $"x {_bet.multis[i].multiply:0.00}";
+            best = _bet.multis[i].multiply > _bet.multis[best].multiply ? i : best;
         }
         winner.ForEach(x => x.alpha = winner.IndexOf(x) == best ? 1 : 0);
         round.alpha = 1;

@@ -1,4 +1,5 @@
 ﻿using Christina.UI;
+using PrimeTween;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,24 +14,24 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] public bool onTest = false;
     public static CanvasManager Instance;
     [SerializeField] Canvas Canvas;
-    [SerializeField] public TMP_Text betValueText, cashoutValueText,roundsTextII;
-    [SerializeField] public TMP_InputField betInput, autoCashOutInput;
-    [SerializeField] public TMP_Text betButtonText, roundsText, timerText, multiplierText,multiplierTextMensage, messageText, balanceText, inPlayersText, inPlayersWinnersText, totalWinAmountText;
-    [SerializeField] public Slider autoCashOutToggle, autoPlayToggle, roundsSlider;
-    [SerializeField] public List<Button> roundsButton = new();
-    [SerializeField] public List<Sprite> buttonsSpites = new();
-    [SerializeField] public List<Button> betModButtons = new(); // 0= up , 1 = down, 2-6 = +5/+10/+25/+50/Max 
-    [SerializeField] public Button betButton, crashOutButtonAdd, crashOutButtonSub, configButton;
-    [SerializeField] public Animator messageAnimator, playerAnimator;
-    [SerializeField] public List<LastRoundHUD> multipliersSlots = new();
-    [SerializeField] public List<LastRoundHUD> multipliersSlotsFivity = new();
-    [SerializeField] public List<LastMultiTriple> multipliers, multipliersFivity = new();
-    [SerializeField] public List<BetPlayersHud> betSlots = new();
-    [SerializeField] public int playerInBet, playerInBetWinners;
-    [SerializeField] public float totalWinAmount = 0f;
-    [SerializeField] public GameObject configObj;
-    [SerializeField] public float balanceVal,betVal;
-    [SerializeField] int betButtonStatus;//0 = Bet, 1 = Cancel, 2 = Stop, 3 = Cant Bet
+    public TMP_Text betValueText, cashoutValueText,roundsTextII;
+    public TMP_InputField betInput, autoCashOutInput;
+    public TMP_Text betButtonText, roundsText, timerText, multiplierText,multiplierTextMensage, messageText, balanceText, inPlayersText, inPlayersWinnersText, totalWinAmountText;
+    public Slider autoCashOutToggle, autoPlayToggle, roundsSlider;
+    public List<Button> roundsButton = new();
+    public List<Sprite> buttonsSpites = new();
+    public List<Button> betModButtons = new(); // 0= up , 1 = down, 2-6 = +5/+10/+25/+50/Max 
+    public Button betButton, crashOutButtonAdd, crashOutButtonSub, configButton;
+    public Animator messageAnimator, player0Animator, player1Animator, player2Animator;
+    public List<LastRoundHUD> multipliersSlots = new();
+    public List<LastRoundHUD> multipliersSlotsFivity = new();
+    public List<LastMulti> multipliers, multipliersFivity = new();
+    public List<BetPlayersHud> betSlots = new();
+    public int playerInBet, playerInBetWinners;
+    public float totalWinAmount = 0f;
+    public GameObject configObj;
+    public float balanceVal,betVal;
+    [SerializeField]int betButtonStatus;//0 = Bet, 1 = Cancel, 2 = Stop, 3 = Cant Bet
 
     //[Header("Rank")]
     ////-------------Rank-----------------
@@ -57,10 +58,16 @@ public class CanvasManager : MonoBehaviour
 
     //[SerializeField] Tutorial tutorial;
 
-    [SerializeField] List<Player> tankList = new ();
+    [SerializeField] public List<Player> tankList = new ();
     [SerializeField] List<Sprite> tankSprites = new();
     [SerializeField] List<Image> selectedTankSprites = new ();
     [SerializeField] Image selTank,selTankBig;
+    [SerializeField] GameObject canvasSelectTank;
+    [SerializeField] TMP_Text timerTextSelectTank;
+    public RectTransform aviao;
+    public List<GameObject> bonus;
+    public float aviaoDistance;
+    public float aviaoaAntecipation;
 
     void Awake()
     {
@@ -102,6 +109,11 @@ public class CanvasManager : MonoBehaviour
     public void ShowLoadingPanel(bool value)
     {
         loadingPanel.SetActive(value);
+    }
+
+    public void ShowCanvasSelectTank(bool value)
+    {
+        canvasSelectTank.SetActive(value);
     }
 
     public void SelectTank(int value)
@@ -156,6 +168,7 @@ public class CanvasManager : MonoBehaviour
     {
         if(ClientCommands.Instance.onTutorial && tutorial == false) return;
         timerText.text = $"{value:00:00}";
+        timerTextSelectTank.text = $"{value:00:00}";
     }
 
     public void SetMultiplierText(float value, bool? tutorial = false)
@@ -168,6 +181,20 @@ public class CanvasManager : MonoBehaviour
     {
         messageText.text = msg;
         messageAnimator.Play("PopUp");
+    }
+
+    public void PlayBonus(BonusDrop b)
+    {
+        Tween.UIAnchoredPositionX(aviao, endValue: Screen.width + aviaoDistance, duration: aviaoaAntecipation, ease: Ease.Linear)
+            .OnComplete(() => {
+                aviao.anchoredPosition = new Vector2(0, 0);
+                if (!GameManager.Instance.fundoOnMove)
+                {
+                    return;
+                }
+                bonus.ForEach(x => x.SetActive(false));
+                bonus.ForEach(x => x.SetActive(true));
+            }); ;
     }
 
     public void SetBetButtonBet()
@@ -227,12 +254,50 @@ public class CanvasManager : MonoBehaviour
             traduction switch { 0 => "Bet Multiplier :", 1 => "Multiplicador de Aposta :", _ => "Bet Multiplier :" };
     }
 
-    public void SetPlayerState(string str)
+    public void SetPlayerStateX(string str,int tank, bool? all = false)
     {
-        playerAnimator.Play(str);
+        if (all == true)
+        {
+            player0Animator.Play(str);
+            player1Animator.Play(str);
+            player2Animator.Play(str);
+        }
+        else
+        {
+            switch (tank)
+            {
+            case 0:
+                player0Animator.Play(str);
+                break;
+            case 1:
+                player1Animator.Play(str);
+                break;
+            case 2:
+                player2Animator.Play(str);
+                break;
+            case 3:
+                break;
+            }
+
+        }
     }
 
-    public void SetLastPlays(LastMultiTriple multply)
+    public void SetPlayerState( int tank,bool? running, bool? all = false)
+    {
+        if (all == true)
+        {
+            if(running == null)
+                tankList.ForEach(x => x.Reset());
+            else
+                tankList.ForEach(x => x.Walking((bool)running));
+        }
+        else
+        {
+            tankList[tank].Walking((bool)running);
+        }
+    }
+
+    public void SetLastPlays(LastMulti multply)
     {
         multipliers.Add(multply);
         multipliersFivity.Insert(0,multply);
@@ -250,7 +315,7 @@ public class CanvasManager : MonoBehaviour
         SetSlotFivity(multply);
     }
 
-    public void SetSlot(LastMultiTriple multply)
+    public void SetSlot(LastMulti multply)
     {
         LastRoundHUD slot = multipliersSlots.Last();
         slot.Set(multply);
@@ -259,7 +324,7 @@ public class CanvasManager : MonoBehaviour
         multipliersSlots.Insert(0, slot);
     }
 
-    public void SetSlotFivity(LastMultiTriple multply)
+    public void SetSlotFivity(LastMulti multply)
     {
         LastRoundHUD slot = multipliersSlotsFivity.Last();
         slot.Set(multply);
@@ -408,16 +473,6 @@ public class CanvasManager : MonoBehaviour
     {
         traduction = trad;
         GameManager.Instance.traduction = trad;
-        //switch (trad)
-        //{
-        //    case 0:
-        //        tradTexts.ForEach(x => x.text = GameManager.Instance.tradEnglish[tradTexts.IndexOf(x)]);
-        //        break;
-        //    case 1:
-        //        tradTexts.ForEach(x => x.text = GameManager.Instance.tradPortugues[tradTexts.IndexOf(x)]);
-        //        break;
-        //}
-        //betSlots.ForEach(x => x.Reload());
         balanceText.text = $"{GameManager.Instance.MoedaAtual()} {balanceVal:#,0.00}";
         betInput.text = $" {GameManager.Instance.MoedaAtual()} {betVal}";
         betValueText.text = $" {GameManager.Instance.MoedaAtual()} {betVal}";
