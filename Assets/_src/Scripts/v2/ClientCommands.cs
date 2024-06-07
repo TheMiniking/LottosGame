@@ -16,8 +16,8 @@ public class ClientCommands : WebClientBase
     [SerializeField] string token;
     [SerializeField] bool debug = true;
     public string playerName;
-    public bool isRunning, onConnect=false;
-    Conection data ;
+    public bool isRunning, onConnect = false;
+    Conection data;
     public bool onTutorial = false;
     [SerializeField] public int atualStatus;// 0: Timer 1: round 2: Crash 3:OutRound
     [SerializeField] string urltoken;
@@ -53,7 +53,7 @@ public class ClientCommands : WebClientBase
         {
             CreateConnection((BuildType == BuildType.Dev) ? urlDev : urlTest, token);
         }
-        data = new Conection() { data =new byte[] { 255, 255 } };
+        data = new Conection() { data = new byte[] { 255, 255 } };
         onConnect = true;
         TryConnect();
     }
@@ -81,7 +81,7 @@ public class ClientCommands : WebClientBase
         }
         return "0";
     }
-    
+
     [ContextMenu("Get Parameters")]
     public void GetParameters()
     {
@@ -94,7 +94,7 @@ public class ClientCommands : WebClientBase
             urltoken = queryParams["token"];
             urlLanguage = queryParams["language"]; //pt,en,es
         }
-        CanvasManager.Instance.SetTraduction(urlLanguage switch { "pt" => 1,"PT" => 1,"Pt" => 1, "en" => 0, "EN" => 0, "En" => 0, _ => 0 });
+        CanvasManager.Instance.SetTraduction(urlLanguage switch { "pt" => 1, "PT" => 1, "Pt" => 1, "en" => 0, "EN" => 0, "En" => 0, _ => 0 });
     }
 
 
@@ -144,13 +144,15 @@ public class ClientCommands : WebClientBase
 
         if (msg.data.id == 0)// Start Timer
         {
+            CanvasManager.Instance.tankList.ForEach(x => x.lastTank = false);
             CanvasManager.Instance.bonus.ForEach(x => x.gameObject.SetActive(false));
+            CanvasManager.Instance.ResetBonus();
             CanvasManager.Instance.ResetBets();
             GameManager.Instance.NewMatchInit();            // AutoPlay Start
             StartCoroutine(GameManager.Instance.DisplayTimer(msg.data.value));
             CanvasManager.Instance.SetBetButtonBet();
             CanvasManager.Instance.SetMultiplierTextMensage(true);
-            CanvasManager.Instance.SetPlayerState(0, null,true);
+            CanvasManager.Instance.SetPlayerState(0, null, true);
             CanvasManager.Instance.ShowCanvasSelectTank(true);
             atualStatus = 0;
         }
@@ -181,16 +183,16 @@ public class ClientCommands : WebClientBase
                     break;
             }
             Crash(new Crash { multply = msg.data.value }, msg.data.tankid);
-            if(GameManager.Instance.selectedTankNum == msg.data.tankid)
+            if (GameManager.Instance.selectedTankNum == msg.data.tankid)
             {
                 GameManager.Instance.isJoin = false;
             }
-            if(!tank1OnRunning && !tank2OnRunning && !tank3OnRunning)
+            if (!tank1OnRunning && !tank2OnRunning && !tank3OnRunning)
             {
-                if(slots.multis[0].multiply != 0 && slots.multis[1].multiply != 0 && slots.multis[2].multiply != 0)
+                if (slots.multis[0].multiply != 0 && slots.multis[1].multiply != 0 && slots.multis[2].multiply != 0)
                 {
-                     CanvasManager.Instance.SetLastPlays(slots);
-                } 
+                    CanvasManager.Instance.SetLastPlays(slots);
+                }
                 slots = new() { multis = new multiplier[3] { new multiplier { multiply = 0, tankid = 0 }, new multiplier { multiply = 0, tankid = 1 }, new multiplier { multiply = 0, tankid = 2 } } };
                 isRunning = false;
                 CanvasManager.Instance.tankList.ForEach(x => x.Stop());
@@ -205,7 +207,7 @@ public class ClientCommands : WebClientBase
             }
             StartCoroutine(ConfirmConnection());
             atualStatus = 2;
-            
+
         }
         else if (msg.data.id == 3) // Join Round
         {
@@ -280,9 +282,22 @@ public class ClientCommands : WebClientBase
     {
         if (debug)
         {
-            Debug.Log("[Servidor] BonusDropResponse");
+            Debug.Log($"[Servidor] BonusDropResponse {msg.prize}");
         }
-        CanvasManager.Instance.PlayBonus(msg);
+        if (msg.prize == 0 && msg.matchId == 0)
+        {
+            CanvasManager.Instance.PlayBonus(msg);
+            CanvasManager.Instance.tankList.ForEach(x => x.lastTank = true);
+        } else if (msg.matchId != 0 && msg.prize == 0)
+        {
+            Debug.Log($"[Servidor] BonusDropResponse Boom");
+        }
+        else
+            
+        {
+            CanvasManager.Instance.ShowBonus(msg.prize);
+        }
+        
     }
 
     public void SendBet()
@@ -555,8 +570,8 @@ public class LastMultiFivity : INetSerializable
 public class BonusDrop : INetSerializable
 {
     public int matchId;
-    public int prize;
-    public int time;
+    public float prize;
+    public double time;
 
     public void Deserialize(DataReader reader)
     {

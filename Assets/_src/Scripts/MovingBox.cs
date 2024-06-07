@@ -10,7 +10,9 @@ public class MovingBox : MonoBehaviour
 {
     [SerializeField] RectTransform thisBox;
     [SerializeField] float initPosition;
+    [SerializeField] float loopPosition;
     [SerializeField] float duration;
+    [SerializeField] float durationLoop;
     [SerializeField] public float boxDistance;
     [SerializeField] GameObject boxIndicador,boxIndicador2,paraquedas;
     [SerializeField] TMP_Text indicador,indicador2;
@@ -58,8 +60,7 @@ public class MovingBox : MonoBehaviour
         }
         if(boxDistance == 0)
         {
-            GoToOrigin();
-            thisBox.gameObject.SetActive(false);
+            GoToLoop();
         }
     }
     public void GoToCenter()
@@ -71,6 +72,13 @@ public class MovingBox : MonoBehaviour
     public void GoToOrigin()
     {
        tween =Tween.UIAnchoredPositionX(thisBox, endValue: initPosition, duration: 0);
+    }
+    public void GoToLoop()
+    {
+        tween = Tween.UIAnchoredPositionX(thisBox, endValue: loopPosition, duration: 0);
+        boxDistance = loopPosition;
+        tween = Tween.UIAnchoredPositionX(thisBox, endValue: 0, duration: durationLoop, Ease.Linear);
+        boxIndicador.SetActive(true);
     }
 
     public void Stop()

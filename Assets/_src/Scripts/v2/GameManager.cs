@@ -352,6 +352,7 @@ public class GameManager : MonoBehaviour
         float timer = Time.time - multiSum;
         while (true)
         {
+            
             multiplier = MultiplierCalculator(Time.time - timer);
             if (isJoin)
             {
@@ -363,10 +364,24 @@ public class GameManager : MonoBehaviour
             yield return new WaitForSeconds(0.03f);
         }
     }
-    float MultiplierCalculator(float tempoDecorrido)
+
+    //float MultiplierCalculator(float tempoDecorrido)
+    //{
+    //    //Debug.Log("MultiplierCalculator " + tempoDecorrido);
+    //    return 1.01f + (2 * Mathf.Pow(tempoDecorrido / 10, 1.5f));
+    //}
+
+    public float MultiplierCalculator(float tempoDecorrido)
     {
-        //Debug.Log("MultiplierCalculator " + tempoDecorrido);
-        return 1.01f + (2 * Mathf.Pow(tempoDecorrido / 10, 1.5f));
+        float Mf = 998.99f;
+        float Mi = 1.01f;
+        float Tf = 120f;
+        float C = 2.2f;
+        float Ta = tempoDecorrido;
+
+        float Ma = Mi + Mathf.Pow(1 / ((1 / Ta) * Tf), C) * Mf;
+
+        return Ma;
     }
 
     public void ResetVelocityParalax()

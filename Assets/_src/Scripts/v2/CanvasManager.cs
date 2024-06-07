@@ -68,6 +68,8 @@ public class CanvasManager : MonoBehaviour
     public List<GameObject> bonus;
     public float aviaoDistance;
     public float aviaoaAntecipation;
+    [SerializeField] TMP_Text bonusTxt;
+    [SerializeField] float bonusTotal;
 
     void Awake()
     {
@@ -181,6 +183,18 @@ public class CanvasManager : MonoBehaviour
     {
         messageText.text = msg;
         messageAnimator.Play("PopUp");
+    }
+
+    public void ShowBonus(float value)
+    {
+        bonusTotal += value;
+        bonusTxt.text = $"x {bonusTotal :0.00}";
+    }
+
+    public void ResetBonus()
+    {
+        bonusTotal = 0;
+        bonusTxt.text = $"x {bonusTotal :0.00}";
     }
 
     public void PlayBonus(BonusDrop b)

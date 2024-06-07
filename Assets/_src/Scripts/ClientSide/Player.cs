@@ -19,8 +19,8 @@ public class Player : MonoBehaviour
     [SerializeField] Tween tween;
 
     [SerializeField] BetPlayersHud tankBet;
-    [SerializeField] GameObject explosionFX , fireFX , concertarFX ; 
- 
+    [SerializeField] GameObject explosionFX , fireFX , concertarFX ;
+    [SerializeField] public bool lastTank = false;
     void Start()
     {
 
@@ -136,21 +136,24 @@ public class Player : MonoBehaviour
     public IEnumerator MovingAuto()
     {
         var n = Random.Range(0, 2);
-        while (lastMovingStatus)
+        while (lastMovingStatus && !lastTank)
         {
             tween.Stop();
             int d = Random.Range(2, 6);
-            if (n == 0) 
-            {
-                tween = Tween.UIAnchoredPositionX(tankTrasform, endValue:Random.Range(50,75), duration:d);
-                yield return new WaitForSeconds(d);
-            }
-            else
-            {
-                tween = Tween.UIAnchoredPositionX(tankTrasform, endValue: Random.Range(-75, -50), duration: d+3);
-                yield return new WaitForSeconds(d+3);
-            }
+                if (n == 0)
+                {
+                    tween = Tween.UIAnchoredPositionX(tankTrasform, endValue: Random.Range(50, 75), duration: d);
+                    yield return new WaitForSeconds(d);
+                }
+                else
+                {
+                    tween = Tween.UIAnchoredPositionX(tankTrasform, endValue: Random.Range(-75, -50), duration: d + 3);
+                    yield return new WaitForSeconds(d + 3);
+                }
             n = n == 0 ? 1 : 0;
+        }if(lastTank && lastMovingStatus)
+        {
+            tween = Tween.UIAnchoredPositionX(tankTrasform, endValue: 0, duration: 1);
         }
         Debug.Log("End MovingAuto");
     }
