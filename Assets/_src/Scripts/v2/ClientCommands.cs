@@ -284,14 +284,12 @@ public class ClientCommands : WebClientBase
         {
             Debug.Log($"[Servidor] BonusDropResponse {msg.prize}");
         }
-        if (msg.prize == 0 && msg.matchId == 0)
+        if (msg.prize == 0 )
         {
+            if (msg.matchId != 0) Debug.Log("Boom!");
             CanvasManager.Instance.PlayBonus(msg);
             CanvasManager.Instance.tankList.ForEach(x => x.lastTank = true);
-        } else if (msg.matchId != 0 && msg.prize == 0)
-        {
-            Debug.Log($"[Servidor] BonusDropResponse Boom");
-        }
+        } 
         else
             
         {
