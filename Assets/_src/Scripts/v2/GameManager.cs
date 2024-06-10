@@ -47,6 +47,7 @@ public class GameManager : MonoBehaviour
     {
         Screen.sleepTimeout = SleepTimeout.NeverSleep; // disable screen sleep
         Application.targetFrameRate = 120;
+        roundsFivityOBJ.SetActive(false);
         SetScreenMode();
         roundsFivityOBJ.SetActive(false);
         CanvasManager.Instance.betModButtons[0].onClick.AddListener(() => ModValorBet(true, 1));
@@ -228,8 +229,8 @@ public class GameManager : MonoBehaviour
     #region Automatic
 
 
-    [SerializeField] bool activeAutoPlay;
-    [SerializeField] bool activeAutoCashOut;
+    [SerializeField] public bool activeAutoPlay;
+    [SerializeField] public bool activeAutoCashOut;
     //quando inicia o tempo pra entrar na partida
     public void NewMatchInit()
     {

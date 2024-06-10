@@ -2,6 +2,9 @@
 using Serializer;
 using System;
 using System.Collections;
+using System.Collections.Specialized;
+using System.Globalization;
+using System.Text;
 using System.Web;
 using UnityEngine;
 
@@ -25,6 +28,9 @@ public class ClientCommands : WebClientBase
     [SerializeField] public bool tank1OnRunning, tank2OnRunning, tank3OnRunning;
     [SerializeField] LastMulti slots = new() { multis = new multiplier[3] { new multiplier { multiply = 0, tankid = 0 }, new multiplier { multiply = 0, tankid = 1 }, new multiplier { multiply = 0, tankid = 2 } } };
 
+    [SerializeField] bool onBonusDrop = false;
+    string urlCallback ;
+
     void Awake()
     {
         Instance = this;
@@ -44,15 +50,20 @@ public class ClientCommands : WebClientBase
         RegisterHandler<BonusDrop>(BonusDropResponse, (ushort)ReceiveMsgIdc.BonusDrop);
 #if UNITY_WEBGL && !UNITY_EDITOR
         token = GetTokenID();
-#endif
+
         if (uselocalhost)
         {
             CreateConnection(urlLocalhost, token);
         }
         else
         {
-            CreateConnection((BuildType == BuildType.Dev) ? urlDev : urlTest, token);
+        CreateConnection(GetUrl(), token);
         }
+#else
+        CreateConnection(GetUrl(), token);
+        
+#endif        
+        GetParameters();
         data = new Conection() { data = new byte[] { 255, 255 } };
         onConnect = true;
         TryConnect();
@@ -62,7 +73,6 @@ public class ClientCommands : WebClientBase
     protected override void OnOpen()
     {
         CanvasManager.Instance.ShowLoadingPanel(false);
-        GetParameters();
         base.OnOpen();
     }
 
@@ -83,20 +93,82 @@ public class ClientCommands : WebClientBase
     }
 
     [ContextMenu("Get Parameters")]
+    //public void GetParameters()
+    //{
+    //    int pm = Application.absoluteURL.IndexOf("?");
+    //    if (pm != -1)
+    //    {
+    //        var queryString = Application.absoluteURL.Split("?")[1];
+    //        var queryParams = HttpUtility.ParseQueryString(queryString);
+
+    //        urltoken = queryParams["token"];
+    //        urlLanguage = queryParams["language"]; //pt,en,es
+    //    }
+    //    CanvasManager.Instance.SetTraduction(urlLanguage switch { "pt" => 1, "PT" => 1, "Pt" => 1, "en" => 0, "EN" => 0, "En" => 0, _ => 0 });
+    //}
     public void GetParameters()
     {
         int pm = Application.absoluteURL.IndexOf("?");
         if (pm != -1)
         {
-            var queryString = Application.absoluteURL.Split("?")[1];
-            var queryParams = HttpUtility.ParseQueryString(queryString);
+            string queryString = Application.absoluteURL.Split("?")[1];
+            NameValueCollection queryParams = HttpUtility.ParseQueryString(queryString);
 
-            urltoken = queryParams["token"];
-            urlLanguage = queryParams["language"]; //pt,en,es
+            urltoken = queryParams["t"];
+            byte[] tokenBytes = Convert.FromBase64String(urltoken);
+            string decodedString = Encoding.UTF8.GetString(tokenBytes);
+            string l = queryParams["h"];// rr = pt,ss = en, zz = es
+            CanvasManager.Instance.SetTraduction(l switch { "rr" => 1, "ss" => 0, "zz" => 2, _ => 0 });
+            urlCallback = queryParams["cb"];
+            string c = queryParams["g"];
+            //if (c == "zzz")
+            //{
+            //    GameManager.instance.Culture = CultureInfo.GetCultureInfo("pt-BR");
+            //}
+            //else if (c == "aaa")
+            //{
+            //    GameManager.instance.Culture = CultureInfo.GetCultureInfo("en-US");
+            //}
+            //else if (c == "sss")
+            //{
+            //    GameManager.instance.Culture = CultureInfo.GetCultureInfo("de-DE");
+            //}
+            //else
+            //{
+            //    GameManager.instance.Culture = CultureInfo.GetCultureInfo("pt-BR");
+            //}
+            if (debug)
+            {
+                Debug.Log("####### urltoken ####### " + urltoken);
+                Debug.Log("####### currency ####### " + c);
+                Debug.Log("####### language ####### " + l);
+            }
         }
-        CanvasManager.Instance.SetTraduction(urlLanguage switch { "pt" => 1, "PT" => 1, "Pt" => 1, "en" => 0, "EN" => 0, "En" => 0, _ => 0 });
     }
+    string GetUrl()
+    {
+        byte[] tokenBytes = Convert.FromBase64String(urltoken);
+        string decodedString = Encoding.UTF8.GetString(tokenBytes);
+        string[] parts = decodedString.Split('|');
+        if ((parts.Length < 5) || (parts.Length > 6) || string.IsNullOrEmpty(parts[3]))
+        {
+            Debug.LogError("invalid token.");
+            return string.Empty;
+        }
+        string server = parts[3];
+        if (BuildType == BuildType.Dev)
+        {
+            server += "test." + urlDev;
+        }
+        else
+        {
+            server += "." + urlTest;
+        }
 
+        string nurl = $"wss://{server}";
+        Debug.Log("nurl " + nurl);
+        return nurl;
+    }
 
     double balance = 0f;
     int bet = 0;
@@ -153,7 +225,7 @@ public class ClientCommands : WebClientBase
             CanvasManager.Instance.SetBetButtonBet();
             CanvasManager.Instance.SetMultiplierTextMensage(true);
             CanvasManager.Instance.SetPlayerState(0, null, true);
-            CanvasManager.Instance.ShowCanvasSelectTank(true);
+            CanvasManager.Instance.ShowCanvasSelectTank(!GameManager.Instance.activeAutoPlay);
             atualStatus = 0;
         }
         else if (msg.data.id == 1)// Start Round 
@@ -286,14 +358,25 @@ public class ClientCommands : WebClientBase
         }
         if (msg.prize == 0 )
         {
-            if (msg.matchId != 0) Debug.Log("Boom!");
-            CanvasManager.Instance.PlayBonus(msg);
-            CanvasManager.Instance.tankList.ForEach(x => x.lastTank = true);
+            if (msg.matchId != 0 && onBonusDrop) 
+            { 
+                Debug.Log("Boom");
+                CanvasManager.Instance.bonus.ForEach(x => x.GetComponent<MovingBox>().popUpText.text = "BOOM");
+            }
+            else
+            {
+                onBonusDrop = true;
+                CanvasManager.Instance.PlayBonus(msg);
+                CanvasManager.Instance.tankList.ForEach(x => x.lastTank = true);
+                if (debug) Debug.Log("start bonus");
+
+            }
         } 
         else
-            
         {
+            CanvasManager.Instance.bonus.ForEach(x => x.GetComponent<MovingBox>().popUpText.text = $"x {msg.prize:0.00}");
             CanvasManager.Instance.ShowBonus(msg.prize);
+            if (debug) Debug.Log($"Get bonus{msg.prize}");
         }
         
     }
@@ -303,10 +386,9 @@ public class ClientCommands : WebClientBase
         if (onTutorial) return;
         if (debug)
         {
-            Debug.Log("[Client] Send Bet");
+            Debug.Log($"[Client] Send Bet tank : {GameManager.Instance.selectedTankNum}");
         }
-
-        SendMsg((ushort)SendMsgIdc.PlayRequest, new PlayRequest ((byte)UnityEngine.Random.Range(0, 3)));// tankid = 0,1,2
+        SendMsg((ushort)SendMsgIdc.PlayRequest, new PlayRequest ((byte)GameManager.Instance.selectedTankNum));// tankid = 0,1,2
     }
 
     public void StartRun(StartRun msg, bool? tutorial = false)
@@ -333,6 +415,7 @@ public class ClientCommands : WebClientBase
         CanvasManager.Instance.SetPlayerState(tankid,false);
         AudioManager.Instance.StopResumeSFX(true);
         AudioManager.Instance.PlayOneShot(2);
+        onBonusDrop = false;
         switch (tankid)
         {
             case 0:

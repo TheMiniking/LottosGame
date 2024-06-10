@@ -22,6 +22,8 @@ public class MovingBox : MonoBehaviour
     [SerializeField] float maxDistance;
     [SerializeField] Slider slider;
     [SerializeField] Tween tween;
+    [SerializeField] Animator popUp;
+    [SerializeField] public TMP_Text popUpText;
 
     private void OnEnable()
     {
@@ -60,6 +62,7 @@ public class MovingBox : MonoBehaviour
         }
         if(boxDistance == 0)
         {
+            popUp.Play("PopUp");
             GoToLoop();
         }
     }
