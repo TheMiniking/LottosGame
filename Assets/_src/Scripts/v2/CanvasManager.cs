@@ -81,18 +81,15 @@ public class CanvasManager : MonoBehaviour
     {
         //ShowPlayers();
         ResetBets();
-        tradDropdown.onValueChanged.AddListener(delegate { SetTraduction(tradDropdown.value); });
+        tradDropdown.onValueChanged.AddListener(delegate { LanguageManager.instance.ChangeLanguage(tradDropdown.value); });
         tradDropdown.onValueChanged.AddListener(x => bandeira.sprite = bandeiras[x]);
-        tradDropdown.value = ClientCommands.Instance.defaultLanguage;
         //rankButton.onClick.AddListener(ShowRank);
         configButton.onClick.AddListener(() => configObj.SetActive(!configObj.activeSelf));
         //playerButton.onClick.AddListener(ShowPlayers);
         betButton.onClick.AddListener(() => BetMensages());
-        //showTutorial.onClick.AddListener(ShowTutorial);
         if (!PlayerPrefs.HasKey("traduction")) PlayerPrefs.SetInt("traduction",0);
         SetTraduction(PlayerPrefs.GetInt("traduction"));
         if (!PlayerPrefs.HasKey("tutorial")) PlayerPrefs.SetInt("tutorial", 0);
-        //tutorial.gameObject.SetActive(PlayerPrefs.GetInt("tutorial") == 0);
     }
 
     void Update()

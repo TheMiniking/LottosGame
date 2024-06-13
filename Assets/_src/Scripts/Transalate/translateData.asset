@@ -89,6 +89,12 @@ MonoBehaviour:
       Value: about
     - Key: corfirm
       Value: Confirmar
+    - Key: tank1
+      Value: Tank 1
+    - Key: tank2
+      Value: Tank 2
+    - Key: tank3
+      Value: Tank 3
   - name: pt
     keyValues:
     - Key: connect
@@ -100,7 +106,7 @@ MonoBehaviour:
     - Key: balance
       Value: "Balan\xE7o"
     - Key: yourtank
-      Value: Seu Tank
+      Value: Seu Tanque
     - Key: nextround
       Value: 'Proxima Rodada em :'
     - Key: lastrounds
@@ -165,6 +171,12 @@ MonoBehaviour:
       Value: sobre
     - Key: corfirm
       Value: Confirmar
+    - Key: tank1
+      Value: Tanque 1
+    - Key: tank2
+      Value: Tanque 2
+    - Key: tank3
+      Value: Tanque 3
   - name: es
     keyValues:
     - Key: connect
@@ -241,3 +253,9 @@ MonoBehaviour:
       Value: sobre
     - Key: corfirm
       Value: Confirmar
+    - Key: tank1
+      Value: Tanque 1
+    - Key: tank2
+      Value: Tanque 2
+    - Key: tank3
+      Value: Tanque 3

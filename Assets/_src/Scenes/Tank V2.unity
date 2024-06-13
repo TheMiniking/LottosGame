@@ -10431,13 +10431,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 298962935}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0a80cbff0461c84186297a19859da59, type: 3}
+  m_Script: {fileID: 11500000, guid: ab822a2841c64ca48a4653e1d38b5e11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textToTranslate: {fileID: 298962937}
-  languages:
-  - Bet
-  - Aposta
+  value: {fileID: 298962937}
+  value2: {fileID: 0}
+  key: bet
 --- !u!1 &300382552
 GameObject:
   m_ObjectHideFlags: 0
@@ -16003,6 +16002,7 @@ GameObject:
   - component: {fileID: 449273369}
   - component: {fileID: 449273371}
   - component: {fileID: 449273370}
+  - component: {fileID: 449273372}
   m_Layer: 0
   m_Name: TX_TankTitle
   m_TagString: Untagged
@@ -16126,6 +16126,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 449273368}
   m_CullTransparentMesh: 1
+--- !u!114 &449273372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 449273368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab822a2841c64ca48a4653e1d38b5e11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  value: {fileID: 449273370}
+  value2: {fileID: 0}
+  key: tank3
 --- !u!1001 &453840083
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -28831,6 +28846,7 @@ GameObject:
   - component: {fileID: 886513643}
   - component: {fileID: 886513645}
   - component: {fileID: 886513644}
+  - component: {fileID: 886513646}
   m_Layer: 0
   m_Name: TX_TankTitle
   m_TagString: Untagged
@@ -28954,6 +28970,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 886513642}
   m_CullTransparentMesh: 1
+--- !u!114 &886513646
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 886513642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab822a2841c64ca48a4653e1d38b5e11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  value: {fileID: 886513644}
+  value2: {fileID: 0}
+  key: tank2
 --- !u!1 &890141593
 GameObject:
   m_ObjectHideFlags: 0
@@ -52172,13 +52203,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1618943371}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0a80cbff0461c84186297a19859da59, type: 3}
+  m_Script: {fileID: 11500000, guid: ab822a2841c64ca48a4653e1d38b5e11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textToTranslate: {fileID: 1618943373}
-  languages:
-  - Multiply
-  - Multiplicador
+  value: {fileID: 1618943373}
+  value2: {fileID: 0}
+  key: multiply
 --- !u!1 &1620417993
 GameObject:
   m_ObjectHideFlags: 0
@@ -65790,6 +65820,7 @@ GameObject:
   - component: {fileID: 2039042412}
   - component: {fileID: 2039042411}
   - component: {fileID: 2039042413}
+  - component: {fileID: 2039042414}
   m_Layer: 0
   m_Name: Tradution Idioma
   m_TagString: Untagged
@@ -65897,7 +65928,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 2039042411}
   m_Template: {fileID: 1790166377}
   m_CaptionText: {fileID: 389099685}
@@ -65918,6 +65949,18 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_AlphaFadeSpeed: 0.15
+--- !u!114 &2039042414
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2039042409}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a35ba43ea069f484a983c4e8af62aa15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2039215424
 GameObject:
   m_ObjectHideFlags: 0
@@ -68645,6 +68688,7 @@ GameObject:
   - component: {fileID: 2125362845}
   - component: {fileID: 2125362847}
   - component: {fileID: 2125362846}
+  - component: {fileID: 2125362848}
   m_Layer: 0
   m_Name: TX_TankTitle
   m_TagString: Untagged
@@ -68768,6 +68812,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2125362844}
   m_CullTransparentMesh: 1
+--- !u!114 &2125362848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2125362844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab822a2841c64ca48a4653e1d38b5e11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  value: {fileID: 2125362846}
+  value2: {fileID: 0}
+  key: tank1
 --- !u!224 &2126147583 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 9194391870421243000, guid: cf6b73a3e95e2004e95316cf7004aaa3, type: 3}

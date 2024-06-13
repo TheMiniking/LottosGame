@@ -91,6 +91,7 @@
     <Compile Include="Assets\_src\Scripts\ClientSide\FundoGuerra.cs" />
     <Compile Include="Assets\JMO Assets\Cartoon FX (legacy)\Demo\Assets\CFX_Demo_RandomDir.cs" />
     <Compile Include="Assets\_src\Scripts\ParallaxControl.cs" />
+    <Compile Include="Assets\_src\Scripts\Transalate\UpdateBand.cs" />
     <Compile Include="Assets\_src\Scripts\Universal\ElementMove.cs" />
     <Compile Include="Assets\_src\Scripts\Transalate\Translate.cs" />
     <Compile Include="Assets\JMO Assets\Cartoon FX (legacy)\Demo\Assets\CFX_Demo_RotateCamera.cs" />

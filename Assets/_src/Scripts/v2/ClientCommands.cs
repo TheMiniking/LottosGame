@@ -49,14 +49,15 @@ public class ClientCommands : WebClientBase
         RegisterHandler<Ranking>(RankResponse, (ushort)ReceiveMsgIdc.Ranking);
         RegisterHandler<LastMultiFivity>(LastMultiResponse, (ushort)ReceiveMsgIdc.LastMulti);
         RegisterHandler<BonusDrop>(BonusDropResponse, (ushort)ReceiveMsgIdc.BonusDrop);
-        GetParameters();
 #if UNITY_WEBGL && !UNITY_EDITOR
+        GetParameters();
         token = GetTokenID();
         CreateConnection(GetUrl(), token);
 #else
         if (uselocalhost)
         {
-            CreateConnection(urlLocalhost, token);
+           LanguageManager.instance.ChangeLanguage(defaultLanguage);
+           CreateConnection(urlLocalhost, token);
         }
         else
         {
@@ -118,6 +119,7 @@ public class ClientCommands : WebClientBase
             string decodedString = Encoding.UTF8.GetString(tokenBytes);
             string l = queryParams["h"];// rr = pt,ss = en, zz = es
             LanguageManager.instance.ChangeLanguage(l switch { "ss" => 0, "rr" => 1, "zz" => 2, _ => defaultLanguage });
+            defaultLanguage = l switch { "ss" => 0, "rr" => 1, "zz" => 2, _ => defaultLanguage };
             urlCallback = queryParams["cb"];
             string c = queryParams["g"];
             GameManager.Instance.Culture = CultureInfo.GetCultureInfo(c switch { 
