@@ -83,7 +83,7 @@ public class CanvasManager : MonoBehaviour
         ResetBets();
         tradDropdown.onValueChanged.AddListener(delegate { SetTraduction(tradDropdown.value); });
         tradDropdown.onValueChanged.AddListener(x => bandeira.sprite = bandeiras[x]);
-        tradDropdown.value = traduction;
+        tradDropdown.value = ClientCommands.Instance.defaultLanguage;
         //rankButton.onClick.AddListener(ShowRank);
         configButton.onClick.AddListener(() => configObj.SetActive(!configObj.activeSelf));
         //playerButton.onClick.AddListener(ShowPlayers);
@@ -99,7 +99,7 @@ public class CanvasManager : MonoBehaviour
     {
         inPlayersText.text = $"{playerInBet}";
         inPlayersWinnersText.text = $"{playerInBetWinners}";
-        totalWinAmountText.text = $"{GameManager.Instance.MoedaAtual()} {totalWinAmount:#,0.00}";
+        totalWinAmountText.text = $"{GameManager.Instance.MoedaAtual(totalWinAmount)}";
         if (traduction != compTraduction) SetTraduction(traduction);
     }
 
@@ -132,16 +132,16 @@ public class CanvasManager : MonoBehaviour
         switch (betButtonStatus)
         {
             case 0:
-                PlayMessage(traduction switch { 0 => "Send Bet", 1 => "Aposta Enviada", _ => "Send Bet" });
+                PlayMessage(LanguageManager.instance.TryTranslate("sendbet","Enviar Aposta"));
                 break;
             case 1:
-                PlayMessage(traduction switch { 0 => "Cancel Bet", 1 => "Aposta Cancelada", _ => "Cancel Bet" });
+                PlayMessage(LanguageManager.instance.TryTranslate("cancelbet","Cancelar Aposta"));
                 break;
             case 2:
-                PlayMessage(traduction switch { 0 => "Finish Bet", 1 => "Aposta Finalizada", _ => "Finish Bet" });
+                PlayMessage(LanguageManager.instance.TryTranslate("finishbet","finalizar Aposta"));
                 break;
             case 3:
-                PlayMessage(traduction switch { 0 => "Cant Bet, Wait Next Round", 1 => "Não Pode Aposta, Espere a Proxima Rodada", _ => "Cant Bet, Wait Next Round" });
+                PlayMessage(LanguageManager.instance.TryTranslate("cantbet","Não Pode Aposta"));
                 break;
         }
     }
@@ -149,8 +149,8 @@ public class CanvasManager : MonoBehaviour
     public void SetBetInput(int value)
     {
         betVal = value;
-        betInput.text = $" {GameManager.Instance.MoedaAtual()} {betVal}";
-        betValueText.text = $" {GameManager.Instance.MoedaAtual()} {betVal}";
+        betInput.text = $" {GameManager.Instance.MoedaAtual(betVal)}";
+        betValueText.text = $" {GameManager.Instance.MoedaAtual(betVal)}";
     }
 
     public void SetAutoCashOutInput(float value)
@@ -213,24 +213,14 @@ public class CanvasManager : MonoBehaviour
 
     public void SetBetButtonBet()
     {
-        betButtonText.text = traduction switch
-        {
-            0 => "Bet",
-            1 => "Apostar",
-            _ => "Bet"
-        };
+        betButtonText.text = LanguageManager.instance.TryTranslate("bet", "Apostar");
         //betButton.interactable = true;
         betButtonStatus = 0;
     }
 
     public void SetBetButtonCancel()
     {
-        betButtonText.text = traduction switch
-        {
-            0 => "Cancel Bet",
-            1 => "Cancelar Aposta",
-            _ => "Cancel Bet"
-        };
+        betButtonText.text = LanguageManager.instance.TryTranslate("cancelbet", "Cancelar Aposta");
         //betButton.interactable = true;
         betButtonStatus = 1;
     }
@@ -238,12 +228,7 @@ public class CanvasManager : MonoBehaviour
     public void SetBetButtonCantBet(bool? tutorial = false)
     {
         if (ClientCommands.Instance.onTutorial && tutorial == false) return;
-        betButtonText.text = traduction switch
-        {
-            0 => "Wait Round",
-            1 => "Espere a Rodada",
-            _ => "Wait Round"
-        };
+        betButtonText.text = LanguageManager.instance.TryTranslate("waitround", "Espere a Rodada");
         //betButton.interactable = false;
         betButtonStatus = 3;
     }
@@ -256,6 +241,7 @@ public class CanvasManager : MonoBehaviour
             1 => $"Parar {var:0.00}",
             _ => $"Stop {var:0.00}"
         };
+        betButtonText.text = $"{LanguageManager.instance.TryTranslate("stop","Parar")}";
         //betButton.interactable = true;
         betButtonStatus = 2;
     }
@@ -263,9 +249,9 @@ public class CanvasManager : MonoBehaviour
     public void SetMultiplierTextMensage(bool timer, bool? tutorial = false)
     {
         if(ClientCommands.Instance.onTutorial && tutorial == false) return;
-        multiplierTextMensage.text = (timer) ? 
-            traduction switch { 0 => "Next Round in :", 1 => "Proxima Rodada em :", _ => "Next Round in :" } :
-            traduction switch { 0 => "Bet Multiplier :", 1 => "Multiplicador de Aposta :", _ => "Bet Multiplier :" };
+        multiplierTextMensage.text = LanguageManager.instance.TryTranslate(
+            timer? "nextround" : "betmultiplier", 
+            timer? "Proxima Rodada em :" : "Multiplicador de Aposta:");
     }
 
     public void SetPlayerStateX(string str,int tank, bool? all = false)
@@ -361,7 +347,7 @@ public class CanvasManager : MonoBehaviour
     internal void SetBalanceTxt(double balance)
     {
         balanceVal = (float)balance;
-        balanceText.text = $"{GameManager.Instance.MoedaAtual()} {balanceVal:#,0.00}";
+        balanceText.text = $"{GameManager.Instance.MoedaAtual(balanceVal)}";
     }
 
     public void ResetBets(bool? tutorial = false)
@@ -486,10 +472,12 @@ public class CanvasManager : MonoBehaviour
     public void SetTraduction(int trad)
     {
         traduction = trad;
+        tradDropdown.value = trad;
         GameManager.Instance.traduction = trad;
-        balanceText.text = $"{GameManager.Instance.MoedaAtual()} {balanceVal:#,0.00}";
-        betInput.text = $" {GameManager.Instance.MoedaAtual()} {betVal}";
-        betValueText.text = $" {GameManager.Instance.MoedaAtual()} {betVal}";
+        LanguageManager.instance.ChangeLanguage(trad switch {  0 =>"ss" ,1 => "rr" , 2 => "zz", _ => "ss" });
+        balanceText.text = $"{GameManager.Instance.MoedaAtual(balanceVal)}";
+        betInput.text = $" {GameManager.Instance.MoedaAtual(betVal)}";
+        betValueText.text = $" {GameManager.Instance.MoedaAtual(betVal)}";
         OnTraductionChange?.Invoke(traduction);
         compTraduction = trad;
     }

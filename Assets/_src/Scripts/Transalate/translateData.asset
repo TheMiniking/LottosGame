@@ -1,0 +1,243 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0007cf36be6e7944c8167c1c08a68731, type: 3}
+  m_Name: translateData
+  m_EditorClassIdentifier: 
+  translates:
+  - name: en
+    keyValues:
+    - Key: connect
+      Value: Connect...
+    - Key: bet
+      Value: Bet
+    - Key: totalwin
+      Value: Total Win
+    - Key: balance
+      Value: Balance
+    - Key: yourtank
+      Value: Your Tank
+    - Key: nextround
+      Value: 'Next Round in:'
+    - Key: lastrounds
+      Value: Last Rounds
+    - Key: autoplay
+      Value: Autoplay
+    - Key: autoplay_long
+      Value: Auto Play
+    - Key: msg_autoplaybet
+      Value: Auto Bet
+    - Key: choisetank
+      Value: Choise your Tank
+    - Key: return
+      Value: Return
+    - Key: autocashout
+      Value: AutoCashout
+    - Key: autocashout_long
+      Value: Auto Cashout
+    - Key: confirm
+      Value: Confirm
+    - Key: round
+      Value: Round
+    - Key: config
+      Value: Configure
+    - Key: sound
+      Value: Sond
+    - Key: music
+      Value: Music
+    - Key: ruler
+      Value: Ruler
+    - Key: sentbet
+      Value: Bet Sent
+    - Key: cancelbet
+      Value: Cancel Bet
+    - Key: finishbet
+      Value: Finish Bet
+    - Key: cantbet
+      Value: Cant Bet, Wait Next Round
+    - Key: waitround
+      Value: Wait Finish Round
+    - Key: stop
+      Value: Stop
+    - Key: msg_autostop
+      Value: End of Autostop
+    - Key: msg_exit
+      Value: Automatic Exit
+    - Key: msg_autoplayactive
+      Value: Autoplay Active
+    - Key: msg_autoplaydesactive
+      Value: Autoplay Desactive
+    - Key: msg_cashoutactive
+      Value: CashOut Active
+    - Key: msg_cashoutdesactive
+      Value: CashOut Desactive
+    - Key: betmultiplier
+      Value: 'Multiplier :'
+    - Key: nosinal
+      Value: No Signal...
+    - Key: multiply
+      Value: Mutiply
+    - Key: about
+      Value: about
+    - Key: corfirm
+      Value: Confirmar
+  - name: pt
+    keyValues:
+    - Key: connect
+      Value: Conectando...
+    - Key: bet
+      Value: Aposta
+    - Key: totalwin
+      Value: Total Ganho
+    - Key: balance
+      Value: "Balan\xE7o"
+    - Key: yourtank
+      Value: Seu Tank
+    - Key: nextround
+      Value: 'Proxima Rodada em :'
+    - Key: lastrounds
+      Value: Ultimas Rodadas
+    - Key: autoplay
+      Value: Jogadas Auto.
+    - Key: autoplay_long
+      Value: Jogadas Autotomatica
+    - Key: msg_autoplay
+      Value: Aposta Autotomatica
+    - Key: choisetank
+      Value: Escolha seu Tank
+    - Key: return
+      Value: Retornar
+    - Key: autocashout
+      Value: Saida Auto.
+    - Key: autocashout_long
+      Value: Saida Automatic
+    - Key: confirm
+      Value: Confirmar
+    - Key: round
+      Value: Rodadas
+    - Key: config
+      Value: "Configura\xE7\xF5es"
+    - Key: sound
+      Value: Som
+    - Key: music
+      Value: Musica
+    - Key: ruler
+      Value: Regras
+    - Key: sentbet
+      Value: Aposta Enviada
+    - Key: cancelbet
+      Value: Cancelar Aposta
+    - Key: finishbet
+      Value: Finalizar Aposta
+    - Key: cantbet
+      Value: "N\xE3o Pode Apostar"
+    - Key: waitround
+      Value: Espere a Rodada
+    - Key: stop
+      Value: Parar
+    - Key: msg_autostop
+      Value: Fim da Aposta Automatica
+    - Key: msg_exit
+      Value: Saida Automatica
+    - Key: msg_autoplayactive
+      Value: Jogadas Automaticas Ativa
+    - Key: msg_autoplaydesactive
+      Value: Jogadas Automaticas Desativado
+    - Key: msg_cashoutactive
+      Value: Saida Automaticas Ativo
+    - Key: msg_cashoutdesactive
+      Value: Saida Automaticas Desativado
+    - Key: betmultiplier
+      Value: 'Multiplicador de Aposta :'
+    - Key: nosinal
+      Value: Sem Sinal...
+    - Key: multiply
+      Value: Muliplicador
+    - Key: about
+      Value: sobre
+    - Key: corfirm
+      Value: Confirmar
+  - name: es
+    keyValues:
+    - Key: connect
+      Value: Conectando...
+    - Key: bet
+      Value: Apuesta
+    - Key: totalwin
+      Value: Ganancia total
+    - Key: balance
+      Value: Balance
+    - Key: yourtank
+      Value: Tu Tanque
+    - Key: nextround
+      Value: 'Proxima Ronda en:'
+    - Key: lastrounds
+      Value: Ultiams rondas
+    - Key: autoplay
+      Value: Reproducciones Auto.
+    - Key: autoplay_long
+      Value: Reproducciones Automaticas
+    - Key: msg_autoplaybet
+      Value: Apuesta Automatica
+    - Key: choisetank
+      Value: Elige Tu Tanque
+    - Key: return
+      Value: Volver
+    - Key: autocashout
+      Value: Retiro Auto.
+    - Key: autocashout_long
+      Value: "Retiro Autom\xE1tico"
+    - Key: confirm
+      Value: Confirmar
+    - Key: round
+      Value: Rondas
+    - Key: config
+      Value: Ajustes
+    - Key: sound
+      Value: Sonido
+    - Key: music
+      Value: Musica
+    - Key: ruler
+      Value: Reglas
+    - Key: sentbet
+      Value: Apuesta Enviada
+    - Key: cancelbet
+      Value: Apuesta Cancelada
+    - Key: finishbet
+      Value: Aposta Finalizada
+    - Key: cantbet
+      Value: No Puedes Apostar
+    - Key: waitround
+      Value: Espera a Que Termine La Ronda
+    - Key: stop
+      Value: Detener
+    - Key: msg_autostop
+      Value: "Fin de La Parada Autom\xE1tica"
+    - Key: msg_exit
+      Value: "Salida Autom\xE1tica"
+    - Key: msg_autoplayactive
+      Value: "Reproducci\xF3n Autom\xE1tica Activa"
+    - Key: msg_autoplaydesactive
+      Value: "Reproducci\xF3n Autom\xE1tica Desatada"
+    - Key: msg_cashoutactive
+      Value: Retiro Activo
+    - Key: msg_cashoutdesactive
+      Value: Retiro desatado
+    - Key: betmultiplier
+      Value: 'Multiplicador en:'
+    - Key: nosinal
+      Value: "Sin Se\xF1al..."
+    - Key: multiply
+      Value: Mutiplicador
+    - Key: about
+      Value: sobre
+    - Key: corfirm
+      Value: Confirmar

@@ -29,6 +29,7 @@ public class ClientCommands : WebClientBase
     [SerializeField] LastMulti slots = new() { multis = new multiplier[3] { new multiplier { multiply = 0, tankid = 0 }, new multiplier { multiply = 0, tankid = 1 }, new multiplier { multiply = 0, tankid = 2 } } };
 
     [SerializeField] bool onBonusDrop = false;
+    [SerializeField] public int defaultLanguage = 1;
     string urlCallback ;
 
     void Awake()
@@ -48,22 +49,20 @@ public class ClientCommands : WebClientBase
         RegisterHandler<Ranking>(RankResponse, (ushort)ReceiveMsgIdc.Ranking);
         RegisterHandler<LastMultiFivity>(LastMultiResponse, (ushort)ReceiveMsgIdc.LastMulti);
         RegisterHandler<BonusDrop>(BonusDropResponse, (ushort)ReceiveMsgIdc.BonusDrop);
+        GetParameters();
 #if UNITY_WEBGL && !UNITY_EDITOR
         token = GetTokenID();
-
+        CreateConnection(GetUrl(), token);
+#else
         if (uselocalhost)
         {
             CreateConnection(urlLocalhost, token);
         }
         else
         {
-        CreateConnection(GetUrl(), token);
+            CreateConnection(GetUrl(), token);
         }
-#else
-        CreateConnection(GetUrl(), token);
-        
 #endif        
-        GetParameters();
         data = new Conection() { data = new byte[] { 255, 255 } };
         onConnect = true;
         TryConnect();
@@ -118,25 +117,14 @@ public class ClientCommands : WebClientBase
             byte[] tokenBytes = Convert.FromBase64String(urltoken);
             string decodedString = Encoding.UTF8.GetString(tokenBytes);
             string l = queryParams["h"];// rr = pt,ss = en, zz = es
-            CanvasManager.Instance.SetTraduction(l switch { "rr" => 1, "ss" => 0, "zz" => 2, _ => 0 });
+            LanguageManager.instance.ChangeLanguage(l switch { "ss" => 0, "rr" => 1, "zz" => 2, _ => defaultLanguage });
             urlCallback = queryParams["cb"];
             string c = queryParams["g"];
-            //if (c == "zzz")
-            //{
-            //    GameManager.instance.Culture = CultureInfo.GetCultureInfo("pt-BR");
-            //}
-            //else if (c == "aaa")
-            //{
-            //    GameManager.instance.Culture = CultureInfo.GetCultureInfo("en-US");
-            //}
-            //else if (c == "sss")
-            //{
-            //    GameManager.instance.Culture = CultureInfo.GetCultureInfo("de-DE");
-            //}
-            //else
-            //{
-            //    GameManager.instance.Culture = CultureInfo.GetCultureInfo("pt-BR");
-            //}
+            GameManager.Instance.Culture = CultureInfo.GetCultureInfo(c switch { 
+                "zzz" => "pt-BR", 
+                "aaa" => "en-US", 
+                "sss" => "es-ES",
+                _ => "pt-BR" });
             if (debug)
             {
                 Debug.Log("####### urltoken ####### " + urltoken);

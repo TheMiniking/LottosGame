@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text.RegularExpressions;
 using TMPro;
 using Unity.VisualScripting;
@@ -36,6 +37,7 @@ public class GameManager : MonoBehaviour
 
     //---------------------------------
     [SerializeField] public int selectedTankNum;
+    [SerializeField] public CultureInfo Culture;
 
     [SerializeField, Tooltip("Velocidade do Fundo : Base = 1f")] public float paralaxVelocity = 1f;
     void Awake()
@@ -242,7 +244,7 @@ public class GameManager : MonoBehaviour
         if (activeAutoPlay && ((betRounds == -1) || (betRounds > 0)))
         {
             ClientCommands.Instance.SendBet();
-            CanvasManager.Instance.PlayMessage(traduction switch { 0 => "AutoPlay Bet", 1 => "Aposta Automatica", _ => "AutoPlay Bet" });
+            CanvasManager.Instance.PlayMessage(LanguageManager.instance.TryTranslate("msg_autoplayactive", "AutoPlay Active"));
             if (betRounds > 0)
             {
                 betRounds--;
@@ -250,7 +252,7 @@ public class GameManager : MonoBehaviour
 
             if (betRounds == 0)
             {
-                CanvasManager.Instance.PlayMessage(traduction switch { 0 => "End of AutoPlay", 1 => "Fim da Aposta Automatica", _ => "End of AutoPlay" });
+                CanvasManager.Instance.PlayMessage(LanguageManager.instance.TryTranslate("msg_autoplaydesactive", "AutoPlay Desactive"));
                 CanvasManager.Instance.autoPlayToggle.value = 0;
             }
             CanvasManager.Instance.SetRoundsText(betRounds);
@@ -272,7 +274,7 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log($"Stop Auto DEBUG");
             ClientCommands.Instance.SendBet();      //envia o comando para o servidor para parar o auto
-            CanvasManager.Instance.PlayMessage(traduction switch { 0 => $"CashOut x{value:0.00}", 1 => $"Saiu x{value:0.00}", _ => $"CashOut x{value:0.00}" });
+            CanvasManager.Instance.PlayMessage($"{LanguageManager.instance.TryTranslate("cashout_long", "CashOut")} x {value:0.00}");
         }
     }
 
@@ -289,19 +291,9 @@ public class GameManager : MonoBehaviour
     internal void AutoStop(bool x)
     {
         activeAutoPlay = x;
-        switch (traduction)
-        {
-            case 0:
-                CanvasManager.Instance.PlayMessage(x ? "AutoPlay Active" : "AutoPlay Desactive");
-                break;
-            case 1:
-                CanvasManager.Instance.PlayMessage(x ? "Automatico Ativo" : "automatico Desativado");
-                break;
-            default:
-                CanvasManager.Instance.PlayMessage(x ? "AutoPlay Active" : "AutoPlay Desactive");
-                break;
-
-        }
+        CanvasManager.Instance.PlayMessage(x ? 
+            LanguageManager.instance.TryTranslate("msg_autoplayactive", "AutoPlay Active") :
+            LanguageManager.instance.TryTranslate("msg_autoplaydesactive", "AutoPlay Desativado"));
     }
 
     internal void AutoCashOut(bool x)
@@ -311,20 +303,9 @@ public class GameManager : MonoBehaviour
         {
             CanvasManager.Instance.autoCashOutToggle.value = 1;
         }
-        switch (traduction)
-        {
-            case 0:
-                CanvasManager.Instance.PlayMessage(x ? "CashOut Active" : "CashOut Desactive");
-                break;
-            case 1:
-                CanvasManager.Instance.PlayMessage(x ? "Saida Auto Ativa" : "Saida Auto Desativo");
-                break;
-            default:
-                CanvasManager.Instance.PlayMessage(x ? "CashOut Active" : "CashOut Desactive");
-                break;
-
-        }
-
+        CanvasManager.Instance.PlayMessage(x ? 
+            LanguageManager.instance.TryTranslate("msg_cashoutactive", "CashOut ativo") : 
+            LanguageManager.instance.TryTranslate("msg_cashoutdesactive", "CashOut Desativado"));
     }
 
     #endregion
@@ -396,6 +377,11 @@ public class GameManager : MonoBehaviour
     }
 
     public string MoedaAtual() => traduction switch { 0 => "$", 1 => "R$", _ => "$" };
+
+    public string MoedaAtual(float valor)
+    {
+        return valor.ToString("C" , Culture);
+    }
 
     public void SelectTeclado(int teclado)
     {

@@ -18,6 +18,8 @@ public class AudioManager : MonoBehaviour
     void Awake()
     {
         Instance = this;
+        allButtons.Clear();
+        allButtons = FindObjectsOfType<Button>().ToList();
     }
 
     void Start()

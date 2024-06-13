@@ -75,6 +75,7 @@
     <Compile Include="Assets\_src\Scripts\ClientSide\WinExtra.cs" />
     <Compile Include="Assets\_src\Scripts\ServerSide\AnimRTP.cs" />
     <Compile Include="Assets\_src\Scripts\v2\GameManager.cs" />
+    <Compile Include="Assets\_src\Scripts\Transalate\LanguageManager.cs" />
     <Compile Include="Assets\_src\Scripts\ClientSide\AudioManager.cs" />
     <Compile Include="Assets\JMO Assets\Cartoon FX (legacy)\Scripts\CFX_LightIntensityFade.cs" />
     <Compile Include="Assets\_src\Scripts\ClientSide\LastSlot.cs" />
@@ -91,8 +92,10 @@
     <Compile Include="Assets\JMO Assets\Cartoon FX (legacy)\Demo\Assets\CFX_Demo_RandomDir.cs" />
     <Compile Include="Assets\_src\Scripts\ParallaxControl.cs" />
     <Compile Include="Assets\_src\Scripts\Universal\ElementMove.cs" />
+    <Compile Include="Assets\_src\Scripts\Transalate\Translate.cs" />
     <Compile Include="Assets\JMO Assets\Cartoon FX (legacy)\Demo\Assets\CFX_Demo_RotateCamera.cs" />
     <Compile Include="Assets\JMO Assets\Cartoon FX (legacy)\Scripts\CFX_AutoDestructShuriken.cs" />
+    <Compile Include="Assets\_src\Scripts\Transalate\AutoTranslate.cs" />
     <Compile Include="Assets\JMO Assets\Cartoon FX (legacy)\Demo\Assets\CFX_Demo_Translate.cs" />
     <Compile Include="Assets\JMO Assets\Cartoon FX (legacy)\Demo\Assets\CFX_AutoStopLoopedEffect.cs" />
   </ItemGroup>

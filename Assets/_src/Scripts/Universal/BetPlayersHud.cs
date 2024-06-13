@@ -32,18 +32,18 @@ public class BetPlayersHud : MonoBehaviour
         betVal =(float) _bet.value;
         multiplierVal = _bet.multiplier;
         creditsVal =(float) _bet.value * _bet.multiplier;
-        bet.text = $"{GameManager.Instance.MoedaAtual()}{betVal:0.00}";
+        bet.text = $"{GameManager.Instance.MoedaAtual(betVal)}";
         if (rank == true)
         {
             multply.text = $"x {multiplierVal:0.00}";
-            credits.text = $"{GameManager.Instance.MoedaAtual()}{creditsVal:#,0.00}";
+            credits.text = $"{GameManager.Instance.MoedaAtual(creditsVal)}";
             if (anim != null) anim?.Play("BetRank");
             return;
         }
         if (_bet.multiplier >= 1)
         {
             multply.text = $"x {multiplierVal:0.00}";
-            credits.text = $"{GameManager.Instance.MoedaAtual()}{creditsVal:#,0.00}";
+            credits.text = $"{GameManager.Instance.MoedaAtual(creditsVal)}";
             if (anim != null) anim?.Play("BetWin");
         }
         else
@@ -57,9 +57,9 @@ public class BetPlayersHud : MonoBehaviour
     internal void Reload()
     {
         if (name.text == string.Empty) return;
-        bet.text = betVal!= 0? $"{GameManager.Instance.MoedaAtual()}{betVal:0.00}" : string.Empty;
+        bet.text = betVal!= 0? $"{GameManager.Instance.MoedaAtual(betVal)}" : string.Empty;
         multply.text = multiplierVal!= 0? $"x {multiplierVal:0.00}" : string.Empty;
-        credits.text = creditsVal!= 0? $"{GameManager.Instance.MoedaAtual()}{creditsVal:#,0.00}" : string.Empty;
+        credits.text = creditsVal!= 0? $"{GameManager.Instance.MoedaAtual(creditsVal)}" : string.Empty;
     }
 
     public IEnumerator GoBack(RectTransform tank)
