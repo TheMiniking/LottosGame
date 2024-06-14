@@ -11,8 +11,8 @@ using UnityEngine.UI;
 
 public class CanvasManager : MonoBehaviour
 {
-    [SerializeField] public bool onTest = false;
     public static CanvasManager Instance;
+    [SerializeField] public bool onTest = false;
     [SerializeField] Canvas Canvas;
     public TMP_Text betValueText, cashoutValueText,roundsTextII;
     public TMP_InputField betInput, autoCashOutInput;
@@ -344,7 +344,7 @@ public class CanvasManager : MonoBehaviour
     internal void SetBalanceTxt(double balance)
     {
         balanceVal = (float)balance;
-        balanceText.text = $"{GameManager.Instance.MoedaAtual(balanceVal)}";
+        balanceText.text = $"{GameManager.Instance.MoedaAtual(balance)}";
     }
 
     public void ResetBets(bool? tutorial = false)
@@ -357,22 +357,26 @@ public class CanvasManager : MonoBehaviour
 
     public void SetBetSlot(BetPlayers bet, bool tutorial = false)
     {
-        if(ClientCommands.Instance.onTutorial && tutorial == false) return;
-        int index = betSlots.FindIndex(x => x.name.text == bet.name);
-        if (index == -1)
-        {
-            index = betSlots.Count - 1;
-        }
-        BetPlayersHud p = betSlots[index];
-        p.Set(bet);
-        p.transform.SetAsFirstSibling();
-        betSlots.Remove(p);
-        betSlots.Insert(0, p);
-        betSlots[0].Set(bet);
+        //if(ClientCommands.Instance.onTutorial && tutorial == false) return;
+        //int index = betSlots.FindIndex(x => x.name.text == bet.name);
+        //if (index == -1)
+        //{
+        //    index = betSlots.Count - 1;
+        //}
+        //BetPlayersHud p = betSlots[index];
+        //p.Set(bet);
+        //p.transform.SetAsFirstSibling();
+        //betSlots.Remove(p);
+        //betSlots.Insert(0, p);
+        //betSlots[0].Set(bet);
         if (bet.multiplier > 0)
         {
             playerInBetWinners++;
-            if (bet.name == ClientCommands.Instance.playerName) { totalWinAmount += ((float)bet.value) * bet.multiplier; }
+            Debug.Log($"playerInBetWinners :{bet.name} player name:{ClientCommands.Instance.playerName}");
+            if (bet.name == ClientCommands.Instance.playerName) { 
+                totalWinAmount += ((float)bet.value) * bet.multiplier;
+                GameManager.Instance.isJoin = false;
+            }
             //if (!playerShow)
             //{
             //    WinExtra winExtra = Instantiate(winExtraPrefab, transform);

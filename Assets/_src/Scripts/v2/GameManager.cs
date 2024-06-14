@@ -12,18 +12,26 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
     [SerializeField] bool debug = false;
-    [SerializeField][Range(1f, 999f)] float autoCashOut = 1f;
+
     [SerializeField][Range(1, 100)] public int bet;
     [SerializeField][Range(-1, 1000)] int betRounds = -1;
     [SerializeField] List<int> rounds = new();
+    [SerializeField][Range(1f, 999f)] float autoCashOut = 1f;
+
+    //------------- Tanks Gameplay ------------
+    [SerializeField] public int selectedTankNum;
     [SerializeField] public bool isJoin = false;
     public bool canBet, isMobile, isWalking = false;
+
+    //-----------Fundo-----------
     [SerializeField] Material fundo;
     [SerializeField] float fundoRealtimeAtualPosition;
     [SerializeField] public bool fundoOnMove;
     [SerializeField] float fundoRealtimeVelocity;
+    [SerializeField, Tooltip("Velocidade do Fundo : Base = 1f")] public float paralaxVelocity = 1f;
+
     //----------Mobile Teclado-----------
-    [SerializeField] GameObject teclado, roundsFivityOBJ;
+    [SerializeField] GameObject teclado;
     [SerializeField] List<Button> tecladoButtons = new();   // 0-9 = num, 10 = ponto, 11 = backspace, 12 = enter,13 = cancel
     [SerializeField] TMP_Text tecladoText, tecladoShowMode;
     [SerializeField] string tecladoTextValue = string.Empty;
@@ -31,15 +39,12 @@ public class GameManager : MonoBehaviour
     //------------Canvas-----------
     [SerializeField] public CanvasManager Desktop, Mobile;
     [SerializeField] public Camera cam;
+    [SerializeField] GameObject roundsFivityOBJ;
+
     //------------Traduction-----------
     [SerializeField] public int traduction = 0;
-    [SerializeField] public List<string> tradEnglish, tradPortugues = new();
-
-    //---------------------------------
-    [SerializeField] public int selectedTankNum;
     [SerializeField] public CultureInfo Culture;
 
-    [SerializeField, Tooltip("Velocidade do Fundo : Base = 1f")] public float paralaxVelocity = 1f;
     void Awake()
     {
         Instance = this;
@@ -249,7 +254,6 @@ public class GameManager : MonoBehaviour
             {
                 betRounds--;
             }
-
             if (betRounds == 0)
             {
                 CanvasManager.Instance.PlayMessage(LanguageManager.instance.TryTranslate("msg_autoplaydesactive", "AutoPlay Desactive"));
@@ -265,15 +269,10 @@ public class GameManager : MonoBehaviour
     }
     public void MatchMultiplier(float value)
     {
-        if (debug)
+        if (activeAutoCashOut && (value >= autoCashOut) && isJoin)
         {
-            Debug.Log("MatchMultiplier :" + value + " autocash " + (activeAutoCashOut ? "ativo" : "desativo"));
-        }
-
-        if (activeAutoCashOut && (value >= autoCashOut))
-        {
-            Debug.Log($"Stop Auto DEBUG");
             ClientCommands.Instance.SendBet();      //envia o comando para o servidor para parar o auto
+            isJoin = false;
             CanvasManager.Instance.PlayMessage($"{LanguageManager.instance.TryTranslate("cashout_long", "CashOut")} x {value:0.00}");
         }
     }
@@ -378,7 +377,7 @@ public class GameManager : MonoBehaviour
 
     public string MoedaAtual() => traduction switch { 0 => "$", 1 => "R$", _ => "$" };
 
-    public string MoedaAtual(float valor)
+    public string MoedaAtual(double valor)
     {
         return valor.ToString("C" , Culture);
     }

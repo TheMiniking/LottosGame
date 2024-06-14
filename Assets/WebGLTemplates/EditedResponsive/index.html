@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>{{{ PRODUCT_NAME }}}</title>
+  <style>
+     * {
+      padding: 0;
+      margin: 0;
+    }
+
+    body {
+      background-image: url('BingoLogin.png');
+	  background-size: 100% 100%;
+	  background-position: center;
+	  height: 100%;
+	  width: 100%;
+    }
+
+    #videoIFrame {
+      position: absolute;
+      display: none;
+      left: 89px;
+      top: 367px;
+      width: 83%;
+      height: 25%;
+    }
+
+    #unity-canvas {
+      position: absolute;
+      left: 0px;
+      top: 0px;
+      width: 100%;
+      height: 100%;
+    }
+
+    #unity-loading-bar {
+      position: absolute;
+      left: 30%;
+      top: 75%;
+      width: 40%;
+      height: 10px;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+    }
+
+    #unity-progress-bar {
+      position: absolute;
+      left: 0%;
+      top: 0%;
+      width: 1%;
+      height: 100%;
+      background-color: #ccc;
+      border-radius: 10px;
+      transition: 400ms linear;
+    }
+  </style>
+
+</head>
+
+<body>
+  <canvas id="unity-canvas"></canvas>
+  <div id="unity-loading-bar">
+    <div id="unity-progress-bar">
+    </div>
+  </div>
+
+  <div id="videoIFrame">
+    <div id="player_id"></div>
+  </div>
+
+  <script src="Build/Builds.loader.js"></script>
+  <script>
+    const maxPixelRatioMobile = 2.0;
+    const maxPixelRatioDesktop = 1.5;
+
+    var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    var maxDevicePixelRatio = isMobile? maxPixelRatioMobile: maxPixelRatioDesktop;
+    var pixelRatio = Math.min(window.devicePixelRatio, maxDevicePixelRatio);
+
+    var buildUrl = "Build";
+    var loaderUrl = buildUrl + "/{{{ LOADER_FILENAME }}}";
+    var config = {
+      dataUrl: buildUrl + "/{{{ DATA_FILENAME }}}",
+      frameworkUrl: buildUrl + "/{{{ FRAMEWORK_FILENAME }}}",
+      codeUrl: buildUrl + "/{{{ CODE_FILENAME }}}",
+#if MEMORY_FILENAME
+        memoryUrl: buildUrl + "/{{{ MEMORY_FILENAME }}}",
+#endif
+#if SYMBOLS_FILENAME
+        symbolsUrl: buildUrl + "/{{{ SYMBOLS_FILENAME }}}",
+#endif
+      streamingAssetsUrl: "StreamingAssets",
+      companyName: "{{{ COMPANY_NAME }}}",
+      productName: "{{{ PRODUCT_NAME }}}",
+      productVersion: "{{{ PRODUCT_VERSION }}}",
+      devicePixelRatio: pixelRatio
+    };
+
+  var canvas = document.querySelector("#unity-canvas");
+  var loadingBar = document.querySelector("#unity-loading-bar");
+  var progressBar = document.querySelector("#unity-progress-bar");
+
+  var GameInstance = null;
+
+  var script = document.createElement("script");
+  script.src = loaderUrl;
+  script.onload = function() {
+    createUnityInstance(canvas, config, function(progress) {
+      progressBar.style.width = 100 * progress + "%";
+    }).then(function(unityInstance) {
+      loadingBar.style.display = "none";
+      GameInstance = unityInstance;
+    }).catch(function(message) {
+      alert(message);
+    });
+  };
+  document.body.appendChild(script);
+  </script>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest/dist/hls.min.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/ovenplayer/dist/ovenplayer.js"></script>
+
+
+  <script>
+    //playerUrl = "wss://edgeone.bingoshow.io:3334/app/stream"; //'wss://rockpaperscissors256.com:3334/app/stream/'
+    player = null;
+
+    function createNewPlayer(url) {
+      player = OvenPlayer.create('player_id', {
+        sources: [
+          {
+            label: 'label_for_hls',
+            type: 'hls',
+            file: url
+          }
+        ]
+      });
+    }
+
+    function setPlayerMute(mute) {
+      if (player == null) return null;
+      if (mute === false || mute === true) {
+        player.setMute(mute);
+      }
+    }
+
+    function getPlayerMute() {
+      if (player == null) return false;
+      return player.getMute();
+    }
+
+    function setPlayerVolume(volume) {
+      if (player == null) return null;
+      player.setVolume(volume);
+    }
+
+    function getPlayerVolume() {
+      if (player == null) return 0;
+      return player.getVolume();
+    }
+    
+    function showControls(show) {
+      if (player == null) return null;
+      player.showControls(show);
+    }
+
+    showControls(false);
+  </script>
+  <script>
+  function toggleFullScreen() {
+    if (!document.fullscreenElement &&
+        !document.mozFullScreenElement &&
+        !document.webkitFullscreenElement &&
+        !document.msFullscreenElement) {
+        if (document.documentElement.requestFullscreen) {
+            document.documentElement.requestFullscreen();
+        } else if (document.documentElement.msRequestFullscreen) {
+            document.documentElement.msRequestFullscreen();
+        } else if (document.documentElement.mozRequestFullScreen) {
+            document.documentElement.mozRequestFullScreen();
+        } else if (document.documentElement.webkitRequestFullscreen) {
+            document.documentElement.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+        }
+    } else {
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        } else if (document.msExitFullscreen) {
+            document.msExitFullscreen();
+        } else if (document.mozCancelFullScreen) {
+            document.mozCancelFullScreen();
+        } else if (document.webkitExitFullscreen) {
+            document.webkitExitFullscreen();
+        }
+    }
+}
+function showPopup(message) {
+            alert(message);
+        }
+  </script>
+</body>
+
+</html>

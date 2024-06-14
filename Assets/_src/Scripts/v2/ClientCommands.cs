@@ -51,9 +51,10 @@ public class ClientCommands : WebClientBase
         RegisterHandler<BonusDrop>(BonusDropResponse, (ushort)ReceiveMsgIdc.BonusDrop);
 #if UNITY_WEBGL && !UNITY_EDITOR
         GetParameters();
-        token = GetTokenID();
-        CreateConnection(GetUrl(), token);
+        CreateConnection(GetUrl(), urltoken);
 #else
+        urltoken = token;
+        Debug.Log("url token: " + urltoken);
         if (uselocalhost)
         {
            LanguageManager.instance.ChangeLanguage(defaultLanguage);
@@ -92,20 +93,6 @@ public class ClientCommands : WebClientBase
         return "0";
     }
 
-    [ContextMenu("Get Parameters")]
-    //public void GetParameters()
-    //{
-    //    int pm = Application.absoluteURL.IndexOf("?");
-    //    if (pm != -1)
-    //    {
-    //        var queryString = Application.absoluteURL.Split("?")[1];
-    //        var queryParams = HttpUtility.ParseQueryString(queryString);
-
-    //        urltoken = queryParams["token"];
-    //        urlLanguage = queryParams["language"]; //pt,en,es
-    //    }
-    //    CanvasManager.Instance.SetTraduction(urlLanguage switch { "pt" => 1, "PT" => 1, "Pt" => 1, "en" => 0, "EN" => 0, "En" => 0, _ => 0 });
-    //}
     public void GetParameters()
     {
         int pm = Application.absoluteURL.IndexOf("?");
@@ -135,6 +122,7 @@ public class ClientCommands : WebClientBase
             }
         }
     }
+    
     string GetUrl()
     {
         byte[] tokenBytes = Convert.FromBase64String(urltoken);
@@ -143,6 +131,7 @@ public class ClientCommands : WebClientBase
         if ((parts.Length < 5) || (parts.Length > 6) || string.IsNullOrEmpty(parts[3]))
         {
             Debug.LogError("invalid token.");
+            Debug.Log("invalid token. " + decodedString);
             return string.Empty;
         }
         string server = parts[3];
@@ -178,7 +167,7 @@ public class ClientCommands : WebClientBase
     {
         if (debug)
         {
-            Debug.Log("LogResponse:" + msg.code);
+            Debug.Log($"LogResponse:{msg.name} {msg.code}");
         }
 
         playerName = msg.name;
@@ -248,6 +237,7 @@ public class ClientCommands : WebClientBase
             if (GameManager.Instance.selectedTankNum == msg.data.tankid)
             {
                 GameManager.Instance.isJoin = false;
+                Debug.Log($"On Crash Own Tank :{msg.data.tankid}");
             }
             if (!tank1OnRunning && !tank2OnRunning && !tank3OnRunning)
             {
@@ -273,15 +263,15 @@ public class ClientCommands : WebClientBase
         }
         else if (msg.data.id == 3) // Join Round
         {
+            Debug.Log($"On Join Tank :{msg.data.tankid}");
             CanvasManager.Instance.SetBetButtonCantBet();
             GameManager.Instance.isJoin = true;
         }
-        else if (msg.data.id == 4) // Bet CrashOut
+        else if (msg.data.id == 4) // Bet CashOut
         {
             GameManager.Instance.isJoin = false;
             CanvasManager.Instance.SetBetButtonCantBet();
             atualStatus = 3;
-            //CanvasManager.Instance.PlayMessage("Finish Bet");
         }
     }
 
@@ -296,9 +286,10 @@ public class ClientCommands : WebClientBase
     public void BetPlayers(BetPlayers msg)
     {
         if (onTutorial) return;
-        if (debug) Debug.Log((msg.multiplier == 0) ? ($"[Client] Jogador {msg.name} fez aposta pagando{msg.value}") : ($"[Cliente] O jogador {msg.name} Retirou {msg.multiplier}"));
+        if (debug) Debug.Log((msg.multiplier == 0) ? 
+            ($"[Client] O Jogador {msg.name} fez aposta pagando {msg.value:0.00}") : 
+            ($"[Client] O jogador {msg.name} Retirou {msg.multiplier:0.00}"));
         CanvasManager.Instance.SetBetSlot(msg);
-
     }
 
     void RankResponse(Ranking ranking)
@@ -379,6 +370,12 @@ public class ClientCommands : WebClientBase
             Debug.Log($"[Client] Send Bet tank : {GameManager.Instance.selectedTankNum}");
         }
         SendMsg((ushort)SendMsgIdc.PlayRequest, new PlayRequest ((byte)GameManager.Instance.selectedTankNum));// tankid = 0,1,2
+    }
+
+    public void TrySendBet()
+    {
+        if (!GameManager.Instance.isJoin && !GameManager.Instance.isWalking) 
+            SendBet();
     }
 
     public void StartRun(StartRun msg, bool? tutorial = false)
