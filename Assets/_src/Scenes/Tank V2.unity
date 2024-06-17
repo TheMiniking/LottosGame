@@ -34323,8 +34323,8 @@ RectTransform:
   - {fileID: 402421381}
   m_Father: {fileID: 733963947}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: -2.495, y: -0.15200004}
-  m_AnchorMax: {x: -1.4950001, y: 0.84799993}
+  m_AnchorMin: {x: -1.6549997, y: -0.15200004}
+  m_AnchorMax: {x: -0.655, y: 0.84799993}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -39615,8 +39615,8 @@ RectTransform:
   - {fileID: 1354283103}
   m_Father: {fileID: 733963947}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: -2.495, y: -0.15200004}
-  m_AnchorMax: {x: -1.4950001, y: 0.84799993}
+  m_AnchorMin: {x: -1.6549997, y: -0.15200004}
+  m_AnchorMax: {x: -0.655, y: 0.84799993}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -54120,7 +54120,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8038100908140146525, guid: ce47ab05205a71a47a621d2e0868914a, type: 3}
       propertyPath: playerName
-      value: Kadin
+      value: miniking
       objectReference: {fileID: 0}
     - target: {fileID: 8038100908140146525, guid: ce47ab05205a71a47a621d2e0868914a, type: 3}
       propertyPath: urlLocalhost
@@ -67773,6 +67773,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2078506838}
   - component: {fileID: 2078506839}
+  - component: {fileID: 2078506840}
   m_Layer: 0
   m_Name: Content
   m_TagString: Untagged
@@ -67847,7 +67848,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 624.47}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &2078506839
 MonoBehaviour:
@@ -67873,6 +67874,20 @@ MonoBehaviour:
   m_Spacing: {x: 10, y: 2}
   m_Constraint: 1
   m_ConstraintCount: 2
+--- !u!114 &2078506840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2078506837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalFit: 1
+  m_VerticalFit: 1
 --- !u!1 &2081652332
 GameObject:
   m_ObjectHideFlags: 0
@@ -69768,7 +69783,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1157216116566096279, guid: b18025735a30346449dc3675ed1f486b, type: 3}
       propertyPath: m_AnchorMax.x
-      value: -1.495
+      value: -0.65500003
       objectReference: {fileID: 0}
     - target: {fileID: 1157216116566096279, guid: b18025735a30346449dc3675ed1f486b, type: 3}
       propertyPath: m_AnchorMax.y
@@ -69776,7 +69791,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1157216116566096279, guid: b18025735a30346449dc3675ed1f486b, type: 3}
       propertyPath: m_AnchorMin.x
-      value: -2.495
+      value: -1.6549999
       objectReference: {fileID: 0}
     - target: {fileID: 1157216116566096279, guid: b18025735a30346449dc3675ed1f486b, type: 3}
       propertyPath: m_AnchorMin.y
