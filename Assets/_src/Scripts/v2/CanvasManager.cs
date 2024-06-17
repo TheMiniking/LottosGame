@@ -63,13 +63,14 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] List<Image> selectedTankSprites = new ();
     [SerializeField] Image selTank,selTankBig;
     [SerializeField] GameObject canvasSelectTank;
-    [SerializeField] TMP_Text timerTextSelectTank;
+    [SerializeField] TMP_Text timerTextSelectTank, selectTankText;
     public RectTransform aviao;
     public List<GameObject> bonus;
     public float aviaoDistance;
     public float aviaoaAntecipation;
     [SerializeField] TMP_Text bonusTxt;
     [SerializeField] float bonusTotal;
+    [SerializeField] BigWin bigWin;
 
     void Awake()
     {
@@ -168,11 +169,15 @@ public class CanvasManager : MonoBehaviour
         if(ClientCommands.Instance.onTutorial && tutorial == false) return;
         timerText.text = $"{value:00:00}";
         timerTextSelectTank.text = $"{value:00:00}";
+        timerTextSelectTank.gameObject.SetActive(true);
+        selectTankText.text = $"{LanguageManager.instance.TryTranslate("nextround","A Rodada Começa em:")}";
     }
 
     public void SetMultiplierText(float value, bool? tutorial = false)
     {
         if(ClientCommands.Instance.onTutorial && tutorial == false) return;
+        timerTextSelectTank.gameObject.SetActive(false);
+        selectTankText.text = $"{LanguageManager.instance.TryTranslate("configuretank", "Configurando Tanque")}";
         multiplierText.text = $"x {value:0.00}";
     }
 
@@ -208,37 +213,33 @@ public class CanvasManager : MonoBehaviour
             }); ;
     }
 
+    public void SetBigWin(float value)
+    {
+        bigWin.value = value;
+        bigWin.gameObject.SetActive(value > 0);
+    }
+
     public void SetBetButtonBet()
     {
         betButtonText.text = LanguageManager.instance.TryTranslate("bet", "Apostar");
-        //betButton.interactable = true;
         betButtonStatus = 0;
     }
 
     public void SetBetButtonCancel()
     {
         betButtonText.text = LanguageManager.instance.TryTranslate("cancelbet", "Cancelar Aposta");
-        //betButton.interactable = true;
         betButtonStatus = 1;
     }
 
-    public void SetBetButtonCantBet(bool? tutorial = false)
+    public void SetBetButtonCantBet()
     {
-        if (ClientCommands.Instance.onTutorial && tutorial == false) return;
         betButtonText.text = LanguageManager.instance.TryTranslate("waitround", "Espere a Rodada");
-        //betButton.interactable = false;
         betButtonStatus = 3;
     }
 
     public void SetBetButtonStop(float var)
     {
-        betButtonText.text = traduction switch
-        {
-            0 => $"Stop {var:0.00}",
-            1 => $"Parar {var:0.00}",
-            _ => $"Stop {var:0.00}"
-        };
-        betButtonText.text = $"{LanguageManager.instance.TryTranslate("stop","Parar")}";
+        betButtonText.text = $"{LanguageManager.instance.TryTranslate("stop","Parar")} {var:0.00}";
         //betButton.interactable = true;
         betButtonStatus = 2;
     }
@@ -375,6 +376,7 @@ public class CanvasManager : MonoBehaviour
             Debug.Log($"playerInBetWinners :{bet.name} player name:{ClientCommands.Instance.playerName}");
             if (bet.name == ClientCommands.Instance.playerName) { 
                 totalWinAmount += ((float)bet.value) * bet.multiplier;
+                SetBigWin(((float)bet.value) * bet.multiplier);
                 GameManager.Instance.isJoin = false;
             }
             //if (!playerShow)

@@ -14445,6 +14445,7 @@ MonoBehaviour:
   selTankBig: {fileID: 1853584839}
   canvasSelectTank: {fileID: 2032088483}
   timerTextSelectTank: {fileID: 389156242}
+  selectTankText: {fileID: 1191820735}
   aviao: {fileID: 199800013}
   bonus:
   - {fileID: 1481286338}
@@ -14453,6 +14454,7 @@ MonoBehaviour:
   aviaoaAntecipation: 2
   bonusTxt: {fileID: 293375132}
   bonusTotal: 0
+  bigWin: {fileID: 2081652334}
 --- !u!114 &392005885
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15560,7 +15562,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Content: {fileID: 2078506838}
-  m_Horizontal: 1
+  m_Horizontal: 0
   m_Vertical: 1
   m_MovementType: 1
   m_Elasticity: 0.1
@@ -24621,8 +24623,8 @@ RectTransform:
   - {fileID: 1211351599}
   m_Father: {fileID: 1172982466}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.43631038, y: 0.27995464}
-  m_AnchorMax: {x: 0.50951684, y: 0.4117262}
+  m_AnchorMin: {x: 0.46339676, y: 0.27995464}
+  m_AnchorMax: {x: 0.5366032, y: 0.4117262}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -25392,7 +25394,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30.9
+  m_fontSize: 49.65
   m_fontSizeBase: 28
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -38438,6 +38440,7 @@ GameObject:
   - component: {fileID: 1211351598}
   - component: {fileID: 1211351597}
   - component: {fileID: 1211351596}
+  - component: {fileID: 1211351600}
   m_Layer: 5
   m_Name: PupUp Bonus
   m_TagString: Untagged
@@ -38486,17 +38489,17 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: x 999.99
+  m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: cef37d44c4ae15f43883ff36b7cc8163, type: 2}
-  m_sharedMaterial: {fileID: 3186628023287561586, guid: cef37d44c4ae15f43883ff36b7cc8163, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 28fb92134474d3448a5ba84615960209, type: 2}
+  m_sharedMaterial: {fileID: 8576213192681759993, guid: 28fb92134474d3448a5ba84615960209, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4285726566
+  m_fontColor: {r: 0.4009434, g: 1, b: 0.44595766, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -38513,13 +38516,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 41.65
+  m_fontSize: 36
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 32
+  m_fontStyle: 33
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -38582,6 +38585,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1211351600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1211351595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31a19414c41e5ae4aae2af33fee712f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShowMaskGraphic: 1
 --- !u!1 &1211864343
 GameObject:
   m_ObjectHideFlags: 0
@@ -54084,7 +54100,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8038100908140146525, guid: ce47ab05205a71a47a621d2e0868914a, type: 3}
       propertyPath: token
-      value: 
+      value: Nzh8S2FkaW5SYWZvcmR8MXxicmFzYmV0fGJyYXNiZXR8MTIz
       objectReference: {fileID: 0}
     - target: {fileID: 8038100908140146525, guid: ce47ab05205a71a47a621d2e0868914a, type: 3}
       propertyPath: urlDev
@@ -54104,7 +54120,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8038100908140146525, guid: ce47ab05205a71a47a621d2e0868914a, type: 3}
       propertyPath: playerName
-      value: RobyTest
+      value: Kadin
       objectReference: {fileID: 0}
     - target: {fileID: 8038100908140146525, guid: ce47ab05205a71a47a621d2e0868914a, type: 3}
       propertyPath: urlLocalhost
@@ -66700,12 +66716,14 @@ MonoBehaviour:
   selTankBig: {fileID: 0}
   canvasSelectTank: {fileID: 0}
   timerTextSelectTank: {fileID: 0}
+  selectTankText: {fileID: 0}
   aviao: {fileID: 0}
   bonus: []
   aviaoDistance: 0
   aviaoaAntecipation: 0
   bonusTxt: {fileID: 0}
   bonusTotal: 0
+  bigWin: {fileID: 0}
 --- !u!114 &2052633785
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -67183,10 +67201,10 @@ RectTransform:
   - {fileID: 776423814}
   m_Father: {fileID: 25908067}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 23.086914}
-  m_SizeDelta: {x: 213, y: 49}
+  m_AnchorMin: {x: 0.41862863, y: 0.021376472}
+  m_AnchorMax: {x: 0.5813711, y: 0.091505}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &2059388372
 MonoBehaviour:
@@ -67864,6 +67882,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2081652333}
+  - component: {fileID: 2081652334}
   m_Layer: 0
   m_Name: Big Win
   m_TagString: Untagged
@@ -67891,6 +67910,23 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2081652334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2081652332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb2d25a5bcdebc349b9e0cad8f90c178, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  value: 0
+  winValor: {fileID: 260030555}
+  winText: {fileID: 1743298119}
+  anim: {fileID: 778048817}
+  animationLayer: 0
 --- !u!1 &2081996130
 GameObject:
   m_ObjectHideFlags: 0

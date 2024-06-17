@@ -81,6 +81,7 @@
     <Compile Include="Assets\_src\Scripts\ClientSide\LastSlot.cs" />
     <Compile Include="Assets\_src\Scripts\ClientSide\Player.cs" />
     <Compile Include="Assets\_src\Scripts\Universal\BaseScreen.cs" />
+    <Compile Include="Assets\_src\Scripts\BigWin.cs" />
     <Compile Include="Assets\_src\Scripts\ToggleSwitch.cs" />
     <Compile Include="Assets\JMO Assets\Cartoon FX (legacy)\Demo\Assets\CFX_Demo_New.cs" />
     <Compile Include="Assets\_src\Scripts\v2\TradutorAutomatic.cs" />

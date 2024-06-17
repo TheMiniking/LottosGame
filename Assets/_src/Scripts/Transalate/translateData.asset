@@ -95,6 +95,12 @@ MonoBehaviour:
       Value: Tank 2
     - Key: tank3
       Value: Tank 3
+    - Key: sendbet
+      Value: Enviar Aposta
+    - Key: cashout_long
+      Value: CashOut
+    - Key: configuretank
+      Value: Configure Tank
   - name: pt
     keyValues:
     - Key: connect
@@ -177,6 +183,12 @@ MonoBehaviour:
       Value: Tanque 2
     - Key: tank3
       Value: Tanque 3
+    - Key: sendbet
+      Value: Enviar Aposta
+    - Key: cashout_long
+      Value: CashOut
+    - Key: configuretank
+      Value: Configurando Tanque
   - name: es
     keyValues:
     - Key: connect
@@ -259,3 +271,9 @@ MonoBehaviour:
       Value: Tanque 2
     - Key: tank3
       Value: Tanque 3
+    - Key: sendbet
+      Value: Enviar Aposta
+    - Key: cashout_long
+      Value: CashOut
+    - Key: configuretank
+      Value: Ajustando Tanque

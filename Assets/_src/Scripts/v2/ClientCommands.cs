@@ -205,6 +205,7 @@ public class ClientCommands : WebClientBase
             CanvasManager.Instance.SetMultiplierTextMensage(true);
             CanvasManager.Instance.SetPlayerState(0, null, true);
             CanvasManager.Instance.ShowCanvasSelectTank(!GameManager.Instance.activeAutoPlay);
+            if(GameManager.Instance.selectedTankNum == -1) CanvasManager.Instance.SelectTank(0);
             atualStatus = 0;
         }
         else if (msg.data.id == 1)// Start Round 
@@ -403,18 +404,9 @@ public class ClientCommands : WebClientBase
         AudioManager.Instance.StopResumeSFX(true);
         AudioManager.Instance.PlayOneShot(2);
         onBonusDrop = false;
-        switch (tankid)
-        {
-            case 0:
-                slots.multis[0].multiply = msg.multply;
-                break;
-            case 1:
-                slots.multis[1].multiply = msg.multply;
-                break;
-            case 2:
-                slots.multis[2].multiply = msg.multply;
-                break;
-        }
+        slots.multis[tankid].multiply = msg.multply;
+        if(GameManager.Instance.selectedTankNum == tankid)
+            CanvasManager.Instance.SetBetButtonCantBet();
         if (debug)
         {
             Debug.Log("Kabum , Distance x" + msg.multply);

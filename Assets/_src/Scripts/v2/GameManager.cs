@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
     [SerializeField][Range(1f, 999f)] float autoCashOut = 1f;
 
     //------------- Tanks Gameplay ------------
-    [SerializeField] public int selectedTankNum;
+    [SerializeField] public int selectedTankNum = -1;
     [SerializeField] public bool isJoin = false;
     public bool canBet, isMobile, isWalking = false;
 
