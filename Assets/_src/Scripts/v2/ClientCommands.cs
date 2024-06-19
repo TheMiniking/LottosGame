@@ -31,6 +31,7 @@ public class ClientCommands : WebClientBase
     [SerializeField] bool onBonusDrop = false;
     [SerializeField] public int defaultLanguage = 1;
     string urlCallback ;
+    public bool canBet = true;
 
     void Awake()
     {
@@ -171,6 +172,7 @@ public class ClientCommands : WebClientBase
         }
 
         playerName = msg.name;
+        CanvasManager.Instance.SelectTank(0);
     }
 
     public void BalanceResponse(BalanceResponse msg)
@@ -204,8 +206,9 @@ public class ClientCommands : WebClientBase
             CanvasManager.Instance.SetBetButtonBet();
             CanvasManager.Instance.SetMultiplierTextMensage(true);
             CanvasManager.Instance.SetPlayerState(0, null, true);
+            CanvasManager.Instance.ForceSelectTank();
             CanvasManager.Instance.ShowCanvasSelectTank(!GameManager.Instance.activeAutoPlay);
-            if(GameManager.Instance.selectedTankNum == -1) CanvasManager.Instance.SelectTank(0);
+            canBet = true;
             atualStatus = 0;
         }
         else if (msg.data.id == 1)// Start Round 
@@ -363,14 +366,23 @@ public class ClientCommands : WebClientBase
         
     }
 
+    public void CancelResponse()
+    {
+        if (debug) Debug.Log("[Servidor] CancelResponse");
+        GameManager.Instance.isJoin = false;
+        canBet = false;
+        CanvasManager.Instance.PlayMessage(LanguageManager.instance.TryTranslate("canceledbet","Aposta Cancelada, Epere a Proxima Rodada"));
+    }
+
+
     public void SendBet()
     {
         if (onTutorial) return;
-        if (debug)
+        if (debug) Debug.Log($"[Client] Send Bet tank : {GameManager.Instance.selectedTankNum}");
+        if (canBet)
         {
-            Debug.Log($"[Client] Send Bet tank : {GameManager.Instance.selectedTankNum}");
+            SendMsg((ushort)SendMsgIdc.PlayRequest, new PlayRequest ((byte)GameManager.Instance.selectedTankNum));// tankid = 0,1,2
         }
-        SendMsg((ushort)SendMsgIdc.PlayRequest, new PlayRequest ((byte)GameManager.Instance.selectedTankNum));// tankid = 0,1,2
     }
 
     public void TrySendBet()

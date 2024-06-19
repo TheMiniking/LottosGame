@@ -98,7 +98,7 @@ public class TestItens : MonoBehaviour
     public void SelectTankAleatorio ()
     {
         var i = Random.Range(0, tanks.Count);
-        CanvasManager.Instance.SelectTank(i);
+        CanvasManager.Instance.TrySelectTank(i);
     }
 
 

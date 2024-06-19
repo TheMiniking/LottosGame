@@ -101,6 +101,8 @@ MonoBehaviour:
       Value: CashOut
     - Key: configuretank
       Value: Configure Tank
+    - Key: canceledbet
+      Value: Bet Canceled, Wait for the Next Round
   - name: pt
     keyValues:
     - Key: connect
@@ -189,6 +191,8 @@ MonoBehaviour:
       Value: CashOut
     - Key: configuretank
       Value: Configurando Tanque
+    - Key: canceledbet
+      Value: Aposta Cancelada, Espere a proxima Rodada
   - name: es
     keyValues:
     - Key: connect
@@ -277,3 +281,5 @@ MonoBehaviour:
       Value: CashOut
     - Key: configuretank
       Value: Ajustando Tanque
+    - Key: canceledbet
+      Value: Apuesta cancelada, espere a la siguiente ronda

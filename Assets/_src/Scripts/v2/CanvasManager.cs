@@ -72,6 +72,8 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] float bonusTotal;
     [SerializeField] BigWin bigWin;
 
+    [SerializeField] int trySelectTank = 0;
+
     void Awake()
     {
         Instance = this;
@@ -87,7 +89,11 @@ public class CanvasManager : MonoBehaviour
         //rankButton.onClick.AddListener(ShowRank);
         configButton.onClick.AddListener(() => configObj.SetActive(!configObj.activeSelf));
         //playerButton.onClick.AddListener(ShowPlayers);
-        betButton.onClick.AddListener(() => BetMensages());
+        betButton.onClick.AddListener(() => {
+            BetMensages();
+            ClientCommands.Instance.TrySendBet();
+            }
+        );
         if (!PlayerPrefs.HasKey("traduction")) PlayerPrefs.SetInt("traduction",0);
         SetTraduction(PlayerPrefs.GetInt("traduction"));
         if (!PlayerPrefs.HasKey("tutorial")) PlayerPrefs.SetInt("tutorial", 0);
@@ -116,9 +122,31 @@ public class CanvasManager : MonoBehaviour
         canvasSelectTank.SetActive(value);
     }
 
+    public void TrySelectTank(int value)
+    {
+        if (ClientCommands.Instance.atualStatus == 0 && !GameManager.Instance.isJoin)
+        {
+            SelectTank(value);
+        }
+        else
+        {
+            selectedTankSprites.ForEach(x => 
+                x.gameObject.SetActive(selectedTankSprites.IndexOf(x) == value));
+            selTankBig.sprite = tankSprites[value];
+            trySelectTank = value;
+        }
+    }
+
+    public void ForceSelectTank()
+    {
+        if(GameManager.Instance.selectedTankNum == trySelectTank) return;
+        SelectTank(trySelectTank);
+    }
+
     public void SelectTank(int value)
     {
         GameManager.Instance.selectedTankNum = value;
+        trySelectTank = value;
         tankList.ForEach(x => x.selected = tankList.IndexOf(x) == value);
         selectedTankSprites.ForEach(x => x.gameObject.SetActive( selectedTankSprites.IndexOf(x) == value));
         selTank.sprite = tankSprites[value];
@@ -127,21 +155,27 @@ public class CanvasManager : MonoBehaviour
 
     public void BetMensages()
     {
-        switch (betButtonStatus)
+        if (!ClientCommands.Instance.canBet) { 
+            PlayMessage(LanguageManager.instance.TryTranslate("canceledbet", "Aposta Cancelada, Espere a Proxima Rodada")); }
+        else
         {
-            case 0:
-                PlayMessage(LanguageManager.instance.TryTranslate("sendbet","Enviar Aposta"));
-                break;
-            case 1:
-                PlayMessage(LanguageManager.instance.TryTranslate("cancelbet","Cancelar Aposta"));
-                break;
-            case 2:
-                PlayMessage(LanguageManager.instance.TryTranslate("finishbet","finalizar Aposta"));
-                break;
-            case 3:
-                PlayMessage(LanguageManager.instance.TryTranslate("cantbet","Não Pode Aposta"));
-                break;
+            PlayMessage(LanguageManager.instance.TryTranslate( 
+            betButtonStatus switch { 
+                0 => "sendbet", 
+                1 => "cancelbet", 
+                2 => "finishbet", 
+                3 => "cantbet", 
+                _ => ""},
+            betButtonStatus switch{ 
+                0 => "Enviar Aposta", 
+                1 => "Cancelar Aposta", 
+                2 => "Finalizar Aposta", 
+                3 => "Não Pode Apostar", 
+                _ => "" 
+            }));
+
         }
+        
     }
 
     public void SetBetInput(int value)
