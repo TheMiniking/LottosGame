@@ -407,7 +407,7 @@ public class CanvasManager : MonoBehaviour
         if (bet.multiplier > 0)
         {
             playerInBetWinners++;
-            Debug.Log($"playerInBetWinners :{bet.name} player name:{ClientCommands.Instance.playerName}");
+            tankList[bet.tankid].CreateTankStop(bet);
             if (bet.name == ClientCommands.Instance.playerName) { 
                 totalWinAmount += ((float)bet.value) * bet.multiplier;
                 SetBigWin(((float)bet.value) * bet.multiplier);

@@ -238,7 +238,7 @@ MonoBehaviour:
     - Key: sentbet
       Value: Apuesta Enviada
     - Key: cancelbet
-      Value: Apuesta Cancelada
+      Value: Cancelar Apuesta
     - Key: finishbet
       Value: Aposta Finalizada
     - Key: cantbet

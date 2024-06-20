@@ -50,6 +50,7 @@ public class ClientCommands : WebClientBase
         RegisterHandler<Ranking>(RankResponse, (ushort)ReceiveMsgIdc.Ranking);
         RegisterHandler<LastMultiFivity>(LastMultiResponse, (ushort)ReceiveMsgIdc.LastMulti);
         RegisterHandler<BonusDrop>(BonusDropResponse, (ushort)ReceiveMsgIdc.BonusDrop);
+        RegisterHandler<CancelResponse>(CancelResponse, (ushort)ReceiveMsgIdc.CancelResponse);
 #if UNITY_WEBGL && !UNITY_EDITOR
         GetParameters();
         CreateConnection(GetUrl(), urltoken);
@@ -318,6 +319,7 @@ public class ClientCommands : WebClientBase
         if (onTutorial) return;
         if (debug) Debug.Log("[Client] Next Bet " + value);
         SendMsg((ushort)SendMsgIdc.NextBet, new NextBet { bet = (byte)value });
+        ResetPing();
     }
 
     public void NextBetResponse(NextBetResponse msg)
@@ -366,7 +368,7 @@ public class ClientCommands : WebClientBase
         
     }
 
-    public void CancelResponse()
+    public void CancelResponse(CancelResponse msg)
     {
         if (debug) Debug.Log("[Servidor] CancelResponse");
         GameManager.Instance.isJoin = false;
@@ -382,6 +384,7 @@ public class ClientCommands : WebClientBase
         if (canBet)
         {
             SendMsg((ushort)SendMsgIdc.PlayRequest, new PlayRequest ((byte)GameManager.Instance.selectedTankNum));// tankid = 0,1,2
+            ResetPing();
         }
     }
 
@@ -425,6 +428,13 @@ public class ClientCommands : WebClientBase
         }
     }
     
+    public void ResetPing()
+    {
+        StopCoroutine(ConfirmConnection());
+        time = DateTime.Now;
+        StartCoroutine(ConfirmConnection());
+    }
+
     DateTime time = DateTime.Now;
     IEnumerator ConfirmConnection()
     {
@@ -433,7 +443,7 @@ public class ClientCommands : WebClientBase
         {
             if (time + TimeSpan.FromSeconds(60f) <= DateTime.Now )
             {
-                SendMsg(ushort.MaxValue, data);
+                SendMsg((ushort)SendMsgIdc.Ping, data);
                 time = DateTime.Now;
                 if (debug) Debug.Log($"[Client] ConfirmConnection Sent");
                 yield return new WaitForSeconds(60f);
@@ -471,12 +481,14 @@ public class BetPlayers : INetSerializable
     public string name;
     public double value;
     public float multiplier;
+    public byte tankid;
 
     public void Deserialize(DataReader reader)
     {
         reader.Get(ref name);
         reader.Get(ref value);
         reader.Get(ref multiplier);
+        reader.Get(ref tankid);
     }
 
     public void Serialize(DataWriter write)
@@ -484,6 +496,7 @@ public class BetPlayers : INetSerializable
         write.Put(name);
         write.Put(value);
         write.Put(multiplier);
+        write.Put(tankid);
     }
 }
 
@@ -659,6 +672,28 @@ public class BonusDrop : INetSerializable
         write.Put(time);
     }
 }
+
+public class CancelResponse : INetSerializable
+{
+    void INetSerializable.Deserialize(DataReader reader)
+    {
+    }
+
+    void INetSerializable.Serialize(DataWriter write)
+    {
+    }
+}
+
+public class Ping : INetSerializable
+{
+    void INetSerializable.Deserialize(DataReader reader)
+    {
+    }
+
+    void INetSerializable.Serialize(DataWriter write)
+    {
+    }
+}
 enum ReceiveMsgIdc
 {
     GameLoginResponse = 1,
@@ -669,7 +704,8 @@ enum ReceiveMsgIdc
     BetPlayers = 6,
     Ranking = 7,
     LastMulti = 8,
-    BonusDrop = 9
+    BonusDrop = 9,
+    CancelResponse = 10
 }
 enum SendMsgIdc
 {
@@ -677,5 +713,6 @@ enum SendMsgIdc
     NextBet = 2,
     GetBalance = 3,
     GetRanking = 4,
-    Connection = 5
+    Connection = 5,
+    Ping = 6
 }

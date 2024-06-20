@@ -64,7 +64,7 @@ public class BetPlayersHud : MonoBehaviour
 
     public IEnumerator GoBack(RectTransform tank)
     {
-        Tween.UIAnchoredPositionX(tank, endValue: -Screen.width / 2, duration: 1.75f, ease: Ease.Linear)
+        Tween.UIAnchoredPositionX(tank, endValue: -Screen.width / 2, duration: 2.5f, ease: Ease.Linear)
             .OnComplete(() => { Destroy(tank.gameObject); });
         yield return new WaitForSeconds(3);
         Debug.Log("End GoBack");
