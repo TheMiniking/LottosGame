@@ -91,7 +91,7 @@ public class CanvasManager : MonoBehaviour
         //playerButton.onClick.AddListener(ShowPlayers);
         betButton.onClick.AddListener(() => {
             BetMensages();
-            ClientCommands.Instance.TrySendBet();
+            ClientCommands.Instance.SendBet();
             }
         );
         if (!PlayerPrefs.HasKey("traduction")) PlayerPrefs.SetInt("traduction",0);
