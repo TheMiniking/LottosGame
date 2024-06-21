@@ -293,7 +293,7 @@ public class ClientCommands : WebClientBase
         if (onTutorial) return;
         if (debug) Debug.Log((msg.multiplier == 0) ? 
             ($"[Client] O Jogador {msg.name} fez aposta pagando {msg.value:0.00}") : 
-            ($"[Client] O jogador {msg.name} Retirou {msg.multiplier:0.00}"));
+            ($"[Client] O jogador {msg.name} Retirou x{msg.multiplier:0.00} recebeu {msg.value*msg.multiplier:0.00}"));
         CanvasManager.Instance.SetBetSlot(msg);
     }
 
