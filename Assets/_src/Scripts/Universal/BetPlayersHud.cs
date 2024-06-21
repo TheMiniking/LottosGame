@@ -13,6 +13,15 @@ public class BetPlayersHud : MonoBehaviour
     public Animator anim;
     public float betVal, multiplierVal, creditsVal;
     public float velocity = 5f;
+    public Tween tween;
+    private void Update()
+    {
+        if (!GameManager.Instance.isWalking)
+        {
+            tween.Stop();
+            Destroy(gameObject);
+        }
+    }
 
     internal void Clear()
     {
@@ -64,7 +73,7 @@ public class BetPlayersHud : MonoBehaviour
 
     public IEnumerator GoBack(RectTransform tank)
     {
-        Tween.UIAnchoredPositionX(tank, endValue: -Screen.width / 2, duration: 2.5f, ease: Ease.Linear)
+        tween = Tween.UIAnchoredPositionX(tank, endValue: -Screen.width / 2, duration: 2.5f, ease: Ease.Linear)
             .OnComplete(() => { Destroy(tank.gameObject); });
         yield return new WaitForSeconds(3);
         Debug.Log("End GoBack");

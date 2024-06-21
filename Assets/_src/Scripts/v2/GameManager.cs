@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour
     //------------Canvas-----------
     [SerializeField] public CanvasManager Desktop, Mobile;
     [SerializeField] public Camera cam;
-    [SerializeField] GameObject roundsFivityOBJ;
+    [SerializeField] public GameObject roundsFivityOBJ;
 
     //------------Traduction-----------
     [SerializeField] public int traduction = 0;
@@ -54,9 +54,7 @@ public class GameManager : MonoBehaviour
     {
         Screen.sleepTimeout = SleepTimeout.NeverSleep; // disable screen sleep
         Application.targetFrameRate = 120;
-        roundsFivityOBJ.SetActive(false);
         SetScreenMode();
-        roundsFivityOBJ.SetActive(false);
         CanvasManager.Instance.betModButtons[0].onClick.AddListener(() => ModValorBet(true, 1));
         CanvasManager.Instance.betModButtons[1].onClick.AddListener(() => ModValorBet(false, 1));
         CanvasManager.Instance.betModButtons[2]?.onClick.AddListener(() => ModValorBet(true, 5));

@@ -6,6 +6,7 @@ using Unity.VisualScripting;
 
 public class TestItens : MonoBehaviour
 {
+# if UNITY_EDITOR
     public List<Player> tanks;
     public RectTransform aviao;
     public List<GameObject> bonus;
@@ -101,5 +102,5 @@ public class TestItens : MonoBehaviour
         CanvasManager.Instance.TrySelectTank(i);
     }
 
-
+#endif
 }

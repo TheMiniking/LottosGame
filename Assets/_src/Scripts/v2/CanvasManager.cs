@@ -365,14 +365,16 @@ public class CanvasManager : MonoBehaviour
         multipliersSlotsFivity.Insert(0, slot);
     }
 
-    public void SetSlotFivity()
+    public void SetSlotFivity(bool? open = false)
     {
+        GameManager.Instance.roundsFivityOBJ.SetActive(true);
         multipliersSlotsFivity.ForEach(x =>
         {
             if (multipliersSlotsFivity.IndexOf(x) <= multipliersFivity.Count - 1)
                 x.Set(multipliersFivity[multipliersSlotsFivity.IndexOf(x)]);
             else x.Clear();
         });
+        GameManager.Instance.roundsFivityOBJ.SetActive((bool)open);
         //multipliersSlotsFivity.ForEach(x => x.Set(multipliersFivity[multipliersSlotsFivity.IndexOf(x)]));
     }
 

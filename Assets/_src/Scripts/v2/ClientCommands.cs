@@ -293,7 +293,7 @@ public class ClientCommands : WebClientBase
         if (onTutorial) return;
         if (debug) Debug.Log((msg.multiplier == 0) ? 
             ($"[Client] O Jogador {msg.name} fez aposta pagando {msg.value:0.00}") : 
-            ($"[Client] O jogador {msg.name} Retirou x{msg.multiplier:0.00} recebeu {msg.value*msg.multiplier:0.00}"));
+            ($"[Client] O jogador {msg.name} Retirou x{msg.multiplier:0.00} recebeu {msg.value*(msg.multiplier + msg.bonus):0.00}"));
         CanvasManager.Instance.SetBetSlot(msg);
     }
 
@@ -312,6 +312,7 @@ public class ClientCommands : WebClientBase
         {
             CanvasManager.Instance.SetLastPlays(item);
         }
+        CanvasManager.Instance.SetSlotFivity();
     }
 
     public void NextBet(int value)
@@ -482,6 +483,7 @@ public class BetPlayers : INetSerializable
     public double value;
     public float multiplier;
     public byte tankid;
+    public float bonus;
 
     public void Deserialize(DataReader reader)
     {
@@ -489,6 +491,7 @@ public class BetPlayers : INetSerializable
         reader.Get(ref value);
         reader.Get(ref multiplier);
         reader.Get(ref tankid);
+        reader.Get(ref bonus);
     }
 
     public void Serialize(DataWriter write)
@@ -497,6 +500,7 @@ public class BetPlayers : INetSerializable
         write.Put(value);
         write.Put(multiplier);
         write.Put(tankid);
+        write.Put(bonus);
     }
 }
 
