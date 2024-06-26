@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour
     //------------Canvas-----------
     [SerializeField] public CanvasManager Desktop, Mobile;
     [SerializeField] public Camera cam;
-    [SerializeField] public GameObject roundsFivityOBJ;
+    [SerializeField] public GameObject roundsFivityOBJ,roundsFivityOBJMobile;
 
     //------------Traduction-----------
     [SerializeField] public int traduction = 0;
@@ -54,7 +54,7 @@ public class GameManager : MonoBehaviour
     {
         Screen.sleepTimeout = SleepTimeout.NeverSleep; // disable screen sleep
         Application.targetFrameRate = 120;
-        SetScreenMode();
+        SetScreenMode(Application.isMobilePlatform);
         CanvasManager.Instance.betModButtons[0].onClick.AddListener(() => ModValorBet(true, 1));
         CanvasManager.Instance.betModButtons[1].onClick.AddListener(() => ModValorBet(false, 1));
         CanvasManager.Instance.betModButtons[2]?.onClick.AddListener(() => ModValorBet(true, 5));
@@ -106,18 +106,18 @@ public class GameManager : MonoBehaviour
     {
         fundoRealtimeAtualPosition = fundoOnMove ? (fundoRealtimeAtualPosition + fundoRealtimeVelocity) : fundoRealtimeAtualPosition;
         fundo.SetFloat("_RealTimeUpdate", fundoRealtimeAtualPosition);
-        if (isMobile && (Screen.height < Screen.width)) { SetScreenMode(); }
-        if (!isMobile && (Screen.height > Screen.width)) { SetScreenMode(); }
+        //if (isMobile && (Screen.height < Screen.width)) { SetScreenMode(); }
+        //if (!isMobile && (Screen.height > Screen.width)) { SetScreenMode(); }
     }
 
-    public void SetScreenMode()
+    public void SetScreenMode(bool? mobile = null)
     {
-        if (Screen.height > Screen.width)
+        if (Screen.height > Screen.width || (bool)mobile)
         {
             Mobile.gameObject.SetActive(true);
             Desktop.gameObject.SetActive(false);
-            cam.orthographicSize = 300;
-            cam.transform.position = new Vector3(0, -50, -400);
+            cam.orthographicSize = 400;
+            cam.transform.position = new Vector3(-70,0, -400);
             isMobile = true;
         }
         else

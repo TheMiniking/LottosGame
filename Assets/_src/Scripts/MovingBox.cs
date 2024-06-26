@@ -14,13 +14,13 @@ public class MovingBox : MonoBehaviour
     [SerializeField] float duration;
     [SerializeField] float durationLoop;
     [SerializeField] public float boxDistance;
-    [SerializeField] GameObject boxIndicador,boxIndicador2,paraquedas;
-    [SerializeField] TMP_Text indicador,indicador2;
+    [SerializeField] GameObject boxIndicador,boxIndicador2,paraquedas,boxIndicadorMobile;
+    [SerializeField] TMP_Text indicador,indicador2,indicadorMobile;
     [Range(0, 1f), SerializeField] float margin =0.02f;
     [Range(0, 1f), SerializeField] float offScreamDistance =1f;
     [SerializeField] float screenLimit;
     [SerializeField] float maxDistance;
-    [SerializeField] Slider slider;
+    [SerializeField] Slider slider,sliderMobile;
     [SerializeField] Tween tween;
     [SerializeField] Animator popUp;
     [SerializeField] public TMP_Text popUpText;
@@ -36,6 +36,7 @@ public class MovingBox : MonoBehaviour
     private void OnDisable()
     {
         boxIndicador.SetActive(false);
+        boxIndicadorMobile.SetActive(false);
     }
 
     private void Update()
@@ -43,20 +44,24 @@ public class MovingBox : MonoBehaviour
         boxDistance = thisBox.anchoredPosition.x;
         indicador.text = $"{boxDistance/100:00.0} M";
         indicador2.text = $"{boxDistance/100:00.0} M";
+        indicadorMobile.text = $"{boxDistance / 100:00.0} M";
         if (boxDistance < initPosition)
         {
             if(boxDistance > screenLimit)
             { 
                 boxIndicador.SetActive(true);
+                boxIndicadorMobile.SetActive(true);
                 boxIndicador2.SetActive(false);
                 paraquedas.SetActive(true);
                 float sliderValue = ( boxDistance - screenLimit) / (maxDistance - screenLimit);
                 slider.value = sliderValue;
+                sliderMobile.value = sliderValue;
             }
             else
             {
                 paraquedas.SetActive(false);
                 boxIndicador.SetActive(false);
+                boxIndicadorMobile.SetActive(false);
                 boxIndicador2.SetActive(true);
             }
         }

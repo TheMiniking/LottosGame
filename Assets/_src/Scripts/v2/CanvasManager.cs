@@ -375,6 +375,7 @@ public class CanvasManager : MonoBehaviour
             else x.Clear();
         });
         GameManager.Instance.roundsFivityOBJ.SetActive((bool)open);
+        GameManager.Instance.roundsFivityOBJMobile.SetActive((bool)open);
         //multipliersSlotsFivity.ForEach(x => x.Set(multipliersFivity[multipliersSlotsFivity.IndexOf(x)]));
     }
 
