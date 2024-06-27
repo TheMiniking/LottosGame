@@ -2374,8 +2374,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2068a92b0336844482a775e387c581c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 97.5
-  initialPosition: {x: 900, y: 50, z: 0}
+  speedy: 275
+  initialPosition: {x: 900, y: 0, z: 0}
   finalPosition: -900
   movingObjectsVariants:
   - {fileID: 979508662}
@@ -2385,6 +2385,10 @@ MonoBehaviour:
   - {fileID: 564932757}
   specialFX: {fileID: 0}
   onMoviment: 0
+  thisTransform: {fileID: 0}
+  duration: 5
+  adicionalDistance: 50
+  endValue: {x: 0, y: 0, z: 0}
 --- !u!1 &36499556
 GameObject:
   m_ObjectHideFlags: 0
@@ -4901,7 +4905,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 2853, y: 0}
+  m_AnchoredPosition: {x: 2849, y: -45}
   m_SizeDelta: {x: 100.84125, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &83946571
@@ -4916,8 +4920,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2068a92b0336844482a775e387c581c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 97.5
-  initialPosition: {x: 900, y: -175, z: 0}
+  speedy: 275
+  initialPosition: {x: 900, y: 0, z: 0}
   finalPosition: -900
   movingObjectsVariants:
   - {fileID: 291878871}
@@ -4925,6 +4929,10 @@ MonoBehaviour:
   - {fileID: 1728617784}
   specialFX: {fileID: 640582737}
   onMoviment: 0
+  thisTransform: {fileID: 0}
+  duration: 0
+  adicionalDistance: 0
+  endValue: {x: 0, y: 0, z: 0}
 --- !u!1 &86118638
 GameObject:
   m_ObjectHideFlags: 0
@@ -8960,7 +8968,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 399, y: 0}
+  m_AnchoredPosition: {x: 395, y: -45}
   m_SizeDelta: {x: 100.84125, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &151128036
@@ -8975,8 +8983,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2068a92b0336844482a775e387c581c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 97.5
-  initialPosition: {x: 900, y: -175, z: 0}
+  speedy: 275
+  initialPosition: {x: 900, y: 0, z: 0}
   finalPosition: -900
   movingObjectsVariants:
   - {fileID: 839618071}
@@ -8984,6 +8992,10 @@ MonoBehaviour:
   - {fileID: 221757613}
   specialFX: {fileID: 315991321}
   onMoviment: 0
+  thisTransform: {fileID: 0}
+  duration: 0
+  adicionalDistance: 0
+  endValue: {x: 0, y: 0, z: 0}
 --- !u!1 &155834892
 GameObject:
   m_ObjectHideFlags: 0
@@ -9363,7 +9375,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 508.15, y: 114}
+  m_AnchoredPosition: {x: 508.15, y: 90}
   m_SizeDelta: {x: 100.84125, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &165419546
@@ -9378,8 +9390,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2068a92b0336844482a775e387c581c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 97.5
-  initialPosition: {x: 900, y: -35, z: 0}
+  speedy: 275
+  initialPosition: {x: 900, y: 90, z: 0}
   finalPosition: -900
   movingObjectsVariants:
   - {fileID: 823453932}
@@ -9387,6 +9399,10 @@ MonoBehaviour:
   - {fileID: 1222578742}
   specialFX: {fileID: 0}
   onMoviment: 0
+  thisTransform: {fileID: 0}
+  duration: 0
+  adicionalDistance: 0
+  endValue: {x: 0, y: 0, z: 0}
 --- !u!1 &165501997
 GameObject:
   m_ObjectHideFlags: 0
@@ -16779,8 +16795,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2068a92b0336844482a775e387c581c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 97.5
-  initialPosition: {x: 900, y: 50, z: 0}
+  speedy: 275
+  initialPosition: {x: 900, y: 0, z: 0}
   finalPosition: -900
   movingObjectsVariants:
   - {fileID: 1129793179}
@@ -16790,6 +16806,10 @@ MonoBehaviour:
   - {fileID: 1494926746}
   specialFX: {fileID: 0}
   onMoviment: 0
+  thisTransform: {fileID: 0}
+  duration: 5
+  adicionalDistance: 50
+  endValue: {x: 0, y: 0, z: 0}
 --- !u!1 &298962935
 GameObject:
   m_ObjectHideFlags: 0
@@ -17201,7 +17221,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 243.16, y: 60.999992}
+  m_AnchoredPosition: {x: 243.16, y: 50}
   m_SizeDelta: {x: 100.527725, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &305760288
@@ -17216,8 +17236,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2068a92b0336844482a775e387c581c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 97.5
-  initialPosition: {x: 900, y: -50, z: 0}
+  speedy: 275
+  initialPosition: {x: 900, y: 50, z: 0}
   finalPosition: -900
   movingObjectsVariants:
   - {fileID: 663004735}
@@ -17225,6 +17245,10 @@ MonoBehaviour:
   - {fileID: 1506909438}
   specialFX: {fileID: 0}
   onMoviment: 0
+  thisTransform: {fileID: 0}
+  duration: 0
+  adicionalDistance: 0
+  endValue: {x: 0, y: 0, z: 0}
 --- !u!1 &309508979
 GameObject:
   m_ObjectHideFlags: 0
@@ -19793,8 +19817,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2068a92b0336844482a775e387c581c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 97.5
-  initialPosition: {x: 900, y: 50, z: 0}
+  speedy: 275
+  initialPosition: {x: 900, y: 0, z: 0}
   finalPosition: -900
   movingObjectsVariants:
   - {fileID: 2053380961}
@@ -19804,6 +19828,10 @@ MonoBehaviour:
   - {fileID: 641517691}
   specialFX: {fileID: 0}
   onMoviment: 0
+  thisTransform: {fileID: 0}
+  duration: 5
+  adicionalDistance: 50
+  endValue: {x: 0, y: 0, z: 0}
 --- !u!1001 &358626154
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23888,8 +23916,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2068a92b0336844482a775e387c581c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 97.5
-  initialPosition: {x: 900, y: 50, z: 0}
+  speedy: 275
+  initialPosition: {x: 900, y: 0, z: 0}
   finalPosition: -900
   movingObjectsVariants:
   - {fileID: 64800382}
@@ -23899,6 +23927,10 @@ MonoBehaviour:
   - {fileID: 312587575}
   specialFX: {fileID: 0}
   onMoviment: 0
+  thisTransform: {fileID: 0}
+  duration: 5
+  adicionalDistance: 50
+  endValue: {x: 0, y: 0, z: 0}
 --- !u!1 &422100511
 GameObject:
   m_ObjectHideFlags: 0
@@ -28231,7 +28263,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1800, y: 0}
+  m_AnchoredPosition: {x: 1796, y: -45}
   m_SizeDelta: {x: 100.84125, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &496282310
@@ -28246,8 +28278,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2068a92b0336844482a775e387c581c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 97.5
-  initialPosition: {x: 900, y: -175, z: 0}
+  speedy: 275
+  initialPosition: {x: 900, y: 0, z: 0}
   finalPosition: -900
   movingObjectsVariants:
   - {fileID: 399309407}
@@ -28255,6 +28287,10 @@ MonoBehaviour:
   - {fileID: 1709081986}
   specialFX: {fileID: 0}
   onMoviment: 0
+  thisTransform: {fileID: 0}
+  duration: 0
+  adicionalDistance: 0
+  endValue: {x: 0, y: 0, z: 0}
 --- !u!1 &497216555
 GameObject:
   m_ObjectHideFlags: 0
@@ -40622,7 +40658,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -4, y: -45}
   m_SizeDelta: {x: 100.527725, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &731781460
@@ -40637,8 +40673,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2068a92b0336844482a775e387c581c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 97.5
-  initialPosition: {x: 900, y: -175, z: 0}
+  speedy: 275
+  initialPosition: {x: 900, y: 0, z: 0}
   finalPosition: -900
   movingObjectsVariants:
   - {fileID: 1321048165}
@@ -40646,6 +40682,10 @@ MonoBehaviour:
   - {fileID: 1317368719}
   specialFX: {fileID: 0}
   onMoviment: 0
+  thisTransform: {fileID: 0}
+  duration: 0
+  adicionalDistance: 0
+  endValue: {x: 0, y: 0, z: 0}
 --- !u!1 &733963946
 GameObject:
   m_ObjectHideFlags: 0
@@ -40837,7 +40877,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1120.5, y: 90.96001}
+  m_AnchoredPosition: {x: 1120.5, y: 90}
   m_SizeDelta: {x: 100.84125, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &743605316
@@ -40852,8 +40892,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2068a92b0336844482a775e387c581c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 97.5
-  initialPosition: {x: 900, y: -35, z: 0}
+  speedy: 275
+  initialPosition: {x: 900, y: 90, z: 0}
   finalPosition: -900
   movingObjectsVariants:
   - {fileID: 787835616}
@@ -40861,6 +40901,10 @@ MonoBehaviour:
   - {fileID: 716823044}
   specialFX: {fileID: 0}
   onMoviment: 0
+  thisTransform: {fileID: 0}
+  duration: 0
+  adicionalDistance: 0
+  endValue: {x: 0, y: 0, z: 0}
 --- !u!224 &743631153 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7344538843911480227, guid: b0ccd6e2f0248784b9e7ad77d98701ad, type: 3}
@@ -42335,8 +42379,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2068a92b0336844482a775e387c581c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 97.5
-  initialPosition: {x: 900, y: 50, z: 0}
+  speedy: 275
+  initialPosition: {x: 900, y: 0, z: 0}
   finalPosition: -900
   movingObjectsVariants:
   - {fileID: 833494627}
@@ -42346,6 +42390,10 @@ MonoBehaviour:
   - {fileID: 1920019084}
   specialFX: {fileID: 0}
   onMoviment: 0
+  thisTransform: {fileID: 0}
+  duration: 5
+  adicionalDistance: 50
+  endValue: {x: 0, y: 0, z: 0}
 --- !u!1 &774882311
 GameObject:
   m_ObjectHideFlags: 0
@@ -45011,7 +45059,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 2274.3901, y: 61}
+  m_AnchoredPosition: {x: 2274.3901, y: 50}
   m_SizeDelta: {x: 100.527725, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &822030068
@@ -45026,8 +45074,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2068a92b0336844482a775e387c581c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 97.5
-  initialPosition: {x: 900, y: -50, z: 0}
+  speedy: 275
+  initialPosition: {x: 900, y: 50, z: 0}
   finalPosition: -900
   movingObjectsVariants:
   - {fileID: 588701195}
@@ -45035,6 +45083,10 @@ MonoBehaviour:
   - {fileID: 17026683}
   specialFX: {fileID: 0}
   onMoviment: 0
+  thisTransform: {fileID: 0}
+  duration: 0
+  adicionalDistance: 0
+  endValue: {x: 0, y: 0, z: 0}
 --- !u!1 &822934587
 GameObject:
   m_ObjectHideFlags: 0
@@ -56285,7 +56337,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 2872.1, y: 60.999992}
+  m_AnchoredPosition: {x: 2872.1, y: 50}
   m_SizeDelta: {x: 100.84125, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &986797597
@@ -56300,8 +56352,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2068a92b0336844482a775e387c581c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 97.5
-  initialPosition: {x: 900, y: -50, z: 0}
+  speedy: 275
+  initialPosition: {x: 900, y: 50, z: 0}
   finalPosition: -900
   movingObjectsVariants:
   - {fileID: 1270705963}
@@ -56309,6 +56361,10 @@ MonoBehaviour:
   - {fileID: 1789282620}
   specialFX: {fileID: 0}
   onMoviment: 0
+  thisTransform: {fileID: 0}
+  duration: 0
+  adicionalDistance: 0
+  endValue: {x: 0, y: 0, z: 0}
 --- !u!1 &988493712
 GameObject:
   m_ObjectHideFlags: 0
@@ -61686,7 +61742,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1941.6501, y: 114}
+  m_AnchoredPosition: {x: 1941.6501, y: 90}
   m_SizeDelta: {x: 100.84125, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1112155671
@@ -61701,8 +61757,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2068a92b0336844482a775e387c581c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 97.5
-  initialPosition: {x: 900, y: -35, z: 0}
+  speedy: 275
+  initialPosition: {x: 900, y: 90, z: 0}
   finalPosition: -900
   movingObjectsVariants:
   - {fileID: 10919706}
@@ -61710,6 +61766,10 @@ MonoBehaviour:
   - {fileID: 119050845}
   specialFX: {fileID: 0}
   onMoviment: 0
+  thisTransform: {fileID: 0}
+  duration: 0
+  adicionalDistance: 0
+  endValue: {x: 0, y: 0, z: 0}
 --- !u!1 &1114858249
 GameObject:
   m_ObjectHideFlags: 0
@@ -66993,7 +67053,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 840.89, y: 61}
+  m_AnchoredPosition: {x: 840.89, y: 50}
   m_SizeDelta: {x: 100.527725, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1222621941
@@ -67008,8 +67068,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2068a92b0336844482a775e387c581c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 97.5
-  initialPosition: {x: 900, y: -50, z: 0}
+  speedy: 275
+  initialPosition: {x: 900, y: 50, z: 0}
   finalPosition: -900
   movingObjectsVariants:
   - {fileID: 2108191464}
@@ -67017,6 +67077,10 @@ MonoBehaviour:
   - {fileID: 1167753382}
   specialFX: {fileID: 0}
   onMoviment: 0
+  thisTransform: {fileID: 0}
+  duration: 0
+  adicionalDistance: 0
+  endValue: {x: 0, y: 0, z: 0}
 --- !u!1001 &1223437378
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -73627,8 +73691,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2068a92b0336844482a775e387c581c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 97.5
-  initialPosition: {x: 900, y: 50, z: 0}
+  speedy: 275
+  initialPosition: {x: 900, y: 0, z: 0}
   finalPosition: -900
   movingObjectsVariants:
   - {fileID: 251876187}
@@ -73638,6 +73702,10 @@ MonoBehaviour:
   - {fileID: 1351240439}
   specialFX: {fileID: 0}
   onMoviment: 0
+  thisTransform: {fileID: 0}
+  duration: 5
+  adicionalDistance: 50
+  endValue: {x: 0, y: 0, z: 0}
 --- !u!1 &1313909107
 GameObject:
   m_ObjectHideFlags: 0
@@ -77012,7 +77080,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 2454, y: 0}
+  m_AnchoredPosition: {x: 2450, y: -45}
   m_SizeDelta: {x: 100.527725, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1356695656
@@ -77027,8 +77095,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2068a92b0336844482a775e387c581c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 97.5
-  initialPosition: {x: 900, y: -175, z: 0}
+  speedy: 275
+  initialPosition: {x: 900, y: 0, z: 0}
   finalPosition: -900
   movingObjectsVariants:
   - {fileID: 1379747020}
@@ -77036,6 +77104,10 @@ MonoBehaviour:
   - {fileID: 963061809}
   specialFX: {fileID: 0}
   onMoviment: 0
+  thisTransform: {fileID: 0}
+  duration: 0
+  adicionalDistance: 0
+  endValue: {x: 0, y: 0, z: 0}
 --- !u!1 &1358632172
 GameObject:
   m_ObjectHideFlags: 0
@@ -80618,8 +80690,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2068a92b0336844482a775e387c581c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 97.5
-  initialPosition: {x: 900, y: 50, z: 0}
+  speedy: 275
+  initialPosition: {x: 900, y: 0, z: 0}
   finalPosition: -900
   movingObjectsVariants:
   - {fileID: 1022009985}
@@ -80629,6 +80701,10 @@ MonoBehaviour:
   - {fileID: 672852584}
   specialFX: {fileID: 0}
   onMoviment: 0
+  thisTransform: {fileID: 0}
+  duration: 5
+  adicionalDistance: 50
+  endValue: {x: 0, y: 0, z: 0}
 --- !u!1 &1430276176
 GameObject:
   m_ObjectHideFlags: 0
@@ -81092,7 +81168,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1676.6602, y: 60.999992}
+  m_AnchoredPosition: {x: 1676.6602, y: 50}
   m_SizeDelta: {x: 100.527725, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1435694990
@@ -81107,8 +81183,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2068a92b0336844482a775e387c581c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 97.5
-  initialPosition: {x: 900, y: -50, z: 0}
+  speedy: 275
+  initialPosition: {x: 900, y: 50, z: 0}
   finalPosition: -900
   movingObjectsVariants:
   - {fileID: 1698890929}
@@ -81116,6 +81192,10 @@ MonoBehaviour:
   - {fileID: 1650857940}
   specialFX: {fileID: 0}
   onMoviment: 0
+  thisTransform: {fileID: 0}
+  duration: 0
+  adicionalDistance: 0
+  endValue: {x: 0, y: 0, z: 0}
 --- !u!1001 &1437970415
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -92794,8 +92874,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2068a92b0336844482a775e387c581c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 97.5
-  initialPosition: {x: 900, y: 50, z: 0}
+  speedy: 275
+  initialPosition: {x: 900, y: 0, z: 0}
   finalPosition: -900
   movingObjectsVariants:
   - {fileID: 2062671047}
@@ -92805,6 +92885,10 @@ MonoBehaviour:
   - {fileID: 1179449058}
   specialFX: {fileID: 0}
   onMoviment: 0
+  thisTransform: {fileID: 0}
+  duration: 5
+  adicionalDistance: 50
+  endValue: {x: 0, y: 0, z: 0}
 --- !u!1 &1649038789
 GameObject:
   m_ObjectHideFlags: 0
@@ -93353,7 +93437,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2068a92b0336844482a775e387c581c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 97.5
+  speedy: 275
   initialPosition: {x: 900, y: -35, z: 0}
   finalPosition: -900
   movingObjectsVariants:
@@ -93362,6 +93446,10 @@ MonoBehaviour:
   - {fileID: 1358632172}
   specialFX: {fileID: 0}
   onMoviment: 0
+  thisTransform: {fileID: 0}
+  duration: 0
+  adicionalDistance: 0
+  endValue: {x: 0, y: 0, z: 0}
 --- !u!1 &1663258198
 GameObject:
   m_ObjectHideFlags: 0
@@ -101749,7 +101837,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1438.6, y: 60.999992}
+  m_AnchoredPosition: {x: 1438.6, y: 50}
   m_SizeDelta: {x: 100.84125, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1806425389
@@ -101764,8 +101852,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2068a92b0336844482a775e387c581c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 97.5
-  initialPosition: {x: 900, y: -50, z: 0}
+  speedy: 275
+  initialPosition: {x: 900, y: 50, z: 0}
   finalPosition: -900
   movingObjectsVariants:
   - {fileID: 38673312}
@@ -101773,6 +101861,10 @@ MonoBehaviour:
   - {fileID: 966981559}
   specialFX: {fileID: 0}
   onMoviment: 0
+  thisTransform: {fileID: 0}
+  duration: 0
+  adicionalDistance: 0
+  endValue: {x: 0, y: 0, z: 0}
 --- !u!1 &1808204235
 GameObject:
   m_ObjectHideFlags: 0
@@ -102268,7 +102360,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1826974130
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -105421,7 +105513,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1321, y: -34.682}
+  m_AnchoredPosition: {x: 1317, y: -45}
   m_SizeDelta: {x: 100.84125, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1889836390
@@ -105436,8 +105528,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2068a92b0336844482a775e387c581c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 97.5
-  initialPosition: {x: 900, y: -175, z: 0}
+  speedy: 275
+  initialPosition: {x: 900, y: 0, z: 0}
   finalPosition: -900
   movingObjectsVariants:
   - {fileID: 145311895}
@@ -105445,6 +105537,10 @@ MonoBehaviour:
   - {fileID: 1230949296}
   specialFX: {fileID: 493798276}
   onMoviment: 0
+  thisTransform: {fileID: 0}
+  duration: 0
+  adicionalDistance: 0
+  endValue: {x: 0, y: 0, z: 0}
 --- !u!1 &1895920515
 GameObject:
   m_ObjectHideFlags: 0
@@ -106571,8 +106667,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2068a92b0336844482a775e387c581c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 97.5
-  initialPosition: {x: 900, y: 50, z: 0}
+  speedy: 275
+  initialPosition: {x: 900, y: 0, z: 0}
   finalPosition: -900
   movingObjectsVariants:
   - {fileID: 797667695}
@@ -106582,6 +106678,10 @@ MonoBehaviour:
   - {fileID: 797990528}
   specialFX: {fileID: 0}
   onMoviment: 0
+  thisTransform: {fileID: 0}
+  duration: 5
+  adicionalDistance: 50
+  endValue: {x: 0, y: 0, z: 0}
 --- !u!1 &1911737043
 GameObject:
   m_ObjectHideFlags: 0
@@ -115969,7 +116069,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 900, y: 0}
+  m_AnchoredPosition: {x: 896, y: -45}
   m_SizeDelta: {x: 100.527725, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2083733168
@@ -115984,8 +116084,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2068a92b0336844482a775e387c581c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 97.5
-  initialPosition: {x: 900, y: -175, z: 0}
+  speedy: 275
+  initialPosition: {x: 900, y: 0, z: 0}
   finalPosition: -900
   movingObjectsVariants:
   - {fileID: 1145663081}
@@ -115993,6 +116093,10 @@ MonoBehaviour:
   - {fileID: 217566817}
   specialFX: {fileID: 0}
   onMoviment: 0
+  thisTransform: {fileID: 0}
+  duration: 0
+  adicionalDistance: 0
+  endValue: {x: 0, y: 0, z: 0}
 --- !u!224 &2086244345 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 9194391870421243000, guid: cf6b73a3e95e2004e95316cf7004aaa3, type: 3}

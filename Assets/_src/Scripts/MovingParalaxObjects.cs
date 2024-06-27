@@ -2,10 +2,11 @@ using PrimeTween;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class MovingParalaxObjects : MonoBehaviour
 {
-    [SerializeField] float speed;
+    [SerializeField] float speedy;
     [SerializeField] Vector3 initialPosition;
     [SerializeField] float finalPosition;
     [SerializeField] List<GameObject> movingObjectsVariants;
@@ -13,39 +14,46 @@ public class MovingParalaxObjects : MonoBehaviour
     [SerializeField] Tween tween;
     [SerializeField] bool onMoviment;
 
+    [SerializeField] RectTransform thisTransform;
+    [SerializeField] float duration;
+    [SerializeField] float adicionalDistance;
+    [SerializeField] Vector3 endValue;
+
     private void Start()
     {
         var r = Random.Range(0, movingObjectsVariants.Count);
+        thisTransform = GetComponent<RectTransform>();
         movingObjectsVariants.ForEach(x => x.GetComponent<CanvasGroup>().alpha= movingObjectsVariants[r] == x ? 1 : 0);
-        
+        duration = 5;
+        initialPosition.x = Screen.width + adicionalDistance;
+        endValue = new Vector3(-(Screen.width + adicionalDistance), initialPosition.y, 0);
     }
     private void Update()
     {
-        GetComponent<RectTransform>().position = GameManager.Instance.fundoOnMove ? new Vector3(GetComponent<RectTransform>().position.x - ((speed * GameManager.Instance.paralaxVelocity)* Time.deltaTime), GetComponent<RectTransform>().position.y, GetComponent<RectTransform>().position.z) : GetComponent<RectTransform>().position;
-        if (GetComponent<RectTransform>().position.x <= finalPosition) ResetPosition();
-        //if (GameManager.Instance.fundoOnMove && !onMoviment)
-        //{
-        //    onMoviment = true;
-        //    tween = Tween.UIAnchoredPositionX(GetComponent<RectTransform>(), endValue: -Screen.width, duration: speed)
-        //        .OnComplete(() => ResetPosition());
-        //}
-        //else if (!GameManager.Instance.fundoOnMove && onMoviment)
-        //{
-        //    onMoviment = false;
-        //    tween.Stop();
-        //}
-
+        //thisTransform.position = GameManager.Instance.fundoOnMove ? 
+        //    new Vector3(thisTransform.position.x - ((speed * GameManager.Instance.paralaxVelocity)* Time.deltaTime), thisTransform.position.y, thisTransform.position.z) :
+        //    thisTransform.position;
+        //if (thisTransform.position.x <= finalPosition) ResetPosition();
+        if (GameManager.Instance.fundoOnMove && !onMoviment)
+        {
+            onMoviment = true;
+            tween = Tween.LocalPositionAtSpeed(thisTransform, endValue: endValue, speedy, ease: Ease.Linear)
+                    .OnComplete(target: this, target => {ResetPosition();});
+        }
+        else if (!GameManager.Instance.fundoOnMove && onMoviment)
+        {
+            onMoviment = false;
+            tween.Stop();
+        }
     }
 
     void ResetPosition()
     {
-        this.transform.position = initialPosition;
+        this.transform.localPosition = initialPosition;
         var r = Random.Range(0, movingObjectsVariants.Count);
         movingObjectsVariants.ForEach(x => x.GetComponent<CanvasGroup>().alpha = movingObjectsVariants[r] == x ? 1 : 0);
-        if (specialFX == null) return;
-        if (r != 0) specialFX.SetActive(Random.Range(0, 5)==0);
-        //tween = Tween.UIAnchoredPositionX(GetComponent<RectTransform>(), endValue: -Screen.width, duration: speed)
-        //    .OnComplete(() => ResetPosition());
-
+        if (r != 0 && specialFX != null) specialFX.SetActive(Random.Range(0, 5) == 0);
+        tween = Tween.LocalPositionAtSpeed(thisTransform, endValue: endValue, speedy, ease: Ease.Linear)
+                .OnComplete(target: this, target => ResetPosition());
     }
 }

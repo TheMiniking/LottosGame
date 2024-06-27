@@ -79,11 +79,11 @@ public class MovingBox : MonoBehaviour
 
     public void GoToOrigin()
     {
-       tween =Tween.UIAnchoredPositionX(thisBox, endValue: initPosition, duration: 0);
+       tween =Tween.UIAnchoredPositionX(thisBox, endValue: initPosition, duration: 0.01f);
     }
     public void GoToLoop()
     {
-        tween = Tween.UIAnchoredPositionX(thisBox, endValue: loopPosition, duration: 0);
+        tween = Tween.UIAnchoredPositionX(thisBox, endValue: loopPosition, duration: 0.01f);
         boxDistance = loopPosition;
         tween = Tween.UIAnchoredPositionX(thisBox, endValue: 0, duration: durationLoop, Ease.Linear);
         boxIndicador.SetActive(true);
