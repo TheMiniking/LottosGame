@@ -199,6 +199,7 @@ MonoBehaviour:
   explosionFX: {fileID: 7685388724954756335}
   fireFX: {fileID: 2710872900725235297}
   concertarFX: {fileID: 5775074368733524927}
+  lastTank: 0
 --- !u!222 &1893612258366243007
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2009,6 +2010,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3466297977750240387}
     m_Modifications:
+    - target: {fileID: 4275047180446480181, guid: c9520cd46f02de544bf80e49f898666e, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -76398478, guid: 72974f1a5975c7b48a10c727c6b927b6, type: 3}
+    - target: {fileID: 4275047180446480181, guid: c9520cd46f02de544bf80e49f898666e, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4275047180446480181, guid: c9520cd46f02de544bf80e49f898666e, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4275047180446480181, guid: c9520cd46f02de544bf80e49f898666e, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4286821247439946387, guid: c9520cd46f02de544bf80e49f898666e, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

@@ -22,7 +22,7 @@ MonoBehaviour:
     - Key: totalwin
       Value: Total Win
     - Key: balance
-      Value: Balance
+      Value: Credits
     - Key: yourtank
       Value: Your Tank
     - Key: nextround
@@ -112,7 +112,7 @@ MonoBehaviour:
     - Key: totalwin
       Value: Total Ganho
     - Key: balance
-      Value: "Balan\xE7o"
+      Value: Creditos
     - Key: yourtank
       Value: Seu Tanque
     - Key: nextround
@@ -202,7 +202,7 @@ MonoBehaviour:
     - Key: totalwin
       Value: Ganancia total
     - Key: balance
-      Value: Balance
+      Value: Creditos
     - Key: yourtank
       Value: Tu Tanque
     - Key: nextround

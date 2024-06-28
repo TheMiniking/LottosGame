@@ -194,8 +194,8 @@ public class CanvasManager : MonoBehaviour
     public void SetRoundsText(int value)
     {
         value = (value == 0) ? (-1) : value;
-        roundsText.text = (value == -1) ? "Inf" : ($"{value}");
-        roundsTextII.text = (value == -1) ? "Inf" : ($"{value}");
+        roundsText.text = (value == -1) ? "Inf" : ($"{value:#00}");
+        roundsTextII.text = (value == -1) ? "Inf" : ($"{value:#00}");
     }
 
     public void SetTimerText(int value,bool? tutorial = false)
