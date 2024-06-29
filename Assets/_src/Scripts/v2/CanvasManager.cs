@@ -94,9 +94,9 @@ public class CanvasManager : MonoBehaviour
             ClientCommands.Instance.SendBet();
             }
         );
-        if (!PlayerPrefs.HasKey("traduction")) PlayerPrefs.SetInt("traduction",0);
-        SetTraduction(PlayerPrefs.GetInt("traduction"));
-        if (!PlayerPrefs.HasKey("tutorial")) PlayerPrefs.SetInt("tutorial", 0);
+        //if (!PlayerPrefs.HasKey("traduction")) PlayerPrefs.SetInt("traduction",0);
+        //SetTraduction(PlayerPrefs.GetInt("traduction"));
+        //if (!PlayerPrefs.HasKey("tutorial")) PlayerPrefs.SetInt("tutorial", 0);
     }
 
     void Update()
@@ -104,7 +104,7 @@ public class CanvasManager : MonoBehaviour
         inPlayersText.text = $"{playerInBet}";
         inPlayersWinnersText.text = $"{playerInBetWinners}";
         totalWinAmountText.text = $"{GameManager.Instance.MoedaAtual(totalWinAmount)}";
-        if (traduction != compTraduction) SetTraduction(traduction);
+        //if (traduction != compTraduction) SetTraduction(traduction);
     }
 
     void OnEnable()
@@ -509,18 +509,18 @@ public class CanvasManager : MonoBehaviour
     //    playerShow = !playerShow;
     //}
 
-    public void SetTraduction(int trad)
-    {
-        traduction = trad;
-        tradDropdown.value = trad;
-        GameManager.Instance.traduction = trad;
-        LanguageManager.instance.ChangeLanguage(trad switch {  0 =>"ss" ,1 => "rr" , 2 => "zz", _ => "ss" });
-        balanceText.text = $"{GameManager.Instance.MoedaAtual(balanceVal)}";
-        betInput.text = $" {GameManager.Instance.MoedaAtual(betVal)}";
-        betValueText.text = $" {GameManager.Instance.MoedaAtual(betVal)}";
-        OnTraductionChange?.Invoke(traduction);
-        compTraduction = trad;
-    }
+    //public void SetTraduction(int trad)
+    //{
+    //    traduction = trad;
+    //    tradDropdown.value = trad;
+    //    GameManager.Instance.traduction = trad;
+    //    LanguageManager.instance.ChangeLanguage(trad switch {  0 =>"ss" ,1 => "rr" , 2 => "zz", _ => "ss" });
+    //    balanceText.text = $"{GameManager.Instance.MoedaAtual(balanceVal)}";
+    //    betInput.text = $" {GameManager.Instance.MoedaAtual(betVal)}";
+    //    betValueText.text = $" {GameManager.Instance.MoedaAtual(betVal)}";
+    //    OnTraductionChange?.Invoke(traduction);
+    //    compTraduction = trad;
+    //}
 
     //public void ShowTutorial()
     //{
