@@ -343,7 +343,6 @@ public class GameManager : MonoBehaviour
         float timer = Time.time - multiSum;
         while (true)
         {
-            
             multiplier = MultiplierCalculator(Time.time - timer);
             if (isJoin)
             {
@@ -351,6 +350,12 @@ public class GameManager : MonoBehaviour
                 MatchMultiplier(multiplier);// Auto CashOut
             }
             CanvasManager.Instance.SetMultiplierText(multiplier);
+            if (CanvasManager.Instance.canRematch) {
+                CanvasManager.Instance.SetRematchTanks(
+                    ClientCommands.Instance.remachTanks[0],
+                    ClientCommands.Instance.remachTanks[1],
+                    ClientCommands.Instance.RejoinCalc()
+                    ); }
             yield return new WaitForSeconds(0.03f);
         }
     }
@@ -359,7 +364,7 @@ public class GameManager : MonoBehaviour
     {
         float Mf = 998.99f;
         float Mi = 1.01f;
-        float Tf = 120f;
+        float Tf = 240f;
         float C = 2.2f;
         float Ta = tempoDecorrido;
 

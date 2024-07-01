@@ -52,7 +52,7 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] WinExtra winExtraPrefab;
     [SerializeField] GameObject loadingPanel;
     [SerializeField] public List<Player> tankList = new ();
-    [SerializeField] List<Sprite> tankSprites = new();
+    [SerializeField] public List<Sprite> tankSprites = new();
     [SerializeField] List<Image> selectedTankSprites = new ();
     [SerializeField] Image selTank,selTankBig;
     [SerializeField] GameObject canvasSelectTank;
@@ -66,6 +66,10 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] BigWin bigWin;
 
     [SerializeField] int trySelectTank = 0;
+    [SerializeField] public List<RematchTankUI> rematchTanks = new();
+    [SerializeField] public bool canRematch = false;
+
+    public float multiplicadorAtual;
 
     void Awake()
     {
@@ -199,6 +203,7 @@ public class CanvasManager : MonoBehaviour
         timerTextSelectTank.gameObject.SetActive(false);
         selectTankText.text = $"{LanguageManager.instance.TryTranslate("configuretank", "Configurando Tanque")}";
         multiplierText.text = $"x {value:0.00}";
+        multiplicadorAtual = value;
     }
 
     public void PlayMessage(string msg)
@@ -377,6 +382,13 @@ public class CanvasManager : MonoBehaviour
         betSlots.ForEach(x => x.Clear());
         playerInBet = 0;
         playerInBetWinners = 0;
+    }
+
+    public void SetRematchTanks(byte tank1, byte tank2, float value)
+    { 
+        rematchTanks.ForEach(x => x.gameObject.SetActive(true));
+        rematchTanks[0].SetRematch(tank1, value);
+        rematchTanks[1].SetRematch(tank2, value);
     }
 
     public void SetBetSlot(BetPlayers bet, bool tutorial = false)

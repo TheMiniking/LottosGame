@@ -62,6 +62,7 @@
     <Compile Include="Assets\JMO Assets\Cartoon FX (legacy)\Scripts\CFX_AutoRotate.cs" />
     <Compile Include="Assets\JMO Assets\Cartoon FX (legacy)\Demo\Assets\CFX_Demo_RandomDirectionTranslate.cs" />
     <Compile Include="Assets\_src\Scripts\MovingBox.cs" />
+    <Compile Include="Assets\_src\Scripts\RematchTankUI.cs" />
     <Compile Include="Assets\_src\Scripts\Universal\Wallet.cs" />
     <Compile Include="Assets\JMO Assets\Cartoon FX (legacy)\Scripts\CFX_LightFlicker.cs" />
     <Compile Include="Assets\_src\Scripts\Universal\ServerHUD.cs" />

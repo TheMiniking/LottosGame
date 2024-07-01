@@ -33,6 +33,8 @@ public class ClientCommands : WebClientBase
     string urlCallback ;
     public bool canBet = true;
 
+    public byte[] remachTanks = new byte[2] { 0, 0 };
+
     void Awake()
     {
         Instance = this;
@@ -51,6 +53,7 @@ public class ClientCommands : WebClientBase
         RegisterHandler<LastMultiFivity>(LastMultiResponse, (ushort)ReceiveMsgIdc.LastMulti);
         RegisterHandler<BonusDrop>(BonusDropResponse, (ushort)ReceiveMsgIdc.BonusDrop);
         RegisterHandler<CancelResponse>(CancelResponse, (ushort)ReceiveMsgIdc.CancelResponse);
+        RegisterHandler<RejoinMatch>(RejoinMatch, (ushort)ReceiveMsgIdc.RejoinMatch);
 #if UNITY_WEBGL && !UNITY_EDITOR
         GetParameters();
         CreateConnection(GetUrl(), urltoken);
@@ -198,6 +201,7 @@ public class ClientCommands : WebClientBase
 
         if (msg.data.id == 0)// Start Timer
         {
+            CanvasManager.Instance.rematchTanks.ForEach(x => x.gameObject.SetActive(false));
             CanvasManager.Instance.tankList.ForEach(x => x.lastTank = false);
             CanvasManager.Instance.bonus.ForEach(x => x.gameObject.SetActive(false));
             CanvasManager.Instance.ResetBonus();
@@ -400,6 +404,13 @@ public class ClientCommands : WebClientBase
         }
     }
 
+    public void SendBet(byte tankid)
+    {
+        if (debug) Debug.Log($"[Client] Send Bet tank : {GameManager.Instance.selectedTankNum}");
+        SendMsg((ushort)SendMsgIdc.PlayRequest, new PlayRequest(tankid));// tankid = 0,1,2
+        ResetPing();
+    }
+
     public void TrySendBet()
     {
         if (!GameManager.Instance.isJoin && !GameManager.Instance.isWalking) 
@@ -437,8 +448,28 @@ public class ClientCommands : WebClientBase
         {
             Debug.Log("Kabum , Distance x" + msg.multply);
         }
+        if (CanvasManager.Instance.canRematch)
+        {
+            CanvasManager.Instance.canRematch = false;
+            CanvasManager.Instance.rematchTanks.ForEach(x => x.gameObject.SetActive(false));
+        }
     }
-    
+
+    float rejoinTax;
+    public void RejoinMatch( RejoinMatch msg)
+    {
+        if (debug) Debug.Log($"RejoinMatch tax{msg.tax}");
+        rejoinTax = msg.tax;
+        CanvasManager.Instance.canRematch = true;
+    }
+
+    public float RejoinCalc()
+    {
+        float valor = GameManager.Instance.bet * CanvasManager.Instance.multiplicadorAtual;
+        valor = Mathf.Pow(valor , rejoinTax);
+        return valor;
+    }
+
     public void ResetPing()
     {
         StopCoroutine(ConfirmConnection());
@@ -636,6 +667,27 @@ public class multiplier : INetSerializable
 }
 
 [Serializable]
+public class RejoinMatch : INetSerializable
+{
+    public float tax;
+    public byte tankid1;
+    public byte tankid2;
+
+    public void Deserialize(DataReader reader)
+    {
+        reader.Get(ref tax);
+        reader.Get(ref tankid1);
+        reader.Get(ref tankid2);
+    }
+
+    public void Serialize(DataWriter write)
+    {
+        write.Put(tax);
+        write.Put(tankid1);
+        write.Put(tankid2);
+    }
+}
+[Serializable]
 public class LastMulti : INetSerializable
 {
     public multiplier[] multis;
@@ -719,7 +771,9 @@ enum ReceiveMsgIdc
     Ranking = 7,
     LastMulti = 8,
     BonusDrop = 9,
-    CancelResponse = 10
+    CancelResponse = 10,
+    Pong = 11,
+    RejoinMatch = 12
 }
 enum SendMsgIdc
 {
