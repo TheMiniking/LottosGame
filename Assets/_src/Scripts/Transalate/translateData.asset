@@ -103,6 +103,10 @@ MonoBehaviour:
       Value: Configure Tank
     - Key: canceledbet
       Value: Bet Canceled, Wait for the Next Round
+    - Key: beterrorNoMoney
+      Value: Insufficient credits, Recharge or Decrease the bet
+    - Key: beterrorNotServer
+      Value: Game started, try again later
   - name: pt
     keyValues:
     - Key: connect
@@ -193,6 +197,10 @@ MonoBehaviour:
       Value: Configurando Tanque
     - Key: canceledbet
       Value: Aposta Cancelada, Espere a proxima Rodada
+    - Key: beterrorNoMoney
+      Value: Creditos Insuficiente, Recarregue ou Diminua o valor da aposta
+    - Key: beterrorNotServer
+      Value: Partida iniciada, tente novamente mais tarde
   - name: es
     keyValues:
     - Key: connect
@@ -283,3 +291,7 @@ MonoBehaviour:
       Value: Ajustando Tanque
     - Key: canceledbet
       Value: Apuesta cancelada, espere a la siguiente ronda
+    - Key: beterrorNoMoney
+      Value: "Cr\xE9ditos insuficientes, Recargar o Disminuir el monto de la apuesta"
+    - Key: beterrorNotServer
+      Value: "El juego empez\xF3, vuelve a intentarlo m\xE1s tarde"

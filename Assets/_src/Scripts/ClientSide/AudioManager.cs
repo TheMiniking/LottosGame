@@ -40,8 +40,8 @@ public class AudioManager : MonoBehaviour
         sfxSliderMobile.onValueChanged.AddListener(x => VolumeSFX(x));
         allButtons.ForEach(x => x.onClick.AddListener(() => PlayOneShot(0)));
         musicToggle.value = 1;
-        sfxToggle.value = 1;
         musicToggleMobile.value = 1;
+        sfxToggle.value = 1;
         sfxToggleMobile.value = 1;
     }
 

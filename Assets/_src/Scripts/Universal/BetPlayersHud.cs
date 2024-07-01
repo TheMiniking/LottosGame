@@ -76,6 +76,5 @@ public class BetPlayersHud : MonoBehaviour
         tween = Tween.UIAnchoredPositionX(tank, endValue: -Screen.width / 2, duration: 2.5f, ease: Ease.Linear)
             .OnComplete(() => { Destroy(tank.gameObject); });
         yield return new WaitForSeconds(3);
-        Debug.Log("End GoBack");
     }
 }

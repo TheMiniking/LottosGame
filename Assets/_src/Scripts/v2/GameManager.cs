@@ -19,16 +19,16 @@ public class GameManager : MonoBehaviour
     [SerializeField][Range(1f, 999f)] float autoCashOut = 1f;
 
     //------------- Tanks Gameplay ------------
-    [SerializeField] public int selectedTankNum = -1;
-    [SerializeField] public bool isJoin = false;
+    public int selectedTankNum = -1;
+    public bool isJoin = false;
     public bool canBet, isMobile, isWalking = false;
 
     //-----------Fundo-----------
+    public bool fundoOnMove;
+    [SerializeField, Tooltip("Velocidade do Fundo : Base = 1f")] public float paralaxVelocity = 1f;
     [SerializeField] Material fundo;
     [SerializeField] float fundoRealtimeAtualPosition;
-    [SerializeField] public bool fundoOnMove;
     [SerializeField] float fundoRealtimeVelocity;
-    [SerializeField, Tooltip("Velocidade do Fundo : Base = 1f")] public float paralaxVelocity = 1f;
 
     //----------Mobile Teclado-----------
     [SerializeField] GameObject teclado;
@@ -37,13 +37,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] string tecladoTextValue = string.Empty;
     [SerializeField] bool tecladoMode = false;              // false = bet, true = auto stop
     //------------Canvas-----------
-    [SerializeField] public CanvasManager Desktop, Mobile;
-    [SerializeField] public Camera cam;
-    [SerializeField] public GameObject roundsFivityOBJ,roundsFivityOBJMobile;
+    public CanvasManager Desktop, Mobile;
+    public Camera cam;
+    public GameObject roundsFivityOBJ,roundsFivityOBJMobile;
 
     //------------Traduction-----------
-    [SerializeField] public int traduction = 0;
-    [SerializeField] public CultureInfo Culture;
+    public int traduction = 0;
+    public CultureInfo Culture;
 
     void Awake()
     {
@@ -68,6 +68,12 @@ public class GameManager : MonoBehaviour
             n = (n < 1) ? 1 : ((n > 100) ? 100 : n);
             SetBet(n);
         });
+        CanvasManager.Instance.betValueText.onEndEdit.AddListener(x =>
+        {
+            int.TryParse(x, out int n);
+            n = (n < 1) ? 1 : ((n > 100) ? 100 : n);
+            SetBet(n);
+        });
         if (isMobile)
         {
             CanvasManager.Instance.betInput.onSelect.AddListener((x) => SelectTeclado(0));
@@ -76,6 +82,14 @@ public class GameManager : MonoBehaviour
         CanvasManager.Instance.crashOutButtonAdd.onClick.AddListener(() => ModValorAutoCashOut(true));
         CanvasManager.Instance.crashOutButtonSub.onClick.AddListener(() => ModValorAutoCashOut(false));
         CanvasManager.Instance.autoCashOutInput.onEndEdit.AddListener(x =>
+        {
+            string resultado = Regex.Replace(x.Replace(".", ","), "[^0-9,]", string.Empty);
+            float n = 0;
+            float.TryParse(resultado, out n);
+            n = (n < 1.0f) ? 1.0f : ((n > 999f) ? 999f : n);
+            SetValorAutoCashOut(n);
+        });
+        CanvasManager.Instance.cashoutValueText.onEndEdit.AddListener(x =>
         {
             string resultado = Regex.Replace(x.Replace(".", ","), "[^0-9,]", string.Empty);
             float n = 0;
@@ -106,8 +120,6 @@ public class GameManager : MonoBehaviour
     {
         fundoRealtimeAtualPosition = fundoOnMove ? (fundoRealtimeAtualPosition + fundoRealtimeVelocity) : fundoRealtimeAtualPosition;
         fundo.SetFloat("_RealTimeUpdate", fundoRealtimeAtualPosition);
-        //if (isMobile && (Screen.height < Screen.width)) { SetScreenMode(); }
-        //if (!isMobile && (Screen.height > Screen.width)) { SetScreenMode(); }
     }
 
     public void SetScreenMode(bool? mobile = null)
@@ -339,16 +351,9 @@ public class GameManager : MonoBehaviour
                 MatchMultiplier(multiplier);// Auto CashOut
             }
             CanvasManager.Instance.SetMultiplierText(multiplier);
-            //fundoRealtimeVelocity = (multiplier < 2) ? 0.1f : ((multiplier < 10) ? 0.12f : 0.15f);
             yield return new WaitForSeconds(0.03f);
         }
     }
-
-    //float MultiplierCalculator(float tempoDecorrido)
-    //{
-    //    //Debug.Log("MultiplierCalculator " + tempoDecorrido);
-    //    return 1.01f + (2 * Mathf.Pow(tempoDecorrido / 10, 1.5f));
-    //}
 
     public float MultiplierCalculator(float tempoDecorrido)
     {

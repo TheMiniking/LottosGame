@@ -286,6 +286,17 @@ public class ClientCommands : WebClientBase
         {
             Debug.Log("[Servidor] ErrorResponse:" + msg.error);
         }
+        switch (msg.error)
+        {
+            case 3:
+                CanvasManager.Instance.SendMessage(LanguageManager.instance.TryTranslate
+                    ("beterrorNoMoney","Saldo Insuficiente, Recarregue ou Diminua o valor da aposta"));
+                break;
+            case 4:
+                CanvasManager.Instance.SendMessage(LanguageManager.instance.TryTranslate
+                    ("beterrorNotServer","Partida iniciada, tente novamente mais tarde"));
+                break;
+        }
     }
 
     public void BetPlayers(BetPlayers msg)
@@ -401,7 +412,6 @@ public class ClientCommands : WebClientBase
         isRunning = true;
         GameManager.Instance.isWalking = true;
         GameManager.Instance.canBet = false;
-        //CanvasManager.Instance.SetPlayerState(true,0,true);
         tank1OnRunning = true;
         tank2OnRunning = true;
         tank3OnRunning = true;

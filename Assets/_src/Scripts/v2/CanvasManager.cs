@@ -14,8 +14,8 @@ public class CanvasManager : MonoBehaviour
     public static CanvasManager Instance;
     [SerializeField] public bool onTest = false;
     [SerializeField] Canvas Canvas;
-    public TMP_Text betValueText, cashoutValueText,roundsTextII;
-    public TMP_InputField betInput, autoCashOutInput;
+    public TMP_Text roundsTextII;
+    public TMP_InputField betInput, autoCashOutInput,betValueText, cashoutValueText;
     public TMP_Text betButtonText, roundsText, timerText, multiplierText,multiplierTextMensage, messageText, balanceText, inPlayersText, inPlayersWinnersText, totalWinAmountText;
     public Slider autoCashOutToggle, autoPlayToggle, roundsSlider;
     public List<Button> roundsButton = new();
@@ -47,17 +47,10 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] public TMP_Dropdown tradDropdown;
     [SerializeField] List<Sprite> bandeiras;
     [SerializeField] Image bandeira;
-    //[SerializeField] public List<TMP_Text> tradTexts = new();
-    //[SerializeField] public Button showTutorial;
-
     [SerializeField] public Action<int> OnTraductionChange;
     [SerializeField] int compTraduction;
-
     [SerializeField] WinExtra winExtraPrefab;
     [SerializeField] GameObject loadingPanel;
-
-    //[SerializeField] Tutorial tutorial;
-
     [SerializeField] public List<Player> tankList = new ();
     [SerializeField] List<Sprite> tankSprites = new();
     [SerializeField] List<Image> selectedTankSprites = new ();
@@ -82,21 +75,15 @@ public class CanvasManager : MonoBehaviour
 
     void Start()
     {
-        //ShowPlayers();
         ResetBets();
         tradDropdown.onValueChanged.AddListener(delegate { LanguageManager.instance.ChangeLanguage(tradDropdown.value); });
         tradDropdown.onValueChanged.AddListener(x => bandeira.sprite = bandeiras[x]);
-        //rankButton.onClick.AddListener(ShowRank);
         configButton.onClick.AddListener(() => configObj.SetActive(!configObj.activeSelf));
-        //playerButton.onClick.AddListener(ShowPlayers);
         betButton.onClick.AddListener(() => {
             BetMensages();
             ClientCommands.Instance.SendBet();
             }
         );
-        //if (!PlayerPrefs.HasKey("traduction")) PlayerPrefs.SetInt("traduction",0);
-        //SetTraduction(PlayerPrefs.GetInt("traduction"));
-        //if (!PlayerPrefs.HasKey("tutorial")) PlayerPrefs.SetInt("tutorial", 0);
     }
 
     void Update()
@@ -104,7 +91,6 @@ public class CanvasManager : MonoBehaviour
         inPlayersText.text = $"{playerInBet}";
         inPlayersWinnersText.text = $"{playerInBetWinners}";
         totalWinAmountText.text = $"{GameManager.Instance.MoedaAtual(totalWinAmount)}";
-        //if (traduction != compTraduction) SetTraduction(traduction);
     }
 
     void OnEnable()
@@ -421,7 +407,6 @@ public class CanvasManager : MonoBehaviour
             //    WinExtra winExtra = Instantiate(winExtraPrefab, transform);
             //    winExtra.SetText($"{bet.name} {GameManager.Instance.MoedaAtual()} {bet.value * bet.multiplier:#,0.00}");
             //}
-
         }
         else
         {
@@ -432,7 +417,7 @@ public class CanvasManager : MonoBehaviour
             }
         }
     }
-
+    #region Rank
     //public void SetRank(Line[] rankMult, Line[] rankCashh)
     //{
     //    List<BetPlayers> mult = new List<BetPlayers>();
@@ -508,22 +493,5 @@ public class CanvasManager : MonoBehaviour
     //    playerPanel.GetComponent<Animator>().Play(playerShow ? "Hide" : "Show");
     //    playerShow = !playerShow;
     //}
-
-    //public void SetTraduction(int trad)
-    //{
-    //    traduction = trad;
-    //    tradDropdown.value = trad;
-    //    GameManager.Instance.traduction = trad;
-    //    LanguageManager.instance.ChangeLanguage(trad switch {  0 =>"ss" ,1 => "rr" , 2 => "zz", _ => "ss" });
-    //    balanceText.text = $"{GameManager.Instance.MoedaAtual(balanceVal)}";
-    //    betInput.text = $" {GameManager.Instance.MoedaAtual(betVal)}";
-    //    betValueText.text = $" {GameManager.Instance.MoedaAtual(betVal)}";
-    //    OnTraductionChange?.Invoke(traduction);
-    //    compTraduction = trad;
-    //}
-
-    //public void ShowTutorial()
-    //{
-    //    tutorial.gameObject.SetActive(true);
-    //}
+    #endregion
 }

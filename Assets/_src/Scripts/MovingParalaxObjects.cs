@@ -30,10 +30,6 @@ public class MovingParalaxObjects : MonoBehaviour
     }
     private void Update()
     {
-        //thisTransform.position = GameManager.Instance.fundoOnMove ? 
-        //    new Vector3(thisTransform.position.x - ((speed * GameManager.Instance.paralaxVelocity)* Time.deltaTime), thisTransform.position.y, thisTransform.position.z) :
-        //    thisTransform.position;
-        //if (thisTransform.position.x <= finalPosition) ResetPosition();
         if (GameManager.Instance.fundoOnMove && !onMoviment)
         {
             onMoviment = true;
