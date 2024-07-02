@@ -461,6 +461,8 @@ public class ClientCommands : WebClientBase
         if (debug) Debug.Log($"RejoinMatch tax{msg.tax}");
         rejoinTax = msg.tax;
         CanvasManager.Instance.canRematch = true;
+        remachTanks[0] = msg.tankid1;
+        remachTanks[1] = msg.tankid2;
     }
 
     public float RejoinCalc()

@@ -216,7 +216,7 @@ MonoBehaviour:
     - Key: nextround
       Value: 'Proxima Ronda en:'
     - Key: lastrounds
-      Value: Ultiams rondas
+      Value: Ultimas Rondas
     - Key: autoplay
       Value: Reproducciones Auto.
     - Key: autoplay_long
